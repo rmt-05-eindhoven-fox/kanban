@@ -23,7 +23,7 @@ class TaskController {
     Project.findOne({ where: { id: data.ProjectId } })
       .then(response => {
         if (!response) {
-          throw { code: 404, msg: 'Project doesnt exist' }
+          throw { code: 404, msg: 'Project is not there' }
         } else {
           return Task.create(data)
         }
@@ -31,7 +31,7 @@ class TaskController {
       .then(result => {
         res.status(201).json({
           result,
-          msg: 'Task created'
+          msg: 'Task has been created'
         })
       })
       .catch(err => {
@@ -46,7 +46,7 @@ class TaskController {
       .then(result => {
         res.status(200).json({
           result,
-          msg: 'Task deleted'
+          msg: 'Task has been deleted'
         })
       })
       .catch(err => {
@@ -72,7 +72,7 @@ class TaskController {
       .then(result => {
         res.status(200).json({
           result,
-          msg: 'Status updated'
+          msg: 'Status has been updated'
         })
       })
       .catch(err => {
@@ -91,7 +91,7 @@ class TaskController {
       .then(result => {
         res.status(200).json({
           result,
-          msg: 'Task updated'
+          msg: 'Task has been updated'
         })
       })
       .catch(err => {

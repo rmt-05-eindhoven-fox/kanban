@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const TaskController = require('../controllers/taskController')
-const authentication= require('../middlewares/authentication')
+const authentication = require('../middlewares/authentication')
 const { taskAuthorization } = require('../middlewares/authorization')
 
 router.get('/:projectId', authentication, TaskController.getAllProjectTasks)

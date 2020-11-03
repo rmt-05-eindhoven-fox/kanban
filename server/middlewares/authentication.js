@@ -1,4 +1,4 @@
-const UserController = require('../controllers/userController')
+const { User } = require('../models/index')
 const { verifyToken } = require('../helpers/jwt')
 
 function authentication (req, res, next) {
