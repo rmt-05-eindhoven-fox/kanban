@@ -30,9 +30,7 @@ class ProjectController {
         include: Project
       });
 
-      res.status(200).json({
-        projects: userProjects.Projects
-      });
+      res.status(200).json(userProjects.Projects);
     } catch (err) {
       next(err);
     }

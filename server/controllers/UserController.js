@@ -3,6 +3,9 @@ const axios = require('axios');
 const { comparePassword } = require('../helpers/hash');
 const { loginToken } = require('../helpers/jwt');
 const { Op } = require('sequelize');
+const {OAuth2Client} = require('google-auth-library');
+const CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+const client = new OAuth2Client(CLIENT_ID);
 
 class UserController {
 
@@ -84,6 +87,46 @@ class UserController {
       }
     } catch (error) {
       next(error);
+    }
+  }
+
+  static async loginGoogle(req, res, next) {
+    const { google_access_token } = req.headers;
+
+    try {
+      
+      const ticket = await client.verifyIdToken({
+        idToken: google_access_token,
+        audience: CLIENT_ID
+      })
+  
+      const payload = ticket.getPayload();
+      const email = payload.email
+      const name = payload.name
+  
+      const user = await User.findOne({
+        where: {
+          email
+        }
+      });
+  
+      if(user) {
+        const accessToken = loginToken({
+          id: user.id,
+          email: user.email
+        });
+        res.status(200).json({
+          accessToken, name: user.name
+        })
+      } else {
+        res.status(200).json({
+          message: 'createPassword',
+          email,
+          name 
+        });
+      }
+    } catch (error) {
+      next(error);      
     }
   }
 

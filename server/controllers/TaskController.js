@@ -37,7 +37,7 @@ class TaskController {
         include: {
           model: User,
           attributes: {
-            exclude: ['password']
+            exclude: ['password', 'createdAt', 'updatedAt']
           }
         }
       });
