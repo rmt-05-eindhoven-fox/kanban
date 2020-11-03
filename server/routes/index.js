@@ -1,6 +1,6 @@
 const OrganizationController = require('../controllers/OrganizationController');
 const UserController = require('../controllers/UserController');
-const { authentication } = require('../middleware/auth');
+const { authentication, authorizeOrganization } = require('../middleware/auth');
 
 const router = require('express').Router();
 
@@ -16,8 +16,9 @@ router.use(authentication)
 
 router.get('/organizations', OrganizationController.index);
 router.post('/organizations', OrganizationController.store);
-router.put('/organizations', OrganizationController.update);
-router.delete('/organizations', OrganizationController.destroy);
+router.get('/organizations/:id', authorizeOrganization, OrganizationController.show);
+router.put('/organizations/:id', authorizeOrganization, OrganizationController.update);
+router.delete('/organizations/:id', authorizeOrganization, OrganizationController.destroy);
 
 
 module.exports = router;

@@ -44,7 +44,22 @@ function authorizeTask(req, res, next) {
 }
 
 function authorizeOrganization(req, res, next) {
-
+  const { id } = req.params;
+  Organization.findByPk(id)
+    .then((organization) => {
+      if (!organization) {
+        next(createError(404, 'Organization ID Not Found'))
+      } else {
+        const UserId = organization.UserId;
+        if (UserId == req.logedInUser.id) {
+          next();
+        } else {
+          next(createError(401, 'Not Authorize!'))
+        }
+      }
+    }).catch((err) => {
+      next(err);
+    });
 }
 
 function authorizeCategory(req, res, next) {
