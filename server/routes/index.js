@@ -1,3 +1,4 @@
+const OrganizationController = require('../controllers/OrganizationController');
 const UserController = require('../controllers/UserController');
 const { authentication } = require('../middleware/auth');
 
@@ -11,7 +12,12 @@ router.get('/', (req, res, next) => {
 router.post('/login', UserController.login);
 router.post('/register', UserController.register);
 
-// router.use(authentication)
+router.use(authentication)
+
+router.get('/organizations', OrganizationController.index);
+router.post('/organizations', OrganizationController.store);
+router.put('/organizations', OrganizationController.update);
+router.delete('/organizations', OrganizationController.destroy);
 
 
 module.exports = router;

@@ -3,12 +3,12 @@ const { User, Task, Category, Organization, CategoryOrganization } = require('..
 const { verifyToken } = require("../helper/jwt");
 
 function authentication(req, res, next) {
-  const { accesstoken } = req.headers;
+  const { access_token } = req.headers;
   try {
-    if (!accesstoken) {
+    if (!access_token) {
       next(createError(401, 'Authentication failed!'));
     } else {
-      const decoded = verifyToken(accesstoken);
+      const decoded = verifyToken(access_token);
       User.findOne({
         where: { id: decoded.id }
       })
