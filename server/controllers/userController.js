@@ -64,7 +64,7 @@ class UserController {
           })
         }
       } catch (error) {
-        console.log(erroe)
+        console.log(error)
         next(error)
       }
     }

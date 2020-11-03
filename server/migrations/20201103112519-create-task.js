@@ -14,6 +14,9 @@ module.exports = {
       description: {
         type: Sequelize.STRING
       },
+      status: {
+        type: Sequelize.STRING
+      },
       UserId: {
         type: Sequelize.INTEGER,
         references: {
@@ -21,10 +24,10 @@ module.exports = {
           key: 'id'
         }
       },
-      CategoryId: {
+      ProjectId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Categories',
+          model: 'Projects',
           key: 'id'
         }
       },
