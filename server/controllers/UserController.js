@@ -38,10 +38,10 @@ class UserController {
 			})
 
 			if(!user) {
-				throw(err)
+				throw { name: "AuthenticationFailed" }
 
 			} else if (!comparePassword(payload.password, user.password)) {
-				throw(err)
+				throw { name: "AuthenticationFailed" }
 
 			} else {
 				const access_token = signToken({
