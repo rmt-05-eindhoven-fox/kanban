@@ -1,7 +1,7 @@
 const CategoryController = require('../controllers/CategoryController');
 const OrganizationController = require('../controllers/OrganizationController');
 const UserController = require('../controllers/UserController');
-const { authentication, authorizeOrganization } = require('../middleware/auth');
+const { authentication, authorizeOrganization, authorizeCategory } = require('../middleware/auth');
 
 const router = require('express').Router();
 
@@ -29,11 +29,11 @@ router.delete('/organizations/member/:id', authorizeOrganization, OrganizationCo
 /** 
  * Router Categories
  */
-// router.get('/categories', CategoryController.index);
-// router.post('/categories', CategoryController.store);
-// router.get('/categories/:id', authorizeOrganization, CategoryController.show);
-// router.put('/categories/:id', authorizeOrganization, CategoryController.update);
-// router.delete('/categories/:id', authorizeOrganization, CategoryController.destroy);
+router.get('/categories', CategoryController.index);
+router.post('/categories/:organizationId', authorizeOrganization, CategoryController.store);
+router.get('/categories/:id', authorizeCategory, CategoryController.show);
+router.put('/categories/:id', authorizeCategory, CategoryController.update);
+router.delete('/categories/:id', authorizeCategory, CategoryController.destroy);
 
 
 module.exports = router;
