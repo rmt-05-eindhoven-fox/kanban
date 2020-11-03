@@ -1,6 +1,6 @@
 const createError = require('http-errors');
 
-const { Organization, Category, User, UserOrganization } = require('../models');
+const { Organization, Category, User, Task, UserOrganization } = require('../models');
 
 class OrganizationController {
 
@@ -8,7 +8,6 @@ class OrganizationController {
     const UserId = req.logedInUser.id;
     Organization.findAll({
       where: { UserId },
-      // include: [Category]
     })
       .then((organizations) => {
         res.status(200).json({ status: 200, organizations });
@@ -24,14 +23,18 @@ class OrganizationController {
       .then((organization) => {
         res.status(201).json(organization);
       }).catch((err) => {
-        console.log(err)
-        next(err)
+        next(err);
       });
   }
 
   static show(req, res, next) {
     const { id } = req.params;
-    Organization.findByPk(id, { include: [Category] })
+    Organization.findByPk(id, {
+      include: [{ model: Category, 
+        include: [{ model: Task, 
+          include: [{ model: User, 
+            attributes: { exclude: ['password', 'createdAt', 'updatedAt'] } }] }] }]
+    })
       .then((organization) => {
         res.status(200).json({ status: 200, organization });
       }).catch((err) => {

@@ -1,11 +1,12 @@
 const createError = require('http-errors');
-const { Organization, Category, User, UserOrganization } = require('../models');
+const { Organization, Category, User, Task, UserOrganization } = require('../models');
 
 class CategoryController {
 
-  static index(req, res, next) {
-    res.status(200).json({ message: 'index Conection OK' })
-  }
+  // static index(req, res, next) {
+  //   const { OrganizationId } = req.params; 
+  //   res.status(200).json({ message: 'index Conection OK' })
+  // }
 
   static store(req, res, next) {
     const { name, OrganizationId } = req.body;
@@ -19,7 +20,18 @@ class CategoryController {
   }
 
   static show(req, res, next) {
-    res.status(200).json({ message: 'show Conection OK' })
+    const { OrganizationId } = req.params;
+    Category.findAll({
+      where: { OrganizationId },
+      include: [{ model: Task, 
+        include: [{ model: User, 
+          attributes: { exclude: ['password', 'createdAt', 'updatedAt'] } }] }]
+    })
+      .then((categories) => {
+        res.status(200).json(categories)
+      }).catch((err) => {
+        next(err)
+      });
   }
 
   static update(req, res, next) {

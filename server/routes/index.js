@@ -19,9 +19,9 @@ router.use(authentication)
 /** 
  * Router Organizations
  */
-router.get('/organizations', OrganizationController.index);
-router.post('/organizations', OrganizationController.store);
-router.get('/organizations/:id', authorizeOrganization, OrganizationController.show);
+router.get('/organizations', OrganizationController.index); // get by id user was created organization
+router.post('/organizations', OrganizationController.store); // All User can create their organization
+router.get('/organizations/:id', authorizeOrganization, OrganizationController.show); // show organization by id need authorize
 router.put('/organizations/:id', authorizeOrganization, OrganizationController.update);
 router.delete('/organizations/:id', authorizeOrganization, OrganizationController.destroy);
 router.post('/organizations/member/:id', authorizeOrganization, OrganizationController.addMember);
@@ -30,9 +30,9 @@ router.delete('/organizations/member/:id', authorizeOrganization, OrganizationCo
 /** 
  * Router Categories
  */
-router.get('/categories', CategoryController.index);
+// router.get('/categories/:OrganizationId', authorizeOrganization, CategoryController.index);
 router.post('/categories', authorizeOrganization, CategoryController.store);
-router.get('/categories/:id', authorizeCategory, CategoryController.show);
+router.get('/categories/:OrganizationId', authorizeOrganization, CategoryController.show);
 router.put('/categories/:id', authorizeCategory, CategoryController.update);
 router.delete('/categories/:id', authorizeCategory, CategoryController.destroy);
 

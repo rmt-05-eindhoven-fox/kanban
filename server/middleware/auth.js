@@ -32,7 +32,7 @@ function authentication(req, res, next) {
 function authorizeOrganization(req, res, next) {
   const source = req.originalUrl.replace('/', '');
   const method = req.method;
-  const id = req.params.id || req.body.OrganizationId;
+  const id = req.params.id || req.body.OrganizationId || req.params.OrganizationId;
   Organization.findByPk(id, { include: [User] })
     .then((organization) => {
       if (!organization) {
@@ -66,7 +66,7 @@ function authorizeCategory(req, res, next) {
   Category.findByPk(id)
     .then((category) => {
       if (!category) {
-        next(createError(404).json({ status: 404, message: 'Category id not found!' }));
+        next(createError(404, 'Category id not found!' ));
       } else {
         const { OrganizationId } = req.body;
         if (OrganizationId != category.OrganizationId) {
