@@ -1,0 +1,161 @@
+@import url('https://fonts.googleapis.com/css2?family=ABeeZee&display=swap');
+
+* {
+	margin: 0;
+	padding: 0
+}
+
+body {
+	font-family: "ABeeZee";
+	background-color: #FFF;
+}
+
+/* Navigation */
+nav {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: #3867d6;
+	padding-top: 7px;
+	padding-bottom: 7px;
+}
+
+nav .nav-links ul {
+	display: flex;
+	margin:0;
+	list-style: none;
+}
+
+nav .nav-links li {
+	margin-right: 40px;
+	padding: 8px 10px;
+	border-radius: .45em;
+	background-color: #f1f2f6;
+}
+
+nav .nav-links a {
+	text-decoration: none;
+	color: #3d3d3d;
+}
+
+#logo {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 180px;
+	margin-left: 40px;
+}
+
+#logo-img {
+	border-radius: 2em;
+}
+
+#logo-name {
+	font-size: 2em;
+	color: #FFF;
+}
+
+/* Board Layout */
+.board-container {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	height: 73vh;
+	padding: 10px;
+	margin-top: 10px;
+	margin-left: 55px;
+	margin-right: 55px;
+}
+
+.board {
+	display: flex;
+	flex-direction: column;
+	background-color: #f1f2f6;
+	margin: 15px;
+	border-radius: 0.35em;
+	border: 0.1px solid #b2bec3;
+}
+
+.category-title {
+	font-size: 20px;
+	font-weight: bold;
+	letter-spacing: 0.1em;
+	padding: 5px;
+	color: #FFF;
+	text-align: center;
+	border-top-left-radius: 0.25em;
+	border-top-right-radius: 0.35em;
+	background-color: #3867d6;
+}
+
+/* Task Cards */
+.task-container {
+	display: flex;
+	flex-direction: column;
+	margin: 0px;
+	height: 60vh;
+}
+
+.task-item {
+	display: flex;
+	flex-direction: column;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-left: 10px;
+	margin-right: 10px;
+	padding-bottom: 5px;
+	background-color: #FFF;
+	border: 1px solid black;
+	width: 16rem;
+	height: 135px;
+}
+
+.task-title {
+	font-size: 14px;
+	margin-top: 8px;
+}
+
+.task-description {
+	font-size: 12px;
+}
+
+.task-creator, .task-time {
+	font-size: 9px;
+	color: grey;
+	margin-top: -10px;
+}
+
+.task-title, .task-description, .task-creator, .task-time {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.task-button-options {
+	display: flex;
+	justify-content: space-around;
+	font-size: 12px;
+	margin-top: -35px;
+	margin-left: 78%;
+	width: 50px;
+}
+
+.footer {
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+	position: sticky;
+	bottom: 0;
+	margin-top: 130px;
+	padding-top: 5px;
+	background-color: #f1f2f6;
+}
+
+.add-task-button {
+	border-style: none;
+	color: #636e72;
+}
+
+/* Hide scroll bar */
+::-webkit-scrollbar {
+  width: 0px;
+}
