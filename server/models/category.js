@@ -11,9 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Category.belongsToMany(models.Organization, { through: 'CategoryOrganizations' });
-
-      // Category.hasMany(models.Task, { foreignKey: 'CategoryId' })
+      Category.belongsTo(models.Organization, { foreignKey: 'OrganizationId' }); 
+      Category.hasMany(models.Task, { foreignKey: 'CategoryId' });
     }
   };
   Category.init({
@@ -30,6 +29,12 @@ module.exports = (sequelize, DataTypes) => {
           msg: 'Category name is required, can\'t be null!'
         }
       }
+    },
+    UserId: {
+      type: DataTypes.INTEGER
+    },
+    OrganizationId: {
+      type: DataTypes.INTEGER
     }
   }, {
     sequelize,

@@ -67,7 +67,7 @@ class OrganizationController {
       }).catch((err) => {
         next(err)
       });
-  } 
+  }
 }
 
 module.exports = OrganizationController;
