@@ -30,7 +30,7 @@ function authentication(req, res, next) {
 
 function authorizeTask(req, res, next) {
   const { id } = req.params;
-  Task.findByPk(id, {include: {}}).then((todo) => {
+  Task.findByPk(id, { include: {} }).then((todo) => {
     if (!todo) {
       next(createError(404, 'Todo ID Not Found!'));
     } else if (todo.UserId == req.logedInUser.id) {
@@ -44,9 +44,13 @@ function authorizeTask(req, res, next) {
 }
 
 function authorizeOrganization(req, res, next) {
-  
+
 }
 
 function authorizeCategory(req, res, next) {
-  
+
+}
+
+module.exports = {
+  authentication, authorizeTask, authorizeOrganization, authorizeCategory
 }

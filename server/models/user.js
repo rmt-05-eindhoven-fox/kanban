@@ -2,7 +2,7 @@
 const {
   Model
 } = require('sequelize');
-const { hashPassword } = require('../helper/bycrypt');
+const { hashPassword } = require('../helper/bcrypt');
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -47,12 +47,16 @@ module.exports = (sequelize, DataTypes) => {
         notNull: {
           args: true,
           msg: 'Username is required, can\'t be null!'
-        }, is
+        }, 
       }
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: {
+        args: true,
+        msg: 'Email already exists!'
+      },
       validate: {
         notEmpty: {
           args: true,
@@ -61,10 +65,6 @@ module.exports = (sequelize, DataTypes) => {
         notNull: {
           args: true,
           msg: 'Email is required, can\'t be null!'
-        },
-        unique: {
-          args: true,
-          msg: 'Email already exists!'
         },
         isEmail: {
           args: true,

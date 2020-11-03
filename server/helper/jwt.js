@@ -8,9 +8,7 @@ function generateToken(payload) {
 function verifyToken(token) {
   const decode = jwt.verify(token, process.env.SECRET_KEY);
   return decode;
-}
-
-console.log(generateToken({ name: 'riyan' }))
+} 
 
 module.exports = {
   generateToken, verifyToken
