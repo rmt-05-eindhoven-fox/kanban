@@ -57,7 +57,7 @@ body {
   background-image: linear-gradient(315deg, #7ee8fa 0%, #80ff72 74%);  
 }
 
-.card:hover{
+#homepage .card:hover{
   transform: scale(1.02);
   box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
 }
@@ -104,4 +104,20 @@ body {
 .overflow {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
+}
+
+/* LOGIN & REGISTER */
+.card-login {
+  background-color: #000000;
+  background-image: linear-gradient(147deg, #000000 0%, #2c3e50 74%);
+  box-shadow:  41px 41px 82px purple, -41px -41px 82px blue;
+}
+.card-login .card-title {
+  font-weight: 300;
+  font-size: 1.5rem;
+}
+
+.form-login .btn {
+  letter-spacing: .15rem;
+  transition: all 0.2s;
 }

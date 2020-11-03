@@ -5,7 +5,7 @@ const authorization = require("../middlewares/authorization");
 
 router.use(authentication);
 router.post("/", TaskController.addNewTask);
-router.get("/", TaskController.readAllTask);
+router.get("/", TaskController.readAllTasks);
 router.get("/:id", authorization, TaskController.getTaskById);
 router.put("/:id", authorization, TaskController.updateTaskById);
 router.patch("/:id", authorization, TaskController.updateCategoryTaskById);

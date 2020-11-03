@@ -19,7 +19,7 @@ class TaskController {
     }
   }
 
-  static async readAllTask(req, res, next) {
+  static async readAllTasks(req, res, next) {
     try {
       const UserId = +req.userLoggedIn.id;
       const tasks = await Task.findAll({ order: [["updatedAt", "ASC"]] });
