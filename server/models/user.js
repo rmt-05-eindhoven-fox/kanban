@@ -12,9 +12,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
-      User.hasMany(models.Organization, { foreignKey: 'UserId' })
+      // define association here 
       User.hasMany(models.Task, { foreignKey: 'UserId' })
+      User.belongsToMany(models.Organization, { through: 'UserOrganizations', foreignKey: 'UserId' });
     }
   };
   User.init({
@@ -47,7 +47,7 @@ module.exports = (sequelize, DataTypes) => {
         notNull: {
           args: true,
           msg: 'Username is required, can\'t be null!'
-        }, 
+        },
       }
     },
     email: {
