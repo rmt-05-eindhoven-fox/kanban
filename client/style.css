@@ -42,13 +42,3 @@ nav .link a:hover {
     box-shadow: 0 7px 14px rgba(50,50,93,.1), 0 3px 6px rgba(0,0,0,.08);
 }
 
-.container {
-    margin-top: 50px;
-    display: flex;
-    background-color: lightgrey;
-    justify-content: space-around;
-}
-
-.item {
-    
-}
