@@ -1,0 +1,127 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+nav {
+  background-color: #2F3640;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  align-items: center;
+  font-family: 'Inconsolata', monospace;
+
+  li {
+    list-style: none;
+    display: inline;
+    margin-left: 20px;
+    margin-right: 50px;
+    align-items: center;
+  }
+
+  a {
+    text-decoration: none;
+    color: #ffffff;
+  }
+
+  ul {
+    margin-bottom: 0;
+  }
+
+  .links {
+    display: flex;
+    align-items: center;
+  }
+
+
+}
+
+.task-header {
+  font-family: 'Fredoka One', cursive;
+  margin: 20px 0;
+}
+
+.task-board {
+  font-family: 'Inconsolata', monospace;
+  font-weight: 700;
+
+  .card-body {
+    padding: 8px;
+  }
+
+  h3 {
+    font-weight: 700;
+  }
+
+  .card-backlog {
+    background-color: #CDCFD4;
+    border-radius: 0px;
+    padding: 0;
+    max-height: 100vh;
+    overflow-y: auto;
+  }
+
+
+
+  .card-header {
+    border-top-right-radius: 13px;
+    border-top-left-radius: 13px;
+    background-color: #2F3640;
+    color: #00A8FF;
+    border: 2px solid #2F3640;
+    font-weight: lighter;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    i {
+      color: #00A8FF;
+      font-size: 30px;
+    }
+
+    i:hover {
+      color: #168eca;
+      transition: 0.5s ease-in-out;
+    }
+  }
+
+  .card-title {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .card-text {
+    font-weight: 500;
+  }
+
+}
+
+.card-task-content {
+  border-radius: 15px;
+  margin-bottom: 10px;
+
+  .card-body {
+    padding: 15px;
+  }
+
+  i {
+    color: #00A8FF;
+    font-size: large;
+  }
+
+  i:hover {
+    color: #168eca;
+    transition: 0.2s ease-in-out;
+  }
+
+  .card-title {
+    font-family: 'Fredoka One', cursive;
+  }
+
+  .author,
+  .date {
+    font-size: 12px;
+  }
+
+}

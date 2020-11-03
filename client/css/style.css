@@ -1,0 +1,106 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+nav {
+  background-color: #2F3640;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  align-items: center;
+  font-family: "Inconsolata", monospace;
+}
+nav li {
+  list-style: none;
+  display: inline;
+  margin-left: 20px;
+  margin-right: 50px;
+  align-items: center;
+}
+nav a {
+  text-decoration: none;
+  color: #ffffff;
+}
+nav ul {
+  margin-bottom: 0;
+}
+nav .links {
+  display: flex;
+  align-items: center;
+}
+
+.task-header {
+  font-family: "Fredoka One", cursive;
+  margin: 20px 0;
+}
+
+.task-board {
+  font-family: "Inconsolata", monospace;
+  font-weight: 700;
+}
+.task-board .card-body {
+  padding: 8px;
+}
+.task-board h3 {
+  font-weight: 700;
+}
+.task-board .card-backlog {
+  background-color: #CDCFD4;
+  border-radius: 0px;
+  padding: 0;
+  max-height: 100vh;
+  overflow-y: auto;
+}
+.task-board .card-header {
+  border-top-right-radius: 13px;
+  border-top-left-radius: 13px;
+  background-color: #2F3640;
+  color: #00A8FF;
+  border: 2px solid #2F3640;
+  font-weight: lighter;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.task-board .card-header i {
+  color: #00A8FF;
+  font-size: 30px;
+}
+.task-board .card-header i:hover {
+  color: #168eca;
+  transition: 0.5s ease-in-out;
+}
+.task-board .card-title {
+  display: flex;
+  justify-content: space-between;
+}
+.task-board .card-text {
+  font-weight: 500;
+}
+
+.card-task-content {
+  border-radius: 15px;
+  margin-bottom: 10px;
+}
+.card-task-content .card-body {
+  padding: 15px;
+}
+.card-task-content i {
+  color: #00A8FF;
+  font-size: large;
+}
+.card-task-content i:hover {
+  color: #168eca;
+  transition: 0.2s ease-in-out;
+}
+.card-task-content .card-title {
+  font-family: "Fredoka One", cursive;
+}
+.card-task-content .author,
+.card-task-content .date {
+  font-size: 12px;
+}
+
+/*# sourceMappingURL=style.css.map */
