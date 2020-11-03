@@ -1,0 +1,23 @@
+body {
+    background-color: #FFEBAF;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: minmax(500px, auto);
+    grid-gap: 10px;
+}
+
+.container div {
+    /* background-color: #FF7262; */
+    color: #FFEBAF;
+    font-weight: bold;
+}
+
+.container div .card {
+    display: flex;
+    /* background-color: #f88e80; */
+    justify-content: center;
+    margin: 5px 15px;
+}
