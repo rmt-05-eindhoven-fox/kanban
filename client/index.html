@@ -25,8 +25,7 @@
         </div>
         <div class="link icon">
             <ul>
-                <li><a href="#">Sign In</a></li>
-                <li><a href="#">Sign Up Now!</i></a></li>
+                <li><a href="#">Create Project</a></li>
             </ul>
         </div>
     </nav>
@@ -68,61 +67,56 @@
 
     <!-- register form -->
 
-    <div class="register" id="register-page">
-        <section>
-            <div class="container mt-5">
-                <div class="row justify-content-center">
-                    <div class="col-md-4">
-                <h1 class="mb-4">Register Your Account!</h1>
-                <form>
-                    <div class="form_group">
-                    <label  for="email">Email</label><br>
-                    <input class="form-control" type="email" id="email-reg" name="email" autocomplete="email"><br>
-                    <label for="password">Password</label><br>
-                    <input class="form-control" type="password" id="password-reg" name="password" autocomplete="current-password">
-                    <br>
-                    <br>
-                    <button type="submit" class="btn btn-primary" style="background-color:blue;" onclick="loginPage()">Sign Up</button>
-                    <p role="button">Have an account?</p>
-                    </div>
-                </form>
-                </div>
-                </div>
+    <div class="container">
+        <div class="row content" id="register">
+            <div class="col-md-6 mb-3">
+                <img src="data.svg" class="img-fluid" alt="image">
             </div>
-        </section>
+            <div class="col-md-6 mb-3">
+                <h3 class="signin-text mb-3">Sign Up Here!</h3>
+                <form>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" class="form-control">
+                    </div>
+                    <button class="btn btn-primary">Log In</button>
+                    <p role="button">Have an account?</p>
+                </form>
+            </div>
         </div>
+    </div>
 
     <!-- end register form -->
 
     <!-- login -->
-    <div id="login-page" >
-        <section>
-            <div class="container mt-5">
-                <div class="row justify-content-center">
-                    <div class="col-md-4">
-                <h1 class="mb-4">Please sign in first!</h1>
-                <form>
-                    <div class="form_group">
-                    <label  for="email">Email</label><br>
-                    <input class="form-control" type="email" id="email" name="email" autocomplete="email"><br>
-                    <label for="password">Password</label><br>
-                    <input class="form-control" type="password" id="password" name="password" autocomplete="current-password">
-                    <br>
-                    <br>
-                    <button type="submit" class="btn btn-primary" style="background-color:blue;">Sign In</button>
-                    <br>
-                   
-                    <p role="button">Don't have an account yet?</p>
-                    </div>
-                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
-                </form>
-               
+    
+        <div class="container">
+            <div class="row content">
+                <div class="col-md-6 mb-3">
+                    <img src="img.svg" class="img-fluid" alt="image">
                 </div>
+                <div class="col-md-6 mb-3">
+                    <h3 class="signin-text mb-3">Sign In</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" class="form-control">
+                        </div>
+                        <button class="btn btn-primary">Log In</button>
+                        <p role="button">Don't have any account yet?</p>
+                    </form>
                 </div>
             </div>
-        </section>
         </div>
-        
+     
         <!-- end login -->
     
 </body>
