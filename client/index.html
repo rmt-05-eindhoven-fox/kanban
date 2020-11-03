@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Bootstrap & CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+
+  <!-- FONTS -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+
+  <!-- FONTAWESOME -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous" />
+
+  <title>KhanBhanBhoard</title>
+</head>
+
+<body>
+
+  <!-- NAVBAR HOME PAGE -->
+  <section id="navbar-homepage">
+    <div class="container-fluid navbar d-flex navbar-dark text-light p-2">
+      <div class="logo">
+        <nav>
+          <a class="navbar-brand" href="#">
+            <img src="https://image.flaticon.com/icons/png/128/3192/3192595.png" width="30" height="30" class="icon-logo d-inline-block align-top" alt="kanban-icon" loading="lazy">
+            KhanBhanBhoard
+          </a>
+        </nav>
+      </div>
+      <div class="d-flex align-items-center logout">
+        <div id="user-login" class="mr-4">
+          <span class="rainbow">Hello! user@gmail.com</span>
+        </div>
+        <button type="button" class="btn btn-danger">Logout</button>
+      </div>
+    </div>
+  </section>
+  <!-- NAVBAR HOME PAGE -->
+
+  <!-- HOME PAGE -->
+  <section id="homepage">
+    <div class="board container-fluid pt-3">
+      <div class="row row-add">
+        <div class="col text-center pb-2">
+          <button class="btn btn-primary" data-toggle="modal" data-target="#addNewTaskModal">Add New Task</button>
+        </div>
+      </div>
+      <div class="row row-task">
+        <div class="col-md-3 pt-2">
+          <h3 class="text-center border border-danger text-light rounded-pill font-weight-bold">BACKLOG</h3>
+          <div id="task-backlog" class="backlog px-2 pt-3 pb-2 rounded overflow">
+            <div class="shadow-lg card mb-2">
+              <div class="card-header p-2 d-flex justify-content-between">
+                  Task Title
+                  <i class="fas fa-square" style="color: red;"></i>
+              </div>
+              <div class="card-body p-2">
+                <p class="card-text text-justify">Task Desc: Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                <div class="row px-3 d-flex justify-content-between">
+                  <div>
+                    <a href="#" class="btn btn-info btn-sm" data-toggle="modal" data-target="#editTaskModal-id"><i class="fas fa-edit"></i></a>
+                    <a href="#" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></a>
+                    <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#moveTaskModal-id"><i class="fas fa-arrows-alt"></i></a>
+                  </div>
+                  <div class="pt-1">
+                    <i class="far fa-user"></i> user@gmail.com
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="shadow-lg card mb-2">
+              <div class="card-header p-2 d-flex justify-content-between">
+                  Task Title
+                  <i class="fas fa-square" style="color: red;"></i>
+              </div>
+              <div class="card-body p-2">
+                <p class="card-text text-justify">Task Desc: Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                <div class="row px-3 d-flex justify-content-between">
+                  <div>
+                    <a href="#" class="btn btn-info btn-sm" data-toggle="modal" data-target="#editTaskModal-id"><i class="fas fa-edit"></i></a>
+                    <a href="#" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></a>
+                    <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#moveTaskModal-id"><i class="fas fa-arrows-alt"></i></a>
+                  </div>
+                  <div class="pt-1">
+                    <i class="far fa-user"></i> user@gmail.com
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="shadow-lg card mb-2">
+              <div class="card-header p-2 d-flex justify-content-between">
+                  Task Title
+                  <i class="fas fa-square" style="color: red;"></i>
+              </div>
+              <div class="card-body p-2">
+                <p class="card-text text-justify">Task Desc: Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                <div class="row px-3 d-flex justify-content-between">
+                  <div>
+                    <a href="#" class="btn btn-info btn-sm" data-toggle="modal" data-target="#editTaskModal-id"><i class="fas fa-edit"></i></a>
+                    <a href="#" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></a>
+                    <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#moveTaskModal-id"><i class="fas fa-arrows-alt"></i></a>
+                  </div>
+                  <div class="pt-1">
+                    <i class="far fa-user"></i> user@gmail.com
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="shadow-lg card mb-2">
+              <div class="card-header p-2 d-flex justify-content-between">
+                  Task Title
+                  <i class="fas fa-square" style="color: red;"></i>
+              </div>
+              <div class="card-body p-2">
+                <p class="card-text text-justify">Task Desc: Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                <div class="row px-3 d-flex justify-content-between">
+                  <div>
+                    <a href="#" class="btn btn-info btn-sm" data-toggle="modal" data-target="#editTaskModal-id"><i class="fas fa-edit"></i></a>
+                    <a href="#" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></a>
+                    <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#moveTaskModal-id"><i class="fas fa-arrows-alt"></i></a>
+                  </div>
+                  <div class="pt-1">
+                    <i class="far fa-user"></i> user@gmail.com
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="shadow-lg card mb-2">
+              <div class="card-header p-2 d-flex justify-content-between">
+                  Task Title
+                  <i class="fas fa-square" style="color: red;"></i>
+              </div>
+              <div class="card-body p-2">
+                <p class="card-text text-justify">Task Desc: Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                <div class="row px-3 d-flex justify-content-between">
+                  <div>
+                    <a href="#" class="btn btn-info btn-sm" data-toggle="modal" data-target="#editTaskModal-id"><i class="fas fa-edit"></i></a>
+                    <a href="#" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></a>
+                    <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#moveTaskModal-id"><i class="fas fa-arrows-alt"></i></a>
+                  </div>
+                  <div class="pt-1">
+                    <i class="far fa-user"></i> user@gmail.com
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="shadow-lg card mb-2">
+              <div class="card-header p-2 d-flex justify-content-between">
+                  Task Title
+                  <i class="fas fa-square" style="color: red;"></i>
+              </div>
+              <div class="card-body p-2">
+                <p class="card-text text-justify">Task Desc: Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                <div class="row px-3 d-flex justify-content-between">
+                  <div>
+                    <a href="#" class="btn btn-info btn-sm" data-toggle="modal" data-target="#editTaskModal-id"><i class="fas fa-edit"></i></a>
+                    <a href="#" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></a>
+                    <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#moveTaskModal-id"><i class="fas fa-arrows-alt"></i></a>
+                  </div>
+                  <div class="pt-1">
+                    <i class="far fa-user"></i> user@gmail.com
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 pt-2">
+          <h3 class="text-center border border-warning text-light rounded-pill font-weight-bold">TODO</h3>
+          <div id="task-todo" class="todo px-2 pt-3 pb-2 rounded overflow">
+            <div class="shadow-lg card mb-2">
+              <div class="card-header p-2 d-flex justify-content-between">
+                  Task Title
+                  <i class="fas fa-square" style="color: yellow;"></i>
+              </div>
+              <div class="card-body p-2">
+                <p class="card-text text-justify">Task Desc: Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                <div class="row px-3 d-flex justify-content-between">
+                  <div>
+                    <a href="#" class="btn btn-info btn-sm" data-toggle="modal" data-target="#editTaskModal-id"><i class="fas fa-edit"></i></a>
+                    <a href="#" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></a>
+                    <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#moveTaskModal-id"><i class="fas fa-arrows-alt"></i></a>
+                  </div>
+                  <div class="pt-1">
+                    <i class="far fa-user"></i> user@gmail.com
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="shadow-lg card mb-2">
+              <div class="card-header p-2 d-flex justify-content-between">
+                  Task Title
+                  <i class="fas fa-square" style="color: yellow;"></i>
+              </div>
+              <div class="card-body p-2">
+                <p class="card-text text-justify">Task Desc: Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                <div class="row px-3 d-flex justify-content-between">
+                  <div>
+                    <a href="#" class="btn btn-info btn-sm" data-toggle="modal" data-target="#editTaskModal-id"><i class="fas fa-edit"></i></a>
+                    <a href="#" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></a>
+                    <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#moveTaskModal-id"><i class="fas fa-arrows-alt"></i></a>
+                  </div>
+                  <div class="pt-1">
+                    <i class="far fa-user"></i> user@gmail.com
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 pt-2">
+          <h3 class="text-center border border-primary text-light rounded-pill font-weight-bold">DOING</h3>
+          <div id="task-doing" class="doing px-2 pt-3 pb-2 rounded overflow">
+            <div class="shadow-lg card mb-2">
+              <div class="card-header p-2 d-flex justify-content-between">
+                  Task Title
+                  <i class="fas fa-square" style="color: cyan;"></i>
+              </div>
+              <div class="card-body p-2">
+                <p class="card-text text-justify">Task Desc: Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                <div class="row px-3 d-flex justify-content-between">
+                  <div>
+                    <a href="#" class="btn btn-info btn-sm" data-toggle="modal" data-target="#editTaskModal-id"><i class="fas fa-edit"></i></a>
+                    <a href="#" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></a>
+                    <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#moveTaskModal-id"><i class="fas fa-arrows-alt"></i></a>
+                  </div>
+                  <div class="pt-1">
+                    <i class="far fa-user"></i> user@gmail.com
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="shadow-lg card mb-2">
+              <div class="card-header p-2 d-flex justify-content-between">
+                  Task Title
+                  <i class="fas fa-square" style="color: cyan;"></i>
+              </div>
+              <div class="card-body p-2">
+                <p class="card-text text-justify">Task Desc: Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                <div class="row px-3 d-flex justify-content-between">
+                  <div>
+                    <a href="#" class="btn btn-info btn-sm" data-toggle="modal" data-target="#editTaskModal-id"><i class="fas fa-edit"></i></a>
+                    <a href="#" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></a>
+                    <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#moveTaskModal-id"><i class="fas fa-arrows-alt"></i></a>
+                  </div>
+                  <div class="pt-1">
+                    <i class="far fa-user"></i> user@gmail.com
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 pt-2">
+          <h3 class="text-center border border-success text-light rounded-pill font-weight-bold">DONE</h3>
+          <div id="task-done" class="done px-2 pt-3 pb-2 rounded overflow">
+            <div class="shadow-lg card mb-2">
+              <div class="card-header p-2 d-flex justify-content-between">
+                  Task Title
+                  <i class="fas fa-square" style="color: greenyellow;"></i>
+              </div>
+              <div class="card-body p-2">
+                <p class="card-text text-justify">Task Desc: Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                <div class="row px-3 d-flex justify-content-between">
+                  <div>
+                    <a href="#" class="btn btn-info btn-sm" data-toggle="modal" data-target="#editTaskModal-id"><i class="fas fa-edit"></i></a>
+                    <a href="#" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></a>
+                    <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#moveTaskModal-id"><i class="fas fa-arrows-alt"></i></a>
+                  </div>
+                  <div class="pt-1">
+                    <i class="far fa-user"></i> user@gmail.com
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="shadow-lg card mb-2">
+              <div class="card-header p-2 d-flex justify-content-between">
+                  Task Title
+                  <i class="fas fa-square" style="color: greenyellow;"></i>
+              </div>
+              <div class="card-body p-2">
+                <p class="card-text text-justify">Task Desc: Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                <div class="row px-3 d-flex justify-content-between">
+                  <div>
+                    <a href="#" class="btn btn-info btn-sm" data-toggle="modal" data-target="#editTaskModal-id"><i class="fas fa-edit"></i></a>
+                    <a href="#" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></a>
+                    <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#moveTaskModal-id"><i class="fas fa-arrows-alt"></i></a>
+                  </div>
+                  <div class="pt-1">
+                    <i class="far fa-user"></i> user@gmail.com
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer footer-copyright text-light text-center mt-4">
+      © 2020 KhanBhanBhoard by Bobby Septianto
+    </div>
+  </section>
+  <!-- HOME PAGE -->
+
+  <!-- MODAL -->
+    <!-- ADD -->
+    <div class="modal fade" id="addNewTaskModal" tabindex="-1" role="dialog" aria-labelledby="addNewTaskModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addNewTaskModalLabel">Add New Task</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true" style="color: white;">&times;</span>
+            </button>
+          </div>
+          <form onsubmit="">
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="title-task">Title :</label>
+                <input type="text" class="form-control" id="title-task" placeholder=" -- Title --">
+              </div>
+              <div class="form-group">
+                <label for="desc-task">Description :</label>
+                <input type="text" class="form-control" id="desc-task" placeholder="-- Description --">
+              </div>
+              <div class="form-group">
+                <label for="status-task">Category :</label>
+                <select id="status-task" class="form-control">
+                  <option value="">-- Select --</option>
+                  <option value="Backlog">Backlog</option>
+                  <option value="Todo">Todo</option>
+                  <option value="Doing">Doing</option>
+                  <option value="Done">Done</option>
+                </select>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Add</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- EDIT -->
+    <div class="modal fade" id="editTaskModal-id" tabindex="-1" role="dialog" aria-labelledby="editTaskModal-id" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editTaskModal-id">Edit Task</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true" style="color: white;">&times;</span>
+            </button>
+          </div>
+          <form onsubmit="">
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="title-task-edit">Title :</label>
+                <input type="text" class="form-control" id="title-task-edit" placeholder=" -- Title --">
+              </div>
+              <div class="form-group">
+                <label for="desc-task-edit">Description :</label>
+                <input type="text" class="form-control" id="desc-task-edit" placeholder="-- Description --">
+              </div>
+              <div class="form-group">
+                <label for="status-task-edit">Category :</label>
+                <select id="status-task-edit" class="form-control">
+                  <option value="">-- Select --</option>
+                  <option value="Backlog">Backlog</option>
+                  <option value="Todo">Todo</option>
+                  <option value="Doing">Doing</option>
+                  <option value="Done">Done</option>
+                </select>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Edit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- MOVE -->
+    <div class="modal fade" id="moveTaskModal-id" tabindex="-1" role="dialog" aria-labelledby="moveTaskModal-id" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="moveTaskModal-id">Move Task</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true" style="color: white;">&times;</span>
+            </button>
+          </div>
+          <form onsubmit="">
+            <div class="modal-body pb-0">
+              <div class="form-group">
+                <div class="row p-3 btn-group d-flex">
+                  <label class="col btn btn-danger">
+                    <input type="radio" name="options" id="move-backlog"> Backlog
+                  </label>
+                  <label class="col btn btn-warning">
+                    <input type="radio" name="options" id="move-todo"> Todo
+                  </label>
+                  <label class="col btn btn-primary">
+                    <input type="radio" name="options" id="move-doing"> Doing
+                  </label>
+                  <label class="col btn btn-success">
+                    <input type="radio" name="options" id="move-done"> Done
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Move</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  <!-- MODAL -->
+
+  <!-- SCRIPT -->
+  <!-- jQuery and JS bundle w/ Popper.js -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+  <!-- Vue.JS -->
+  <script src="index.js"></script>
+  <!-- SCRIPT -->
+</body>
+
+</html>
