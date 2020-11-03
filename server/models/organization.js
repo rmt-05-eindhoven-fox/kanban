@@ -10,10 +10,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
-      Organization.hasMany(models.Category, { foreignKey: 'OrganizationId' })
-      Organization.hasMany(models.Task, { foreignKey: 'OrganizationId' })
-      Organization.belongsTo(models.User, { foreignKey: 'UserId' })
+      // define association here 
+      Organization.hasMany(models.CategoryOrganization, { foreignKey: 'OrganizationId' });
+      Organization.belongsTo(models.User, { foreignKey: 'UserId' });
     }
   };
   Organization.init({

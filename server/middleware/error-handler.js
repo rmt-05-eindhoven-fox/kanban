@@ -4,10 +4,15 @@ function errorHandler(err, req, res, next) {
   let error = { message: err.message } || { message: 'Internal Server Error' };
 
   if (err.name.includes('Sequelize')) {
-    const errors = err.errors.map(error => {
-      status = err.status || 400;
-      return { message: error.message, field: error.path };
-    })
+    if (Array.isArray(err.errors)) {
+      const errors = err.errors.map(error => {
+        status = err.status || 400;
+        return { message: error.message, field: error.path };
+      })
+    } else {
+      errors = err.message
+    }
+
     error = { status, errors }
   }
   error.status = status;
