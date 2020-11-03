@@ -14,8 +14,24 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   UserProject.init({
-    UserId: DataTypes.INTEGER,
-    ProjectId: DataTypes.INTEGER
+    UserId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Users',
+        key: 'id'
+      },
+      onUpdate: 'cascade',
+      onDelete: 'cascade'
+  },
+    ProjectId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Projects',
+        key: 'id'
+      },
+      onDelete: 'cascade',
+      onUpdate: 'cascade'
+    }
   }, {
     sequelize,
     modelName: 'UserProject',

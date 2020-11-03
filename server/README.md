@@ -124,7 +124,7 @@ _Response (200 - OK)_
 ---
 ### GET /projects
 
-> Get all user specified projects
+> Get all user specified projects includes all categories and tasks
 
 _Request Headers_
 ```
@@ -177,7 +177,7 @@ _Response (200 -OK)_
 
 ### POST /projects
 
-> Create new project
+> Create new project (with creating backlog, todo, doing, done as default categories)
 
 _Request Headers_
 ```
@@ -201,8 +201,38 @@ _Request Body_
 _Response (200)_
 ```
 {
-  "id": 1,
-  "name": "Bikin Kanban"
+  "id": 2,
+  "name": "Bikin Kanban",
+  "Categories": [
+    {
+        "id": 5,
+        "name": "backlog",
+        "ProjectId": 2,
+        "createdAt": "2020-11-03T16:58:58.405Z",
+        "updatedAt": "2020-11-03T16:58:58.405Z"
+    },
+    {
+        "id": 6,
+        "name": "todo",
+        "ProjectId": 2,
+        "createdAt": "2020-11-03T16:58:58.405Z",
+        "updatedAt": "2020-11-03T16:58:58.405Z"
+    },
+    {
+        "id": 7,
+        "name": "doing",
+        "ProjectId": 2,
+        "createdAt": "2020-11-03T16:58:58.405Z",
+        "updatedAt": "2020-11-03T16:58:58.405Z"
+    },
+    {
+        "id": 8,
+        "name": "done",
+        "ProjectId": 2,
+        "createdAt": "2020-11-03T16:58:58.405Z",
+        "updatedAt": "2020-11-03T16:58:58.405Z"
+    }
+  ]
 }
 ```
 ### POST /projects/:projectId
@@ -239,9 +269,9 @@ _Response (201 - Created)_
 }
 ```
 
-### GET /tasks/:projectId
+### GET /projects/:projectId/categories
 
-> Get all tasks and task owner in specified project
+> Get all tasks and task owner in specified category on a specified project
 
 _Request Headers_
 ```
@@ -315,9 +345,9 @@ _Response (200 - OK)_
 ]
 ```
 
-### POST /tasks/:projectId
+### POST /projects/:projectId/categories
 
-> Create new task based on unique project id
+> Create new category based on unique project id
 
 _Request Headers_
 ```
@@ -336,29 +366,26 @@ _Path Parameters_
 _Request Body_
 ```
 {
-  "title": "Create client",
-  "category": "coding",
-  "description": "using jquery",
+  "categoryName": "Deploy"
 }
 ```
 
-_Response (200 - OK)_
+_Response (201 - Created)_
 ```
 {
-  "id": 1,
-  "title": "Create client",
-  "category": "coding",
-  "description": "using jquery",
+  "id": 9,
+  "name": "Deploy",
   "ProjectId": 1,
-  "UserId": 1
+  "updatedAt": "2020-11-03T17:18:48.173Z",
+  "createdAt": "2020-11-03T17:18:48.173Z"
 }
 ```
 
 
 
-### PUT /tasks/:projectId/:taskId
+### PATCH /projects/:projectId/categories/:categoryId
 
-> Update title, category, description based on unique task id which is included in unique project id. Authorized only for user who created it. 
+> Update category name based on unique category id which is included in unique project id.
 
 _Request Headers_
 ```
@@ -370,17 +397,15 @@ _Request Headers_
 _Path Parameters_
 ```
 {
-  projectId: 1,
-  taskId: 1
+  "projectId": 1,
+  "categoryId": 1
 }
 ```
 
 _Request Body_
 ```
 {
-  "title": "Bikin Server",
-  "category": "coding",
-  "description": "using sequelize, express"
+  "categoryName": "Front-End"
 }
 ```
 
@@ -388,49 +413,14 @@ _Response (200 - OK)_
 ```
 {
   "id": 1,
-  "title": "Bikin Server",
-  "category": "coding",
-  "description": "using sequelize, express"
+  "name": "Front-End",
+  "ProjectId": 1,
+  "createdAt": "2020-11-03T16:40:13.747Z",
+  "updatedAt": "2020-11-03T17:26:38.891Z"
 }
 ```
 
-### PATCH /tasks/:projectId/:taskId
-
-> Update category based on unique task id which is included in unique project id. Authorized only for user who created it. 
-
-_Request Headers_
-```
-{
-  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJzYW1wbGVAbWFpbC5jb20iLCJpYXQiOjE2MDM3NzMyNjR9.Gfzf2lF0FRKHaEc9DrE4CrwJp_avuWbdrnlCEW22FTU"
-}
-```
-
-_Path Parameters_
-```
-{
-  projectId: 1,
-  taskId: 1
-}
-```
-
-_Request Body_
-```
-{
-  "category": "hehehe",
-}
-```
-
-_Response (200 - OK)_
-```
-{
-  "id": 1,
-  "title": "Bikin Server",
-  "category": "hehehe",
-  "description": "using sequelize, express"
-}
-```
-
-### DELETE /tasks/:projectId/:taskId
+### DELETE /projects/:projectId/categories/:categoryId
 
 > Delete task based on unique task id which is included in unique project id. Authorized only for user who created it. 
 
@@ -444,8 +434,153 @@ _Request Headers_
 _Path Parameters_
 ```
 {
-  projectId: 1,
-  taskId: 1
+  "projectId": 1,
+  "categoryId": 1
+}
+```
+
+_Request Body_
+```
+not needed
+```
+
+_Response (200 - OK)_
+```
+{
+  "message": "Category success to delete"
+}
+```
+
+### POST /projects/:projectId/categories/:categoryId/tasks
+
+> Create new task on unique category and project 
+
+_Request Headers_
+```
+{
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJzYW1wbGVAbWFpbC5jb20iLCJpYXQiOjE2MDM3NzMyNjR9.Gfzf2lF0FRKHaEc9DrE4CrwJp_avuWbdrnlCEW22FTU"
+}
+```
+
+_Path Parameters_
+```
+{
+  "projectId": 1,
+  "categoryId": 3
+}
+```
+
+_Request Body_
+```
+{
+  "title": "Bikin Server",
+  "category": "coding",
+  "description": "using sequelize, express"
+}
+```
+
+_Response (201 - Created)_
+```
+{
+    "id": 1,
+    "title": "Bikin Server",
+    "CategoryId": 3,
+    "description": "using sequelize, express",
+    "UserId": 1,
+    "updatedAt": "2020-11-03T17:45:18.576Z",
+    "createdAt": "2020-11-03T17:45:18.576Z"
+}
+```
+### PUT /projects/:projectId/categories/:categoryId/tasks/:taskId
+
+> Update title, category, description based on unique task id which is included in unique category and project id. Authorized only for user who created it. 
+
+_Request Headers_
+```
+{
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJzYW1wbGVAbWFpbC5jb20iLCJpYXQiOjE2MDM3NzMyNjR9.Gfzf2lF0FRKHaEc9DrE4CrwJp_avuWbdrnlCEW22FTU"
+}
+```
+
+_Path Parameters_
+```
+{
+  "projectId": 1,
+  "categoryId": 3
+}
+```
+
+_Request Body_
+```
+{
+  "title": "Fixing Server",
+  "category": "debugging",
+  "description": ""
+}
+```
+
+_Response (200 - OK)_
+```
+{
+  "id": 1,
+  "title": "Fixing Server",
+  "category": "debugging",
+  "description": ""
+}
+```
+
+### PATCH /tasks/:projectId/:taskId
+
+> Update category of task based on unique task id which is included in unique category and project id. Authorized only for user who created it. 
+
+_Request Headers_
+```
+{
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJzYW1wbGVAbWFpbC5jb20iLCJpYXQiOjE2MDM3NzMyNjR9.Gfzf2lF0FRKHaEc9DrE4CrwJp_avuWbdrnlCEW22FTU"
+}
+```
+
+_Path Parameters_
+```
+{
+  "projectId": 1,
+  "categoryId": 3
+}
+```
+
+_Request Body_
+```
+{
+  "category": "hehehe",
+}
+```
+
+_Response (200 - OK)_
+```
+{
+  "id": 1,
+  "title": "Fixing Server",
+  "category": "hehehe",
+  "description": ""
+}
+```
+
+### DELETE /tasks/:projectId/:taskId
+
+> Delete task based on unique task id which is included in unique category and project id. Authorized only for user who created it. 
+
+_Request Headers_
+```
+{
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJzYW1wbGVAbWFpbC5jb20iLCJpYXQiOjE2MDM3NzMyNjR9.Gfzf2lF0FRKHaEc9DrE4CrwJp_avuWbdrnlCEW22FTU"
+}
+```
+
+_Path Parameters_
+```
+{
+  "projectId": 1,
+  "categoryId": 3
 }
 ```
 

@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Task.belongsTo(models.Project);
+      Task.belongsTo(models.Category);
       Task.belongsTo(models.User);
     }
   };
@@ -24,17 +24,30 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    category: {
-      type: DataTypes.STRING,
+    description: DataTypes.TEXT,
+    CategoryId: {
+      type: DataTypes.INTEGER,
       validate: {
         notEmpty: {
           msg: 'Category is required'
         }
-      }
+      },
+      references: {
+        model: 'Categories',
+        key: 'id'
+      },
+      onUpdate: 'cascade',
+      onDelete: 'cascade'
     },
-    description: DataTypes.TEXT,
-    ProjectId: DataTypes.INTEGER,
-    UserId: DataTypes.INTEGER
+    UserId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Users',
+        key: 'id'
+      },
+      onUpdate: 'cascade',
+      onDelete: 'cascade'
+    }
   }, {
     sequelize,
     modelName: 'Task',

@@ -1,4 +1,4 @@
-const { Project, UserProject, User } = require('../models');
+const { Project, UserProject, User, Category, Task } = require('../models');
 
 class ProjectController {
   static async createProject(req, res, next) {
@@ -14,9 +14,29 @@ class ProjectController {
         ProjectId: newProject.id
       });
 
+      const newCategories = await Category.bulkCreate([
+        {
+          name: 'backlog',
+          ProjectId: userProject.ProjectId
+        },
+        {
+          name: 'todo',
+          ProjectId: userProject.ProjectId
+        },
+        {
+          name: 'doing',
+          ProjectId: userProject.ProjectId
+        },
+        {
+          name: 'done',
+          ProjectId: userProject.ProjectId
+        }
+      ]);
+
       res.status(201).json({
         id: newProject.id,
-        name: newProject.name
+        name: newProject.name,
+        Categories: newCategories
       });
     } catch (err) {
       next(err);
@@ -27,10 +47,21 @@ class ProjectController {
     const UserId = req.user.id;
     try {
       const userProjects = await User.findByPk(UserId, {
-        include: Project
+        attributes: {
+          exclude: ['password', 'createdAt', 'updatedAt']
+        },
+        include: {
+          model: Project,
+          include: {
+            model: Category,
+            include: {
+              model: Task
+            }
+          }
+        }
       });
 
-      res.status(200).json(userProjects.Projects);
+      res.status(200).json(userProjects);
     } catch (err) {
       next(err);
     }

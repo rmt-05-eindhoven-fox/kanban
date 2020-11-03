@@ -46,6 +46,7 @@ const authenticationProject = async (req, res, next) => {
         name: 'AuthenticationFailed'
       };
     } else {
+      req.user.projectId = ProjectId;
       next();
     }
   } catch (err) {
