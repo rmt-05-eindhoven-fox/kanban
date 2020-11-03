@@ -29,24 +29,10 @@ function authentication(req, res, next) {
   }
 }
 
-function authorizeTask(req, res, next) {
-  // const { id } = req.params;
-  // Task.findByPk(id, { include: {} }).then((todo) => {
-  //   if (!todo) {
-  //     next(createError(404, 'Todo ID Not Found!'));
-  //   } else if (todo.UserId == req.logedInUser.id) {
-  //     next();
-  //   } else {
-  //     next(createError(401, 'Not authorized!'));
-  //   }
-  // }).catch((err) => {
-  //   next(err);
-  // });
-}
-
 function authorizeOrganization(req, res, next) {
+  const source = req.originalUrl.replace('/', '');
   const method = req.method;
-  const id = req.params.id || req.params.organizationId;
+  const id = req.params.id || req.body.OrganizationId;
   Organization.findByPk(id, { include: [User] })
     .then((organization) => {
       if (!organization) {
@@ -54,9 +40,13 @@ function authorizeOrganization(req, res, next) {
       } else {
         const UserId = organization.UserId;
         const arrTemp = organization.Users;
-        const member = arrTemp.find(user => user.id == req.logedInUser.id)
+        const member = arrTemp.find(user => user.id == req.logedInUser.id);
+        console.log(member, method, source)
+        console.log(source == 'tasks' && member && method == 'POST')
         if (UserId == req.logedInUser.id || member) {
-          if (member && method != 'GET') {
+          if (source == 'tasks' && member && method == 'POST') {
+            next();
+          } else if (member && method != 'GET') {
             next(createError(401, 'Not Authorize!'))
           } else {
             next();
@@ -77,7 +67,7 @@ function authorizeCategory(req, res, next) {
     .then((category) => {
       if (!category) {
         next(createError(404).json({ status: 404, message: 'Category id not found!' }));
-      } else { 
+      } else {
         const { OrganizationId } = req.body;
         if (OrganizationId != category.OrganizationId) {
           next(createError(401), 'Not authorize!');
@@ -89,6 +79,17 @@ function authorizeCategory(req, res, next) {
       }
     }).catch((err) => {
       next(err)
+    });
+}
+
+function authorizeTask(req, res, next) {
+  const UserId = req.logedInUser.id;
+  const { name, OrganizationId, CategoryId } = req.body;
+  Category.findByPk(CategoryId)
+    .then((category) => {
+
+    }).catch((err) => {
+
     });
 }
 

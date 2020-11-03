@@ -1,7 +1,8 @@
 const CategoryController = require('../controllers/CategoryController');
 const OrganizationController = require('../controllers/OrganizationController');
+const TaskController = require('../controllers/TaskController');
 const UserController = require('../controllers/UserController');
-const { authentication, authorizeOrganization, authorizeCategory } = require('../middleware/auth');
+const { authentication, authorizeOrganization, authorizeCategory, authorizeTask } = require('../middleware/auth');
 
 const router = require('express').Router();
 
@@ -30,10 +31,18 @@ router.delete('/organizations/member/:id', authorizeOrganization, OrganizationCo
  * Router Categories
  */
 router.get('/categories', CategoryController.index);
-router.post('/categories/:organizationId', authorizeOrganization, CategoryController.store);
+router.post('/categories', authorizeOrganization, CategoryController.store);
 router.get('/categories/:id', authorizeCategory, CategoryController.show);
 router.put('/categories/:id', authorizeCategory, CategoryController.update);
 router.delete('/categories/:id', authorizeCategory, CategoryController.destroy);
 
+/** 
+ * Router Task
+ */
+router.get('/tasks', TaskController.index);
+router.post('/tasks', authorizeOrganization, TaskController.store);
+router.get('/tasks/:id', authorizeCategory, TaskController.show);
+router.put('/tasks/:id', authorizeCategory, TaskController.update);
+router.delete('/tasks/:id', authorizeCategory, TaskController.destroy);
 
 module.exports = router;

@@ -8,9 +8,8 @@ class CategoryController {
   }
 
   static store(req, res, next) {
-    const { organizationId } = req.params;
-    const { name } = req.body;
-    const input = { name, UserId: req.logedInUser.id, OrganizationId: organizationId };
+    const { name, OrganizationId } = req.body;
+    const input = { name, UserId: req.logedInUser.id, OrganizationId };
     Category.create(input)
       .then((category) => {
         res.status(201).json({ status: 201, category })
