@@ -2,6 +2,8 @@
 const {
   Model
 } = require('sequelize');
+const { hashPassword } = require('../helper/bycrypt');
+
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -11,15 +13,94 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      User.hasMany(models.Organization, { foreignKey: 'UserId' })
+      User.hasMany(models.Task, { foreignKey: 'UserId' })
     }
   };
   User.init({
-    fullname: DataTypes.STRING,
-    username: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING
+    fullname: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Fullname is required, can\'t be empty!'
+        },
+        notNull: {
+          args: true,
+          msg: 'Fullname is required, can\'t be null!'
+        }
+      }
+    },
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: {
+        args: true,
+        msg: 'Username already exists!'
+      },
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Username is required, can\'t be empty!'
+        },
+        notNull: {
+          args: true,
+          msg: 'Username is required, can\'t be null!'
+        }, is
+      }
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Email is required, can\'t be empty!'
+        },
+        notNull: {
+          args: true,
+          msg: 'Email is required, can\'t be null!'
+        },
+        unique: {
+          args: true,
+          msg: 'Email already exists!'
+        },
+        isEmail: {
+          args: true,
+          msg: 'Email must be valid an email address'
+        }
+      }
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: ' is required, can\'t be empty!'
+        },
+        notNull: {
+          args: true,
+          msg: ' is required, can\'t be null!'
+        }, len: {
+          args: [8],
+          msg: 'Password minimal 8 character!'
+        }
+      }
+    }
   }, {
     sequelize,
+    hooks: {
+      beforeCreate(user) {
+        // user.password = hashPassword(user.password);
+      },
+      afterCreate(user) {
+        delete user.dataValues.password;
+        delete user.dataValues.createdAt;
+        delete user.dataValues.updatedAt;
+      }
+    },
     modelName: 'User',
   });
   return User;

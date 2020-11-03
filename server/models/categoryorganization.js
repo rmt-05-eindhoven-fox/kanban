@@ -11,9 +11,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      CategoryOrganization.belongsTo(models.Category, { foreignKey: 'CategoryId' })
+      CategoryOrganization.belongsTo(models.User, { foreignKey: 'UserId' })
+      CategoryOrganization.belongsTo(models.Organization, { foreignKey: 'OrganizationId' })
     }
   };
   CategoryOrganization.init({
+    UserId: DataTypes.INTEGER,
     UserId: DataTypes.INTEGER,
     OrganizationId: DataTypes.INTEGER
   }, {
