@@ -216,9 +216,11 @@ _Request Headers_
 }
 ```
 
-_Parameters_
+_Path Parameters_
 ```
-not needed
+{
+  projectId: 1
+}
 ```
 
 _Request Body_
@@ -248,9 +250,11 @@ _Request Headers_
 }
 ```
 
-_Parameters_
+_Path Parameters_
 ```
-not needed
+{
+  projectId: 1
+}
 ```
 
 _Request Body_
@@ -322,9 +326,11 @@ _Request Headers_
 }
 ```
 
-_Parameters_
+_Path Parameters_
 ```
-not needed
+{
+  projectId: 1
+}
 ```
 
 _Request Body_
@@ -339,6 +345,7 @@ _Request Body_
 _Response (200 - OK)_
 ```
 {
+  "id": 1,
   "title": "Create client",
   "category": "coding",
   "description": "using jquery",
@@ -360,9 +367,12 @@ _Request Headers_
 }
 ```
 
-_Parameters_
+_Path Parameters_
 ```
-not needed
+{
+  projectId: 1,
+  taskId: 1
+}
 ```
 
 _Request Body_
@@ -395,9 +405,12 @@ _Request Headers_
 }
 ```
 
-_Parameters_
+_Path Parameters_
 ```
-not needed
+{
+  projectId: 1,
+  taskId: 1
+}
 ```
 
 _Request Body_
@@ -428,9 +441,12 @@ _Request Headers_
 }
 ```
 
-_Parameters_
+_Path Parameters_
 ```
-not needed
+{
+  projectId: 1,
+  taskId: 1
+}
 ```
 
 _Request Body_

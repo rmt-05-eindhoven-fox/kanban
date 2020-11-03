@@ -16,6 +16,7 @@ class TaskController {
       });
 
       res.status(201).json({
+        id: newTask.id,
         title: newTask.title,
         category: newTask.category,
         description: newTask.description,
