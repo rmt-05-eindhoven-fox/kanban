@@ -11,6 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Task.belongsTo(models.User, { foreignKey: 'UserId' });
+      Task.belongsTo(models.Category, { foreignKey: 'CategoryId' });
+      Task.belongsTo(models.Organization, { foreignKey: 'OrganizationId' });
     }
   };
   Task.init({
@@ -21,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: {
           args: true,
           msg: 'Task name is required, can\'t be empty!'
-        }, 
+        },
         notNull: {
           args: true,
           msg: 'Task name is required, can\'t be null!'

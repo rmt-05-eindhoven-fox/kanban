@@ -93,7 +93,7 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     hooks: {
       beforeCreate(user) {
-        // user.password = hashPassword(user.password);
+        user.password = hashPassword(user.password);
       },
       afterCreate(user) {
         delete user.dataValues.password;
