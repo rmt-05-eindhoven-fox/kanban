@@ -1,0 +1,29 @@
+* {
+    margin: 0px;
+
+}
+
+.container-flex{
+    display: flex;
+    /* justify-content: space-between; */
+    background-color: black;
+    color: white;
+}
+
+.item-flex{
+    display: flex;
+    padding: 10px;
+    color: white;
+}
+.item-button{
+    display: flex;
+    padding: 8px;
+    color: white;
+}
+
+.container-title{
+    margin-top: 0px;
+    margin-left: 10px;
+    margin-right: 10px;
+    justify-content: space-evenly;
+}
