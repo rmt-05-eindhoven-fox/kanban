@@ -9,286 +9,454 @@
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
       integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
-   <link rel="stylesheet" href="style.css">
+   
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+   <link rel="stylesheet" href="style.css">
+
+   <!-- LANDING PAGE CSS -->
+	<link rel="stylesheet" type="text/css" href="assets/css/util.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/main.css">
+   <!--  -->
 
    <title>Kanban</title>
 </head>
 
 <body>
-   <nav class="navbar navbar-light">
-      <a class="navbar-brand p-2" href="#">
-        Logo here
-      </a>
-
-      <a href="#" class="btn btn-info btn-lg">
-         <span class="glyphicon glyphicon-log-out"></span> Log out
-       </a>
-    </nav>
-
-   <div class="board-container">
-      <!-- CATEGORY -->
-      <div class="category-container">
-         <!-- CATEGORY TITLE -->
-         <div class="card-header">
-            Backlog
-            <!-- ADD TASK -->
-            <a href="#">
-               <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-square" fill="currentColor"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd"
-                     d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
-                  <path fill-rule="evenodd"
-                     d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-               </svg>
+   <div id="app">
+      <section v-if="pageName == 'homepage'" id="homepage">
+         <nav class="navbar navbar-light">
+            <a class="navbar-brand p-2" href="#">
+               Logo here
             </a>
-         </div>
+      
+            <a @click="logout" href="#" class="btn btn-info btn-lg">
+               <span class="glyphicon glyphicon-log-out"></span> Log out
+            </a>
+         </nav>
 
-         <!-- TASK CONTAINER-->
-         <div class="task-container overflow-auto">
-
-            <!-- CARD TASK -->
-            <div class="card">
-               <div class="progress">
-                  <div class="progress-bar bg-danger" role="progressbar" style="width: 25%" aria-valuenow="25"
-                     aria-valuemin="0" aria-valuemax="100"></div>
+         <div class="board-container">
+            <!-- CATEGORY -->
+            <div class="category-container">
+               <!-- CATEGORY TITLE -->
+               <div class="card-header">
+                  Backlog
+                  <!-- ADD TASK -->
+                  <a href="#">
+                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-square" fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                           d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                        <path fill-rule="evenodd"
+                           d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                     </svg>
+                  </a>
                </div>
-
-               <div class="card-body">
-                  <div class="d-flex justify-content-between">
-                     <h5 class="card-title">Task title</h5>
-
-                     <!-- EDIT TASK BUTTON -->
-                     <a href="#">
-                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots" fill="currentColor"
-                           xmlns="http://www.w3.org/2000/svg">
-                           <path fill-rule="evenodd"
-                              d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-                        </svg>
-                     </a>
+      
+               <!-- TASK CONTAINER-->
+               <div class="task-container overflow-auto">
+      
+                  <!-- CARD TASK -->
+                  <div v-for="task in allTasks" :key="task.id" class="card">
+                     <div class="progress">
+                        <div class="progress-bar bg-danger" role="progressbar" style="width: 25%" aria-valuenow="25"
+                           aria-valuemin="0" aria-valuemax="100"></div>
+                     </div>
+      
+                     <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                           <h5 class="card-title">{{task.title}}</h5>
+      
+                           <!-- EDIT TASK BUTTON -->
+                           <a href="#">
+                              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots" fill="currentColor"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                 <path fill-rule="evenodd"
+                                    d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                              </svg>
+                           </a>
+                        </div>
+      
+                        <p class="card-text">{{task.description}}</p>
+      
+                        <div class="d-flex justify-content-between pt-3">
+                           <h6 class="footer">Created by {{task.User.username}}</h6>
+      
+                           <!-- MOVE TASK -->
+                           <a href="#">
+                              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrows-move" fill="currentColor"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                 <path fill-rule="evenodd"
+                                    d="M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10zM.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L1.707 7.5H5.5a.5.5 0 0 1 0 1H1.707l1.147 1.146a.5.5 0 0 1-.708.708l-2-2zM10 8a.5.5 0 0 1 .5-.5h3.793l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L14.293 8.5H10.5A.5.5 0 0 1 10 8z" />
+                              </svg>
+                           </a>
+                        </div>
+      
+                     </div>
                   </div>
-
-                  <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aspernatur maiores,
-                     facere atque id explicabo ab iste quo sit molestias porro ad, ratione repudiandae, officiis rerum
-                     molestiae cupiditate! Laboriosam, iste repudiandae.</p>
-
-                  <div class="d-flex justify-content-between">
-                     <h6 class="footer">Created by Gabriel</h6>
-
-                     <!-- MOVE TASK -->
-                     <a href="#">
-                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrows-move" fill="currentColor"
-                           xmlns="http://www.w3.org/2000/svg">
-                           <path fill-rule="evenodd"
-                              d="M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10zM.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L1.707 7.5H5.5a.5.5 0 0 1 0 1H1.707l1.147 1.146a.5.5 0 0 1-.708.708l-2-2zM10 8a.5.5 0 0 1 .5-.5h3.793l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L14.293 8.5H10.5A.5.5 0 0 1 10 8z" />
-                        </svg>
-                     </a>
+      
+               </div>
+      
+      
+            </div>
+      
+            <div class="category-container">
+               <!-- CATEGORY TITLE -->
+               <div class="card-header">
+                  Todo
+                  <!-- ADD TASK -->
+                  <a href="#">
+                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-square" fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                           d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                        <path fill-rule="evenodd"
+                           d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                     </svg>
+                  </a>
+               </div>
+      
+               <!-- TASK CONTAINER-->
+               <div class="task-container overflow-auto">
+      
+                  <!-- CARD TASK -->
+      
+      
+               </div>
+      
+            </div>
+      
+            <div class="category-container">
+               <!-- CATEGORY TITLE -->
+               <div class="card-header">
+                  Doing
+                  <!-- ADD TASK -->
+                  <a href="#">
+                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-square" fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                           d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                        <path fill-rule="evenodd"
+                           d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                     </svg>
+                  </a>
+               </div>
+      
+               <!-- TASK CONTAINER-->
+               <div class="task-container overflow-auto">
+      
+                  <!-- CARD TASK -->
+                  <div class="card">
+                     <div class="progress">
+                        <div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="25"
+                           aria-valuemin="0" aria-valuemax="100"></div>
+                     </div>
+      
+                     <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                           <h5 class="card-title">Task title</h5>
+      
+                           <!-- EDIT TASK BUTTON -->
+                           <a href="#">
+                              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots" fill="currentColor"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                 <path fill-rule="evenodd"
+                                    d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                              </svg>
+                           </a>
+                        </div>
+      
+                        <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aspernatur maiores,
+                           facere atque id explicabo ab iste quo sit molestias porro ad, ratione repudiandae, officiis rerum
+                           molestiae cupiditate! Laboriosam, iste repudiandae.</p>
+      
+                        <div class="d-flex justify-content-between">
+                           <h6 class="footer">Created by Gabriel</h6>
+      
+                           <!-- MOVE TASK -->
+                           <a href="#">
+                              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrows-move" fill="currentColor"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                 <path fill-rule="evenodd"
+                                    d="M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10zM.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L1.707 7.5H5.5a.5.5 0 0 1 0 1H1.707l1.147 1.146a.5.5 0 0 1-.708.708l-2-2zM10 8a.5.5 0 0 1 .5-.5h3.793l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L14.293 8.5H10.5A.5.5 0 0 1 10 8z" />
+                              </svg>
+                           </a>
+                        </div>
+      
+                     </div>
                   </div>
+      
+                  <div class="card">
+                     <div class="progress">
+                        <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="25"
+                           aria-valuemin="0" aria-valuemax="100"></div>
+                     </div>
+      
+                     <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                           <h5 class="card-title">Task title</h5>
+      
+                           <!-- EDIT TASK BUTTON -->
+                           <a href="#">
+                              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots" fill="currentColor"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                 <path fill-rule="evenodd"
+                                    d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                              </svg>
+                           </a>
+                        </div>
+      
+                        <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aspernatur maiores,
+                           facere atque id explicabo ab iste quo sit molestias porro ad, ratione repudiandae, officiis rerum
+                           molestiae cupiditate! Laboriosam, iste repudiandae.</p>
+      
+                        <div class="d-flex justify-content-between">
+                           <h6 class="footer">Created by Gabriel</h6>
+      
+                           <!-- MOVE TASK -->
+                           <a href="#">
+                              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrows-move" fill="currentColor"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                 <path fill-rule="evenodd"
+                                    d="M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10zM.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L1.707 7.5H5.5a.5.5 0 0 1 0 1H1.707l1.147 1.146a.5.5 0 0 1-.708.708l-2-2zM10 8a.5.5 0 0 1 .5-.5h3.793l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L14.293 8.5H10.5A.5.5 0 0 1 10 8z" />
+                              </svg>
+                           </a>
+                        </div>
+      
+                     </div>
+                  </div>
+      
+               </div>
+      
+            </div>
+      
+            <div class="category-container">
+               <!-- CATEGORY TITLE -->
+               <div class="card-header">
+                  Done
+                  <!-- ADD TASK -->
+                  <a href="#">
+                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-square" fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                           d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                        <path fill-rule="evenodd"
+                           d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                     </svg>
+                  </a>
+               </div>
+      
+               <!-- TASK CONTAINER-->
+               <div class="task-container overflow-auto">
+      
+                  <!-- CARD TASK -->
+                  <div class="card">
+                     <div class="progress">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="25"
+                           aria-valuemin="0" aria-valuemax="100"></div>
+                     </div>
+      
+                     <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                           <h5 class="card-title">Task title</h5>
+      
+                           <!-- EDIT TASK BUTTON -->
+                           <a href="#">
+                              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots" fill="currentColor"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                 <path fill-rule="evenodd"
+                                    d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                              </svg>
+                           </a>
+                        </div>
+      
+                        <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aspernatur maiores,
+                           facere atque id explicabo ab iste quo sit molestias porro ad, ratione repudiandae, officiis rerum
+                           molestiae cupiditate! Laboriosam, iste repudiandae.</p>
+      
+                        <div class="d-flex justify-content-between">
+                           <h6 class="footer">Created by Gabriel</h6>
+      
+                           <!-- MOVE TASK -->
+                           <a href="#">
+                              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrows-move" fill="currentColor"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                 <path fill-rule="evenodd"
+                                    d="M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10zM.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L1.707 7.5H5.5a.5.5 0 0 1 0 1H1.707l1.147 1.146a.5.5 0 0 1-.708.708l-2-2zM10 8a.5.5 0 0 1 .5-.5h3.793l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L14.293 8.5H10.5A.5.5 0 0 1 10 8z" />
+                              </svg>
+                           </a>
+                        </div>
+      
+                     </div>
+                  </div>
+      
+               </div>
+      
+      
+            </div>
+      
+         </div>
+      </section>
 
+      <section v-else-if="pageName == 'login-page'" id="login-page">
+         <div class="limiter">
+            <div class="container-login100" style="background-image: url('assets/images/bg-01.jpg');">
+               <div class="wrap-login100 p-l-110 p-r-110 p-t-62 p-b-33">
+                  <form @submit.prevent="login" class="login100-form validate-form flex-sb flex-w">
+                     <span class="login100-form-title p-b-53">
+                        Sign In With
+                     </span>
+      
+                     <a href="#" class="btn-face m-b-20">
+                        <i class="fa fa-facebook-official"></i>
+                        Facebook
+                     </a>
+      
+                     <a href="#" class="btn-google m-b-20">
+                        <img src="assets/images/icons/icon-google.png" alt="GOOGLE">
+                        Google
+                     </a>
+                     
+                     <div class="p-t-31 p-b-9">
+                        <span class="txt1">
+                           Email
+                        </span>
+                     </div>
+                     <div class="wrap-input100 validate-input" data-validate = "Email is required">
+                        <input v-model="userLogin.email" class="input100" type="email" name="email">
+                        <span class="focus-input100"></span>
+                     </div>
+                     
+                     <div class="p-t-13 p-b-9">
+                        <span class="txt1">
+                           Password
+                        </span>
+      
+                        <a href="#" class="txt2 bo1 m-l-5">
+                           Forgot?
+                        </a>
+                     </div>
+                     <div class="wrap-input100 validate-input" data-validate = "Password is required">
+                        <input v-model="userLogin.password" class="input100" type="password" name="pass" >
+                        <span class="focus-input100"></span>
+                     </div>
+      
+                     <div class="container-login100-form-btn m-t-17">
+                        <button class="login100-form-btn">
+                           Sign In
+                        </button>
+                     </div>
+      
+                     <div class="w-full text-center p-t-55">
+                        <span class="txt2">
+                           Not a member?
+                        </span>
+      
+                        <a @click="changePage('register-page')" href="#" class="txt2 bo1">
+                           Sign up now
+                        </a>
+                     </div>
+                  </form>
                </div>
             </div>
-
          </div>
+      </section>
+      
+      <section v-else-if="pageName == 'register-page'" id="register-page">
+         <div class="limiter">
+            <div class="container-login100" style="background-image: url('assets/images/bg-01.jpg');">
+               <div class="wrap-login100 p-l-110 p-r-110 p-t-62 p-b-33">
+                  <form @submit.prevent="register" class="login100-form validate-form flex-sb flex-w">
+                     <span class="login100-form-title p-b-53">
+                        Register
+                     </span>
+                     
+                     <div class="p-t-31 p-b-9">
+                        <span class="txt1">
+                           Username
+                        </span>
+                     </div>
 
+                     <div class="wrap-input100 validate-input" data-validate = "Username is required">
+                        <input v-model="userRegister.username" class="input100" type="text" name="username">
+                        <span class="focus-input100"></span>
+                     </div>
 
-      </div>
+                     <div class="p-t-31 p-b-9">
+                        <span class="txt1">
+                           Email
+                        </span>
+                     </div>
 
-      <div class="category-container">
-         <!-- CATEGORY TITLE -->
-         <div class="card-header">
-            Todo
-            <!-- ADD TASK -->
-            <a href="#">
-               <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-square" fill="currentColor"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd"
-                     d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
-                  <path fill-rule="evenodd"
-                     d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-               </svg>
-            </a>
-         </div>
-
-         <!-- TASK CONTAINER-->
-         <div class="task-container overflow-auto">
-
-            <!-- CARD TASK -->
-            
-
-         </div>
-
-      </div>
-
-      <div class="category-container">
-         <!-- CATEGORY TITLE -->
-         <div class="card-header">
-            Doing
-            <!-- ADD TASK -->
-            <a href="#">
-               <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-square" fill="currentColor"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd"
-                     d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
-                  <path fill-rule="evenodd"
-                     d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-               </svg>
-            </a>
-         </div>
-
-         <!-- TASK CONTAINER-->
-         <div class="task-container overflow-auto">
-
-            <!-- CARD TASK -->
-            <div class="card">
-               <div class="progress">
-                  <div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="25"
-                     aria-valuemin="0" aria-valuemax="100"></div>
-               </div>
-
-               <div class="card-body">
-                  <div class="d-flex justify-content-between">
-                     <h5 class="card-title">Task title</h5>
-
-                     <!-- EDIT TASK BUTTON -->
-                     <a href="#">
-                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots" fill="currentColor"
-                           xmlns="http://www.w3.org/2000/svg">
-                           <path fill-rule="evenodd"
-                              d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-                        </svg>
-                     </a>
-                  </div>
-
-                  <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aspernatur maiores,
-                     facere atque id explicabo ab iste quo sit molestias porro ad, ratione repudiandae, officiis rerum
-                     molestiae cupiditate! Laboriosam, iste repudiandae.</p>
-
-                  <div class="d-flex justify-content-between">
-                     <h6 class="footer">Created by Gabriel</h6>
-
-                     <!-- MOVE TASK -->
-                     <a href="#">
-                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrows-move" fill="currentColor"
-                           xmlns="http://www.w3.org/2000/svg">
-                           <path fill-rule="evenodd"
-                              d="M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10zM.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L1.707 7.5H5.5a.5.5 0 0 1 0 1H1.707l1.147 1.146a.5.5 0 0 1-.708.708l-2-2zM10 8a.5.5 0 0 1 .5-.5h3.793l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L14.293 8.5H10.5A.5.5 0 0 1 10 8z" />
-                        </svg>
-                     </a>
-                  </div>
-                  
+                     <div class="wrap-input100 validate-input" data-validate = "Email is required">
+                        <input v-model="userRegister.email" class="input100" type="email" name="email">
+                        <span class="focus-input100"></span>
+                     </div>
+                     
+                     <div class="p-t-13 p-b-9">
+                        <span class="txt1">
+                           Password
+                        </span>
+      
+                     </div>
+                     <div class="wrap-input100 validate-input" data-validate = "Password is required">
+                        <input v-model="userRegister.password" class="input100" type="password" name="pass" >
+                        <span class="focus-input100"></span>
+                     </div>
+      
+                     <div class="container-login100-form-btn m-t-17">
+                        <button class="login100-form-btn">
+                           Register
+                        </button>
+                     </div>
+      
+                     <div class="w-full text-center p-t-55">
+                        <span class="txt2">
+                           Already registered?
+                        </span>
+      
+                        <a @click="changePage('login-page')" href="#" class="txt2 bo1">
+                           Sign in here
+                        </a>
+                     </div>
+                  </form>
                </div>
             </div>
+         </div>
+      </section>
 
-            <div class="card">
-               <div class="progress">
-                  <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="25"
-                     aria-valuemin="0" aria-valuemax="100"></div>
-               </div>
-
-               <div class="card-body">
-                  <div class="d-flex justify-content-between">
-                     <h5 class="card-title">Task title</h5>
-
-                     <!-- EDIT TASK BUTTON -->
-                     <a href="#">
-                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots" fill="currentColor"
-                           xmlns="http://www.w3.org/2000/svg">
-                           <path fill-rule="evenodd"
-                              d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-                        </svg>
-                     </a>
-                  </div>
-
-                  <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aspernatur maiores,
-                     facere atque id explicabo ab iste quo sit molestias porro ad, ratione repudiandae, officiis rerum
-                     molestiae cupiditate! Laboriosam, iste repudiandae.</p>
-
-                  <div class="d-flex justify-content-between">
-                     <h6 class="footer">Created by Gabriel</h6>
-
-                     <!-- MOVE TASK -->
-                     <a href="#">
-                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrows-move" fill="currentColor"
-                           xmlns="http://www.w3.org/2000/svg">
-                           <path fill-rule="evenodd"
-                              d="M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10zM.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L1.707 7.5H5.5a.5.5 0 0 1 0 1H1.707l1.147 1.146a.5.5 0 0 1-.708.708l-2-2zM10 8a.5.5 0 0 1 .5-.5h3.793l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L14.293 8.5H10.5A.5.5 0 0 1 10 8z" />
-                        </svg>
-                     </a>
-                  </div>
-                  
+      <section v-else="">
+         <div class="limiter">
+            <div class="container-login100" style="background-image: url('assets/images/bg-01.jpg');">
+               <div class="wrap-login100 p-l-110 p-r-110 p-t-62 p-b-33">
+                  <form class="login100-form validate-form flex-sb flex-w">
+                     <span class="login100-form-title p-b-53">
+                        {{count}}
+                     </span>
+                     
+                     <div class="not-found">
+                        <span class="login100-form-title p-b-53">
+                           <p>Page not found</p>
+                           <p> This may not mean anything.</p>
+                           <p>I'm probably working on something that has blown up.</p>
+                        </span>
+                     </div>
+                  </form>
                </div>
             </div>
-
          </div>
-
-      </div>
-
-      <div class="category-container">
-         <!-- CATEGORY TITLE -->
-         <div class="card-header">
-            Done
-            <!-- ADD TASK -->
-            <a href="#">
-               <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-square" fill="currentColor"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd"
-                     d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
-                  <path fill-rule="evenodd"
-                     d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-               </svg>
-            </a>
-         </div>
-
-         <!-- TASK CONTAINER-->
-         <div class="task-container overflow-auto">
-
-            <!-- CARD TASK -->
-            <div class="card">
-               <div class="progress">
-                  <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="25"
-                     aria-valuemin="0" aria-valuemax="100"></div>
-               </div>
-
-               <div class="card-body">
-                  <div class="d-flex justify-content-between">
-                     <h5 class="card-title">Task title</h5>
-
-                     <!-- EDIT TASK BUTTON -->
-                     <a href="#">
-                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots" fill="currentColor"
-                           xmlns="http://www.w3.org/2000/svg">
-                           <path fill-rule="evenodd"
-                              d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-                        </svg>
-                     </a>
-                  </div>
-
-                  <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aspernatur maiores,
-                     facere atque id explicabo ab iste quo sit molestias porro ad, ratione repudiandae, officiis rerum
-                     molestiae cupiditate! Laboriosam, iste repudiandae.</p>
-
-                  <div class="d-flex justify-content-between">
-                     <h6 class="footer">Created by Gabriel</h6>
-
-                     <!-- MOVE TASK -->
-                     <a href="#">
-                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrows-move" fill="currentColor"
-                           xmlns="http://www.w3.org/2000/svg">
-                           <path fill-rule="evenodd"
-                              d="M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10zM.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L1.707 7.5H5.5a.5.5 0 0 1 0 1H1.707l1.147 1.146a.5.5 0 0 1-.708.708l-2-2zM10 8a.5.5 0 0 1 .5-.5h3.793l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L14.293 8.5H10.5A.5.5 0 0 1 10 8z" />
-                        </svg>
-                     </a>
-                  </div>
-                  
-               </div>
-            </div>
-
-         </div>
-
-
-      </div>
-
+      </section>
    </div>
+
+   <!-- VUE -->
+   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+   <!-- BOOTSTRAP -->
+   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+   <!-- AXIOS -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.0/axios.min.js" integrity="sha512-DZqqY3PiOvTP9HkjIWgjO6ouCbq+dxqWoJZ/Q+zPYNHmlnI2dQnbJ5bxAHpAMw+LXRm4D72EIRXzvcHQtE8/VQ==" crossorigin="anonymous"></script>
+   <!-- MAIN JS -->
+   <script src="main.js"></script>
 </body>
 
 </html>

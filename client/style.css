@@ -56,6 +56,7 @@
 
 .card-title {
    font-weight: 400;
+   font-size: 22px;
 }
 
 .card-body a {
@@ -64,6 +65,7 @@
 
 .card-text {
    font-weight: 300;
+   font-size: 18px;
 }
 
 .card-body h6 {
@@ -74,4 +76,10 @@
 /* NAVBAR CSS */
 nav {
    background-color: #739299;
+}
+
+/* 404 CSS */
+
+.not-found p{
+   font-size: 19px;
 }

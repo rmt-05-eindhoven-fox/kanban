@@ -1,5 +1,5 @@
 const {
-   Task
+   Task, User
 } = require('../database/models')
 
 class TaskController {
@@ -8,10 +8,14 @@ class TaskController {
       const UserId = req.userLogin.id
 
       try {
+         // const task = await Task.findAll({
+         //    where: {
+         //       UserId
+         //    },
+         // })
+
          const task = await Task.findAll({
-            where: {
-               UserId
-            }
+            include: User
          })
 
          res.status(200).json(task)
