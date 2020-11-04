@@ -9,10 +9,13 @@ class TaskController {
         attributes: {
           exclude: ['createdAt', 'updatedAt']
         },
-        // where: {
-        //   UserId
-        // }, 
-        include: [User, Category]
+        include: [{
+          model: User,
+          attributes: ['username', 'email']
+        }, {
+          model: Category,
+          attributes: ['name']
+        }]
       })
       res.status(200).json(tasks)
     } catch (error) {
@@ -51,6 +54,13 @@ class TaskController {
     try {
       const task = await Task.findByPk(id, {
         attributes: { exclude : ['createdAt', 'updatedAt']},
+        include: [{
+          model: User,
+          attributes: ['username', 'email']
+        }, {
+          model: Category,
+          attributes: ['name']
+        }],
         where: {
           UserId
         }
@@ -70,7 +80,7 @@ class TaskController {
         title, description, CategoryId
       }, {
         where: {id},
-        returning: ['id', 'title', 'description', 'CategoryId']
+        returning: ['title', 'description', 'CategoryId']
       })
       res.status(200).json(update[1][0])
     } catch(error) {
@@ -88,7 +98,7 @@ class TaskController {
         CategoryId
       }, {
         where: {id},
-        returning: ['id', 'title', 'description', 'CategoryId']
+        returning: ['CategoryId']
       }) 
       res.status(200).json(patch[1][0])
     } catch (error) {
