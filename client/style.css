@@ -1,0 +1,62 @@
+.card-body .card {
+   margin-top: 20px;
+}
+
+.board {
+	display: flex;
+	flex-direction: column;
+	background-color: #f1f2f6;
+}
+
+/* #kanban-backlog .card-header {
+   background-color: aquamarine;
+} */
+
+.card-body .card-link {
+   margin-top: 20px;
+}
+
+#kanban-backlog {
+   background: #dee2e6;
+   overflow: auto;
+}
+
+.progress {
+   height: 5px;
+}
+
+.card-title {
+   font-size: 24px;
+}
+
+.card-header span{
+   font-size: 22px;
+}
+
+.card-body a {
+   font-size: 22;
+}
+
+.card-body button {
+   background: none;
+   border: white;
+   font-size: 20px;
+   outline: none;
+}
+
+.card-body .text-small {
+   color: #74868a;
+   font-style: italic;
+}
+
+.card-body .card-text {
+   font-size: 17px;
+}
+
+nav {
+   background-color: #74868a;
+}
+
+.container-fluid {
+   display: flex;
+}
