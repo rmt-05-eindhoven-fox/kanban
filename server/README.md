@@ -156,7 +156,41 @@ _Response (200 -OK)_
         "ProjectId": 1,
         "createdAt": "2020-11-03T11:21:10.007Z",
         "updatedAt": "2020-11-03T11:21:10.007Z"
+    },
+    "Categories": [
+    {
+        "id": 5,
+        "name": "backlog",
+        "ProjectId": 2,
+        "createdAt": "2020-11-03T16:58:58.405Z",
+        "updatedAt": "2020-11-03T16:58:58.405Z",
+        "Tasks" : []
+    },
+    {
+        "id": 6,
+        "name": "todo",
+        "ProjectId": 2,
+        "createdAt": "2020-11-03T16:58:58.405Z",
+        "updatedAt": "2020-11-03T16:58:58.405Z",
+        "Tasks" : []
+    },
+    {
+        "id": 7,
+        "name": "doing",
+        "ProjectId": 2,
+        "createdAt": "2020-11-03T16:58:58.405Z",
+        "updatedAt": "2020-11-03T16:58:58.405Z"
+        "Tasks" : []
+    },
+    {
+        "id": 8,
+        "name": "done",
+        "ProjectId": 2,
+        "createdAt": "2020-11-03T16:58:58.405Z",
+        "updatedAt": "2020-11-03T16:58:58.405Z"
+        "Tasks" : []
     }
+  ]
   },
   {
     "id": 2,
@@ -422,7 +456,7 @@ _Response (200 - OK)_
 
 ### DELETE /projects/:projectId/categories/:categoryId
 
-> Delete task based on unique task id which is included in unique project id. Authorized only for user who created it. 
+> Delete category which is included in unique project id. 
 
 _Request Headers_
 ```
