@@ -90,8 +90,7 @@ class TaskController {
       }).catch((err) => {
         next(err);
       });
-  }
-
+  } 
 }
 
 module.exports = TaskController;
