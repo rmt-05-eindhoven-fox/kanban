@@ -84,6 +84,36 @@ class Controller {
             res.status(500).json(error)
         }
     }
+
+    static async edit(req,res,next) {
+        try {
+            const {title, description, category} = req.body
+            const todo = await Todo.update({title, description, category}, {
+                where: {
+                    id: req.params.id
+                }
+            })
+            res.status(200).json(todo)
+        } catch (error) {
+            console.log(error, 'error waktu di edit')
+            res.status(500).json(error)
+        }
+    }
+
+    static async delete(req,res) {
+        try {
+            let todo = await Todo.findByPk(req.params.id)
+
+            if(todo) {
+                await todo.destroy()
+                await todo.save()
+                res.status(200).json({msg: 'todo has been deleted'})
+            }
+        } catch (error) {
+            console.log(error)
+            res.status(500).json(error)
+        }
+    }
 }
 
 module.exports = Controller
