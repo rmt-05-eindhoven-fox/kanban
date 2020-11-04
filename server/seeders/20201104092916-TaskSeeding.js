@@ -9,7 +9,6 @@ module.exports = {
           title: "Belajar",
           description: "belajar terooss",
           category: "backlog",
-          userId: 1,
           createdAt: new Date(),
           updatedAt: new Date(),
         },

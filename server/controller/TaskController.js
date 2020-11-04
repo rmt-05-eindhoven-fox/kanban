@@ -15,14 +15,14 @@ class TaskController {
 
   static async addTask(req, res, next) {
     const { title, description, category } = req.body;
-    const userId = +req.loggedIn.id;
+    const UserId = +req.loggedIn.id;
 
     try {
       const addedTask = await Task.create({
         title,
         description,
         category,
-        userId,
+        UserId,
       });
       res.status(201).json({ msg: "Successfully created" });
     } catch (err) {
