@@ -9,38 +9,84 @@
   <!-- ? FontAwesome CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 </head>
-<body>
-  <nav class="d-flex navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container">
-      <i class="fa fa-check"></i>
-    </div>
-    <div class="container flex-fill">
-      <a class="navbar-brand" href="#">Kanban</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    </div>
-    <div class="container collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Project</a>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            My Projects
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">Project1</a>
-            <a class="dropdown-item" href="#">Project2</a>
-            <a class="dropdown-item" href="#">Project3</a>
-          </div>
-        <li class="nav-item">
-          <button class="btn btn-danger">Logout</button>
-        </li>
-      </ul>
-    </div>
-  </nav>
+<body style="height:100vh">
+  <section id="user-page">
 
-
+  </section>
+  <section id="home-page d-flex flex-column" class="h-100"> 
+    <!-- ! Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="col">
+        <a class="navbar-brand fa fa-check" href="#"></a>
+      </div>
+      <div class="col d-flex justify-content-center">
+        <h1 class="display-4">Kanban</h1>
+      </div>
+      <div class="col d-flex justify-content-end">
+        <button class="navbar-toggler align-self-end" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Project<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                My Projects
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="#">Project1</a>
+                <a class="dropdown-item" href="#">Project2</a>
+                <a class="dropdown-item" href="#">Project3</a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link btn btn-danger" role="button" href="#">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="flex-grow-1 d-flex flex-wrap bg-dark">
+      <div class="card mx-4 my-4 col" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Category 1</h5>
+          <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="#" class="card-link">Card link</a>
+          <a href="#" class="card-link">Another link</a>
+        </div>
+      </div>
+      <div class="card mx-4 my-4 col" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Category 2</h5>
+          <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="#" class="card-link">Card link</a>
+          <a href="#" class="card-link">Another link</a>
+        </div>
+      </div>
+      <div class="card mx-4 my-4 col" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Category 3</h5>
+          <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="#" class="card-link">Card link</a>
+          <a href="#" class="card-link">Another link</a>
+        </div>
+      </div>
+      <div class="card mx-4 my-4 col" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Category 4</h5>
+          <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="#" class="card-link">Card link</a>
+          <a href="#" class="card-link">Another link</a>
+        </div>
+      </div>
+    </div>
+  </section>
 <!-- ? Bootstrap jQuery and JS bundle w/ Popper.js -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
