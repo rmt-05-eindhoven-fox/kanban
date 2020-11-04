@@ -1,4 +1,4 @@
-const { Task } = require("../models/index");
+const { Task, User } = require("../models/index");
 
 class TaskController {
 
@@ -22,7 +22,7 @@ class TaskController {
   static async readAllTasks(req, res, next) {
     try {
       const UserId = +req.userLoggedIn.id;
-      const tasks = await Task.findAll({ order: [["updatedAt", "ASC"]] });
+      const tasks = await Task.findAll({ order: [["id", "ASC"]], include: User });
       res.status(200).json(tasks);
     } catch (err) {
       next(err);
@@ -32,7 +32,7 @@ class TaskController {
   static async getTaskById(req, res, next) {
     try {
       let id = +req.params.id;
-      const task = await Task.findByPk(id);
+      const task = await Task.findByPk(id, { include: User } );
       res.status(200).json(task);
     } catch (err) {
       next(err);
@@ -45,8 +45,7 @@ class TaskController {
       const { title, description, category } = req.body;
       let taskObj = {
         title,
-        description,
-        category
+        description
       };
       const task = await Task.update(taskObj, { where: {id}, returning: true });
       res.status(200).json(task[1][0]);
