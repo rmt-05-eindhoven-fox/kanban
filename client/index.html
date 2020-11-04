@@ -4,14 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@1,600&family=Righteous&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Roboto:wght@100;700&display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
     <link rel="stylesheet" href="styles/style.css">
     <title>Document</title>
 </head>
 <body>
-    <div class="container">
-        <div class="backlog category" style="background-color: #72CAB0;">
-            <h2>Backlog</h2>
-            <div class="card">
+    <!-- Login&register -->
+    <div class="login-page">
+        <div class="container-login" id="container"> 
+            <div class="form-container sign-up-container">
+                <form action="#">
+                    <h1>Create Account</h1>
+                    <div class="social-container">
+                        <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                    </div>
+                    <span>or use your email for registration</span>
+                    <input type="text" placeholder="Name" />
+                    <input type="email" placeholder="Email" />
+                    <input type="password" placeholder="Password" />
+                    <button>Sign Up</button>
+                </form>
+            </div>
+            <div class="form-container sign-in-container">
+                <form action="#">
+                    <h1>Sign in</h1>
+                    <div class="social-container">
+                        <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                    </div>
+                    <span>or use your account</span>
+                    <input type="email" placeholder="Email" />
+                    <input type="password" placeholder="Password" />
+                    <a href="#">Forgot your password?</a>
+                    <button>Sign In</button>
+                </form>
+            </div>
+            <div class="overlay-container">
+                <div class="overlay">
+                    <div class="overlay-panel overlay-left">
+                        <h1>Welcome Back!</h1>
+                        <p>To keep connected with us please login with your personal info</p>
+                        <button class="ghost" id="signIn">Sign In</button>
+                    </div>
+                    <div class="overlay-panel overlay-right">
+                        <h1>Hello, Friend!</h1>
+                        <p>Enter your personal details and start journey with us</p>
+                        <button class="ghost" id="signUp">Sign Up</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+    <!-- Main Page -->
+    <!-- <div class="container">
+        <div class="backlog category">
+            <h2 style="background-color: #00C2C2;">Backlog</h2>
+            <div class="card" style="background-color: #EFF3F4;"> 
                 <div class="card-body">
                     New Account Creation Flow
                 </div>
@@ -29,22 +80,32 @@
                 </div>
             </div>
         </div>
-        <div class="product category" style="background-color: #FF7262;">
-            <h2>Product</h2>
-            <div class="card">
+        <div class="product category">
+            <h2 style="background-color: #00AAFF;">Product</h2>
+            <div class="card" style="background-color: #EBEEEF;">
                 
             </div>
         </div>
-        <div class="development category" style="background-color: #FFC761;">
-            <h2>Development</h2>
-            <div class="card">
+        <div class="development category">
+            <h2 style="background-color: #00C2C2;">Development</h2>
+            <div class="card" style="background-color: #EFF3F4;">
             </div>
         </div>
-        <div class="done category" style="background-color: #7dbdf8;">
-            <h2>Done</h2>
-            <div class="card">
+        <div class="done category">
+            <h2 style="background-color: rgb(143,126,230);">Done</h2>
+            <div class="card" style="background-color: #194452;">
             </div>
         </div>
-    </div>
+    </div>  -->
+    <!-- VUE.JS -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    <script src="main.js"></script>
 </body>
 </html>
