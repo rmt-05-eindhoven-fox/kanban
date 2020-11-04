@@ -21,15 +21,36 @@ class TaskController {
   }
 
   static show(req, res, next) {
-    res.status(200).json({ message: 'connection ok' })
+    const { id } = req.params;
+    Task.findByPk(id, {
+      include: [{
+        model: User,
+        attributes: { exclude: ['password', 'createdAt', 'updatedAt'] }
+        // include: [{
+        //   model: User,
+        //   attributes: { exclude: ['password', 'createdAt', 'updatedAt'] }
+        // }]
+      }]
+    })
+      .then((task) => {
+        res.status(200).json({ status: 200, task });
+      }).catch((err) => {
+        next(err);
+      });
   }
 
   static update(req, res, next) {
-    res.status(200).json({ message: 'connection ok' })
+
+    res.status(200).json({ message: 'update connection ok' })
+  }
+
+  static patch(req, res, next) {
+
+    res.status(200).json({ message: 'update connection ok' })
   }
 
   static destroy(req, res, next) {
-    res.status(200).json({ message: 'connection ok' })
+    res.status(200).json({ message: 'destroy connection ok' })
   }
 
 }

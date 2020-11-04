@@ -39,10 +39,11 @@ router.delete('/categories/:id', authorizeCategory, CategoryController.destroy);
 /** 
  * Router Task
  */
-router.get('/tasks', TaskController.index);
+// router.get('/tasks', TaskController.index);
 router.post('/tasks', authorizeOrganization, TaskController.store);
-router.get('/tasks/:id', authorizeCategory, TaskController.show);
-router.put('/tasks/:id', authorizeCategory, TaskController.update);
-router.delete('/tasks/:id', authorizeCategory, TaskController.destroy);
+router.get('/tasks/:id', authorizeTask, TaskController.show);
+router.put('/tasks/:id', authorizeTask, TaskController.update);
+router.patch('/tasks/:id', authorizeTask, TaskController.patch);
+router.delete('/tasks/:id', authorizeTask, TaskController.destroy);
 
 module.exports = router;
