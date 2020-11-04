@@ -1,8 +1,8 @@
-const { Todo } = require('../models')
+const { Task } = require('../models')
 
 function authorization(req, res, next) {
   const { id } = req.params
-  Todo.findByPk(id)
+  Task.findByPk(id)
   .then(data => {
     if (!data) {
       throw { msg: 'Task not found', status: 404}

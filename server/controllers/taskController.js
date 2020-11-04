@@ -1,7 +1,4 @@
-const {Task} = require('../models')
-
-// const {comparePassword} = require('../helpers/bcrypt')
-// const { signToken } = require('../helpers/jwt')
+const {Task, User, Category} = require('../models')
 
 class TaskController {
 
@@ -14,7 +11,8 @@ class TaskController {
         },
         // where: {
         //   UserId
-        // }
+        // }, 
+        include: [User, Category]
       })
       res.status(200).json(tasks)
     } catch (error) {
@@ -22,22 +20,23 @@ class TaskController {
     }
   }
 
-  static async addTask(req, res, next) {
+  static async addTask(req, res) {
     const UserId = req.loggedInUser.id
-    const CategoryId = req.category.id
-    const {title, description} = req.body
+    const {title, description, CategoryId} = req.body
 
     try {
       const newTask = await Task.create({
-        title, description,  UserId, CategoryId
+        title, description, CategoryId, UserId
       })
+      console.log(newTask)
       const addTask = {
         id: newTask.id,
         title: newTask.title, 
         description: newTask.description,
-        UserId,
-        CategoryId
+        CategoryId: newTask.CategoryId,
+        UserId
       }
+      console.log(addTask)
       res.status(201).json(addTask)
     } catch (error) {
       console.log(error)
@@ -50,13 +49,13 @@ class TaskController {
     const id = req.params.id
 
     try {
-      const select = await Task.findByPk(id, {
+      const task = await Task.findByPk(id, {
         attributes: { exclude : ['createdAt', 'updatedAt']},
         where: {
           UserId
         }
       })
-      res.status(200).json(select)
+      res.status(200).json(task)
     } catch (error) {
       next(error)
     }
@@ -64,14 +63,14 @@ class TaskController {
 
   static async updateTask(req, res, next) {
     const id = req.params.id
-    const {title, description, status, due_date} = req.body
+    const {title, description, CategoryId} = req.body
 
     try {
       const update = await Task.update({
-        title, description, status, due_date
+        title, description, CategoryId
       }, {
         where: {id},
-        returning: ['id', 'title', 'description', 'status', 'due_date']
+        returning: ['id', 'title', 'description', 'CategoryId']
       })
       res.status(200).json(update[1][0])
     } catch(error) {
@@ -82,14 +81,14 @@ class TaskController {
 
   static async patchTask(req, res, next) {
     const id = req.params.id
-    const {status} = req.body
+    const {CategoryId} = req.body
 
     try {
       const patch = await Task.update({
-        status
+        CategoryId
       }, {
         where: {id},
-        returning: ['id', 'title', 'description', 'status', 'due_date']
+        returning: ['id', 'title', 'description', 'CategoryId']
       }) 
       res.status(200).json(patch[1][0])
     } catch (error) {

@@ -11,25 +11,27 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Task.belongsTo(models.Category)
       Task.belongsTo(models.User)
-      Task.belongsTo(models.Project)
     }
   };
   Task.init({
     title: {
       type: DataTypes.STRING,
-      notEmpty: {
-        args: true,
-        msg: 'Title cannot be empty'
-      }
+      defaultValue: 'Untitled Task'
     },
     description: {
       type: DataTypes.STRING,
-      defaultValue: 'Add description'
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Please specify task!'
+        }
+      }
     },
-    status: DataTypes.STRING,
-    UserId: DataTypes.STRING,
-    CategoryId: DataTypes.STRING
+    UserId: DataTypes.INTEGER,
+    CategoryId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Task',

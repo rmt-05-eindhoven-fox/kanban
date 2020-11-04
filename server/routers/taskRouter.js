@@ -1,16 +1,16 @@
+const router = require('express').Router()
+const TaskController = require('../controllers/taskController')
 
-// const router = require('express').Router()
-// const TodoController = require('../controllers/todoController')
-// const authentication = require('../middleware/authentication')
-// const authorization = require('../middleware/authorization')
+const authentication = require('../middleware/authentication')
+const authorization = require('../middleware/authorization')
 
-// router.use(authentication)
-// router.get('/', TodoController.showTodos)
-// router.post('/', TodoController.addTodo)
+router.use(authentication)
+router.get('/', TaskController.showTasks)
+router.post('/', TaskController.addTask)
 
-// router.get('/:id', authorization, TodoController.getOneTodo)
-// router.put('/:id', authorization, TodoController.updateTodo)
-// router.patch('/:id', authorization, TodoController.patchTodo)
-// router.delete('/:id', authorization, TodoController.deleteTodo)
+router.get('/:id', authorization, TaskController.getOneTask)
+router.put('/:id', authorization, TaskController.updateTask)
+router.patch('/:id', authorization, TaskController.patchTask)
+router.delete('/:id', authorization, TaskController.deleteTask)
 
-// module.exports = router;
+module.exports = router;
