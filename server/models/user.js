@@ -13,26 +13,46 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      User.hasMany(models.Organization)
     }
   };
   User.init({
-    username: {
+    first_name: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notEmpty: {
           args: true,
-          msg: "Username is required"
+          msg: "Fist name is required"
         },
         notNull: {
           args: true,
-          msg: "Username is required"
+          msg: "First name is required"
         },
         isOneWord(value) {
           const words = value.split(' ');
           if (words.length > 1) {
-            throw new Error('Username cannot contain space')
+            throw new Error('First name cannot contain space')
+          }
+        }
+      }
+    },
+    last_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: "Last name is required"
+        },
+        notNull: {
+          args: true,
+          msg: "Last name is required"
+        },
+        isOneWord(value) {
+          const words = value.split(' ');
+          if (words.length > 1) {
+            throw new Error('Last name cannot contain space')
           }
         }
       }
@@ -72,6 +92,9 @@ module.exports = (sequelize, DataTypes) => {
           msg: "Password should be minimum 6 characters"
         }
       }
+    },
+    profile_picture: {
+      type: DataTypes.STRING,
     }
   }, {
     sequelize,
@@ -79,9 +102,8 @@ module.exports = (sequelize, DataTypes) => {
     hooks: {
       beforeCreate(user) {
         user.password = hashPassword(user.password)
-        if (!user.username) {
-          user.username = user.email
-        }
+        const imgUrl = `https://ui-avatars.com/api/?name=${user.first_name}+${user.last_name}&background=random&rounded=true`
+        user.profile_picture = imgUrl
       }
     }
   });

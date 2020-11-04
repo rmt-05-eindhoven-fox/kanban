@@ -6,15 +6,15 @@ class UserController {
   static async register(req, res, next) {
     try {
       const payload = {
-        username: req.body.username,
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
         email: req.body.email,
         password: req.body.password
       }
       const user = await User.create(payload)
       res.status(201).json({
         id: user.id,
-        username: user.username,
-        password: user.password
+        email: user.email
       })
     } catch (error) {
       next(error)
@@ -35,13 +35,14 @@ class UserController {
       } else {
         const access_token = signToken({
           id: user.id,
-          username: user.username,
           email: user.email
         })
         res.status(200).json({
-          username: user.username,
+          access_token,
+          first_name: user.first_name,
+          last_name: user.last_name,
           email: user.email,
-          access_token
+          profile_picture: user.profile_picture
         })
       }
     } catch (error) {
