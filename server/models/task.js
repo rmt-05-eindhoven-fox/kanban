@@ -17,7 +17,18 @@ module.exports = (sequelize, DataTypes) => {
   };
   Task.init({
     title: DataTypes.STRING,
-    category: DataTypes.STRING,
+    category: {
+      type: DataTypes.STRING,
+
+      validate: {
+        isIn: {
+          args: [
+            ['Backlog', 'Todo', 'On Going', 'Completed']
+          ],
+          msg: 'Select valid categories!'
+        }
+      }
+    },
     userId: DataTypes.INTEGER
   }, {
     sequelize,
