@@ -14,17 +14,18 @@
     </style> -->
 </head>
 <body class="flex-col">
+<div id="app">
 
     <!--Landing-->
-    <div id="landing" class="w-auto my-10">
+    <div v-if="pageName == 'Landing'" id="landing" class="w-auto my-10">
         <div class="w-1/2 m-auto border-2 border-black flex flex-col justify-center">
             <div class="m-auto my-5">Logo</div>
             <form class="m-auto flex-col flex">
                 
-                <input type="text" class="m-auto rounded-sm mb-3 p-2 bg-gray-200 hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300" placeholder="Email">
-                <input type="password" class="m-auto rounded-sm mb-5 p-2 bg-gray-200 hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300" placeholder="Password">
+                <input v-model="user.email" type="text" class="m-auto rounded-sm mb-3 p-2 bg-gray-200 hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300" placeholder="Email">
+                <input v-model="user.password" type="password" class="m-auto rounded-sm mb-5 p-2 bg-gray-200 hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300" placeholder="Password">
                 
-                <div onclick="login()" class="m-auto w-1/2 rounded-sm bg-teal-500 hover:bg-teal-600 focus:outline-none focus:shadow-outline">
+                <div @click="login()" class="m-auto w-1/2 rounded-sm bg-teal-500 hover:bg-teal-600 focus:outline-none focus:shadow-outline">
                     Sign in
                 </div>
             </form>
@@ -42,63 +43,63 @@
     </div>
 
     <!--Content-->
-    <div id="content">
+    <div v-else-if="pageName == 'Home'">
+
+        <!--Header-->
         <nav class="flex p-4 bg-blue-500">
-            <div class="flex-grow bg-green-500">Logo</div>
-            <div class="flex-grow-0 bg-red-500">Home</div>
+            <div class="flex-grow mr-3 bg-green-500">Logo</div>
+            <div class="flex-grow-0 mr-3 bg-red-500 flex-row">Home</div>
+            <div @click="logout()" class="flex-grow-0 bg-red-500 flex-row">Logout</div>
         </nav>
+        <!--Main-->
         <div class="flex flex-row mt-3" id="content-container">
-            <div id="category-container" class="flex-col w-auto mx-3 px-0 bg-yellow-500">
+
+            <!--Each Category-->
+
+            <div v-for="(category, i) in categories" :key="i" class="flex-col h-full w-auto mx-3 px-0 border border-gray-600">
                 <div id="category-title" class="container w-full">
                     <form class="w-full">
-                        <input type="text" class="w-full cursor-pointer rounded-sm px-2 bg-gray-200 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300" value="Category Title">   
+                        <input 
+                          type="text" 
+                          class="w-full 
+                                 cursor-pointer 
+                                 rounded-sm 
+                                 px-2 
+                                 bg-gray-200 
+                                 focus:outline-none 
+                                 focus:bg-white 
+                                 focus:shadow-outline 
+                                 focus:border-gray-300" 
+                          v-model="category.title">   
                     </form>
                 </div>
+
                 <div id="card-container1">
-                    <div id="card" class="bg-red-500 h-20">
-                        <p>Something 1</p>
-                    </div>
-                    <div id="card" class="bg-red-500 h-20">
-                        <p>Something 2</p>
+                    <div v-for="(task, i) in tasks" :key="i" v-if="task.CategoryId == category.id" class="bg-red-500 h-20 border border-gray-300">
+                        <p>{{task.title}}</p>
                     </div>
                 </div>
-                <div id="add-card" class="bg-blue-100 h-8">
+                <button v-show="!isShowAddCard" @click="showAddCard()" id="add-card" class="bg-blue-100 h-8 w-full">
                     Add Card
-                </div>
-            </div>
-            <div id="category-container" class="flex-col w-auto mx-3 px-0 bg-yellow-500">
-                <div id="category-title" class="container w-full">
-                    <form class="w-full">
-                        <input type="text" class="w-full cursor-pointer rounded-sm px-2 bg-gray-200 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300" value="Category Title">   
+                </button>
+                <div v-show="isShowAddCard" id="add-card-form">
+                    <form>
+                        <input type="text" class="m-auto rounded-sm mb-3 p-2 bg-gray-200 hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300" placeholder="Enter a title for this card">
                     </form>
-                </div>
-                <div id="card-container2">
-                    <div id="card" class="bg-blue-500 h-20">
-                        <p>Something 1</p>
-                    </div>
-                </div>
-                <div id="add-card" class="bg-blue-100 h-8">
-                    Add Card
+                    <button onsubmit="">Add card</button>
                 </div>
             </div>
 
-            <div id="category-container" class="flex-col w-auto mx-3 px-0 bg-yellow-500">
-                <div id="category-title" class="container w-full">
-                    <form class="w-full">
-                        <input type="text" class="w-full cursor-pointer rounded-sm px-2 bg-gray-200 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300" value="Category Title">   
-                    </form>
-                </div>
-                <div id="card-container">
-
-                </div>
-                <div id="add-card" class="bg-blue-100 h-8">
-                    Add Card
-                </div>
+            <div>
+                + Add Category
             </div>
         </div>
     </div>
+</div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="./index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="./index.js"></script>
+
 </body>
 </html>
