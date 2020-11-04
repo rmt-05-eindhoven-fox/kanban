@@ -2,11 +2,8 @@
 const {
   Model
 } = require('sequelize');
-
-const { hashPassword } = require('../helpers/bcrypt')
-
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
+  class Todo extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -14,41 +11,46 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.hasMany(models.Todo, {
-        foreignKey: 'UserId'
+      Todo.belongsTo(models.User, {
+        foreignKey: 'UserId',
+        targetKey: 'id'
       })
     }
   };
-  User.init({
-    email: {
+  Todo.init({
+   title: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
       validate: {
         notEmpty: {
           args: true,
-          msg: 'email cant be empty '
+          msg: "title can't be empty"
         }
       }
     },
-    password: {
+    description: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notEmpty: {
           args: true,
-          msg: 'password cant be empty'
+          msg: "description can't be empty"
+        }
+      }
+    },
+    category: {
+      type:  DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'category cant be empty'
         }
       }
     }
   }, {
-    hooks: {
-      beforeCreate(user) {
-        user.password = hashPassword(user.password)
-      }
-    },
     sequelize,
-    modelName: 'User',
+    modelName: 'Todo',
   });
-  return User;
+  return Todo;
 };

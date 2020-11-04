@@ -1,4 +1,5 @@
 const { User } = require('../models')
+const { Todo } = require('../models')
 
 const { comparePassword} = require('../helpers/bcrypt')
 const { signToken } = require('../helpers/jwt')
@@ -52,6 +53,34 @@ class Controller {
             }
         } catch (error) {
             console.log(error)
+            res.status(500).json(error)
+        }
+    }
+
+    static async create(req,res, next) {
+        try {
+            const UserId = req.loggedInUser.id
+            //console.log(UserId, 'ini user')
+            const { title, description, category} = req.body
+            const todo = await Todo.create({title, description, category, UserId})
+            res.status(201).json({todo})
+        } catch (error) {
+            console.log(error, 'error dari create')
+            res.status(500).json(error)
+        }
+    }
+
+    static async findAll (req, res, next) {
+        const UserId = req.loggedInUser.id
+        try {
+            const todo = await Todo.findAll({
+                where: {
+                    UserId
+                }
+            })
+            res.status(200).json({todo})
+        } catch (error) {
+            console.log(error, 'eror dari controller')
             res.status(500).json(error)
         }
     }
