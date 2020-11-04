@@ -1,11 +1,11 @@
-const { User } = require('../models')
-const { Todo } = require('../models')
+const { User, Todo } = require('../models')
+
 
 const { comparePassword} = require('../helpers/bcrypt')
 const { signToken } = require('../helpers/jwt')
 
 class Controller {
-    static async register(req,res) {
+    static async register(req,res, next) {
         try {
             const payload = {
                 email: req.body.email,
@@ -18,11 +18,12 @@ class Controller {
                 email: user.email
             })
         } catch (error) {  
-            res.status(500).json(error)
+            //res.status(500).json(error)
+            next(error)
         }
     }
 
-    static async login(req,res) {
+    static async login(req,res, next) {
         try {
             const payload = {
                 email: req.body.email,
@@ -53,7 +54,7 @@ class Controller {
             }
         } catch (error) {
             console.log(error)
-            res.status(500).json(error)
+            next(error)
         }
     }
 
@@ -66,7 +67,7 @@ class Controller {
             res.status(201).json({todo})
         } catch (error) {
             console.log(error, 'error dari create')
-            res.status(500).json(error)
+            next(error)
         }
     }
 
@@ -81,7 +82,7 @@ class Controller {
             res.status(200).json({todo})
         } catch (error) {
             console.log(error, 'eror dari controller')
-            res.status(500).json(error)
+            next(500).json(error)
         }
     }
 
@@ -95,12 +96,12 @@ class Controller {
             })
             res.status(200).json(todo)
         } catch (error) {
-            console.log(error, 'error waktu di edit')
-            res.status(500).json(error)
+            //console.log(error, 'error waktu di edit')
+            next(500).json(error)
         }
     }
 
-    static async delete(req,res) {
+    static async delete(req,res, next) {
         try {
             let todo = await Todo.findByPk(req.params.id)
 
@@ -110,8 +111,8 @@ class Controller {
                 res.status(200).json({msg: 'todo has been deleted'})
             }
         } catch (error) {
-            console.log(error)
-            res.status(500).json(error)
+            //console.log(error)
+            next(500).json(error)
         }
     }
 }

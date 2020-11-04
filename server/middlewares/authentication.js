@@ -21,7 +21,7 @@ async function authentication (req, res, next) {
             }
         }  
     } catch (error) {
-        console.log(error, 'authentication nya salah')
+        //console.log(error, 'authentication nya salah')
         const status = error.status || 500
         const msg = error.msg || 'Internal Server Error'
         res.status(status).json({error:msg})
