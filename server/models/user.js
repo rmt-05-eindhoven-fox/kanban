@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       User.hasMany(models.Organization)
+      User.hasMany(models.User_Organization)
     }
   };
   User.init({

@@ -1,10 +1,11 @@
-const { User } = require('../models')
+const { User, User_Organization } = require('../models')
 const { comparePassword } = require('../helpers/bcrypt')
 const { signToken } = require('../helpers/jwt')
 
 class UserController {
   static async register(req, res, next) {
     try {
+      // create new user
       const payload = {
         first_name: req.body.first_name,
         last_name: req.body.last_name,
@@ -12,6 +13,12 @@ class UserController {
         password: req.body.password
       }
       const user = await User.create(payload)
+      // assign user to default organization
+      const payload2 = {
+        UserId: user.id,
+        OrganizationId: 1
+      }
+      const defaultOrg = await User_Organization.create(payload2)
       res.status(201).json({
         id: user.id,
         email: user.email

@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Organization.belongsTo(models.User)
       Organization.hasMany(models.Category)
+      Organization.hasMany(models.User_Organization)
     }
   };
   Organization.init({
