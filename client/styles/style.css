@@ -243,15 +243,20 @@ body {
 
 .container {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    align-items: self-start;
+    grid-template-columns: 318px 318px 318px 318px;
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
+              0 10px 10px rgba(0,0,0,0.22);
+      width: 1200px;
+      margin: 50px 140px;
 }
 
 .container .category {
     color: #3D474D;
     font-weight: bold;
-    min-height: 250px;
+    max-height: 650px;
     border-radius: 3px;
+    overflow: scroll;
+
 }
 
 .container .category .card {
@@ -259,38 +264,42 @@ body {
     
 }
 
+#space {
+    margin-bottom: 90px;
+}
+
 .container div h2 {
     font-family: 'Roboto', sans-serif;
     font-size: 20px;
     color: #EAEFF0;
-    text-align: center;
-    /* padding-top: 20px; */
+    text-align: left;
     padding: 20px;
     margin: 0;
+    margin-left: 0px;
+    width: 300px;
+    position: absolute;
 }
 
 .container .category {
 }
 
 .container div .card {
-    display: grid;
+    margin-top: 65px;
     justify-items: center;
-    grid-template-columns: minmax(auto, 379px);
     display: grid;
     padding: 10px;
-    min-height: 350px;
     box-sizing: border-box;
 }
+
 
 .container div .card-body {
     display: flex;
     font-family: 'Noto Sans', sans-serif;
-    /* font-weight: bold; */
     min-width: 80%;
     max-width: 80%;
-    min-height: auto;
+    max-height: 200px;
     padding: 10px 15px;
-    margin: 2px;
+    margin: 5px 25px;
     background-color: #FFFFFF;
     border-radius: 15px;
 }
