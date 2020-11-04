@@ -3,6 +3,60 @@
   padding: 0;
 }
 
+
+#register-page,
+#login-page {
+  min-height: 100vh;
+  background-color: #2F3640;
+  padding-top: 100px;
+
+  img {
+    display: flex;
+    align-items: center;
+  }
+
+  .logo-kanban {
+    margin-bottom: 30px;
+  }
+
+  h3 {
+    font-family: 'Inconsolata', monospace;
+    color: #CDCFD4;
+    margin-bottom: 20px;
+  }
+
+  .btn-section {
+    justify-content: start;
+
+
+    .btn-register,
+    .btn-login {
+      background-color: #00A8FF;
+      color: #FFF;
+      width: 150px;
+
+
+      &:hover {
+        color: #FFF;
+        background-color: #168eca;
+        transition: 0.3s ease-in-out;
+      }
+    }
+
+    .btn-link {
+      color: #CDCFD4;
+      text-decoration: underline;
+      padding-left: 0;
+
+
+      &:hover {
+        color: #00A8FF;
+        transition: 0.3s;
+      }
+    }
+  }
+}
+
 nav {
   background-color: #2F3640;
   color: #ffffff;
@@ -35,6 +89,10 @@ nav {
   }
 
 
+}
+
+.main-board {
+  min-height: 100vh;
 }
 
 .task-header {
@@ -78,12 +136,13 @@ nav {
     i {
       color: #00A8FF;
       font-size: 30px;
+
+      &:hover {
+        color: #168eca;
+        transition: 0.5s ease-in-out;
+      }
     }
 
-    i:hover {
-      color: #168eca;
-      transition: 0.5s ease-in-out;
-    }
   }
 
   .card-title {
@@ -108,12 +167,13 @@ nav {
   i {
     color: #00A8FF;
     font-size: large;
+
+    &:hover {
+      color: #168eca;
+      transition: 0.2s ease-in-out;
+    }
   }
 
-  i:hover {
-    color: #168eca;
-    transition: 0.2s ease-in-out;
-  }
 
   .card-title {
     font-family: 'Fredoka One', cursive;
@@ -124,4 +184,13 @@ nav {
     font-size: 12px;
   }
 
+}
+
+footer {
+  background-color: #2F3640;
+  font-family: 'Inconsolata', monospace;
+  color: #00A8FF;
+  display: flex;
+  align-items: center;
+  min-height: 100px;
 }

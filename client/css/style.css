@@ -3,6 +3,59 @@
   padding: 0;
 }
 
+#register-page,
+#login-page {
+  min-height: 100vh;
+  background-color: #2F3640;
+  padding-top: 100px;
+}
+#register-page img,
+#login-page img {
+  display: flex;
+  align-items: center;
+}
+#register-page .logo-kanban,
+#login-page .logo-kanban {
+  margin-bottom: 30px;
+}
+#register-page h3,
+#login-page h3 {
+  font-family: "Inconsolata", monospace;
+  color: #CDCFD4;
+  margin-bottom: 20px;
+}
+#register-page .btn-section,
+#login-page .btn-section {
+  justify-content: start;
+}
+#register-page .btn-section .btn-register,
+#register-page .btn-section .btn-login,
+#login-page .btn-section .btn-register,
+#login-page .btn-section .btn-login {
+  background-color: #00A8FF;
+  color: #FFF;
+  width: 150px;
+}
+#register-page .btn-section .btn-register:hover,
+#register-page .btn-section .btn-login:hover,
+#login-page .btn-section .btn-register:hover,
+#login-page .btn-section .btn-login:hover {
+  color: #FFF;
+  background-color: #168eca;
+  transition: 0.3s ease-in-out;
+}
+#register-page .btn-section .btn-link,
+#login-page .btn-section .btn-link {
+  color: #CDCFD4;
+  text-decoration: underline;
+  padding-left: 0;
+}
+#register-page .btn-section .btn-link:hover,
+#login-page .btn-section .btn-link:hover {
+  color: #00A8FF;
+  transition: 0.3s;
+}
+
 nav {
   background-color: #2F3640;
   color: #ffffff;
@@ -29,6 +82,10 @@ nav ul {
 nav .links {
   display: flex;
   align-items: center;
+}
+
+.main-board {
+  min-height: 100vh;
 }
 
 .task-header {
@@ -101,6 +158,15 @@ nav .links {
 .card-task-content .author,
 .card-task-content .date {
   font-size: 12px;
+}
+
+footer {
+  background-color: #2F3640;
+  font-family: "Inconsolata", monospace;
+  color: #00A8FF;
+  display: flex;
+  align-items: center;
+  min-height: 100px;
 }
 
 /*# sourceMappingURL=style.css.map */

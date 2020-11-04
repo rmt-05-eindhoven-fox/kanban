@@ -16,6 +16,74 @@
 </head>
 
 <body>
+  <!-- REGISTER PAGE -->
+  <section id="register-page" class="d-none">
+    <div class="container d-flex justify-content-center">
+      <div class="row">
+        <div class="col-12 logo-kanban">
+          <img src="assets/logo-kanban@2x.png" alt="" srcset="">
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <h3 class="text-center">Create your account!</h3>
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-4">
+          <form>
+            <div class="form-group">
+              <input type="text" class="form-control" id="full-name" name="full-name" placeholder="Full Name">
+            </div>
+            <div class="form-group">
+              <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Email">
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+            </div>
+            <div class="btn-section">
+              <button type="submit" class="btn btn-register">Register</button><br>
+              <button class="btn btn-link">Login to your accout</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- END REGISTER PAGE -->
+
+  <!-- LOGIN PAGE -->
+  <section id="login-page">
+    <div class="container d-flex justify-content-center">
+      <div class="row">
+        <div class="col-12 logo-kanban">
+          <img src="assets/logo-kanban@2x.png" alt="" srcset="">
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <h3 class="text-center">Login to your account</h3>
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-4">
+          <form>
+            <div class="form-group">
+              <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Email">
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+            </div>
+            <div class="btn-section">
+              <button type="submit" class="btn btn-login">Login</button><br>
+              <button class="btn btn-link">Create your account</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- END LOGIN PAGE -->
+
+
   <!-- NAVBAR -->
   <nav>
     <div id="logo">
@@ -30,7 +98,7 @@
   </nav>
   <!-- NAVBAR END -->
 
-  <section class="container-fluid">
+  <section class="container-fluid main-board">
     <div class="task-header">
       <h1>Task board</h1>
     </div>
@@ -49,57 +117,6 @@
           <div class="card card-backlog" id="scroll-custom">
             <div class="card-body">
               <!-- TASK CONTENT -->
-              <div class="card card-task-content">
-                <div class="card-body">
-                  <div class="card-title">
-                    <h5>Task Title</h5>
-                    <a href=""><i class="fa fa-ellipsis-v"></i></a>
-                  </div>
-                  <div class="card-text mb-3">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam sed dolore
-                  </div>
-                  <div class="card-text text-muted author">
-                    Created by: dickyundead@gmail.com
-                  </div>
-                  <div class="card-text text-muted date">
-                    2020-11-05
-                  </div>
-                </div>
-              </div>
-              <div class="card card-task-content">
-                <div class="card-body">
-                  <div class="card-title">
-                    <h5>Task Title</h5>
-                    <a href=""><i class="fa fa-ellipsis-v"></i></a>
-                  </div>
-                  <div class="card-text mb-3">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam sed dolore
-                  </div>
-                  <div class="card-text text-muted author">
-                    Created by: dickyundead@gmail.com
-                  </div>
-                  <div class="card-text text-muted date">
-                    2020-11-05
-                  </div>
-                </div>
-              </div>
-              <div class="card card-task-content">
-                <div class="card-body">
-                  <div class="card-title">
-                    <h5>Task Title</h5>
-                    <a href=""><i class="fa fa-ellipsis-v"></i></a>
-                  </div>
-                  <div class="card-text mb-3">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam sed dolore
-                  </div>
-                  <div class="card-text text-muted author">
-                    Created by: dickyundead@gmail.com
-                  </div>
-                  <div class="card-text text-muted date">
-                    2020-11-05
-                  </div>
-                </div>
-              </div>
               <div class="card card-task-content">
                 <div class="card-body">
                   <div class="card-title">
@@ -148,23 +165,6 @@
                   </div>
                 </div>
               </div>
-              <div class="card card-task-content">
-                <div class="card-body">
-                  <div class="card-title">
-                    <h5>Task Title</h5>
-                    <a href=""><i class="fa fa-ellipsis-v"></i></a>
-                  </div>
-                  <div class="card-text mb-3">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam sed dolore
-                  </div>
-                  <div class="card-text text-muted author">
-                    Created by: dickyundead@gmail.com
-                  </div>
-                  <div class="card-text text-muted date">
-                    2020-11-05
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -179,74 +179,6 @@
           <div class="card card-backlog" id="scroll-custom">
             <div class="card-body">
               <!-- TASK CONTENT -->
-              <div class="card card-task-content">
-                <div class="card-body">
-                  <div class="card-title">
-                    <h5>Task Title</h5>
-                    <a href=""><i class="fa fa-ellipsis-v"></i></a>
-                  </div>
-                  <div class="card-text mb-3">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam sed dolore
-                  </div>
-                  <div class="card-text text-muted author">
-                    Created by: dickyundead@gmail.com
-                  </div>
-                  <div class="card-text text-muted date">
-                    2020-11-05
-                  </div>
-                </div>
-              </div>
-              <div class="card card-task-content">
-                <div class="card-body">
-                  <div class="card-title">
-                    <h5>Task Title</h5>
-                    <a href=""><i class="fa fa-ellipsis-v"></i></a>
-                  </div>
-                  <div class="card-text mb-3">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam sed dolore
-                  </div>
-                  <div class="card-text text-muted author">
-                    Created by: dickyundead@gmail.com
-                  </div>
-                  <div class="card-text text-muted date">
-                    2020-11-05
-                  </div>
-                </div>
-              </div>
-              <div class="card card-task-content">
-                <div class="card-body">
-                  <div class="card-title">
-                    <h5>Task Title</h5>
-                    <a href=""><i class="fa fa-ellipsis-v"></i></a>
-                  </div>
-                  <div class="card-text mb-3">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam sed dolore
-                  </div>
-                  <div class="card-text text-muted author">
-                    Created by: dickyundead@gmail.com
-                  </div>
-                  <div class="card-text text-muted date">
-                    2020-11-05
-                  </div>
-                </div>
-              </div>
-              <div class="card card-task-content">
-                <div class="card-body">
-                  <div class="card-title">
-                    <h5>Task Title</h5>
-                    <a href=""><i class="fa fa-ellipsis-v"></i></a>
-                  </div>
-                  <div class="card-text mb-3">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam sed dolore
-                  </div>
-                  <div class="card-text text-muted author">
-                    Created by: dickyundead@gmail.com
-                  </div>
-                  <div class="card-text text-muted date">
-                    2020-11-05
-                  </div>
-                </div>
-              </div>
               <div class="card card-task-content">
                 <div class="card-body">
                   <div class="card-title">
@@ -295,40 +227,6 @@
                   </div>
                 </div>
               </div>
-              <div class="card card-task-content">
-                <div class="card-body">
-                  <div class="card-title">
-                    <h5>Task Title</h5>
-                    <a href=""><i class="fa fa-ellipsis-v"></i></a>
-                  </div>
-                  <div class="card-text mb-3">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam sed dolore
-                  </div>
-                  <div class="card-text text-muted author">
-                    Created by: dickyundead@gmail.com
-                  </div>
-                  <div class="card-text text-muted date">
-                    2020-11-05
-                  </div>
-                </div>
-              </div>
-              <div class="card card-task-content">
-                <div class="card-body">
-                  <div class="card-title">
-                    <h5>Task Title</h5>
-                    <a href=""><i class="fa fa-ellipsis-v"></i></a>
-                  </div>
-                  <div class="card-text mb-3">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam sed dolore
-                  </div>
-                  <div class="card-text text-muted author">
-                    Created by: dickyundead@gmail.com
-                  </div>
-                  <div class="card-text text-muted date">
-                    2020-11-05
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -336,6 +234,12 @@
     </div>
   </section>
 
+
+  <footer>
+    <div class="container">
+      <h5 class="text-center">Kanban Board &copy; By Dicky Andeyan, Hacktiv8 2020</h5>
+    </div>
+  </footer>
 
 
 
