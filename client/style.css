@@ -1,9 +1,12 @@
-
+* {
+    font-family: 'Poppins', sans-serif;
+}
 
 .item{
     height: 75vh;
-    background-color: cornflowerblue;
+    /* background-color: rgb(255, 255, 255); */
     overflow-y: scroll;
+    color: #aa79a4;
     /* border-radius: 25px; */
     
     /* margin-top: 10vh;
@@ -11,22 +14,51 @@
     /* margin: 10px; */
 }
 
-
-.card-title{
-    font-size: 15px;
+.item .card-title{
+    color: #745c97;
 }
+
+
+
+h5 {
+    color: #6e578d;
+}
+
 .card-text{
-    font-size: 13px;
+    font-size: 12px;
 }
 
+.card-text .card-email{
+    color: rgb(153, 153, 153);
+}
 
+.card-text .card-date{
+    color: rgb(185, 185, 185);
+}
+
+.card{
+    margin: 0;
+    padding: 0;
+    background-color: rgba(236, 236, 236, 0.048);
+}
+
+.card-body{
+    padding: 13px;
+}
+
+.fa-pen {
+    color: #8ac6d1;
+}
+
+.fa-trash {
+    color: #ff8080;
+}
 
 nav{
     display: flex;
-    background-color: antiquewhite;
     justify-content: space-between;
     align-items: center;
-    
+    font-size: 15px;
 }
 
 nav .links ul {

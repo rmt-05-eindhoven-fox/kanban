@@ -1,40 +1,108 @@
 const SERVER = 'http://localhost:3000'
 
-function onSignIn(googleUser) {
-
-
-    let access_token = googleUser.getAuthResponse().id_token;
-
-    $.ajax({
-        method: "POST",
-        url: SERVER + '/googleLogin',
-        data: {
-            access_token
+let app = new Vue({
+    el:'#app',
+    data:{
+        msg: 'DARRARARRARA',
+        text: 'duarrrrr',
+        page: 'login',
+        tasks: [
+            {
+                id: 1,
+                title: "Lagi males",
+                description: "gajadi deng",
+                category: "Backlog",
+                email: "rafi@gail.com"
+            },
+            {
+                id: 2,
+                title: "tes 2 ",
+                description: "gajadi deng",
+                category: "Todo",
+                email: "rafi@gail.com"
+            },
+            {
+                id: 3,
+                title: "tes 3",
+                description: "gajadi deng",
+                category: "Backlog",
+                email: "rafi@gail.com"
+            }
+        ],
+        userLogin: {
+            email: '',
+            password: ''
+        },
+        userRegis: {
+            email: '',
+            password: ''
         }
-    })
-        .done(res => {
-            const access_token = res.access_token
-            localStorage.setItem('access_token', access_token)
-            // $('#content').show()
-            // $('#login').hide()
-            // $('#register').hide()
-            // $('#edit-content').hide()
+    },
+    methods: {
+        movePage(pageName) {
+            this.page = pageName
+        },
+        login() {
+           axios({
+               url: SERVER + '/login',
+               method: "POST",
+               data: {
+                   email: this.userLogin.email,
+                   password: this.userLogin.password
+               }
+           }) 
+                .then(res => {
+                    localStorage.setItem('access_token', res.data.access_token)
 
-            // $('#login-email').val('')
-            // $('#login-password').val('')
+                    this.movePage('home')
 
-            // fetchTask()
+                    this.userLogin.email = ''
+                    this.userLogin.password = ''
 
-        })
-        .fail(err => {
-            console.log(err)
-        })
-  }
+                    
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        },
+        checkLogin() {
+            if(localStorage.access_token) {
+                this.page = 'home'
+            } else {
+                this.page = 'login'
+            }
+        },
+        logout() {
 
+            localStorage.removeItem('access_token')
+            this.movePage('login')
+        },
+        register() {
+            axios({
+                url: SERVER + '/register',
+                method: "POST",
+                data: {
+                    email: this.userRegis.email,
+                    password: this.userRegis.password
+                }
+            }) 
+                 .then(res => {
+                     console.log(res.data)
+ 
+                     this.movePage('login')
+ 
+                     this.userRegis.email = ''
+                     this.userRegis.password = ''
+ 
+                     
+                 })
+                 .catch(err => {
+                     console.log(err)
+                 })
+        }
+    },
+    created () {
+        this.checkLogin()
+    }
+})
 
-  function signOut() {
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-      console.log('User signed out.');
-    });
-  }
