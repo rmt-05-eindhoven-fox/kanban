@@ -7,6 +7,5 @@ module.exports = (err, req, res, next) => {
             return {message: error.message}
         })
     }
-    console.log(message);
     res.status(status).json(message);
 }
