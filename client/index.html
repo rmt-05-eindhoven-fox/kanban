@@ -18,299 +18,277 @@
 <body>
    <nav class="navbar navbar-light">
       <a class="navbar-brand p-2" href="#">
-        Nav here
+        Logo here
       </a>
+
+      <a href="#" class="btn btn-info btn-lg">
+         <span class="glyphicon glyphicon-log-out"></span> Log out
+       </a>
     </nav>
-    <div class="container-fluid pt-5 pl-5 pr-5">
-      <div class="row">
 
-         <!-- BACKLOG -->
-         <div class="col-sm-3">
+   <div class="board-container">
+      <!-- CATEGORY -->
+      <div class="category-container">
+         <!-- CATEGORY TITLE -->
+         <div class="card-header">
+            Backlog
+            <!-- ADD TASK -->
+            <a href="#">
+               <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-square" fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                     d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                  <path fill-rule="evenodd"
+                     d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+               </svg>
+            </a>
+         </div>
 
-            <div class="card kanban-category">
-               <div id="kanban-backlog" class="card-body">
-                  <h5 class="card-title">Backlog</h5>
+         <!-- TASK CONTAINER-->
+         <div class="task-container overflow-auto">
 
-                  <!-- BACKLOG TASK -->
-                  <div class="backlog-task">
+            <!-- CARD TASK -->
+            <div class="card">
+               <div class="progress">
+                  <div class="progress-bar bg-danger" role="progressbar" style="width: 25%" aria-valuenow="25"
+                     aria-valuemin="0" aria-valuemax="100"></div>
+               </div>
 
-                     <div class="card">
-                        <div class="progress progress-backlog">
-                           <div class="progress-bar bg-danger" role="progressbar" style="width: 25%"
-                              aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
+               <div class="card-body">
+                  <div class="d-flex justify-content-between">
+                     <h5 class="card-title">Task title</h5>
 
-                        <div class="card-header">
-                           <div class="d-flex justify-content-between">
-                              <span>Title</span>
-                              <div class="align-items-center">
-                                 <button class="edit-tasks"><i class="fas fa-ellipsis-v"></i></button>
-                              </div>
-                           </div>
-                        </div>
-
-                        <div class="card-body">
-                           <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque laborum labore deleniti, perferendis iste eligendi quos! Ipsam, totam unde, placeat tenetur est quam non neque modi maxime quaerat corporis sapiente?</p>
-
-                           <div class="d-flex justify-content-between">
-                              <span class="text-small">Created by Me at 10/31/2020</span>
-                              <div class="align-items-center">
-                                 <button class="edit-tasks-category"><i class="fas fa-arrows-alt"></i></button>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-
+                     <!-- EDIT TASK BUTTON -->
+                     <a href="#">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots" fill="currentColor"
+                           xmlns="http://www.w3.org/2000/svg">
+                           <path fill-rule="evenodd"
+                              d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                        </svg>
+                     </a>
                   </div>
 
-                  <div class="backlog-task">
+                  <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aspernatur maiores,
+                     facere atque id explicabo ab iste quo sit molestias porro ad, ratione repudiandae, officiis rerum
+                     molestiae cupiditate! Laboriosam, iste repudiandae.</p>
 
-                     <div class="card">
-                        <div class="progress progress-backlog">
-                           <div class="progress-bar bg-danger" role="progressbar" style="width: 25%"
-                              aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
+                  <div class="d-flex justify-content-between">
+                     <h6 class="footer">Created by Gabriel</h6>
 
-                        <div class="card-header">
-                           <div class="d-flex justify-content-between">
-                              <span>Title</span>
-                              <div class="align-items-center">
-                                 <button class="edit-tasks"><i class="fas fa-ellipsis-v"></i></button>
-                              </div>
-                           </div>
-                        </div>
-
-                        <div class="card-body">
-                           <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque laborum labore deleniti, perferendis iste eligendi quos! Ipsam, totam unde, placeat tenetur est quam non neque modi maxime quaerat corporis sapiente?</p>
-
-                           <div class="d-flex justify-content-between">
-                              <span class="text-small">Created by Me at 10/31/2020</span>
-                              <div class="align-items-center">
-                                 <button class="edit-tasks-category"><i class="fas fa-arrows-alt"></i></button>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-
+                     <!-- MOVE TASK -->
+                     <a href="#">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrows-move" fill="currentColor"
+                           xmlns="http://www.w3.org/2000/svg">
+                           <path fill-rule="evenodd"
+                              d="M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10zM.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L1.707 7.5H5.5a.5.5 0 0 1 0 1H1.707l1.147 1.146a.5.5 0 0 1-.708.708l-2-2zM10 8a.5.5 0 0 1 .5-.5h3.793l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L14.293 8.5H10.5A.5.5 0 0 1 10 8z" />
+                        </svg>
+                     </a>
                   </div>
-
-                  <div class="backlog-task">
-
-                     <div class="card">
-                        <div class="progress progress-backlog">
-                           <div class="progress-bar bg-danger" role="progressbar" style="width: 25%"
-                              aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-
-                        <div class="card-header">
-                           <div class="d-flex justify-content-between">
-                              <span>Title</span>
-                              <div class="align-items-center">
-                                 <button class="edit-tasks"><i class="fas fa-ellipsis-v"></i></button>
-                              </div>
-                           </div>
-                        </div>
-
-                        <div class="card-body">
-                           <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque laborum labore deleniti, perferendis iste eligendi quos! Ipsam, totam unde, placeat tenetur est quam non neque modi maxime quaerat corporis sapiente?</p>
-
-                           <div class="d-flex justify-content-between">
-                              <span class="text-small">Created by Me at 10/31/2020</span>
-                              <div class="align-items-center">
-                                 <button class="edit-tasks-category"><i class="fas fa-arrows-alt"></i></button>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-
-                  </div>
-
-                  <div class="backlog-task">
-
-                     <div class="card">
-                        <div class="progress progress-backlog">
-                           <div class="progress-bar bg-danger" role="progressbar" style="width: 25%"
-                              aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-
-                        <div class="card-header">
-                           <div class="d-flex justify-content-between">
-                              <span>Title</span>
-                              <div class="align-items-center">
-                                 <button class="edit-tasks"><i class="fas fa-ellipsis-v"></i></button>
-                              </div>
-                           </div>
-                        </div>
-
-                        <div class="card-body">
-                           <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque laborum labore deleniti, perferendis iste eligendi quos! Ipsam, totam unde, placeat tenetur est quam non neque modi maxime quaerat corporis sapiente?</p>
-
-                           <div class="d-flex justify-content-between">
-                              <span class="text-small">Created by Me at 10/31/2020</span>
-                              <div class="align-items-center">
-                                 <button class="edit-tasks-category"><i class="fas fa-arrows-alt"></i></button>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-
-                  </div>
-
-
-                  <h5 class="card-link">
-                     <a href="#" class="card-link">Add Task</a>
-                  </h5>
 
                </div>
             </div>
 
          </div>
 
-         <!-- TODO -->
-         <div class="col-sm-3">
 
-            <div class="card kanban-category">
+      </div>
+
+      <div class="category-container">
+         <!-- CATEGORY TITLE -->
+         <div class="card-header">
+            Todo
+            <!-- ADD TASK -->
+            <a href="#">
+               <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-square" fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                     d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                  <path fill-rule="evenodd"
+                     d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+               </svg>
+            </a>
+         </div>
+
+         <!-- TASK CONTAINER-->
+         <div class="task-container overflow-auto">
+
+            <!-- CARD TASK -->
+            
+
+         </div>
+
+      </div>
+
+      <div class="category-container">
+         <!-- CATEGORY TITLE -->
+         <div class="card-header">
+            Doing
+            <!-- ADD TASK -->
+            <a href="#">
+               <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-square" fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                     d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                  <path fill-rule="evenodd"
+                     d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+               </svg>
+            </a>
+         </div>
+
+         <!-- TASK CONTAINER-->
+         <div class="task-container overflow-auto">
+
+            <!-- CARD TASK -->
+            <div class="card">
+               <div class="progress">
+                  <div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="25"
+                     aria-valuemin="0" aria-valuemax="100"></div>
+               </div>
+
                <div class="card-body">
-                  <h5 class="card-title">Todo</h5>
+                  <div class="d-flex justify-content-between">
+                     <h5 class="card-title">Task title</h5>
 
-                  <!-- TODO TASK -->
-                  <div class="todo-task">
+                     <!-- EDIT TASK BUTTON -->
+                     <a href="#">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots" fill="currentColor"
+                           xmlns="http://www.w3.org/2000/svg">
+                           <path fill-rule="evenodd"
+                              d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                        </svg>
+                     </a>
+                  </div>
 
-                     <div class="card">
-                        <div class="progress progress-todo">
-                           <div class="progress-bar bg-warning" role="progressbar" style="width: 50%"
-                              aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
+                  <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aspernatur maiores,
+                     facere atque id explicabo ab iste quo sit molestias porro ad, ratione repudiandae, officiis rerum
+                     molestiae cupiditate! Laboriosam, iste repudiandae.</p>
 
-                        <div class="card-header">
-                           <div class="d-flex justify-content-between">
-                              <span>Title</span>
-                              <div class="align-items-center">
-                                 <button class="edit-tasks"><i class="fas fa-ellipsis-v"></i></button>
-                              </div>
-                           </div>
-                        </div>
+                  <div class="d-flex justify-content-between">
+                     <h6 class="footer">Created by Gabriel</h6>
 
-                        <div class="card-body">
-                           <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque laborum labore deleniti, perferendis iste eligendi quos! Ipsam, totam unde, placeat tenetur est quam non neque modi maxime quaerat corporis sapiente?</p>
-
-                           <div class="d-flex justify-content-between">
-                              <span class="text-small">Created by Me at 10/31/2020</span>
-                              <div class="align-items-center">
-                                 <button class="edit-tasks-category"><i class="fas fa-arrows-alt"></i></button>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-
+                     <!-- MOVE TASK -->
+                     <a href="#">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrows-move" fill="currentColor"
+                           xmlns="http://www.w3.org/2000/svg">
+                           <path fill-rule="evenodd"
+                              d="M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10zM.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L1.707 7.5H5.5a.5.5 0 0 1 0 1H1.707l1.147 1.146a.5.5 0 0 1-.708.708l-2-2zM10 8a.5.5 0 0 1 .5-.5h3.793l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L14.293 8.5H10.5A.5.5 0 0 1 10 8z" />
+                        </svg>
+                     </a>
                   </div>
                   
-                  <h5 class="card-link">
-                     <a href="#" class="card-link">Add Task</a>
-                  </h5>
                </div>
             </div>
 
-         </div>
-
-         <!-- DOING -->
-         <div class="col-sm-3">
-
-            <div class="card kanban-category">
-               <div class="card-body">
-                  <h5 class="card-title">Doing</h5>
-
-                  <!-- DOING TASKS -->
-                  <div class="doing-task">
-
-                     <div class="card">
-                        <div class="progress progress-doing">
-                           <div class="progress-bar bg-info" role="progressbar" style="width: 75%"
-                              aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-
-                        <div class="card-header">
-                           <div class="d-flex justify-content-between">
-                              <span>Title</span>
-                              <div class="align-items-center">
-                                 <button class="edit-tasks"><i class="fas fa-ellipsis-v"></i></button>
-                              </div>
-                           </div>
-                        </div>
-
-                        <div class="card-body">
-                           <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque laborum labore deleniti, perferendis iste eligendi quos! Ipsam, totam unde, placeat tenetur est quam non neque modi maxime quaerat corporis sapiente?</p>
-
-                           <div class="d-flex justify-content-between">
-                              <span class="text-small">Created by Me at 10/31/2020</span>
-                              <div class="align-items-center">
-                                 <button class="edit-tasks-category"><i class="fas fa-arrows-alt"></i></button>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-
-                  </div>
-
-                  <h5 class="card-link">
-                     <a href="#" class="card-link">Add Task</a>
-                  </h5>
+            <div class="card">
+               <div class="progress">
+                  <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="25"
+                     aria-valuemin="0" aria-valuemax="100"></div>
                </div>
-            </div>
 
-         </div>
-
-         <!-- DONE -->
-         <div class="col-sm-3">
-
-            <div class="card kanban-category">
                <div class="card-body">
-                  <h5 class="card-title">Done</h5>
+                  <div class="d-flex justify-content-between">
+                     <h5 class="card-title">Task title</h5>
 
-                  <!-- DONE TASK -->
-                  <div class="done-task">
-
-                     <div class="card">
-                        <div class="progress progress-done">
-                           <div class="progress-bar bg-success" role="progressbar" style="width: 100%"
-                              aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-
-                        <div class="card-header">
-                           <div class="d-flex justify-content-between">
-                              <span>Title</span>
-                              <div class="align-items-center">
-                                 <button class="edit-tasks"><i class="fas fa-ellipsis-v"></i></button>
-                              </div>
-                           </div>
-                        </div>
-
-                        <div class="card-body">
-                           <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque laborum labore deleniti, perferendis iste eligendi quos! Ipsam, totam unde, placeat tenetur est quam non neque modi maxime quaerat corporis sapiente?</p>
-
-                           <div class="d-flex justify-content-between">
-                              <span class="text-small">Created by Me at 10/31/2020</span>
-                              <div class="align-items-center">
-                                 <button class="edit-tasks-category"><i class="fas fa-arrows-alt"></i></button>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-
+                     <!-- EDIT TASK BUTTON -->
+                     <a href="#">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots" fill="currentColor"
+                           xmlns="http://www.w3.org/2000/svg">
+                           <path fill-rule="evenodd"
+                              d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                        </svg>
+                     </a>
                   </div>
 
-                  <h5 class="card-link">
-                     <a href="#" class="card-link">Add Task</a>
-                  </h5>
+                  <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aspernatur maiores,
+                     facere atque id explicabo ab iste quo sit molestias porro ad, ratione repudiandae, officiis rerum
+                     molestiae cupiditate! Laboriosam, iste repudiandae.</p>
+
+                  <div class="d-flex justify-content-between">
+                     <h6 class="footer">Created by Gabriel</h6>
+
+                     <!-- MOVE TASK -->
+                     <a href="#">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrows-move" fill="currentColor"
+                           xmlns="http://www.w3.org/2000/svg">
+                           <path fill-rule="evenodd"
+                              d="M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10zM.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L1.707 7.5H5.5a.5.5 0 0 1 0 1H1.707l1.147 1.146a.5.5 0 0 1-.708.708l-2-2zM10 8a.5.5 0 0 1 .5-.5h3.793l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L14.293 8.5H10.5A.5.5 0 0 1 10 8z" />
+                        </svg>
+                     </a>
+                  </div>
+                  
                </div>
             </div>
 
          </div>
 
       </div>
+
+      <div class="category-container">
+         <!-- CATEGORY TITLE -->
+         <div class="card-header">
+            Done
+            <!-- ADD TASK -->
+            <a href="#">
+               <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-square" fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                     d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                  <path fill-rule="evenodd"
+                     d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+               </svg>
+            </a>
+         </div>
+
+         <!-- TASK CONTAINER-->
+         <div class="task-container overflow-auto">
+
+            <!-- CARD TASK -->
+            <div class="card">
+               <div class="progress">
+                  <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="25"
+                     aria-valuemin="0" aria-valuemax="100"></div>
+               </div>
+
+               <div class="card-body">
+                  <div class="d-flex justify-content-between">
+                     <h5 class="card-title">Task title</h5>
+
+                     <!-- EDIT TASK BUTTON -->
+                     <a href="#">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots" fill="currentColor"
+                           xmlns="http://www.w3.org/2000/svg">
+                           <path fill-rule="evenodd"
+                              d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                        </svg>
+                     </a>
+                  </div>
+
+                  <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aspernatur maiores,
+                     facere atque id explicabo ab iste quo sit molestias porro ad, ratione repudiandae, officiis rerum
+                     molestiae cupiditate! Laboriosam, iste repudiandae.</p>
+
+                  <div class="d-flex justify-content-between">
+                     <h6 class="footer">Created by Gabriel</h6>
+
+                     <!-- MOVE TASK -->
+                     <a href="#">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrows-move" fill="currentColor"
+                           xmlns="http://www.w3.org/2000/svg">
+                           <path fill-rule="evenodd"
+                              d="M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10zM.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L1.707 7.5H5.5a.5.5 0 0 1 0 1H1.707l1.147 1.146a.5.5 0 0 1-.708.708l-2-2zM10 8a.5.5 0 0 1 .5-.5h3.793l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L14.293 8.5H10.5A.5.5 0 0 1 10 8z" />
+                        </svg>
+                     </a>
+                  </div>
+                  
+               </div>
+            </div>
+
+         </div>
+
+
+      </div>
+
    </div>
-
-
 </body>
 
 </html>

@@ -1,62 +1,77 @@
-.card-body .card {
-   margin-top: 20px;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,500;1,300&display=swap');
+
+* {
+   font-family: 'Poppins', sans-serif;
 }
 
-.board {
-	display: flex;
-	flex-direction: column;
-	background-color: #f1f2f6;
+/* BOARD CSS */
+.board-container {
+   display: flex;
+   justify-content: center;
+   flex-wrap: wrap;
+   height: 73vh;
+   padding: 10px;
+   margin-top: 10px;
+   margin-left: 55px;
+   margin-right: 55px;
 }
 
-/* #kanban-backlog .card-header {
-   background-color: aquamarine;
-} */
-
-.card-body .card-link {
-   margin-top: 20px;
-}
-
-#kanban-backlog {
-   background: #dee2e6;
-   overflow: auto;
+.category-container {
+   display: flex;
+   flex-direction: column;
+   background-color: #f1f2f6;
+   margin: 15px;
+   border-radius: 0.35em;
+   border: 0.1px solid #b2bec3;
+   width: 400px;
 }
 
 .progress {
    height: 5px;
 }
 
-.card-title {
-   font-size: 24px;
+.card-header {
+   font-size: 25px;
+   font-weight: 400;
 }
 
-.card-header span{
-   font-size: 22px;
+.card-header a {
+   align-items: flex-end;
+   float: right;
+}
+
+.task-container {
+   display: flex;
+   flex-direction: column;
+   margin: 0px;
+   height: 60vh;
+}
+
+.card {
+   display: flex;
+   margin-top: 15px;
+   margin-left: 10px;
+   margin-right: 10px;
+}
+
+.card-title {
+   font-weight: 400;
 }
 
 .card-body a {
-   font-size: 22;
+   font-size: 1rem;
 }
 
-.card-body button {
-   background: none;
-   border: white;
-   font-size: 20px;
-   outline: none;
+.card-text {
+   font-weight: 300;
 }
 
-.card-body .text-small {
-   color: #74868a;
+.card-body h6 {
    font-style: italic;
+   color: #b2bec3;
 }
 
-.card-body .card-text {
-   font-size: 17px;
-}
-
+/* NAVBAR CSS */
 nav {
-   background-color: #74868a;
-}
-
-.container-fluid {
-   display: flex;
+   background-color: #739299;
 }
