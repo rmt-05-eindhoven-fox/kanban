@@ -11,9 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Task.belongsTo(models.User, { foreignKey: 'UserId' });
-      Task.belongsTo(models.Category, { foreignKey: 'CategoryId' });
-      Task.belongsTo(models.Organization, { foreignKey: 'OrganizationId' });
+      Task.belongsTo(models.User, { foreignKey: 'UserId', onDelete: 'cascade' });
+      Task.belongsTo(models.Category, { foreignKey: 'CategoryId', onDelete: 'cascade' });
+      Task.belongsTo(models.Organization, { foreignKey: 'OrganizationId', onDelete: 'cascade' });
     }
   };
   Task.init({

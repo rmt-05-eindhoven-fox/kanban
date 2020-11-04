@@ -32,7 +32,8 @@ function authentication(req, res, next) {
 function authorizeOrganization(req, res, next) {
   const source = req.originalUrl.replace('/', '');
   const method = req.method.toLowerCase();
-  const id = req.params.id || req.body.OrganizationId || req.params.OrganizationId;
+  const id = req.body.OrganizationId || req.params.id || req.params.OrganizationId;
+
   Organization.findByPk(id, { include: [User] })
     .then((organization) => {
       if (!organization) {
@@ -83,7 +84,10 @@ function authorizeTask(req, res, next) {
   const method = req.method.toLowerCase();
   const { id } = req.params;
   const UserId = req.logedInUser.id;
-  const OrganizationId = req.query.organizations; 
+  const OrganizationId = req.body.OrganizationId || req.query.organizations;
+
+  // const input = { method, id, UserId, OrganizationId }
+  // res.status(200).json(input)
 
   Task.findByPk(id, {
     include: [{
@@ -116,11 +120,11 @@ function authorizeTask(req, res, next) {
               next();
               break;
             default:
-              next(createError(401, 'Not authorize, For Members Only!')); 
+              next(createError(401, 'Not authorize, For Members Only!'));
               break;
           }
         } else {
-          next(createError(401, 'Not authorize, For Members Only!'));
+          next(createError(401, 'Not authorize, For Members Only! xssasa'));
         }
       }
     }).catch((err) => {

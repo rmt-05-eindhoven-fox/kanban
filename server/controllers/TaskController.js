@@ -40,17 +40,56 @@ class TaskController {
   }
 
   static update(req, res, next) {
+    const { id } = req.params;
+    const { name, CategoryId, OrganizationId } = req.body;
+    const input = { name, CategoryId };
 
-    res.status(200).json({ message: 'update connection ok' })
+    Category.findByPk(CategoryId)
+      .then((category) => {
+        // res.status(200).json(category.OrganizationId == OrganizationId)
+        if (category) {
+          if (category.OrganizationId != OrganizationId) {
+            let err = new Error('Acces Denied!\nYou try requested move task out of organization!');
+            err.status = 401;
+            throw err;
+          } else {
+          }
+        } else {
+          delete input.CategoryId;
+        }
+        return Task.update(input, {
+          where: { id },
+          returning: true
+        })
+      }).then((result) => {
+        if (result == 0) {
+          let err = new Error('Category Id Not Found!');
+          err.status = 404;
+          throw err;
+        }
+        res.status(200).json({ status: 200, task: result[1][0] })
+      }).catch((err) => {
+        next(err);
+      });
   }
 
   static patch(req, res, next) {
-
-    res.status(200).json({ message: 'update connection ok' })
+    if (req.body.name) {
+      delete req.body.name;
+    }
+    TaskController.update(req, res, next);
   }
 
   static destroy(req, res, next) {
-    res.status(200).json({ message: 'destroy connection ok' })
+    const { id } = req.params;
+    Task.destroy({
+      where: { id }
+    })
+      .then((result) => {
+        res.status(200).json({ status: 200, message: `Successfully destroy task id ${id}` })
+      }).catch((err) => {
+        next(err);
+      });
   }
 
 }
