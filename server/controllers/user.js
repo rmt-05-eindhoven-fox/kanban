@@ -25,7 +25,7 @@ class UserController {
       password: req.body.password
     }
     try {
-      const user = User.findOne({ where: { email: payload.email } })
+      const user = await User.findOne({ where: { email: payload.email } })
       if (!user) {
         throw { message: 'wrong email/password', status: 404 }
       } else if (!Bcrypt.comparePassword(payload.password, user.password)) {

@@ -3,7 +3,7 @@ const { Kanban } = require('../models/')
 async function authorization(req, res, next) {
   const id = req.params.id
   try {
-    const data = Kanban.findByPk(id)
+    const data = await Kanban.findByPk(id)
     if (!data) {
       throw { message: 'ToDo Not Found', status: 404 }
     } else if (data.UserId == req.loginCredential.id) {

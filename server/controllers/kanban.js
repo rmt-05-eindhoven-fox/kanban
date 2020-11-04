@@ -3,9 +3,9 @@ const { Kanban } = require('../models/')
 class KanbanController {
 
   static async findAll(req, res, next) {
-    const UserId = +req.loginCredential.id
+    // const UserId = +req.loginCredential.id
     try {
-      const list = await Kanban.findAll({ where: { UserId } })
+      const list = await Kanban.findAll()
       res.status(200).json(list)
     } catch (error) {
       next(error)
@@ -36,7 +36,7 @@ class KanbanController {
       UserId: req.loginCredential.id
     }
     try {
-      const edit = await Kanban.update(data, { where: { id, UserId: data.UserId } })
+      const edit = await Kanban.update(data, { where: { id, UserId: data.UserId }, returning: true })
       if (!edit) {
         throw { message: 'Kanban Not Found', status: 404 }
       }
@@ -46,7 +46,7 @@ class KanbanController {
     }
   }
 
-  static deleted(req, res, next) {
+  static async deleted(req, res, next) {
     const id = req.params.id
     const UserId = req.loginCredential.id
     try {
