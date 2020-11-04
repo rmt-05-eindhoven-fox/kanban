@@ -1,4 +1,4 @@
-nav {
+/* nav {
   display: flex; 
   flex-direction: row;
 }
@@ -8,4 +8,12 @@ nav > div {
   margin: 10px ;
   padding: 20px;
   font-size: 30px;
-}
+} */
+
+/* Font size email dan tanggal? */
+/* overflow? */
+
+.kanban-card-content {
+  overflow: auto; 
+  max-height: 60vh;
+} 

@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.hasMany(models.Task, { foreignKey: 'userId' })
+      User.hasMany(models.Task)
     }
   };
   User.init({
@@ -36,6 +36,26 @@ module.exports = (sequelize, DataTypes) => {
         len: {
           args: [6],
           msg: "Password min. 6 characters!"
+        }
+      }
+    },
+    first_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: "First name required!"
+        }
+      }
+    },
+    last_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: "Last name required!"
         }
       }
     }

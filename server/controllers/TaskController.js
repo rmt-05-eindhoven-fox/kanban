@@ -7,7 +7,7 @@ class TaskController {
     const payload = {
       title,
       category,
-      userId: id
+      UserId: id
     }
     try {
       const task = await Task.create(payload)
@@ -30,8 +30,8 @@ class TaskController {
           title: el.title,
           category: el.category,
           email: el.User.email,
-          createdAt: el.createdAt.toISOString().split('T')[0],
-          updatedAt: el.updatedAt.toISOString().split('T')[0]
+          createdAt: el.createdAt,
+          updatedAt: el.updatedAt
         }
       });
       res.status(200).json(taskList)
@@ -53,8 +53,8 @@ class TaskController {
           title: task.title,
           category: task.category,
           email: task.User.email,
-          createdAt: task.createdAt.toISOString().split('T')[0],
-          updatedAt: task.updatedAt.toISOString().split('T')[0]
+          createdAt: task.createdAt,
+          updatedAt: task.updatedAt
         }
         res.status(200).json(selectedTask)
       }

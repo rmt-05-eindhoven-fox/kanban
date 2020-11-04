@@ -12,22 +12,353 @@
   <title>Kanban - bintangwm</title>
 </head>
 <body>
-  <nav>
-    <div>
-      <i class="fas fa-tasks"></i>
-      <div>Kanban</div>
-    </div>
-    <div>
-      <ul>
-        <li>Home</li>
-        <li>Profile</li>
-      </ul>
-    </div>
-    <div>
-      <div>Logout</div>
-    </div>
-  </nav>
+  <div id="app">
+    <!-- Navbar -->
+    <nav v-if="pageName === 'main-page'" class="navbar navbar-light bg-light">
+      <div>
+        <i class="fas fa-tasks navbar-brand"></i>
+        Kanban
+      </div>
+      <div>
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Home</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ getFullName }}</a>
+            <div class="dropdown-menu">
+              <a v-on:click.prevent="logout" class="dropdown-item" href="#">Logout</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <!-- Register -->
+    <section v-if="pageName === 'register-page'" class="container mt-5" id="register-page">
+      <div class="row d-flex align-items-center">
+        <div class="col-4">
+          <h3 class="text-center">Register</h3>
+          <br>
+          <form v-on:submit.prevent="register">
+            <div class="form-group">
+              <label for="register-email">Email address</label>
+              <input v-model="email" type="email" class="form-control" id="register-email" aria-describedby="emailHelp">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class="form-group">
+              <label for="register-email">First name and Last name</label>
+              <div class="input-group">
+                <input v-model="first_name" placeholder="first name" id="register-first_name" type="text" aria-label="First name" class="form-control">
+                <input v-model="last_name" placeholder="last name" id="register-last_name" type="text" aria-label="Last name" class="form-control">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="register-password">Password</label>
+              <input v-model="password" type="password" class="form-control" id="register-password">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+          <a @click="changePage('login-page')" href="#" class="card-link">Have an account? Login</a>
+        </div>
+        <div class="col-8">
+          <div class="p-5">
+            <img src="./assets/register.svg" alt="login" class="img-fluid">
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Login -->
+    <section v-else-if="pageName === 'login-page'" class="container mt-5" id="login-page">
+      <div>
+        <h1 class="text-center">
+          KANBAN
+        </h1>
+      </div>
+      <div class="row d-flex align-items-center">
+        <div class="col-8">
+          <div class="p-5">
+            <img src="./assets/login.svg" alt="login" class="img-fluid">
+          </div>
+        </div>
+        <div class="col-4">
+          <h3 class="text-center">Login</h3>
+          <br>
+          <form v-on:submit.prevent="login">
+            <div class="form-group">
+              <label for="login-email">Email address</label>
+              <input v-model="email" type="email" class="form-control" id="login-email" aria-describedby="emailHelp">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class="form-group">
+              <label for="login-password">Password</label>
+              <input v-model="password" type="password" class="form-control" id="login-password">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+          <a v-on:click.prevent="changePage('register-page')" class="card-link mt-5" href="#">Don't have account? Register</a>
+        </div>
+      </div>
+    </section>
+    <!-- Main -->
+    <section v-else-if="pageName === 'main-page'" class="container-fluid my-5" id="main-page">
+      <div class="row justify-content-center">
+        <div class="col-3">
+          <div class="card p-2">
+            <div class="d-flex justify-content-between">
+              <h5 class="card-title p-2">Backlog</h5>
+            </div>
+            <div class="card-body p-1 kanban-card-content">
+              <div class="card mb-1">
+                <div class="card-body">
+                  <h5 class="card-title">Belajar Front-end</h5>
+                  <p class="card-subtitle text-muted">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <div class="text-right font-weight-lighter" style="font-size: 0.8em">
+                    <p class="card-text text-muted my-0">siapa@mail.com</p>
+                    <p class="card-text text-muted my-0">2020-11-02</p>
+                  </div>
+                  <div class="text-right">
+                    <a href="#" class="card-link">
+                      <i class="fas fa-edit"></i>
+                    </a>
+                    <a href="#" class="card-link">
+                      <i class="fas fa-trash"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="card mb-1">
+                <div class="card-body">
+                  <h5 class="card-title">Belajar Front-end</h5>
+                  <p class="card-subtitle text-muted">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <div class="text-right font-weight-lighter" style="font-size: 0.8em">
+                    <p class="card-text text-muted my-0">siapa@mail.com</p>
+                    <p class="card-text text-muted my-0">2020-11-02</p>
+                  </div>
+                  <div class="text-right">
+                    <a href="#" class="card-link">
+                      <i class="fas fa-edit"></i>
+                    </a>
+                    <a href="#" class="card-link">
+                      <i class="fas fa-trash"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="card mb-1">
+                <div class="card-body">
+                  <h5 class="card-title">Belajar Front-end</h5>
+                  <p class="card-subtitle text-muted">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <div class="text-right font-weight-lighter" style="font-size: 0.8em">
+                    <p class="card-text text-muted my-0">siapa@mail.com</p>
+                    <p class="card-text text-muted my-0">2020-11-02</p>
+                  </div>
+                  <div class="text-right">
+                    <a href="#" class="card-link">
+                      <i class="fas fa-edit"></i>
+                    </a>
+                    <a href="#" class="card-link">
+                      <i class="fas fa-trash"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="card mb-1">
+                <div class="card-body">
+                  <h5 class="card-title">Belajar Front-end</h5>
+                  <p class="card-subtitle text-muted">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <div class="text-right font-weight-lighter" style="font-size: 0.8em">
+                    <p class="card-text text-muted my-0">siapa@mail.com</p>
+                    <p class="card-text text-muted my-0">2020-11-02</p>
+                  </div>
+                  <div class="text-right">
+                    <a href="#" class="card-link">
+                      <i class="fas fa-edit"></i>
+                    </a>
+                    <a href="#" class="card-link">
+                      <i class="fas fa-trash"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer" style="font-size: 0.8em;">
+              <a class="card-link text-muted mt-2" href="#">
+                <i class="fas fa-plus"></i> Add Another Task
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="card p-2">
+            <div class="d-flex justify-content-between">
+              <h5 class="card-title p-2">Backlog</h5>
+              <a class="card-link" href="#">
+                <i class="fas fa-plus"></i> Add Task
+              </a>
+            </div>
+            <div class="card-body p-1 kanban-card-content">
+              <div class="card mb-1">
+                <div class="card-body">
+                  <h5 class="card-title">Belajar Front-end</h5>
+                  <p class="card-subtitle text-muted">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <div class="text-right font-weight-lighter" style="font-size: 0.8em">
+                    <p class="card-text text-muted my-0">siapa@mail.com</p>
+                    <p class="card-text text-muted my-0">2020-11-02</p>
+                  </div>
+                  <div class="text-right">
+                    <a href="#" class="card-link">
+                      <i class="fas fa-edit"></i>
+                    </a>
+                    <a href="#" class="card-link">
+                      <i class="fas fa-trash"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="card mb-1">
+                <div class="card-body">
+                  <h5 class="card-title">Belajar Front-end</h5>
+                  <p class="card-subtitle text-muted">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <div class="text-right font-weight-lighter" style="font-size: 0.8em">
+                    <p class="card-text text-muted my-0">siapa@mail.com</p>
+                    <p class="card-text text-muted my-0">2020-11-02</p>
+                  </div>
+                  <div class="text-right">
+                    <a href="#" class="card-link">
+                      <i class="fas fa-edit"></i>
+                    </a>
+                    <a href="#" class="card-link">
+                      <i class="fas fa-trash"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="card p-2">
+            <div class="d-flex justify-content-between">
+              <h5 class="card-title p-2">Backlog</h5>
+              <a class="card-link" href="#">
+                <i class="fas fa-plus"></i> Add Task
+              </a>
+            </div>
+            <div class="card-body p-1 kanban-card-content">
+              <div class="card mb-1">
+                <div class="card-body">
+                  <h5 class="card-title">Belajar Front-end</h5>
+                  <p class="card-subtitle text-muted">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <div class="text-right font-weight-lighter" style="font-size: 0.8em">
+                    <p class="card-text text-muted my-0">siapa@mail.com</p>
+                    <p class="card-text text-muted my-0">2020-11-02</p>
+                  </div>
+                  <div class="text-right">
+                    <a href="#" class="card-link">
+                      <i class="fas fa-edit"></i>
+                    </a>
+                    <a href="#" class="card-link">
+                      <i class="fas fa-trash"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="card mb-1">
+                <div class="card-body">
+                  <h5 class="card-title">Belajar Front-end</h5>
+                  <p class="card-subtitle text-muted">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <div class="text-right font-weight-lighter" style="font-size: 0.8em">
+                    <p class="card-text text-muted my-0">siapa@mail.com</p>
+                    <p class="card-text text-muted my-0">2020-11-02</p>
+                  </div>
+                  <div class="text-right">
+                    <a href="#" class="card-link">
+                      <i class="fas fa-edit"></i>
+                    </a>
+                    <a href="#" class="card-link">
+                      <i class="fas fa-trash"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="card mb-1">
+                <div class="card-body">
+                  <h5 class="card-title">Belajar Front-end</h5>
+                  <p class="card-subtitle text-muted">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <div class="text-right font-weight-lighter" style="font-size: 0.8em">
+                    <p class="card-text text-muted my-0">siapa@mail.com</p>
+                    <p class="card-text text-muted my-0">2020-11-02</p>
+                  </div>
+                  <div class="text-right">
+                    <a href="#" class="card-link">
+                      <i class="fas fa-edit"></i>
+                    </a>
+                    <a href="#" class="card-link">
+                      <i class="fas fa-trash"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-3">
+          <div class="card p-2">
+            <div class="d-flex justify-content-between">
+              <h5 class="card-title p-2">Backlog</h5>
+            </div>
+            <div class="card-body p-1 kanban-card-content">
+              <div v-for="(task, i) in taskList" :key="task.id" class="card mb-1">
+                <div class="card-body">
+                  <h5 class="card-title">{{ task.title }}</h5>
+                  <div class="text-right font-weight-lighter" style="font-size: 0.8em">
+                    <p class="card-text text-muted my-0">{{ task.email }}</p>
+                    <p class="card-text text-muted my-0">{{ task.createdAt }}</p>
+                    <p class="card-text">{{ task.category }}</p>
+                  </div>
+                  <div class="text-right">
+                    <a href="#" class="card-link">
+                      <i class="fas fa-edit"></i>
+                    </a>
+                    <a href="#" class="card-link">
+                      <i class="fas fa-trash"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer" style="font-size: 0.8em;">
+              <a class="card-link text-muted mt-2" href="#">
+                <i class="fas fa-plus"></i> Add Another Task
+              </a>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </section>
+    <!-- Page Not Found -->
+    <section v-else>
+      <!-- Test -->
+      <p>
+        {{ message }}
+      </p>
+      <h1>Page Not Found</h1>
+    </section>
+  </div>
+
+
+  <!-- BOOTSTRAP -->
   <script src="https://kit.fontawesome.com/0522c9cf40.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script></body>
+  <!-- AXIOS -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <!-- VUE JS -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+  <!-- script -->
+  <script src="main.js"></script>
 </body>
 </html>

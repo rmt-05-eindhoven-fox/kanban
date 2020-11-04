@@ -11,5 +11,7 @@ module.exports = function (err, req, res, next) {
       return el.message
     }).join(', ')
   }
+  console.log(msg);
+  return res.status(status).json(err)
   res.status(status).json({msg})
 }
