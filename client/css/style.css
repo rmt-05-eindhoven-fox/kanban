@@ -153,11 +153,19 @@ nav .links {
   transition: 0.2s ease-in-out;
 }
 .card-task-content .card-title {
-  font-family: "Fredoka One", cursive;
+  font-family: "Inconsolata", monospace;
+  font-weight: bold;
 }
 .card-task-content .author,
 .card-task-content .date {
   font-size: 12px;
+}
+.card-task-content .dropdown-menu {
+  border: 1px solid #2F3640;
+}
+.card-task-content .dropdown-menu a:hover {
+  background-color: #00A8FF;
+  color: #2F3640;
 }
 
 footer {

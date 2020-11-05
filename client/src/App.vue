@@ -1,8 +1,16 @@
 <template>
   <div>
-    <LoginPage v-if="pageName == 'login'"></LoginPage>
-    <RegisterPage v-else-if="pageName == 'register'"></RegisterPage>
-    <HomePage v-else-if="pageName == 'board'"></HomePage>
+    <LoginPage :logoPng="logoUrl" v-if="pageName == 'login'"></LoginPage>
+    <RegisterPage
+      :logoPng="logoUrl"
+      v-else-if="pageName == 'register'"
+    ></RegisterPage>
+    <HomePage
+      :dataCat="categoryList"
+      :logoPng="logoUrl"
+      :tasks="dataTasks"
+      v-else-if="pageName == 'home'"
+    ></HomePage>
   </div>
 </template>
 
@@ -10,11 +18,29 @@
 import HomePage from "./components/HomePage.vue";
 import LoginPage from "./components/LoginPage.vue";
 import RegisterPage from "./components/RegisterPage.vue";
+import logo from "./assets/logo-kanban@2x.png";
+import axios from "./config/axios";
 export default {
   name: "App",
   data() {
     return {
-      pageName: "board",
+      pageName: "home",
+      logoUrl: logo,
+      categoryList: [
+        {
+          category: "Backlog",
+        },
+        {
+          category: "Todo",
+        },
+        {
+          category: "On Going",
+        },
+        {
+          category: "Completed",
+        },
+      ],
+      dataTasks: []
     };
   },
   components: {
@@ -22,6 +48,24 @@ export default {
     LoginPage,
     RegisterPage,
   },
+  methods: {
+    fetchTasks() {
+      axios({
+        url: "/tasks",
+        method: 'get'
+      })
+      .then(({data}) => {
+        console.log(data, "data task");
+        this.dataTasks = data
+      })
+      .catch(err => {
+        console.log(err.response);
+      })
+    }
+  },
+  created() {
+    this.fetchTasks()
+  }
 };
 </script>
 

@@ -4,7 +4,7 @@
       <div class="container d-flex justify-content-center">
         <div class="row">
           <div class="col-12 logo-kanban">
-            Logo<!-- <img src="assets/logo-kanban@2x.png" alt="" srcset=""> -->
+            <img :src="logoPng" alt="" srcset="" />
           </div>
         </div>
       </div>
@@ -48,7 +48,13 @@
 <script>
 export default {
   name: "LoginPage",
-}
+  props: ["logoPng"],
+  data() {
+    return {
+      logo,
+    };
+  },
+};
 </script>
 
 <style></style>

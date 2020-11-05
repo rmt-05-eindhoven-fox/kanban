@@ -176,7 +176,8 @@ nav {
 
 
   .card-title {
-    font-family: 'Fredoka One', cursive;
+    font-family: 'Inconsolata', monospace;
+    font-weight: bold;
   }
 
   .author,
@@ -184,6 +185,14 @@ nav {
     font-size: 12px;
   }
 
+  .dropdown-menu {
+    border: 1px solid #2F3640;
+
+    a:hover {
+      background-color: #00A8FF;
+      color: #2F3640;
+    }
+  }
 }
 
 footer {

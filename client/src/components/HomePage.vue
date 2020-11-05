@@ -2,8 +2,7 @@
   <div>
     <nav>
       <div id="logo">
-        Logo
-        <!-- <img src="/assets/logo-kanban@2x.png" alt="" srcset="" /> -->
+        <img :src="logoPng" width="150px" alt="" srcset="" />
       </div>
       <div class="links">
         <ul>
@@ -24,7 +23,12 @@
       <!-- TASK BOARD -->
       <div class="task-board">
         <div class="row">
-          <CategoryBoard></CategoryBoard>
+          <CategoryBoard
+            v-for="(cat, i) in dataCat"
+            :key="i"
+            :nameCategories="cat"
+            :tasks="tasks"
+          ></CategoryBoard>
         </div>
       </div>
     </section>
@@ -33,9 +37,13 @@
 
 <script>
 import CategoryBoard from "./CategoryBoard";
+
 export default {
   name: "Homepage",
-
+  data() {
+    return {};
+  },
+  props: ["dataCat", "logoPng", "tasks"],
   components: {
     CategoryBoard,
   },
