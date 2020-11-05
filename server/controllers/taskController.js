@@ -79,6 +79,7 @@ class TaskController {
         })
     }
     static deleteTask(req, res, next){
+        console.log(+req.params.id)
         Task.destroy({
             where: {
                 id: +req.params.id

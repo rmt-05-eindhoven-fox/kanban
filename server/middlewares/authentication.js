@@ -3,14 +3,14 @@ const { verifyToken } = require("../helper/jwt.js");
 
 
 function authentication(req, res, next){
-    const { authorization } = req.headers;
+    const { access_token } = req.headers;
 
-    if(!authorization){
+    if(!access_token){
         throw {
             msg: "authentication failed"
         }
     }else {
-        const decoded  = verifyToken(authorization);
+        const decoded  = verifyToken(access_token);
 
         User.findOne({
             where: {

@@ -1,9 +1,8 @@
-const { Todo } = require("../models/index.js")
+const { Task } = require("../models/index.js")
 
 function authorization(req, res, next){
     const id  = +req.params.id
-    console.log(id)
-    Todo.findOne({
+    Task.findOne({
         where:  id
     })
     .then(data => {
