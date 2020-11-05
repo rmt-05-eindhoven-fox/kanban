@@ -22,11 +22,19 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           notEmpty: {
             args: true,
-            msg: "Please input title",
+            msg: "Please fill the email",
           },
           isEmail: {
             args: true,
             msg: "Please input a valid email address",
+          },
+          isUniqueEmail(value, next) {
+            User.findOne({ where: { email: value } }).then((data) => {
+              if (!data) next();
+              else {
+                next("Email already registered");
+              }
+            });
           },
         },
       },
@@ -35,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           notEmpty: {
             args: true,
-            msg: "Please input title",
+            msg: "Please fill the password",
           },
           isPassword(value) {
             let isContainNumber = false;
@@ -46,7 +54,7 @@ module.exports = (sequelize, DataTypes) => {
               });
             });
             if (!isContainNumber)
-              throw new Error("Password must include numbers!");
+              throw new Error("Password must include number!");
           },
         },
       },

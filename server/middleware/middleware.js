@@ -20,6 +20,7 @@ class Middleware {
         }
       }
     } catch (err) {
+      console.log(err.name);
       next(err);
     }
   }
@@ -29,8 +30,10 @@ class Middleware {
 
     try {
       const foundTask = await Task.findByPk(taskId);
+      console.log(foundTask);
+      console.log(req.loggedIn.id);
       if (!foundTask) throw { msg: "Task not found", status: 404 };
-      else if (foundTask.userId == req.loggedIn.id) next();
+      else if (foundTask.UserId == req.loggedIn.id) next();
       else throw { msg: "Not Authorized", status: 401 };
     } catch (err) {
       next(err);
@@ -50,6 +53,9 @@ class Middleware {
     } else if (err.name === "Invalid Input") {
       status = 401;
       msg = "Wrong email/password";
+    } else if (err.name === "TokenExpiredError") {
+      status = 401;
+      msg = "Your away from the app for God knows how long! Please relogin!";
     } else if (err.name === "Authentication failed") {
       status = 401;
       msg = "Authentication failed";
