@@ -9,14 +9,14 @@
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
       integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
-   
+
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
    <link rel="stylesheet" href="style.css">
 
    <!-- LANDING PAGE CSS -->
-	<link rel="stylesheet" type="text/css" href="assets/css/util.css">
-	<link rel="stylesheet" type="text/css" href="assets/css/main.css">
+   <link rel="stylesheet" type="text/css" href="assets/css/util.css">
+   <link rel="stylesheet" type="text/css" href="assets/css/main.css">
    <!--  -->
 
    <title>Kanban</title>
@@ -29,10 +29,11 @@
             <a class="navbar-brand p-2" href="#">
                Logo here
             </a>
-      
+
             <a @click="logout" href="#" class="btn btn-info btn-lg">
                <span class="glyphicon glyphicon-log-out"></span> Log out
             </a>
+
          </nav>
 
          <div class="board-container">
@@ -42,7 +43,7 @@
                <div class="card-header">
                   Backlog
                   <!-- ADD TASK -->
-                  <a href="#">
+                  <a @click="createTaskForm('backlog')" href="#">
                      <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-square" fill="currentColor"
                         xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd"
@@ -52,60 +53,77 @@
                      </svg>
                   </a>
                </div>
-      
+
                <!-- TASK CONTAINER-->
                <div class="task-container overflow-auto">
-      
                   <!-- CARD TASK -->
-                  <div v-for="task in allTasks" :key="task.id" class="card">
+                  <div v-for="task in allTasks" v-if="task.category == 'backlog'" :key="task.id" class="card">
                      <div class="progress">
                         <div class="progress-bar bg-danger" role="progressbar" style="width: 25%" aria-valuenow="25"
                            aria-valuemin="0" aria-valuemax="100"></div>
                      </div>
-      
+
                      <div class="card-body">
                         <div class="d-flex justify-content-between">
                            <h5 class="card-title">{{task.title}}</h5>
-      
+
                            <!-- EDIT TASK BUTTON -->
-                           <a href="#">
-                              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots" fill="currentColor"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                 <path fill-rule="evenodd"
-                                    d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-                              </svg>
-                           </a>
+                           <div class="dropdown">
+                              <a href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots"
+                                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                       d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                                 </svg>
+                              </a>
+                              
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a @click="editTaskForm(task.id)" class="dropdown-item" href="#">Edit Task</a>
+                                <a @click="deleteTask(task.id)" class="dropdown-item" href="#">Delete Task</a>
+                              </div>
+                            </div>
+                           
                         </div>
-      
+
                         <p class="card-text">{{task.description}}</p>
-      
+
                         <div class="d-flex justify-content-between pt-3">
                            <h6 class="footer">Created by {{task.User.username}}</h6>
-      
+
                            <!-- MOVE TASK -->
-                           <a href="#">
-                              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrows-move" fill="currentColor"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                 <path fill-rule="evenodd"
-                                    d="M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10zM.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L1.707 7.5H5.5a.5.5 0 0 1 0 1H1.707l1.147 1.146a.5.5 0 0 1-.708.708l-2-2zM10 8a.5.5 0 0 1 .5-.5h3.793l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L14.293 8.5H10.5A.5.5 0 0 1 10 8z" />
-                              </svg>
-                           </a>
+                           <div class="dropdown">
+                              <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrows-move"
+                                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                       d="M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10zM.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L1.707 7.5H5.5a.5.5 0 0 1 0 1H1.707l1.147 1.146a.5.5 0 0 1-.708.708l-2-2zM10 8a.5.5 0 0 1 .5-.5h3.793l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L14.293 8.5H10.5A.5.5 0 0 1 10 8z" />
+                                 </svg>
+                              </a>
+
+                              <div class="dropdown-menu">
+                                 <a class="dropdown-item">Move to:</a>
+                                 <div class="dropdown-divider"></div>
+                                 <a @click="editCategory(task.id, 'todo')" class="dropdown-item" href="#">Todo</a>
+                                 <a @click="editCategory(task.id, 'doing')" class="dropdown-item" href="#">Doing</a>
+                                 <a @click="editCategory(task.id, 'done')" class="dropdown-item" href="#">Done</a>
+                              </div>
+                           </div>
                         </div>
-      
+
                      </div>
                   </div>
-      
+
                </div>
-      
-      
+
+
             </div>
-      
+
             <div class="category-container">
                <!-- CATEGORY TITLE -->
                <div class="card-header">
                   Todo
                   <!-- ADD TASK -->
-                  <a href="#">
+                  <a @click="createTaskForm('todo')" href="#">
                      <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-square" fill="currentColor"
                         xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd"
@@ -115,23 +133,77 @@
                      </svg>
                   </a>
                </div>
-      
+
                <!-- TASK CONTAINER-->
                <div class="task-container overflow-auto">
-      
+
                   <!-- CARD TASK -->
-      
-      
+                  <div v-for="task in allTasks" v-if="task.category == 'todo'" :key="task.id" class="card">
+                     <div class="progress">
+                        <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="25"
+                           aria-valuemin="0" aria-valuemax="100"></div>
+                     </div>
+
+                     <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                           <h5 class="card-title">{{task.title}}</h5>
+
+                           <!-- EDIT TASK BUTTON -->
+                           <div class="dropdown">
+                              <a href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots"
+                                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                       d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                                 </svg>
+                              </a>
+                              
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a @click="editTaskForm(task.id)" class="dropdown-item" href="#">Edit Task</a>
+                                <a @click="deleteTask(task.id)" class="dropdown-item" href="#">Delete Task</a>
+                              </div>
+                            </div>
+
+                        </div>
+
+                        <p class="card-text">{{task.description}}</p>
+
+                        <div class="d-flex justify-content-between pt-3">
+                           <h6 class="footer">Created by {{task.User.username}}</h6>
+
+                           <!-- MOVE TASK -->
+                           <div class="dropdown">
+                              <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrows-move"
+                                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                       d="M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10zM.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L1.707 7.5H5.5a.5.5 0 0 1 0 1H1.707l1.147 1.146a.5.5 0 0 1-.708.708l-2-2zM10 8a.5.5 0 0 1 .5-.5h3.793l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L14.293 8.5H10.5A.5.5 0 0 1 10 8z" />
+                                 </svg>
+                              </a>
+
+                              <div class="dropdown-menu">
+                                 <a class="dropdown-item">Move to:</a>
+                                 <div class="dropdown-divider"></div>
+                                 <a @click="editCategory(task.id, 'backlog')" class="dropdown-item" href="#">Backlog</a>
+                                 <a @click="editCategory(task.id, 'doing')" class="dropdown-item" href="#">Doing</a>
+                                 <a @click="editCategory(task.id, 'done')" class="dropdown-item" href="#">Done</a>
+                              </div>
+                           </div>
+                        </div>
+
+                     </div>
+                  </div>
+
                </div>
-      
+
             </div>
-      
+
             <div class="category-container">
                <!-- CATEGORY TITLE -->
                <div class="card-header">
                   Doing
                   <!-- ADD TASK -->
-                  <a href="#">
+                  <a @click="createTaskForm('doing')" href="#">
                      <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-square" fill="currentColor"
                         xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd"
@@ -141,101 +213,77 @@
                      </svg>
                   </a>
                </div>
-      
+
                <!-- TASK CONTAINER-->
                <div class="task-container overflow-auto">
-      
+
                   <!-- CARD TASK -->
-                  <div class="card">
+                  <div v-for="task in allTasks" v-if="task.category == 'doing'" :key="task.id" class="card">
                      <div class="progress">
-                        <div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="25"
+                        <div class="progress-bar bg-danger" role="progressbar" style="width: 75%" aria-valuenow="25"
                            aria-valuemin="0" aria-valuemax="100"></div>
                      </div>
-      
+
                      <div class="card-body">
                         <div class="d-flex justify-content-between">
-                           <h5 class="card-title">Task title</h5>
-      
+                           <h5 class="card-title">{{task.title}}</h5>
+
                            <!-- EDIT TASK BUTTON -->
-                           <a href="#">
-                              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots" fill="currentColor"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                 <path fill-rule="evenodd"
-                                    d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-                              </svg>
-                           </a>
+                           <div class="dropdown">
+                              <a href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots"
+                                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                       d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                                 </svg>
+                              </a>
+                              
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                 <a @click="editTaskForm(task.id)" class="dropdown-item" href="#">Edit Task</a>
+                                 <a @click="deleteTask(task.id)" class="dropdown-item" href="#">Delete Task</a>
+                              </div>
+                            </div>
+
                         </div>
-      
-                        <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aspernatur maiores,
-                           facere atque id explicabo ab iste quo sit molestias porro ad, ratione repudiandae, officiis rerum
-                           molestiae cupiditate! Laboriosam, iste repudiandae.</p>
-      
-                        <div class="d-flex justify-content-between">
-                           <h6 class="footer">Created by Gabriel</h6>
-      
+
+                        <p class="card-text">{{task.description}}</p>
+
+                        <div class="d-flex justify-content-between pt-3">
+                           <h6 class="footer">Created by {{task.User.username}}</h6>
+
                            <!-- MOVE TASK -->
-                           <a href="#">
-                              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrows-move" fill="currentColor"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                 <path fill-rule="evenodd"
-                                    d="M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10zM.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L1.707 7.5H5.5a.5.5 0 0 1 0 1H1.707l1.147 1.146a.5.5 0 0 1-.708.708l-2-2zM10 8a.5.5 0 0 1 .5-.5h3.793l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L14.293 8.5H10.5A.5.5 0 0 1 10 8z" />
-                              </svg>
-                           </a>
+                           <div class="dropdown">
+                              <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrows-move"
+                                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                       d="M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10zM.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L1.707 7.5H5.5a.5.5 0 0 1 0 1H1.707l1.147 1.146a.5.5 0 0 1-.708.708l-2-2zM10 8a.5.5 0 0 1 .5-.5h3.793l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L14.293 8.5H10.5A.5.5 0 0 1 10 8z" />
+                                 </svg>
+                              </a>
+
+                              <div class="dropdown-menu">
+                                 <a class="dropdown-item">Move to:</a>
+                                 <div class="dropdown-divider"></div>
+                                 <a @click="editCategory(task.id, 'backlog')" class="dropdown-item" href="#">Backlog</a>
+                                 <a @click="editCategory(task.id, 'todo')" class="dropdown-item" href="#">Todo</a>
+                                 <a @click="editCategory(task.id, 'done')" class="dropdown-item" href="#">Done</a>
+                              </div>
+                           </div>
                         </div>
-      
+
                      </div>
                   </div>
-      
-                  <div class="card">
-                     <div class="progress">
-                        <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="25"
-                           aria-valuemin="0" aria-valuemax="100"></div>
-                     </div>
-      
-                     <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                           <h5 class="card-title">Task title</h5>
-      
-                           <!-- EDIT TASK BUTTON -->
-                           <a href="#">
-                              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots" fill="currentColor"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                 <path fill-rule="evenodd"
-                                    d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-                              </svg>
-                           </a>
-                        </div>
-      
-                        <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aspernatur maiores,
-                           facere atque id explicabo ab iste quo sit molestias porro ad, ratione repudiandae, officiis rerum
-                           molestiae cupiditate! Laboriosam, iste repudiandae.</p>
-      
-                        <div class="d-flex justify-content-between">
-                           <h6 class="footer">Created by Gabriel</h6>
-      
-                           <!-- MOVE TASK -->
-                           <a href="#">
-                              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrows-move" fill="currentColor"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                 <path fill-rule="evenodd"
-                                    d="M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10zM.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L1.707 7.5H5.5a.5.5 0 0 1 0 1H1.707l1.147 1.146a.5.5 0 0 1-.708.708l-2-2zM10 8a.5.5 0 0 1 .5-.5h3.793l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L14.293 8.5H10.5A.5.5 0 0 1 10 8z" />
-                              </svg>
-                           </a>
-                        </div>
-      
-                     </div>
-                  </div>
-      
+
                </div>
-      
+
             </div>
-      
+
             <div class="category-container">
                <!-- CATEGORY TITLE -->
                <div class="card-header">
                   Done
                   <!-- ADD TASK -->
-                  <a href="#">
+                  <a @click="createTaskForm('done')" href="#">
                      <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-square" fill="currentColor"
                         xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd"
@@ -245,56 +293,72 @@
                      </svg>
                   </a>
                </div>
-      
+
                <!-- TASK CONTAINER-->
                <div class="task-container overflow-auto">
-      
+
                   <!-- CARD TASK -->
-                  <div class="card">
+                  <div v-for="task in allTasks" v-if="task.category == 'done'" :key="task.id" class="card">
                      <div class="progress">
                         <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="25"
                            aria-valuemin="0" aria-valuemax="100"></div>
                      </div>
-      
+
                      <div class="card-body">
                         <div class="d-flex justify-content-between">
-                           <h5 class="card-title">Task title</h5>
-      
+                           <h5 class="card-title">{{task.title}}</h5>
+
                            <!-- EDIT TASK BUTTON -->
-                           <a href="#">
-                              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots" fill="currentColor"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                 <path fill-rule="evenodd"
-                                    d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-                              </svg>
-                           </a>
+                           <div class="dropdown">
+                              <a href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots"
+                                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                       d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                                 </svg>
+                              </a>
+                              
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                 <a @click="editTaskForm(task.id)" class="dropdown-item" href="#">Edit Task</a>
+                                 <a @click="deleteTask(task.id)" class="dropdown-item" href="#">Delete Task</a>
+                              </div>
+                            </div>
+
                         </div>
-      
-                        <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aspernatur maiores,
-                           facere atque id explicabo ab iste quo sit molestias porro ad, ratione repudiandae, officiis rerum
-                           molestiae cupiditate! Laboriosam, iste repudiandae.</p>
-      
-                        <div class="d-flex justify-content-between">
-                           <h6 class="footer">Created by Gabriel</h6>
-      
+
+                        <p class="card-text">{{task.description}}</p>
+
+                        <div class="d-flex justify-content-between pt-3">
+                           <h6 class="footer">Created by {{task.User.username}}</h6>
+
                            <!-- MOVE TASK -->
-                           <a href="#">
-                              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrows-move" fill="currentColor"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                 <path fill-rule="evenodd"
-                                    d="M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10zM.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L1.707 7.5H5.5a.5.5 0 0 1 0 1H1.707l1.147 1.146a.5.5 0 0 1-.708.708l-2-2zM10 8a.5.5 0 0 1 .5-.5h3.793l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L14.293 8.5H10.5A.5.5 0 0 1 10 8z" />
-                              </svg>
-                           </a>
+                           <div class="dropdown">
+                              <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrows-move"
+                                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                       d="M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10zM.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L1.707 7.5H5.5a.5.5 0 0 1 0 1H1.707l1.147 1.146a.5.5 0 0 1-.708.708l-2-2zM10 8a.5.5 0 0 1 .5-.5h3.793l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L14.293 8.5H10.5A.5.5 0 0 1 10 8z" />
+                                 </svg>
+                              </a>
+
+                              <div class="dropdown-menu">
+                                 <a class="dropdown-item">Move to:</a>
+                                 <div class="dropdown-divider"></div>
+                                 <a @click="editCategory(task.id, 'backlog')" class="dropdown-item" href="#">Backlog</a>
+                                 <a @click="editCategory(task.id, 'todo')" class="dropdown-item" href="#">Todo</a>
+                                 <a @click="editCategory(task.id, 'doing')" class="dropdown-item" href="#">Doing</a>
+                              </div>
+                           </div>
                         </div>
-      
+
                      </div>
                   </div>
-      
+
                </div>
-      
-      
+
+
             </div>
-      
+
          </div>
       </section>
 
@@ -306,52 +370,52 @@
                      <span class="login100-form-title p-b-53">
                         Sign In With
                      </span>
-      
+
                      <a href="#" class="btn-face m-b-20">
                         <i class="fa fa-facebook-official"></i>
                         Facebook
                      </a>
-      
+
                      <a href="#" class="btn-google m-b-20">
                         <img src="assets/images/icons/icon-google.png" alt="GOOGLE">
                         Google
                      </a>
-                     
+
                      <div class="p-t-31 p-b-9">
                         <span class="txt1">
                            Email
                         </span>
                      </div>
-                     <div class="wrap-input100 validate-input" data-validate = "Email is required">
+                     <div class="wrap-input100 validate-input" data-validate="Email is required">
                         <input v-model="userLogin.email" class="input100" type="email" name="email">
                         <span class="focus-input100"></span>
                      </div>
-                     
+
                      <div class="p-t-13 p-b-9">
                         <span class="txt1">
                            Password
                         </span>
-      
+
                         <a href="#" class="txt2 bo1 m-l-5">
                            Forgot?
                         </a>
                      </div>
-                     <div class="wrap-input100 validate-input" data-validate = "Password is required">
-                        <input v-model="userLogin.password" class="input100" type="password" name="pass" >
+                     <div class="wrap-input100 validate-input" data-validate="Password is required">
+                        <input v-model="userLogin.password" class="input100" type="password" name="pass">
                         <span class="focus-input100"></span>
                      </div>
-      
+
                      <div class="container-login100-form-btn m-t-17">
                         <button class="login100-form-btn">
                            Sign In
                         </button>
                      </div>
-      
+
                      <div class="w-full text-center p-t-55">
                         <span class="txt2">
                            Not a member?
                         </span>
-      
+
                         <a @click="changePage('register-page')" href="#" class="txt2 bo1">
                            Sign up now
                         </a>
@@ -361,7 +425,7 @@
             </div>
          </div>
       </section>
-      
+
       <section v-else-if="pageName == 'register-page'" id="register-page">
          <div class="limiter">
             <div class="container-login100" style="background-image: url('assets/images/bg-01.jpg');">
@@ -370,14 +434,14 @@
                      <span class="login100-form-title p-b-53">
                         Register
                      </span>
-                     
+
                      <div class="p-t-31 p-b-9">
                         <span class="txt1">
                            Username
                         </span>
                      </div>
 
-                     <div class="wrap-input100 validate-input" data-validate = "Username is required">
+                     <div class="wrap-input100 validate-input" data-validate="Username is required">
                         <input v-model="userRegister.username" class="input100" type="text" name="username">
                         <span class="focus-input100"></span>
                      </div>
@@ -388,36 +452,160 @@
                         </span>
                      </div>
 
-                     <div class="wrap-input100 validate-input" data-validate = "Email is required">
+                     <div class="wrap-input100 validate-input" data-validate="Email is required">
                         <input v-model="userRegister.email" class="input100" type="email" name="email">
                         <span class="focus-input100"></span>
                      </div>
-                     
+
                      <div class="p-t-13 p-b-9">
                         <span class="txt1">
                            Password
                         </span>
-      
+
                      </div>
-                     <div class="wrap-input100 validate-input" data-validate = "Password is required">
-                        <input v-model="userRegister.password" class="input100" type="password" name="pass" >
+                     <div class="wrap-input100 validate-input" data-validate="Password is required">
+                        <input v-model="userRegister.password" class="input100" type="password" name="pass">
                         <span class="focus-input100"></span>
                      </div>
-      
+
                      <div class="container-login100-form-btn m-t-17">
                         <button class="login100-form-btn">
                            Register
                         </button>
                      </div>
-      
+
                      <div class="w-full text-center p-t-55">
                         <span class="txt2">
                            Already registered?
                         </span>
-      
+
                         <a @click="changePage('login-page')" href="#" class="txt2 bo1">
                            Sign in here
                         </a>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </section>
+
+      <section v-else-if="pageName == 'edit-task-page'" id="edit-task-page">
+         <div class="limiter">
+            <div class="container-login100" style="background-image: url('assets/images/bg-01.jpg');">
+               <div class="wrap-login100 p-l-110 p-r-110 p-t-62 p-b-33">
+                  <span class="close">
+                     <a @click="closeForm()" href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <svg width="35px" height="35px" viewBox="0 0 16 16" class="bi bi-x-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                           <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                           <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                         </svg>
+                     </a>
+                  </span>
+                  <form @submit.prevent="editTaskPost(editTask.id)" class="login100-form validate-form flex-sb flex-w">
+                     <span class="login100-form-title p-b-53">
+                        Edit Task
+                     </span>
+
+                     <div class="p-t-31 p-b-9">
+                        <span class="txt1">
+                           Title
+                        </span>
+                     </div>
+
+                     <div class="wrap-input100 validate-input" data-validate="Title is required">
+                        <input v-model="editTask.title" class="input100" type="text" name="title">
+                        <span class="focus-input100"></span>
+                     </div>
+
+                     <div class="p-t-31 p-b-9">
+                        <span class="txt1">
+                           Description
+                        </span>
+                     </div>
+
+                     <div class="wrap-input100 validate-input" data-validate="Description is required">
+                        <input v-model="editTask.description" class="input100" type="text" name="description">
+                        
+                        <span class="focus-input100"></span>
+                     </div>
+
+                     <div class="w-full text-center p-t-55">
+                        
+
+                     </div>
+                     
+                     <div class="container-login100-form-btn m-t-17">
+                        <button class="login100-form-btn">
+                           Edit Task
+                        </button>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </section>
+
+      <section v-else-if="pageName == 'create-task-page'" id="create-task-page">
+         <div class="limiter">
+            <div class="container-login100" style="background-image: url('assets/images/bg-01.jpg');">
+               <div class="wrap-login100 p-l-110 p-r-110 p-t-62 p-b-33">
+                  <span class="close">
+                     <a @click="closeForm()" href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <svg width="35px" height="35px" viewBox="0 0 16 16" class="bi bi-x-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                           <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                           <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                         </svg>
+                     </a>
+                  </span>
+                  <form @submit.prevent="createTask()" class="login100-form validate-form flex-sb flex-w">
+                     <span class="login100-form-title p-b-53">
+                        Add New Task
+                     </span>
+
+                     <div class="p-t-31 p-b-9">
+                        <span class="txt1">
+                           Title
+                        </span>
+                     </div>
+
+                     <div class="wrap-input100 validate-input" data-validate="Title is required">
+                        <input v-model="newTask.title" class="input100" type="text" name="title">
+                        <span class="focus-input100"></span>
+                     </div>
+
+                     <div class="p-t-31 p-b-9">
+                        <span class="txt1">
+                           Description
+                        </span>
+                     </div>
+
+                     <div class="wrap-input100 validate-input" data-validate="Description is required">
+                        <input v-model="newTask.description" class="input100" type="text" name="description">
+                        
+                        <span class="focus-input100"></span>
+                     </div>
+
+                     <div class="p-t-31 p-b-9">
+                        <span class="txt1">
+                           Category (Read Only)
+                        </span>
+                     </div>
+
+                     <div class="wrap-input100 validate-input">
+                        <input v-model="newTask.category" class="input100" type="text" name="category" readonly>
+                        
+                        <span class="focus-input100"></span>
+                     </div>
+
+                     <div class="w-full text-center p-t-55">
+                        
+
+                     </div>
+                     
+                     <div class="container-login100-form-btn m-t-17">
+                        <button class="login100-form-btn">
+                           Create Task
+                        </button>
                      </div>
                   </form>
                </div>
@@ -433,7 +621,7 @@
                      <span class="login100-form-title p-b-53">
                         {{count}}
                      </span>
-                     
+
                      <div class="not-found">
                         <span class="login100-form-title p-b-53">
                            <p>Page not found</p>
@@ -451,10 +639,16 @@
    <!-- VUE -->
    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
    <!-- BOOTSTRAP -->
-   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+   </script>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous">
+   </script>
    <!-- AXIOS -->
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.0/axios.min.js" integrity="sha512-DZqqY3PiOvTP9HkjIWgjO6ouCbq+dxqWoJZ/Q+zPYNHmlnI2dQnbJ5bxAHpAMw+LXRm4D72EIRXzvcHQtE8/VQ==" crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.0/axios.min.js"
+      integrity="sha512-DZqqY3PiOvTP9HkjIWgjO6ouCbq+dxqWoJZ/Q+zPYNHmlnI2dQnbJ5bxAHpAMw+LXRm4D72EIRXzvcHQtE8/VQ=="
+      crossorigin="anonymous"></script>
    <!-- MAIN JS -->
    <script src="main.js"></script>
 </body>
