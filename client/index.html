@@ -3,10 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@1,600&family=Righteous&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Roboto:wght@100;700&display=swap" rel="stylesheet">
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+
     <!-- Font Icon -->
     <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
     <link rel="stylesheet" href="styles/style.css">
@@ -61,8 +65,216 @@
                 </div>
             </div>
         </div> 
-        <!-- Main Page -->
+        <!-- New Main Page -->
         <div class="mainpage" v-else-if="targetPage == 'home-page'">
+            <button @click.prevent="logout"></button>
+            <section class="card-list">
+                <article class="card">
+                    <header style="background-color: #30BFBF;" class="card-header">
+                      <h2>Backlog</h2>
+                    </header>
+                    <div class="task-body"> 
+                        <div class="element-body">
+                            <p>New Account Creation Flow</p>
+                            <div class="card-author">
+                                <a class="author-avatar" href="#">
+                                  <img src="avatar.png" />
+                                </a>
+                                <div class="author-name">
+                                    <span class="badge badge-danger">Server</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="element-body">
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, dolorum.</p>
+                            <div class="card-author">
+                                <a class="author-avatar" href="#">
+                                  <img src="avatar.png" />
+                                </a>
+                                <div class="author-name">
+                                    <span class="badge badge-danger">Server</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="element-body">
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, dolorum.</p>
+                            <div class="card-author">
+                                <a class="author-avatar" href="#">
+                                  <img src="avatar.png" />
+                                </a>
+                                <div class="author-name">
+                                    <span class="badge badge-danger">Server</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="element-body">
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, dolorum.</p>
+                            <div class="card-author">
+                                <a class="author-avatar" href="#">
+                                  <img src="avatar.png" />
+                                </a>
+                                <div class="author-name">
+                                    <span class="badge badge-danger">Server</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="element-body">
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, dolorum.</p>
+                            <div class="card-author">
+                                <a class="author-avatar" href="#">
+                                  <img src="avatar.png" />
+                                </a>
+                                <div class="author-name">
+                                    <span class="badge badge-danger">Server</span>
+                                </div>
+                            </div>
+                        </div>
+                        <form>
+                            <button type="button" class="btn btn-default btn-sm">
+                                <i class="fas fa-plus"></i> Add Task
+                            </button>
+                        </form>
+                    </div>
+                </article>
+                <article class="card">
+                    <header class="card-header">
+                      <h2>Development</h2>
+                    </header>
+                    <div class="task-body"> 
+                        <div class="element-body">
+                            <p>New Account Creation Flow</p>
+                            <div class="card-author">
+                                <a class="author-avatar" href="#">
+                                  <img src="avatar.png" />
+                                </a>
+                                <div class="author-name">
+                                    <span class="badge badge-danger">Server</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="element-body">
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, dolorum.</p>
+                            <div class="card-author">
+                                <a class="author-avatar" href="#">
+                                  <img src="avatar.png" />
+                                </a>
+                                <div class="author-name">
+                                    <span class="badge badge-danger">Server</span>
+                                </div>
+                            </div>
+                        </div>
+                        <form>
+                            <button type="button" class="btn btn-default btn-sm">
+                                <i class="fas fa-plus"></i> Add Task
+                            </button>
+                        </form>
+                    </div>
+                </article>
+                <article class="card">
+                    <header style="background-color: #8F7EE6;" class="card-header">
+                      <h2>Product</h2>
+                    </header>
+                    <div class="task-body"> 
+                        <div class="element-body">
+                            <p>New Account Creation Flow</p>
+                            <div class="card-author">
+                                <a class="author-avatar" href="#">
+                                  <img src="avatar.png" />
+                                </a>
+                                <div class="author-name">
+                                    <span class="badge badge-danger">Server</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="element-body">
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, dolorum.</p>
+                            <div class="card-author">
+                                <a class="author-avatar" href="#">
+                                  <img src="avatar.png" />
+                                </a>
+                                <div class="author-name">
+                                    <span class="badge badge-danger">Server</span>
+                                </div>
+                            </div>
+                        </div>
+                        <form>
+                            <button type="button" class="btn btn-default btn-sm">
+                                <i class="fas fa-plus"></i> Add Task
+                            </button>
+                        </form>
+                    </div>
+                </article>
+                <article class="card">
+                    <header style="background-color: #77CF1F;" style="background-color: #77CF1F;" class="card-header">
+                      <h2>Done</h2>
+                    </header>
+                    <div class="task-body"> 
+                        <div class="element-body">
+                            <p>New Account Creation Flow</p>
+                            <div class="card-author">
+                                <a class="author-avatar" href="#">
+                                  <img src="avatar.png" />
+                                </a>
+                                <div class="author-name">
+                                    <span class="badge badge-danger">Server</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="element-body">
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, dolorum.</p>
+                            <div class="card-author">
+                                <a class="author-avatar" href="#">
+                                  <img src="avatar.png" />
+                                </a>
+                                <div class="author-name">
+                                    <span class="badge badge-danger">Server</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="element-body">
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, dolorum.</p>
+                            <div class="card-author">
+                                <a class="author-avatar" href="#">
+                                  <img src="avatar.png" />
+                                </a>
+                                <div class="author-name">
+                                    <span class="badge badge-danger">Server</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="element-body">
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, dolorum.</p>
+                            <div class="card-author">
+                                <a class="author-avatar" href="#">
+                                  <img src="avatar.png" />
+                                </a>
+                                <div class="author-name">
+                                    <span class="badge badge-danger">Server</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="element-body">
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, dolorum.</p>
+                            <div class="card-author">
+                                <a class="author-avatar" href="#">
+                                  <img src="avatar.png" />
+                                </a>
+                                <div class="author-name">
+                                    <span class="badge badge-danger">Server</span>
+                                </div>
+                            </div>
+                        </div>
+                        <form>
+                            <button type="button" class="btn btn-default btn-sm">
+                                <i class="fas fa-plus"></i> Add Task
+                            </button>
+                        </form>
+                    </div>
+                </article>
+            </section>
+        </div> 
+        <!--Old Main Page-->
+        <!-- <div class="mainpage" v-else-if="targetPage == 'home-page'">
             <button @click.prevent="logout"></button>
             <div class="container">
                 <div class="backlog category" style="background-color: #EFF3F4;">
@@ -106,19 +318,18 @@
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>  -->
     </div>
     <!-- AXIOS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.0/axios.js"></script>
     <!-- VUE.JS -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
+    <!-- <script src="./src/main.js"></script> -->
     <script src="main.js"></script>
 </body>
 </html>
