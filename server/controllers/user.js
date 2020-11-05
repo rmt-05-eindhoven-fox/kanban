@@ -1,6 +1,6 @@
 const { User } = require("../models");
-const { comparePassword } = require("../helper/bcrypt");
-const { signToken } = require("../helper/jwt");
+const { comparePassword } = require("../helpers/bcrypt");
+const { signToken } = require("../helpers/jwt");
 
 class UserController {
   static async register(req, res, next) {
@@ -39,7 +39,6 @@ class UserController {
           email: payload.email,
         },
       });
-
       if (!user) {
         throw { message: `Invalid email/password`, status: 401 };
       } else if (!comparePassword(payload.password, user.password)) {

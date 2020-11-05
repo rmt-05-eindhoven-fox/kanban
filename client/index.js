@@ -1,88 +1,95 @@
 const app = new Vue({
   el: "#app",
   data: {
-    message: "Hello Vue!",
+    SERVER: "http://localhost:3000",
     pageName: "Landing",
     isShowAddCard: false,
     user: {
       email: "",
       password: "",
     },
-    title: "Category Title",
-    categories: [
-      {
-        id: 1,
-        title: "Category 1",
-      },
-      {
-        id: 2,
-        title: "Category 2",
-      },
-      {
-        id: 3,
-        title: "Category 3",
-      },
-    ],
-    tasks: [
-      {
-        id: 1,
-        title: "Task 1",
-        CategoryId: 1,
-      },
-      {
-        id: 2,
-        title: "Task 2",
-        CategoryId: 1,
-      },
-      {
-        id: 3,
-        title: "Task 3",
-        CategoryId: 1,
-      },
-      {
-        id: 4,
-        title: "Task 4",
-        CategoryId: 2,
-      },
-      {
-        id: 5,
-        title: "Task 5",
-        CategoryId: 2,
-      },
-      {
-        id: 6,
-        title: "Task 6",
-        CategoryId: 3,
-      },
-    ],
+    signup: false,
+    categories: [],
+    tasks: [],
   },
   methods: {
     changePage(name) {
       this.pageName = name;
     },
     login() {
-      console.log(this.user.email);
-      console.log(this.user.password);
-      localStorage.setItem("access_token", this.user.email);
-      this.changePage("Home");
+      axios({
+        method: "POST",
+        url: this.SERVER + "/login",
+        data: {
+          email: this.user.email,
+          password: this.user.password,
+        },
+      })
+        .then((res) => {
+          localStorage.setItem("access_token", res.data.access_token);
+          this.changePage("Home");
+          this.fetchCategories();
+          this.fetchTasks();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     logout() {
+      localStorage.removeItem("access_token");
+      this.user.email = "";
+      this.user.password = "";
       this.changePage("Landing");
     },
     checkLogin() {
       if (localStorage.access_token) {
         this.pageName = "Home";
+        this.fetchCategories();
+        this.fetchTasks();
       } else {
         this.pageName = "Landing";
       }
+    },
+    showSignup() {
+      this.signup = true;
+    },
+    cancelSignup() {
+      this.signup = false;
     },
     showAddCard() {
       this.isShowAddCard = true;
     },
     fetchCategories() {
+      const access_token = localStorage.getItem("access_token");
       axios({
         methods: "GET",
-      });
+        url: this.SERVER + "/categories",
+        headers: {
+          access_token,
+        },
+      })
+        .then((res) => {
+          this.categories = res.data.categories;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    fetchTasks() {
+      const access_token = localStorage.getItem("access_token");
+      axios({
+        methods: "GET",
+        url: this.SERVER + "/tasks",
+        headers: {
+          access_token,
+        },
+      })
+        .then((res) => {
+          this.tasks = res.data.tasks;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
   created() {

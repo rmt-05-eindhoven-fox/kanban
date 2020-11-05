@@ -18,16 +18,16 @@
 
     <!--Landing-->
     <div v-if="pageName == 'Landing'" id="landing" class="w-auto my-10">
-        <div class="w-1/2 m-auto border-2 border-black flex flex-col justify-center">
+        <div v-show="!signup" class="w-1/2 m-auto border-2 border-black flex flex-col justify-center">
             <div class="m-auto my-5">Logo</div>
-            <form class="m-auto flex-col flex">
+            <form @submit.prevent="login()" class="m-auto flex-col flex">
                 
                 <input v-model="user.email" type="text" class="m-auto rounded-sm mb-3 p-2 bg-gray-200 hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300" placeholder="Email">
                 <input v-model="user.password" type="password" class="m-auto rounded-sm mb-5 p-2 bg-gray-200 hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300" placeholder="Password">
                 
-                <div @click="login()" class="m-auto w-1/2 rounded-sm bg-teal-500 hover:bg-teal-600 focus:outline-none focus:shadow-outline">
+                <button type="submit" class="m-auto w-1/2 rounded-sm bg-teal-500 hover:bg-teal-600 focus:outline-none focus:shadow-outline">
                     Sign in
-                </div>
+                </button>
             </form>
 
             <div class="m-auto my-5">OR</div>
@@ -37,10 +37,35 @@
             </button>
             <div class="m-auto mb-6 text-center">
                 <p>Don't have account ?</p>
-                <a onclick="showSignup()">Sign up here</a>
+                <button @click="showSignup()">Sign up here</button>
+            </div>
+        </div>
+        <!--Signup-->
+        <div v-show="signup" class="w-1/2 m-auto border-2 border-black flex flex-col justify-center">
+            <div class="m-auto my-5">Logo</div>
+            <form @submit.prevent="signup()" class="m-auto flex-col flex">
+                
+                <input v-model="user.email" type="text" class="m-auto rounded-sm mb-3 p-2 bg-gray-200 hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300" placeholder="Email">
+                <input v-model="user.password" type="password" class="m-auto rounded-sm mb-5 p-2 bg-gray-200 hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300" placeholder="Password">
+                
+                <button type="submit" class="m-auto w-1/2 rounded-sm bg-teal-500 hover:bg-teal-600 focus:outline-none focus:shadow-outline">
+                    Sign up
+                </button>
+            </form>
+
+            <div class="m-auto my-5">OR</div>
+
+            <button class="m-auto w-1/2 mb-6 rounded-sm bg-teal-500 hover:bg-teal-600 focus:outline-none focus:shadow-outline">
+                Continue with Google
+            </button>
+            <div class="m-auto mb-6 text-center">
+                <p>Already have account ?</p>
+                <button @click="cancelSignup()">Sign in here</button>
             </div>
         </div>
     </div>
+
+    
 
     <!--Content-->
     <div v-else-if="pageName == 'Home'">

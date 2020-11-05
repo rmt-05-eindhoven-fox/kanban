@@ -10,15 +10,12 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Task.belongsTo(models.User);
+      Task.belongsTo(models.Category);
     }
   }
   Task.init(
     {
       title: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      category: {
         type: DataTypes.STRING,
         allowNull: false,
       },
