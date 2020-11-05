@@ -58,8 +58,6 @@ let app = new Vue({
 
                     this.userLogin.email = ''
                     this.userLogin.password = ''
-
-                    
                 })
                 .catch(err => {
                     console.log(err)
@@ -105,4 +103,6 @@ let app = new Vue({
         this.checkLogin()
     }
 })
+
+
 
