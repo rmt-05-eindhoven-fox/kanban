@@ -8,6 +8,6 @@ router.get("/", TaskController.allTask);
 router.post("/", TaskController.addTask);
 router.get("/:id", Middleware.authorization, TaskController.getOneTask);
 router.put("/:id", Middleware.authorization, TaskController.updateTask);
-router.delete("/:id", Middleware.authorization, TaskController.deleteTask);
+router.delete("/:id", Middleware.authorization, TaskController.deleteTask);G
 
 module.exports = router;

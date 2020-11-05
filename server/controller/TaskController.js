@@ -21,7 +21,7 @@ class TaskController {
         category,
         UserId,
       });
-      res.status(201).json({ msg: "Successfully created" });
+      res.status(201).json({ msg: "Task is successfully created" });
     } catch (err) {
       next(err);
     }
@@ -66,7 +66,7 @@ class TaskController {
 
     try {
       await Task.destroy({ where: { id: taskId } });
-      res.status(200).json({ msg: "task is successfully deleted" });
+      res.status(200).json({ msg: "Task is successfully deleted" });
     } catch (err) {
       next(err);
     }

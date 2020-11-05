@@ -62,9 +62,9 @@ class Middleware {
     } else if (err.name === "Not authorized") {
       status = 401;
       msg = "Not authorized";
-    } else if (err.name === "Post not found") {
+    } else if (err.name === "Task not found") {
       status = 404;
-      msg = "Post not found";
+      msg = "Task not found";
     }
     res.status(status).json({ msg });
   }
