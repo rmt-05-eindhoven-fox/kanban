@@ -21,7 +21,8 @@ class TaskController {
   static async getAllTask(req, res, next) {
     try {
       const options = {
-        include: [ User ]
+        include: [ User ],
+        order: [['id']]
       }
       const tasks = await Task.findAll(options)
       const taskList = tasks.map(el => {
@@ -30,7 +31,8 @@ class TaskController {
           title: el.title,
           category: el.category,
           email: el.User.email,
-          createdAt: el.createdAt,
+          UserId: el.UserId,
+          createdAt: el.createdAt.toLocaleString(),
           updatedAt: el.updatedAt
         }
       });
@@ -53,7 +55,8 @@ class TaskController {
           title: task.title,
           category: task.category,
           email: task.User.email,
-          createdAt: task.createdAt,
+          UserId: task.User.Id,
+          createdAt: task.createdAt.toLocaleString(),
           updatedAt: task.updatedAt
         }
         res.status(200).json(selectedTask)
@@ -65,9 +68,10 @@ class TaskController {
 
   static async updateTask(req, res, next) {
     const id = +req.params.id
-    const { title } = req.body
+    const { title, category } = req.body
     const payload = {
-      title
+      title,
+      category
     }
     try {
       const options = { 

@@ -1,0 +1,288 @@
+<template>
+  <div>
+    <!-- <h1>{{ message }}</h1> -->
+    <!-- Navbar -->
+    <Navbar
+      v-if="pageName != 'login-page' && pageName != 'register-page'"
+      @logout='logout'
+      :logged_first_name='logged_first_name'
+      :logged_last_name='logged_last_name'
+      >
+    </Navbar>
+    <!-- Register -->
+    <RegisterPage
+      v-if="pageName === 'register-page'"
+      @changePage='changePage'
+      @register='register'
+      >
+
+    </RegisterPage>
+    <!-- Login -->
+    <LoginPage 
+      v-if="pageName === 'login-page'"
+      @changePage="changePage"
+      @login='login'
+      >
+
+    </LoginPage>
+    <!-- AddTask -->
+    <AddTaskPage
+      v-if="pageName === 'add-page'"
+      :dataAddTask="dataAddTask"
+      @changePage="changePage"
+      @addTask="addTask"
+      >
+    </AddTaskPage>
+    <!-- EditTask -->
+    <EditTaskPage
+      v-if="pageName === 'edit-page'"
+      :dataEditTask="dataEditTask"
+      @changePage="changePage"
+      @editTask="editTask"
+      >
+    </EditTaskPage>
+    <!-- Main -->
+    <MainPage 
+      v-if="pageName === 'main-page'"
+      :categories='categories'
+      :tasks='tasks'
+      @logout="logout"
+      @toAddPage="toAddPage"
+      @toEditPage="toEditPage"
+      @deleteTask="deleteTask"
+      >
+    </MainPage>
+  </div>
+</template>
+
+<script>
+import Navbar from './components/Navbar'
+import LoginPage from './components/LoginPage'
+import RegisterPage from './components/RegisterPage'
+import MainPage from './components/MainPage'
+import AddTaskPage from './components/AddTaskPage'
+import EditTaskPage from './components/EditTaskPage'
+import axios from './config/axios'
+
+export default {
+  name: 'App',
+  data() {
+    return {
+      message: 'Hello Vuee!',
+      pageName: 'login-page',
+      access_token: '',
+      logged_first_name: '',
+      logged_last_name: '',
+      dataAddTask: null,
+      dataEditTask: null,
+      categories: [
+        {
+          name: 'Backlog',
+          color: 'bg-warning'
+        },
+        {
+          name: 'Todo',
+          color: 'bg-info'
+        },
+        {
+          name: 'Doing',
+          color: 'bg-primary'
+        },
+        {
+          name: 'Done',
+          color: 'bg-success'
+        }
+      ],
+      tasks: []
+    }
+  },
+  components: {
+    Navbar,
+    LoginPage,
+    RegisterPage,
+    MainPage,
+    AddTaskPage,
+    EditTaskPage
+  },
+  methods:{
+    fetchTasks() {
+      axios({
+      method: 'get',
+      url: 'http://localhost:3000/tasks',
+      headers: {
+        access_token: this.access_token
+        }
+      })
+        .then(({data}) => {
+          this.tasks = data
+        })
+        .catch(err => {
+          console.log(err.response);
+        })
+    },
+    changePage(name) {
+      this.pageName = name
+    },
+    register(payload) {
+      const { email, password, first_name, last_name } = payload
+      // console.log(email, password, first_name, last_name);
+      axios({
+        url: '/register',
+        method: 'post',
+        data: {
+          email,
+          password,
+          first_name,
+          last_name
+        }
+      })
+        .then(({data}) => {
+          console.log(data);
+          this.changePage('login-page')
+        })
+        .catch(error => {
+          // console.log(error.response.data);
+          const err = error.response.data.msg
+          console.log(err);
+        })
+    },
+    login(payload) {
+      // console.log(payload);
+      const { email, password } = payload
+      // console.log(email, password);
+      axios({
+        url: '/login',
+        method: 'post',
+        data: {
+          email,
+          password
+        }
+      })
+        .then(({data}) => {
+          const access_token = data.access_token
+          localStorage.setItem('logged_first_name', data.first_name)
+          localStorage.setItem('logged_last_name', data.last_name)
+          localStorage.setItem('access_token', access_token)
+          this.access_token = access_token
+          this.logged_first_name = localStorage.getItem('logged_first_name')
+          this.logged_last_name = localStorage.getItem('logged_last_name')
+          this.fetchTasks()
+          this.changePage('main-page')
+        })
+        .catch(error => {
+          // console.log(error.response.data);
+          const err = error.response.data.msg
+          console.log(err);
+        })
+    },
+    logout(){
+      localStorage.clear()
+      this.logged_first_name = ''
+      this.logged_last_name = ''
+      this.changePage('login-page')
+    },
+    checkLogin() {
+      const access_token = localStorage.getItem('access_token')
+      this.logged_first_name = localStorage.getItem('logged_first_name')
+      this.logged_last_name = localStorage.getItem('logged_last_name')
+      if (access_token) {
+        this.access_token = access_token
+        this.changePage('main-page')
+        this.fetchTasks()
+      } else {
+        this.changePage('login-page')
+      }
+    },
+    toAddPage(payload) {
+      this.dataAddTask = {
+        category: payload.category
+      }
+      this.changePage(payload.page)
+    },
+    addTask(payload) {
+      const { title, category } = payload
+      // console.log(title, category, 'app');
+      axios({
+        url: '/tasks',
+        method: 'post',
+        headers: {
+          access_token: this.access_token
+        },
+        data: {
+          title,
+          category
+        }
+      })
+        .then(({data}) => {
+          console.log(data);
+          this.fetchTasks()
+          this.changePage('main-page')
+        })
+        .catch(error => {
+          // console.log(error.response.data);
+          const err = error.response.data.msg
+          console.log(err);
+        })
+    },
+    toEditPage(payload) {
+      this.dataEditTask = {
+        id: payload.id,
+        title: payload.title,
+        category: payload.category,
+      }
+      this.changePage(payload.page)
+    },
+    editTask(payload) {
+      const { id, title, category } = payload
+      axios({
+        url: `/tasks/${id}`,
+        method: 'put',
+        headers: {
+          access_token: this.access_token
+        },
+        data: {
+          title,
+          category
+        }
+      })
+        .then(({data}) => {
+          console.log(data);
+          this.fetchTasks()
+          this.changePage('main-page')
+        })
+        .catch(error => {
+          // console.log(error.response.data);
+          const err = error.response.data.msg
+          console.log(err);
+        })
+    },
+    deleteTask(payload) {
+      const {id} = payload 
+      axios({
+        url: `/tasks/${id}`,
+        method: 'delete',
+        headers: {
+          access_token: this.access_token
+        }
+      })
+        .then(({data}) => {
+          console.log(data);
+          this.fetchTasks()
+          this.changePage(payload.page)
+        })
+        .catch(error => {
+          // console.log(error.response.data);
+          const err = error.response.data.msg
+          console.log(err);
+        })
+    }
+  },
+  created() {
+    this.checkLogin()
+  }
+}
+</script>
+
+<style>
+
+</style>

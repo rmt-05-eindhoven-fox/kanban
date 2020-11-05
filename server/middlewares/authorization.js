@@ -7,13 +7,13 @@ module.exports = async function (req, res, next) {
   console.log(req.params, taskId)
   try {
     if (isNaN(taskId)) {
-      throw { msg: 'task ID is not valid!', status: 404 }
+      throw { msg: 'task ID is not valid!', status: 400 }
     } else {
       const task = await Task.findByPk(taskId)
       if (!task) {
         throw { msg: 'task not found', status: 404 }
       } else if (task.UserId !== UserId) {
-        throw { msg: 'not authorized!', status: 404 }
+        throw { msg: 'not authorized!', status: 401 }
       } else {
         next()
       }
