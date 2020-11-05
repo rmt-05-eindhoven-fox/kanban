@@ -9,9 +9,10 @@ async function authorization(request, response, next) {
         }else if(data.UserId === request.loggedInUser.id) {
             next();
         }else {
-            throw { name: 'Unauthorized!' }
+            throw { name: 'Unauthorized' }
         }
     }catch(error) {
+        //console.log(error);
         next(error);
     }
 }
