@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+ <link href="https://fonts.googleapis.com/css?family=Noto Sans JP" rel="stylesheet" />
+
+ <link rel="stylesheet" href="kanban.css" />
+ <title>Kanbatte!</title>
+</head>
+
+<body>
+ <!----------------------------------pembungkus terluar untuk vue #app --------------------------------------------->
+ <div id="app">
+
+  <!-----------------------------------HEADERS ------------------------------------------------------------------->
+  <header class="navbar fixed-top">
+   <div id="logo">
+    <img src="img/kanbattefit.png" alt="" width="270px" />
+   </div>
+
+   <div class="links">
+    <ul>
+     <li>
+      <button v-on:click="changePage('landing-page')" class="btn rounded btn-logout mt-3 mr-3">
+       SIGN OUT
+      </button>
+     </li>
+    </ul>
+   </div>
+  </header>
+  <!----------------------------END OF HEADERS ------------------------------------------------------------->
+
+
+  <!----------------------------------------home page ----------------------------------->
+  <section v-if="pageName == 'landing-page'" id="landing-page" class="container-fluid p-4">
+   <div class="row mt-5">
+    <div class="col-md-6 mt-5 text-left order-sm-1">
+     <h1 class="">
+      <b>K A N B A T T E</b><br />
+      when kanban meets ganbatte
+     </h1>
+     <h4 class="mt-1 sub-title">
+      The Best scheduling system in The Country
+     </h4>
+     <a v-on:click.prevent="changePage('register-page')" href="#" class="btn slideUpBtn mt-1">Sign Up</a>
+     &nbsp;
+
+     <a v-on:click.prevent="changePage('login-page')" href="#" class="btn btn-add-task mt-1">Sign In</a>
+    </div>
+    <div class="col-md-6 mt-5 order-sm-2">
+     <div class="">
+      <img src="img/undraw_shared_goals_3d12.svg" width="500px" loading="lazy" class="images-fluid" />
+     </div>
+    </div>
+   </div>
+  </section>
+  <!----------------------------------------home page ------------------------------------->
+  <!------------------------------------end--of--home page ------------------------------->
+
+
+
+  <!----------------------------------BOARD ------------------------------------->
+  <section v-else-if="pageName == 'board-page'">
+
+   <div class="container-fluid mt-4" d-none>
+    <!-- dashboard -->
+    <div class="row mt-3">
+     <div class="col-sm-3">
+      <div class="category-section">
+       <!-- CATEGORY--------BACKLOG---------------------------------------------------------->
+       <div class="category-title pt-1 mt-5">
+        <h2 class="mt-2 ml-3">B A C K L O G</h2>
+       </div>
+       <!-- CATEGORY HEADER ------------------------------------------------->
+       <div class="category-content overflow-auto m-3 ">
+        <div class="row">
+         <!-- CARD BODY -->
+         <div class="container-fluid" v-for="task in tasks" v-bind:key="task.id">
+
+          <div v-if="task.CategoryId == 1" class="card container-fluid mb-2 mr-3 rounded"
+           width="100%;">
+           <div class="card-body">
+            <h5 class="card-title">{{task.title}}</h5>
+            <h6 class="card-subtitle m-2 text-muted">{{task.description}}</h6>
+            <a href="#" class="delete-task">Delete task</a>
+           </div>
+          </div>
+
+         </div>
+         <!-- end of card body ----------------------------------------------->
+        </div>
+        <!-- END OF CARD ----------------------------------------------------->
+       </div>
+       <!-- CATEGORY FOOTER -->
+       <div class="category-footer p-3 mr-4">
+          <form @submit.prevent="addTask" v-show="isShow" class=" mb-2">
+            <input v-model="title" type="text" placeholder="add title" style="border: none;"
+            class="card container-fluid mb-2">
+             <textarea v-model="description" placeholder="add description" style="border: none"
+                class="card container-fluid">
+             </textarea>
+              <div id="post-decision">
+                <button @click="closeAddTask" class="btn btn-success btn-sm"><i
+                  class="fa fa-check"></i>&nbsp;
+                </button>
+                <button @click="closeAddTask" class="btn btn-danger btn-sm"><i
+                  class="fa fa-close"></i>
+                </button>
+              </div>
+          </form>
+              <div v-show="!isShow">
+               <button @click="showAddTask" class="btn rounded btn-add-task p-2">ADD TASK</button>
+              </div>
+          </div>    <!-- END CATEGORY FOOTER -->
+      </div>
+     </div>
+     <!-- end of backlog kategory -------------------------------------------------->
+     <div class="col-sm-3">
+      <div class="category-section">
+       <!-- CATEGORY HEADER -->
+       <div class="category-title pt-1 mt-5">
+        <h2 class="mt-2 ml-3">T O D O</h2>
+       </div>
+       <!-- CATEGORY HEADER -->
+
+       <!-- CARD ----------------------------------------------------------------->
+       <div class="category-content overflow-auto m-3">
+        <div class="row">
+									<!-- CARD BODY -->
+									<div class="container-fluid" v-for="task in tasks" v-bind:key="task.id">
+										<div v-if="task.CategoryId == 2" class="card container-fluid mb-2 mr-3 rounded"
+											width="100%;">
+											<div class="card-body">
+												<h5 class="card-title">{{task.title}}</h5>
+												<h6 class="card-subtitle m-2 text-muted">{{task.description}}</h6>
+												<a href="#" class="delete-task">Delete task</a>
+											</div>
+										</div>
+									</div>
+									<!-- end of card body -->
+        </div>
+        <!-- END OF CARD ----------------------------------------------------->
+       </div>
+
+       <!-- CATEGORY FOOTER -->
+       <div class="category-footer p-3 mr-4">
+          <form @submit.prevent="addTask" v-show="isShow" class=" mb-2">
+            <input v-model="title" type="text" placeholder="add title" style="border: none;"
+            class="card container-fluid mb-2">
+             <textarea v-model="description" placeholder="add description" style="border: none"
+                class="card container-fluid">
+             </textarea>
+
+              <div id="post-decision">
+                <button @click="closeAddTask" class="btn btn-success btn-sm"><i
+                  class="fa fa-check"></i>&nbsp;
+                </button>
+                <button @click="closeAddTask" class="btn btn-danger btn-sm"><i
+                  class="fa fa-close"></i>
+                </button>
+              </div>
+          </form>
+              <div v-show="!isShow">
+               <button @click="showAddTask" class="btn rounded btn-add-task p-2">ADD TASK</button>
+              </div>
+          </div>    <!-- END CATEGORY FOOTER -->
+
+      </div>
+     </div>
+     <div class="col-sm-3">
+      <div class="category-section">
+       <!-- CATEGORY HEADER -->
+       <div class="category-title pt-1 mt-5">
+        <h2 class="mt-2 ml-3">D O N E</h2>
+       </div>
+       <!-- CATEGORY HEADER -->
+
+       <!-- CARD ----------------------------------------------------------------->
+       <div class="category-content overflow-auto m-3">
+        <div class="row">
+									<!-- CARD BODY -->
+									<div class="container-fluid" v-for="task in tasks" v-bind:key="task.id">
+
+										<div v-if="task.CategoryId == 3" class="card container-fluid mb-2 mr-3 rounded"
+											width="100%;">
+											<div class="card-body">
+												<h5 class="card-title">{{task.title}}</h5>
+												<h6 class="card-subtitle m-2 text-muted">{{task.description}}</h6>
+												<a href="#" class="delete-task">Delete task</a>
+											</div>
+
+										</div>
+
+									</div>
+									<!-- end of card body -->
+        </div>
+        <!-- END OF CARD ----------------------------------------------------->
+       </div>
+
+       <!-- CATEGORY FOOTER -->
+       <!-- CATEGORY FOOTER -->
+       <div class="category-footer p-3 mr-4">
+          <form @submit.prevent="addTask" v-show="isShow" class=" mb-2">
+            <input v-model="title" type="text" placeholder="add title" style="border: none;"
+            class="card container-fluid mb-2">
+             <textarea v-model="description" placeholder="add description" style="border: none"
+                class="card container-fluid">
+             </textarea>
+
+              <div id="post-decision">
+                <button @click="closeAddTask" class="btn btn-success btn-sm"><i
+                  class="fa fa-check"></i>&nbsp;
+                </button>
+                <button @click="closeAddTask" class="btn btn-danger btn-sm"><i
+                  class="fa fa-close"></i>
+                </button>
+              </div>
+          </form>
+              <div v-show="!isShow">
+               <button @click="showAddTask" class="btn rounded btn-add-task p-2">ADD TASK</button>
+              </div>
+          </div>    <!-- END CATEGORY FOOTER -->
+      </div>
+     </div>
+     <div class="col-sm-3">
+      <div class="category-section">
+       <!-- CATEGORY HEADER -->
+       <div class="category-title pt-1 mt-5">
+        <h2 class="mt-2 ml-3">C O M P L E T E</h2>
+       </div>
+       <!-- CATEGORY HEADER -->
+
+       <!-- CARD ----------------------------------------------------------------->
+       <div class="category-content overflow-auto m-3">
+        <div class="row">
+          									<!-- CARD BODY -->
+									<div class="container-fluid" v-for="task in tasks" v-bind:key="task.id">
+										<div v-if="task.CategoryId == 4" class="card container-fluid mb-2 mr-3 rounded"
+											width="100%;">
+											<div class="card-body">
+												<h5 class="card-title">{{task.title}}</h5>
+												<h6 class="card-subtitle m-2 text-muted">{{task.description}}</h6>
+												<a href="#" class="delete-task">Delete task</a>
+											</div>
+										</div>
+									</div>
+									<!-- end of card body -->
+        </div>
+        <!-- END OF CARD ----------------------------------------------------->
+       </div>
+
+       <!-- CATEGORY FOOTER -->
+       <div class="category-footer p-3 mr-4">
+          <form @submit.prevent="addTask" v-show="isShow" class=" mb-2">
+            <input v-model="title" type="text" placeholder="add title" style="border: none;"
+            class="card container-fluid mb-2">
+             <textarea v-model="description" placeholder="add description" style="border: none"
+                class="card container-fluid">
+             </textarea>
+
+              <div id="post-decision">
+                <button type="submit" class="btn btn-success btn-sm"><i
+                  class="fa fa-check"></i>&nbsp;
+                </button>
+                <button @click="closeAddTask" class="btn btn-danger btn-sm"><i
+                  class="fa fa-close"></i>
+                </button>
+              </div>
+          </form>
+              <div v-show="!isShow">
+               <button @click="showAddTask" class="btn rounded btn-add-task p-2">ADD TASK</button>
+              </div>
+          </div>    <!-- END CATEGORY FOOTER -->
+      </div>
+     </div>
+    </div>
+   </div>
+  </section>
+
+
+
+
+
+  <!--------------------------register -------------------------------------------------->
+  <section v-else-if="pageName == 'register-page'" id="register-page">
+   <div>
+    <div class="logo">
+     <img src="./img/kanbattetransparent.png" alt="" width="500px" />
+    </div>
+    <h1>Register</h1>
+    <form id="submit-login">
+     <label>Email:</label>
+     <input type="email" id="email-login" v-model="email" />
+     <label>Password:</label>
+     <input type="password" id="password-login" v-model="password" />
+     <br />
+     <button class="login-btn" type="submit">Register</button> <br />
+    </form>
+    <span>Already have an account?
+     <a @click.prevent="changePage('login-page')" href="#" id="go-to-signin">Sign in</a></span>
+  </section>
+
+  <!--------------------------register -------------------------------------------------->
+
+  <!-- if page not found ----------------------------------------------------------------------------->
+  <section v-else>
+
+   <h1>page not found</h1>
+
+  </section>
+  <!-- if page not found ----------------------------------------------------------------------------->
+
+
+
+
+
+ </div>
+ <!----------------------------------pembungkus terluar untuk vue #app --------------------------------------------------->
+
+ <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+ <script src="./src/main.js"></script>
+</body>
+
+</html>

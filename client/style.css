@@ -1,0 +1,168 @@
+* {
+	padding: 0;
+	margin: 0;
+}
+
+body,header{
+	font-family: 'Noto Sans JP';font-size: 22px;
+}
+
+body{
+	padding-top: 100px;
+	background-color: #bfbfbf;;
+}
+
+.btn-logout{
+	background-color: #f40000;
+	width:150px;
+	height:60px;
+	color:white;
+	font-size:21px;
+	font-weight:800;
+
+}
+.btn-add-task{
+	background-color: #f40000;
+	color:white;
+
+}
+
+.category-section{
+	background-color:#383838;
+	
+}
+
+h2{
+	font-weight: bold;
+	color: whitesmoke;
+	display: flex;
+}
+
+#logo{
+	/* margin-top: 1rem; */
+	margin-bottom: 2rem;
+}
+header {
+	display: flex;
+	justify-content: space-between;
+	list-style: none;
+	font-size:50px;
+	background-color:#383838;
+	padding: 10px;
+	margin: 0;
+	color: white;
+}
+header .links a {
+	color: white;
+	text-decoration: none;
+	font-size: 20px;
+	margin-left: 30px;
+}
+header .links ul {
+	list-style: none;
+}
+header .links li {
+	display: inline-flex;
+}
+
+header .links {
+	display: flex;
+}
+.logo{
+
+}
+.category-content {
+	/* height: 90vh; */
+	padding: 10px;
+	max-height: 600px;
+	height: auto;
+	overflow-y: auto;
+	overflow: scroll;
+}
+
+container-fluid {
+	
+	display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+}
+
+#landing-page{
+	background-color: white;
+}
+
+.slideUpBtn {
+	padding: 12px 24px;
+	color: black;
+    background-color: transparent;
+    border: 2px solid#f40000;
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(1,.15,.34,.92)
+}
+
+.slideUpBtn span {
+    display: inline-block;
+    transition: inherit;
+    color:#f40000;
+}
+
+.slideUpBtn:hover span {
+    opacity: 0;
+    transform: translateY(-100%)
+}
+
+.slideUpBtn::before {
+    content: "";
+    background-color: #f40000;;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transform: translateY(100%);
+    transition: inherit;
+    width: 100%;
+    transition: transform 0.5s cubic-bezier(1,.15,.34,.92)
+}
+
+.slideUpBtn::after {
+    content: 'Sign Up';
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transition: inherit;
+    transform: translateY(100%);
+    width: 100%;
+
+}
+
+.slideUpBtn:hover::before {
+    transform: translateY(0) scale(3);
+    transition-delay: .025s;
+}
+
+.slideUpBtn:hover::after {
+    opacity: 1;
+    color: hsl(0, 0%, 100%);
+    transform: translateY(0);
+}
+/* .category-footer {
+	display: flex;
+	justify-content: center;
+}
+
+
+.category {
+	border: 1px solid black;
+	display: flex;
+	flex-direction: row;
+}
+
+.category-section {
+	align-items: stretch;
+} */
