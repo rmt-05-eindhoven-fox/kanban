@@ -3,7 +3,7 @@ const {User, Task} = require('../models/index');
 class TaskController {
     static async getTasks (req, res, next) {
         try {
-            let task = await Task.findAll();
+            let task = await Task.findAll({include: [User]});
             res.status(200).json(task)
         } catch (err) {
             next(err);

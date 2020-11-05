@@ -1,83 +1,12 @@
 <template>
     <div class="mainpage">
-                <button @click.prevent="logout"></button>
                 <section class="card-list">
                     <article class="card">
                         <header style="background-color: #30BFBF;" class="card-header">
                         <h2>Backlog</h2>
                         </header>
-                        <div class="task-body">
+                        <div class="task-body"> 
                             <div class="element-body" v-for="(task, i) in dataTasks.backlogTasks" :key="i">
-                                <p contenteditable="true">{{task.title}}</p>
-                                <p>{{task.description}}</p>
-                                <div class="card-author">
-                                    <a class="author-avatar" href="#">
-                                    <img src="avatar.png">
-                                    </a>
-                                    <div class="author-name">
-                                        <span class="badge badge-danger">{{task.description}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <form>
-                                <button type="button" class="btn btn-default btn-sm">
-                                    <span class="glyphicon">&#x2b;</span> Add Task
-                                </button>
-                            </form>
-                        </div>
-                    </article>
-                    <article class="card">
-                        <header class="card-header">
-                        <h2>Development</h2>
-                        </header>
-                        <div class="task-body"> 
-                            <div class="element-body">
-                                <p>New Account Creation Flow</p>
-                                <div class="card-author">
-                                    <a class="author-avatar" href="#">
-                                    <img src="avatar.png">
-                                    </a>
-                                    <div class="author-name">
-                                        <span class="badge badge-danger">Server</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <form>
-                                <button type="button" class="btn btn-default btn-sm">
-                                    <span class="glyphicon">&#x2b;</span> Add Task
-                                </button>
-                            </form>
-                        </div>
-                    </article>
-                    <article class="card">
-                        <header style="background-color: #8F7EE6;" class="card-header">
-                        <h2>Product</h2>
-                        </header>
-                        <div class="task-body"> 
-                            <div class="element-body">
-                                <p>New Account Creation Flow</p>
-                                <div class="card-author">
-                                    <a class="author-avatar" href="#">
-                                    <img src="avatar.png">
-                                    </a>
-                                    <div class="author-name">
-                                        <span class="badge badge-danger">Server</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <form>
-                                <button type="button" class="btn btn-default btn-sm">
-                                    <span class="glyphicon">&#x2b;</span> Add Task
-                                </button>
-                            </form>
-                        </div>
-                    </article>
-                    <article class="card">
-                        <header style="background-color: #77CF1F;" class="card-header">
-                        <h2>Done</h2>
-                        </header>
-                        <div class="task-body"> 
-                            <div class="element-body" v-for="(task, i) in dataTasks.doneTasks" :key="i">
                                 <p contenteditable="true">{{task.title}}</p>
                                 <p>{{task.description}}</p>
                                     <button type="button" class="btn btn-primary">Edit</button>
@@ -99,11 +28,95 @@
                             </button>
                         </form>
                     </article>
+                    <article class="card">
+                        <header class="card-header">
+                        <h2>Development</h2>
+                        </header>
+                        <div class="task-body"> 
+                            <div class="element-body" v-for="(task, i) in dataTasks.developmentTasks" :key="i">
+                                <p contenteditable="true">{{task.title}}</p>
+                                <p>{{task.description}}</p>
+                                    <button type="button" class="btn btn-primary">Edit</button>
+                                    <button type="button" class="btn btn-danger"><span class="glyphicon">&#xe020;</span></button>
+                                    <button type="button" class="btn btn-warning">></button>
+                                <div class="card-author">
+                                    <a class="author-avatar" href="#">
+                                    <img src="avatar.png">
+                                    </a>
+                                    <div class="author-name">
+                                        Japra
+                                        <span class="badge badge-success">{{task.category}}</span>
+                                    </div>
+                            </div>
+                        </div>
+                        <form>
+                            <button type="button" class="btn btn-default btn-sm">
+                                <span class="glyphicon">&#x2b;</span> Add Task
+                            </button>
+                        </form>
+                    </article>
+                    <article class="card">
+                        <header style="background-color: #8F7EE6;" class="card-header">
+                        <h2>Product</h2>
+                        </header>
+                        <div class="task-body"> 
+                            <div class="element-body" v-for="(task, i) in dataTasks.productTasks" :key="i">
+                                <p contenteditable="true">{{task.title}}</p>
+                                <p>{{task.description}}</p>
+                                    <button type="button" class="btn btn-primary">Edit</button>
+                                    <button type="button" class="btn btn-danger"><span class="glyphicon">&#xe020;</span></button>
+                                    <button type="button" class="btn btn-warning">></button>
+                                <div class="card-author">
+                                    <a class="author-avatar" href="#">
+                                    <img src="avatar.png">
+                                    </a>
+                                    <div class="author-name">
+                                        {{task.User.email}}
+                                        <span class="badge badge-success">{{task.category}}</span>
+                                    </div>
+                            </div>
+                        </div>
+                        <form>
+                            <button type="button" class="btn btn-default btn-sm">
+                                <span class="glyphicon">&#x2b;</span> Add Task
+                            </button>
+                        </form>
+                    </article>
+                    <article class="card">
+                        <header style="background-color: #77CF1F;" class="card-header">
+                        <h2>Done</h2>
+                        </header>
+                        <div class="task-body"> 
+                            <div class="element-body" v-for="(task, i) in dataTasks.doneTasks" :key="i">
+                                <p contenteditable="true">{{task.title}}</p>
+                                <p>{{task.description}}</p>
+                                    <button type="button" class="btn btn-primary">Edit</button>
+                                    <button type="button" class="btn btn-danger"><span class="glyphicon">&#xe020;</span></button>
+                                    <!-- <button type="button" class="btn btn-warning">></button> -->
+                                <div class="card-author">
+                                    <a class="author-avatar" href="#">
+                                    <img src="avatar.png">
+                                    </a>
+                                    <div class="author-name">
+                                        {{task.User.email}}
+                                        <span class="badge badge-success">{{task.category}}</span>
+                                    </div>
+                            </div>
+                        </div>
+                        <form>
+                            <button type="button" class="btn btn-default btn-sm">
+                                <span class="glyphicon">&#x2b;</span> Add Task
+                            </button>
+                        </form>
+                    </article>
                 </section>
+                <rightNav @logout="logout"></rightNav>
+
     </div>
 </template>
 
 <script>
+import rightNav from './rightNav'
 export default {
     name: "homepage",
     data() {
@@ -111,10 +124,12 @@ export default {
         };
     },
     methods: {
-        logout(){
-            localStorage.removeItem('access_token');
-            this.$emit('logout', 'landing-page');
+        logout(value){
+            this.$emit('logout', value);
         }
+    },
+    components: {
+        rightNav
     },
     props: ['dataTasks'],
     created() {
@@ -130,39 +145,39 @@ body {
     padding: 0;
     margin: 0;
     font-family: 'DM Mono', monospace;
+    margin-left: -55px;
 }
 
 .card {   
     align-self: start;
-
     min-height: 650px;
-    max-height: 750px;
+    max-height: 680px;
     min-width: 350px;
     border-radius: 16px;
     background: #EAEEEF;
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
               0 10px 10px rgba(0,0,0,0.22);
     transition: .2s;
-    margin-left: -15px;
-
+    margin-top: -65px;
 }
 
 .task-body {
     display:grid;
     padding: 1.5rem;
-    max-height: 750px;
+    max-height: 650px;
     overflow-y: scroll;
     align-self: start;
     margin-bottom: 50px;
 }
 
 .task-body form button {
+    margin-left: 15px;
     background-color: #00AAFF;
 }
 
 .card-header {
     background-color: #00AAFF;
-    padding: 15px 10px;
+    padding: 5px 5px;
     color: white;
     text-align: center;
 }
@@ -178,7 +193,7 @@ body {
     /* margin: 3rem 0 0; */
     display: grid;
     margin-top: 5px;
-    grid-template-columns: 35px 45px 35px;
+    grid-template-columns: 35px 205px 35px;
     align-items: center;
     position: relative;
 }
