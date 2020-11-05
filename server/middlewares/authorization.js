@@ -1,6 +1,6 @@
-const { User, Task } = require("../models");
+const { User, Task, Category } = require("../models");
 
-async function authorization(req, res, next) {
+async function authorizationTask(req, res, next) {
   try {
     const userId = req.User.id;
     const taskId = req.params.id;
@@ -15,9 +15,30 @@ async function authorization(req, res, next) {
       next();
     }
   } catch (err) {
-    console.log(err);
     next(err);
   }
 }
 
-module.exports = authorization;
+async function authorizationCategory(req, res, next) {
+  try {
+    const userId = req.User.id;
+    const categoryId = req.params.id;
+
+    const category = await Category.findByPk(categoryId);
+
+    if (!category) {
+      throw { message: `Category not found`, status: 404 };
+    } else if (category.UserId !== userId) {
+      throw { message: `Authorization failed`, status: 401 };
+    } else {
+      next();
+    }
+  } catch (err) {
+    next(err);
+  }
+}
+
+module.exports = {
+  authorizationTask,
+  authorizationCategory,
+};

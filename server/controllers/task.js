@@ -3,6 +3,7 @@ const { Task } = require("../models");
 class TaskController {
   static async showTask(req, res, next) {
     try {
+      console.log(`==== Fetching Task ====`);
       const tasks = await Task.findAll();
       res.status(200).json({
         tasks,
@@ -14,28 +15,67 @@ class TaskController {
 
   static async addTask(req, res, next) {
     try {
-      // const email = req.body.email;
-      // const password = req.body.password;
-      // const payload = {
-      //   email,
-      //   password,
-      // };
-      // const user = await User.findOne({
-      //   where: {
-      //     email: payload.email,
-      //   },
-      // });
-      // if (!user) {
-      //   throw { message: `Invalid email/password`, status: 401 };
-      // } else if (!comparePassword(payload.password, user.password)) {
-      //   throw { message: `Invalid email/password`, status: 401 };
-      // } else {
-      //   const access_token = signToken({
-      //     id: user.id,
-      //     email: user.email,
-      //   });
-      //   res.status(200).json({ access_token });
-      // }
+      console.log(`==== Adding Task ====`);
+      const title = req.body.title;
+      const CategoryId = req.body.CategoryId;
+      const UserId = req.User.id;
+
+      const payload = {
+        title,
+        CategoryId,
+        UserId,
+      };
+      console.log(payload);
+      const task = await Task.create(payload);
+      res.status(201).json({
+        task,
+      });
+    } catch (err) {
+      console.log(err);
+      next(err);
+    }
+  }
+
+  static async deleteTask(req, res, next) {
+    try {
+      console.log(`==== Deleting Task ====`);
+      const TaskId = req.params.id;
+
+      const task = await Task.destroy({
+        where: {
+          id: TaskId,
+        },
+      });
+
+      res.status(200).json({
+        task,
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  static async moveCategory(req, res, next) {
+    try {
+      console.log(`==== Moving Task ====`);
+      const TaskId = req.params.id;
+      const newData = {
+        CategoryId: req.body.CategoryId,
+      };
+
+      const task = await Task.update(newData, {
+        where: {
+          id: TaskId,
+        },
+      });
+
+      if (!task) {
+        throw { messsage: `Task not found`, status: 404 };
+      }
+
+      res.status(200).json({
+        task,
+      });
     } catch (err) {
       next(err);
     }

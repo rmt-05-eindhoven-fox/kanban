@@ -5,6 +5,7 @@ const { signToken } = require("../helpers/jwt");
 class UserController {
   static async register(req, res, next) {
     try {
+      console.log("register");
       const email = req.body.email;
       const password = req.body.password;
 
@@ -25,6 +26,8 @@ class UserController {
   }
 
   static async login(req, res, next) {
+    console.log("login");
+
     try {
       const email = req.body.email;
       const password = req.body.password;
@@ -40,9 +43,9 @@ class UserController {
         },
       });
       if (!user) {
-        throw { message: `Invalid email/password`, status: 401 };
+        throw { message: `Invalid email/password`, status: 400 };
       } else if (!comparePassword(payload.password, user.password)) {
-        throw { message: `Invalid email/password`, status: 401 };
+        throw { message: `Invalid email/password`, status: 400 };
       } else {
         const access_token = signToken({
           id: user.id,
