@@ -3,22 +3,8 @@
 	<section>
 		<div class="container-fluid mt-4">
 			<div class="row mt-3 d-flex">
-				<div class="category col-sm-3">
-					<Category> </Category>
-				</div>
-
-				<div class="category col-sm-3">
-					<Category> </Category>
-				</div>
-
-				<div class="category col-sm-3">
-					<Category> </Category>
-				</div>
-
-				<div class="category col-sm-3">
-					<Category> </Category>
-				</div>
-        
+				<Category v-for="category in categories" v-bind:key="category.id">
+				</Category>
 			</div>
 		</div>
 	</section>
@@ -32,6 +18,7 @@ export default {
 	components: {
 		Category,
 	},
+	props: ["categories"],
 };
 </script>
 

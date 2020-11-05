@@ -55,25 +55,6 @@ let app = new Vue({
 				CategoryId: "3",
 			},
 		],
-
-		categories: [
-			{
-				id: 1,
-				name: "BACKLOG",
-			},
-			{
-				id: 2,
-				name: "TODO",
-			},
-			{
-				id: 3,
-				name: "DONE",
-			},
-			{
-				id: 4,
-				name: "COMPLETE",
-			},
-		],
 	},
 	methods: {
 		changePage(name) {
