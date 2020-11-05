@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kanban</title>
+  <!-- ? Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+  <!-- ? FontAwesome CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <style>
+    input {
+    border: 0 !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    border-bottom: 1px solid black !important;
+    border-radius: 0 !important;
+  }
+  /* #user-page {
+    background: rgb(155,89,182);
+background: linear-gradient(0deg, rgba(155,89,182,1) 0%, rgba(142,68,173,1) 79%);}     */
+  </style>
+</head>
+<body>
+  <div id="app">
+    <!-- ! home-page -->
+    <section 
+    v-if="pageName == 'home-page'"
+    id="home-page" style="width: 100vw; height: 100vh; align-items: center; position: relative;">
+        <video autoplay muted loop id="myVideo" style="height: auto; width: 100%; position: absolute; z-index: -2;">
+          <source src="/assets/discussing_features.mp4" type="video/mp4">
+        </video>
+      <div class="d-flex justify-content-center align-items-center h-100">
+        <div class="jumbotron jumbotron-fluid px-4 bg-light shadow h-75" style="opacity: 0.8;">
+          <h1 class="display-4">Welcome to Kanban!</h1>
+          <p class="lead">This is an app for your company to help you and your colleagues manage your projects.</p>
+          <hr class="my-4">
+          <p>Sometimes managing tasks can be hard, right?</p>
+        </div>
+        <div class="jumbotron jumbotron-fluid text-right px-4 bg-light shadow h-75" style="opacity: 0.8;">
+          <form
+          @submit.prevent="register()"
+          >
+            <div class="form-group">
+              <label for="sign-up-name">Name</label>
+              <input 
+              v-model="formRegister.name" 
+              type="text" class="form-control" id="sign-up-name" aria-describedby="emailHelp" placeholder="Enter name" style="border: bottom;">
+            </div>
+            <div class="form-group">
+              <label for="sign-up-email">Email address</label>
+              <input 
+              v-model="formRegister.email"
+              type="email" class="form-control" id="sign-up-email" aria-describedby="emailHelp" placeholder="Enter email">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class="form-group">
+              <label for="sign-up-password">Password</label>
+              <input 
+              v-model="formRegister.password"
+              type="password" class="form-control" id="sign-up-password" placeholder="Password">
+            </div>
+              <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter">
+                Sign In
+              </button>            
+              <button type="submit" class="btn btn-primary">Sign Me Up</button>
+          </form>          
+        </div>
+      </div>
+
+      <!-- ! Modal Sign in -->
+      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form 
+              @submit.prevent="login()" >
+                <div class="form-group p-4">
+                  <label for="sign-in-email">Email address</label>
+                  <input 
+                  v-model="formLogin.email"
+                  type="email" class="form-control" id="sign-in-email" aria-describedby="emailHelp" placeholder="Enter email">
+                </div>
+                <div class="form-group p-4">
+                  <label for="sign-in-password">Password</label>
+                  <input
+                  v-model="formLogin.password"
+                  type="password" class="form-control" id="sign-in-password" placeholder="Password">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button 
+                @click.prevent="login()"
+                type="submit" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ! user-page -->
+    <section
+    v-else 
+    id="user-page" style="width: fit-content; padding-top: 10%; height: 100vh; background-color: #2c3e50;">
+      <!-- ! Navbar -->
+      <div class="fixed-top m-0 p-0 bg-info shadow" style="width: 100vw !important;">
+        <nav class="navbar row navbar-expand-lg navbar-dark w-100 py-0 px-4 m-0" style="height: fit-content;">
+          <div class="col-4">
+          </div>
+          <div class="col-4 d-flex justify-content-center h-100">
+            <img src="/assets/logo.png" alt="logo" height="100px">
+          </div>
+          <div class="col-4 d-flex justify-content-end">
+            <button class="navbar-toggler align-self-end" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+              <ul class="navbar-nav">
+                <li class="nav-item active dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="project" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Project1
+                    <span class="sr-only">(current)</span>
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="project">
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#addMember">Collaborators</a>
+                  </div>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="projects" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    My Projects
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="projects">
+                    <a class="dropdown-item" href="#">Project1</a>
+                    <a class="dropdown-item" href="#">Project2</a>
+                    <a class="dropdown-item" href="#">Project3</a>
+                  </div>
+                </li>
+                <li class="nav-item align-items-center d-flex">
+                  <a class="nav-link fa fa-power-off" role="button" href="#"></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <!-- ! Content -->
+      <div class="d-inline-flex overflow-auto">
+        <div class="card mx-4 my-4 bg-light shadow" style="width:272px">
+          <div class="card-body m-0 p-2">
+            <h5 class="card-title text-center">Category 1</h5>
+                <div class="card shadow my-2">
+                  <div class="w-100 d-flex align-items-center">
+                    <div class="flex-fill">
+                      <h6 class="card-text flex-fill p-1">Task</h6>
+                    </div>
+                    <button class="btn h-100 mx-0 px-1 fa fa-pencil"></button>
+                    <button class="btn h-100 mx-0 px-1 fa fa-trash"></button>
+                  </div>
+                </div>
+                <div class="card shadow my-2">
+                  <h6 class="card-text p-1">Task</h6>
+                </div>
+                <div class="card shadow my-2">
+                  <h6 class="card-text p-1">Task</h6>
+                </div>
+                <div class="card shadow my-2">
+                  <h6 class="card-text p-1">Task</h6>
+                </div>
+                <div class="card shadow my-2">
+                  <h6 class="card-text p-1">Task</h6>
+                </div>
+              <a href="#" class="btn btn-info btn-block p-1 mt-2" data-toggle="modal" data-target="#addTask"><i class="fa fa-plus"></i> Add Task</a>
+          </div>
+        </div>
+        <div class="card mx-4 my-4 bg-light shadow" style="width:272px">
+          <div class="card-body m-0 p-2">
+            <h5 class="card-title text-center">Category 1</h5>
+                <div class="card shadow my-2">
+                  <div class="w-100 d-flex align-items-center">
+                    <div class="flex-fill">
+                      <h6 class="card-text flex-fill p-1">Task</h6>
+                    </div>
+                    <button class="btn h-100 mx-0 px-1 fa fa-pencil"></button>
+                    <button class="btn h-100 mx-0 px-1 fa fa-trash"></button>
+                  </div>
+                </div>
+                <div class="card shadow my-2">
+                  <h6 class="card-text p-1">Task</h6>
+                </div>
+                <div class="card shadow my-2">
+                  <h6 class="card-text p-1">Task</h6>
+                </div>
+                <div class="card shadow my-2">
+                  <h6 class="card-text p-1">Task</h6>
+                </div>
+                <div class="card shadow my-2">
+                  <h6 class="card-text p-1">Task</h6>
+                </div>
+              <a href="#" class="btn btn-info btn-block p-1 mt-2"><i class="fa fa-plus"></i> Add Task</a>
+          </div>
+        </div>
+        <div class="card mx-4 my-4 bg-light shadow" style="width:272px">
+          <div class="card-body m-0 p-2">
+            <h5 class="card-title text-center">Category 1</h5>
+                <div class="card shadow my-2">
+                  <div class="w-100 d-flex align-items-center">
+                    <div class="flex-fill">
+                      <h6 class="card-text flex-fill p-1">Task</h6>
+                    </div>
+                    <button class="btn h-100 mx-0 px-1 fa fa-pencil"></button>
+                    <button class="btn h-100 mx-0 px-1 fa fa-trash"></button>
+                  </div>
+                </div>
+                <div class="card shadow my-2">
+                  <h6 class="card-text p-1">Task</h6>
+                </div>
+                <div class="card shadow my-2">
+                  <h6 class="card-text p-1">Task</h6>
+                </div>
+                <div class="card shadow my-2">
+                  <h6 class="card-text p-1">Task</h6>
+                </div>
+                <div class="card shadow my-2">
+                  <h6 class="card-text p-1">Task</h6>
+                </div>
+              <a href="#" class="btn btn-info btn-block p-1 mt-2"><i class="fa fa-plus"></i> Add Task</a>
+          </div>
+        </div>
+        <div class="card mx-4 my-4 bg-light shadow" style="width:272px">
+          <div class="card-body m-0 p-2">
+            <h5 class="card-title text-center">Category 1</h5>
+                <div class="card shadow my-2">
+                  <div class="w-100 d-flex align-items-center">
+                    <div class="flex-fill">
+                      <h6 class="card-text flex-fill p-1">Task</h6>
+                    </div>
+                    <button class="btn h-100 mx-0 px-1 fa fa-pencil"></button>
+                    <button class="btn h-100 mx-0 px-1 fa fa-trash"></button>
+                  </div>
+                </div>
+                <div class="card shadow my-2">
+                  <h6 class="card-text p-1">Task</h6>
+                </div>
+                <div class="card shadow my-2">
+                  <h6 class="card-text p-1">Task</h6>
+                </div>
+                <div class="card shadow my-2">
+                  <h6 class="card-text p-1">Task</h6>
+                </div>
+                <div class="card shadow my-2">
+                  <h6 class="card-text p-1">Task</h6>
+                </div>
+              <a href="#" class="btn btn-info btn-block p-1 mt-2"><i class="fa fa-plus"></i> Add Task</a>
+          </div>
+        </div>
+        <div class="card mx-4 my-4 bg-light shadow" style="width:272px">
+          <div class="card-body m-0 p-2">
+            <h5 class="card-title text-center">Category 1</h5>
+                <div class="card shadow my-2">
+                  <div class="w-100 d-flex align-items-center">
+                    <div class="flex-fill">
+                      <h6 class="card-text flex-fill p-1">Task</h6>
+                    </div>
+                    <button class="btn h-100 mx-0 px-1 fa fa-pencil"></button>
+                    <button class="btn h-100 mx-0 px-1 fa fa-trash"></button>
+                  </div>
+                </div>
+                <div class="card shadow my-2">
+                  <h6 class="card-text p-1">Task</h6>
+                </div>
+                <div class="card shadow my-2">
+                  <h6 class="card-text p-1">Task</h6>
+                </div>
+                <div class="card shadow my-2">
+                  <h6 class="card-text p-1">Task</h6>
+                </div>
+                <div class="card shadow my-2">
+                  <h6 class="card-text p-1">Task</h6>
+                </div>
+              <a href="#" class="btn btn-info btn-block p-1 mt-2"><i class="fa fa-plus"></i> Add Task</a>
+          </div>
+        </div>
+        <div class="card mx-4 my-4 bg-light shadow" style="width:272px">
+          <div class="card-body m-0 p-2">
+            <h5 class="card-title text-center">Category 1</h5>
+                <div class="card shadow my-2">
+                  <div class="w-100 d-flex align-items-center">
+                    <div class="flex-fill">
+                      <h6 class="card-text flex-fill p-1">Task</h6>
+                    </div>
+                    <button class="btn h-100 mx-0 px-1 fa fa-pencil"></button>
+                    <button class="btn h-100 mx-0 px-1 fa fa-trash"></button>
+                  </div>
+                </div>
+                <div class="card shadow my-2">
+                  <h6 class="card-text p-1">Task</h6>
+                </div>
+                <div class="card shadow my-2">
+                  <h6 class="card-text p-1">Task</h6>
+                </div>
+                <div class="card shadow my-2">
+                  <h6 class="card-text p-1">Task</h6>
+                </div>
+                <div class="card shadow my-2">
+                  <h6 class="card-text p-1">Task</h6>
+                </div>
+              <a href="#" class="btn btn-info btn-block p-1 mt-2"><i class="fa fa-plus"></i> Add Task</a>
+          </div>
+        </div>
+        <div class="align-self-start mx-4 my-4 px-0">
+            <span class="btn btn-primary mx-0"><i class="fa fa-plus"></i> Add Category</span>
+        </div>
+      </div>
+      <!-- ! Modal Add Project -->
+      <div class="modal fade" id="addProject" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group p-4">
+                  <label for="project-title">Project Title</label>
+                  <input type="text" class="form-control" id="project-title" aria-describedby="emailHelp" placeholder="Your project name">
+                </div>
+                <div class="form-group p-4">
+                  <label for="members">Add other project collaborator:</label>
+                  <input list="members" name="member" id="member">
+                  <datalist id="members">
+                    <option value="aaaaaaaaaabbbb">aaaaa</option>
+                    <option value="b">b</option>
+                    <option value="c">c</option>
+                    <option value="d">d</option>
+                    <option value="e">e</option>
+                  </datalist>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Create Project</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ! Modal Add Member -->
+      <div class="modal fade" id="addMember" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Project Name</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="container overflow-auto h-100" style="max-height: 50vh;">
+                <table class="table table-sm table-dark">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Email</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">1</th>
+                      <td>Mark</td>
+                      <td>a@mail.com</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>Jacob</td>
+                      <td>a@mail.com</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>Jacob</td>
+                      <td>a@mail.com</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>Jacob</td>
+                      <td>a@mail.com</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>Jacob</td>
+                      <td>a@mail.com</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>Jacob</td>
+                      <td>a@mail.com</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>Jacob</td>
+                      <td>a@mail.com</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>Jacob</td>
+                      <td>a@mail.com</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>Jacob</td>
+                      <td>a@mail.com</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>Jacob</td>
+                      <td>a@mail.com</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>Jacob</td>
+                      <td>a@mail.com</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>Jacob</td>
+                      <td>a@mail.com</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>Jacob</td>
+                      <td>a@mail.com</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>Jacob</td>
+                      <td>a@mail.com</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>Jacob</td>
+                      <td>a@mail.com</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>Jacob</td>
+                      <td>a@mail.com</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>Jacob</td>
+                      <td>a@mail.com</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>Jacob</td>
+                      <td>a@mail.com</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <form>
+                <div class="form-group p-4">
+                  <label for="members">Add other project collaborator:</label>
+                  <input list="members" name="member" id="member">
+                  <datalist id="members">
+                    <option value="aaaaaaaaaabbbb">aaaaa</option>
+                    <option value="b">b</option>
+                    <option value="c">c</option>
+                    <option value="d">d</option>
+                    <option value="e">e</option>
+                  </datalist>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Create Project</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ! Modal Add Task -->
+      <div class="modal fade" id="addTask" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group p-4">
+                  <label for="exampleInputEmail1">Task Title</label>
+                  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Your task title">
+                </div>
+                <div class="form-group p-4">
+                  <label for="exampleFormControlTextarea1">Description</label>
+                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Description"></textarea>
+                </div>              
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Create Task</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ! Modal Edit Task NOT YET -->
+      <!-- ! Button Add Project -->
+      <div class="fixed-bottom p-5 d-flex">
+        <button type="button" class="btn btn-outline-success ml-auto text-white" data-toggle="modal" data-target="#addProject">Add New Project</button>
+      </div>
+    </section>
+  </div>
+<!-- ! Bootstrap jQuery and JS bundle w/ Popper.js -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+<!-- ! Axios -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<!-- ! SWAL -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<!-- ! Vue.js -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

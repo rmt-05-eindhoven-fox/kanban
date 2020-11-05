@@ -47,6 +47,10 @@ let app = new Vue({
       } catch (err) {
         console.log(err);
       }
+    },
+    async logout() {
+      localStorage.clear();
+      this.pageName = 'home-page';
     }
   }
 })
