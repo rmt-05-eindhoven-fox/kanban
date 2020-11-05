@@ -1,16 +1,19 @@
 <template>
     <div>
-        <h1>{{ message }}</h1>
-        <Login></Login>
+        <!-- <taskpage></taskpage> -->
+        <landingpage></landingpage>
     </div>
 </template>
 
 <script>
-import Login from './Login'
+import landingpage from './components/landingpage'
+import taskpage from './components/taskpage'
+
 export default {
     name: 'App',
     components: {
-        Login
+        landingpage,
+        taskpage
     },
     data() {
         return {
