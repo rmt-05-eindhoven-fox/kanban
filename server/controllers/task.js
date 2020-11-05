@@ -1,4 +1,4 @@
-const { Task } = require('../models')
+const { Task, User } = require('../models')
 
 class TaskController{
     static create(req, res, next){
@@ -14,7 +14,7 @@ class TaskController{
     }
 
     static findAll(req, res, next){
-        Task.findAll()
+        Task.findAll({order: [["id", "asc"]], include: User})
         .then((dataTask) => {
             res.status(200).json({dataTask})
         })
@@ -22,7 +22,16 @@ class TaskController{
             next(err)
         })
     }
-
+    static findById(req, res, next){
+        const id = req.params.id
+        Task.findByPk(id, {include: User})
+        .then((dataTask) => {
+            res.status(200).json({dataTask})
+        })
+        .catch((err) => {
+            next(err)
+        })
+    }
     static update(req, res, next){
         const id = req.params.id
         const { title, description, category } = req.body
