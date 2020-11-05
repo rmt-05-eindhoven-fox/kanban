@@ -5,7 +5,7 @@ class CategoryController {
     try {
       const option = {
         where: {
-          OrganizationId: req.params.organizationId
+          OrganizationId: req.query.OrganizationId
         }
       }
       const categories = await Category.findAll(option)
@@ -17,12 +17,40 @@ class CategoryController {
 
   static async create(req, res, next) {
     try {
+      const option = {
+        where: {
+          OrganizationId: req.body.OrganizationId
+        }
+      }
+      const categories = await Category.findAll(option)
+      let position = categories.length + 1
       const payload = {
         name: req.body.name,
-        OrganizationId: req.params.organizationId
+        OrganizationId: req.body.OrganizationId,
+        position: position,
+        type: "Custom"
       }
       const data = await Category.create(payload)
       res.status(201).json(data)
+    } catch (error) {
+      console.log(error)
+      next(error)
+    }
+  }
+
+  static async editPosition(req, res, next) {
+    try {
+      const option = {
+        where: {
+          id: req.params.id
+        },
+        returning: true
+      }
+      const payload = {
+        position: req.body.position
+      }
+      const updated = await Category.update(payload, option)
+      res.status(200).json(updated[1][0])
     } catch (error) {
       next(error)
     }

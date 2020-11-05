@@ -1,10 +1,14 @@
 const router = require('express').Router()
 const CategoryController = require('../controllers/categoryController')
+const categoryAuthorization = require('../middlewares/categoryAuthorization')
 
-router.get('/:organizationId', CategoryController.findAll)
-router.post('/:organizationId', CategoryController.create)
+router.get('/', CategoryController.findAll)
 
-router.patch('/:id', CategoryController.editName)
-router.delete('/:id', CategoryController.delete)
+router.post('/', categoryAuthorization, CategoryController.create)
+
+router.patch('/:id', categoryAuthorization, CategoryController.editName)
+router.delete('/:id', categoryAuthorization, CategoryController.delete)
+
+router.patch('/:id/position', categoryAuthorization, CategoryController.editPosition)
 
 module.exports = router

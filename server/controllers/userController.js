@@ -16,7 +16,8 @@ class UserController {
       // assign user to default organization
       const payload2 = {
         UserId: user.id,
-        OrganizationId: 1
+        OrganizationId: 1,
+        role: "Member"
       }
       const defaultOrg = await User_Organization.create(payload2)
       res.status(201).json({

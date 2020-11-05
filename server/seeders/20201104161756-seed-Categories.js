@@ -7,6 +7,7 @@ module.exports = {
         name: 'Backlog',
         type: 'Default',
         OrganizationId: 1,
+        position: 1,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -14,6 +15,7 @@ module.exports = {
         name: 'Todo',
         type: 'Default',
         OrganizationId: 1,
+        position: 2,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -21,6 +23,7 @@ module.exports = {
         name: 'Doing',
         type: 'Default',
         OrganizationId: 1,
+        position: 3,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -28,6 +31,7 @@ module.exports = {
         name: 'Done',
         type: 'Default',
         OrganizationId: 1,
+        position: 4,
         createdAt: new Date(),
         updatedAt: new Date()
       },
