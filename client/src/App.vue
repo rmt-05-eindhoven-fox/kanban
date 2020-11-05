@@ -74,6 +74,7 @@
       @editTask="editTask"
       @deleteTask="deleteTask"
       @moveTask="moveTask"
+      @readAllTasks="readAllTasks"
     ></HomePage>
     <!-- HOME PAGE -->
   </div>
@@ -415,7 +416,7 @@ export default {
           'error'
         );
       });
-    },
+    }
   },
   created() {
     this.isLogin();

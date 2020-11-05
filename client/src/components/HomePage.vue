@@ -76,7 +76,7 @@
         </div>
       </div>
       <!-- EDIT FORM -->
-      <!-- CATEGORY FORM -->
+      <!-- MOVE FORM -->
       <div v-show="moveTaskForm" class="card text-light">
         <div class="card-body add-form">
           <form @submit.prevent="moveTask()">
@@ -105,7 +105,7 @@
           </form>
         </div>
       </div>
-      <!-- CATEGORY FORM -->
+      <!-- MOVE FORM -->
     </div>
     <div class="board container-fluid pt-3">
       <!-- TASK -->
@@ -118,6 +118,7 @@
           @showEditTaskForm="showEditTaskForm"
           @deleteTask="deleteTask"
           @showMoveTaskForm="showMoveTaskForm"
+          @readAllTasks="readAllTasks"
         ></Category>
       </div>
       <!-- TASK -->
@@ -222,6 +223,9 @@ export default {
     },
     deleteTask(payload) {
       this.$emit('deleteTask', payload);
+    },
+    readAllTasks() {
+      this.$emit('readAllTasks');
     }
   }
 }
