@@ -4,11 +4,11 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.addConstraint('Kanbans', {
       type: 'FOREIGN KEY',
-      fields: ['UserId'],
+      fields: ['UserEmail'],
       name: 'FK_projectType_project', // useful if using queryInterface.removeConstraint
       references: {
         table: 'Users',
-        field: 'id',
+        field: 'email',
       },
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
@@ -16,6 +16,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.removeConstraint('Kanbans', ['UserId'])
+    await queryInterface.removeConstraint('Kanbans', ['UserEmail'])
   }
 };

@@ -13,8 +13,16 @@
       @addPage="changePage"
       :category="category"
       :task="task"
+      @editPage="editPage"
+      @deleted="deleteTask"
+      :user="user"
     ></Content>
     <AddContent v-else-if="pageName == 'add'" @addTask="addTask"></AddContent>
+    <EditContent
+      v-else-if="pageName == 'edit'"
+      :detailTask="detailTask"
+      @editTask="editTask"
+    ></EditContent>
     <NotFound v-else></NotFound>
   </div>
 </template>
@@ -23,6 +31,7 @@
 import LandingPage from "./components/LandingPage";
 import Content from "./components/Content";
 import AddContent from "./components/AddContent";
+import EditContent from "./components/EditContent";
 import NotFound from "./components/NotFound";
 import axios from "./config/axios";
 export default {
@@ -44,7 +53,7 @@ export default {
           border: "btn btn-light btn-sm p-0 border border-primary",
         },
         {
-          name: "Progress",
+          name: "Doing",
           color: "text-center text-white p-2 rounded bg-warning",
           border: "btn btn-light btn-sm p-0 border border-warning",
         },
@@ -55,12 +64,15 @@ export default {
         },
       ],
       task: [],
+      detailTask: null,
+      user: localStorage.getItem("email"),
     };
   },
   components: {
     LandingPage,
     Content,
     AddContent,
+    EditContent,
     NotFound,
   },
   methods: {
@@ -77,9 +89,9 @@ export default {
         data: payload,
       })
         .then((res) => {
-          console.log(res);
+          console.log(res.data);
           localStorage.setItem("token", res.data.token);
-          localStorage.setItem("id", res.data.id);
+          localStorage.setItem("email", res.data.email);
           this.checkLogin();
         })
         .catch((err) => {
@@ -110,7 +122,7 @@ export default {
         },
       })
         .then((res) => {
-          this.task = res;
+          this.task = res.data;
         })
         .catch((err) => {});
     },
@@ -123,15 +135,26 @@ export default {
           token: localStorage.getItem("token"),
         },
       })
-        .then((res) => {})
+        .then((res) => {
+          this.checkLogin();
+        })
         .catch((err) => {});
+    },
+    editPage(payload) {
+      this.pageName = payload.pageName;
+      this.detailTask = {
+        id: payload.id,
+        title: payload.title,
+        description: payload.description,
+        category: payload.category,
+      };
     },
     editTask(payload) {
       const id = +payload.id;
       const editData = {
         title: payload.title,
         description: payload.description,
-        tag: payload.tag,
+        category: payload.category,
       };
       axios({
         method: "PUT",
@@ -142,13 +165,15 @@ export default {
           id,
         },
       })
-        .then((res) => {})
+        .then((res) => {
+          this.checkLogin();
+        })
         .catch((err) => {});
     },
-    deleteTask(payload) {
+    deleteTask(id) {
       axios({
         method: "DELETE",
-        url: "/kanban/" + payload,
+        url: "/kanban/" + id,
         headers: {
           token: localStorage.getItem("token"),
           id,
@@ -167,10 +192,6 @@ export default {
         this.pageName = "landingPage";
       }
     },
-  },
-  Created() {
-    this.checkLogin();
-    console.log(localStorage.token);
   },
 };
 </script>

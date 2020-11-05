@@ -2,29 +2,29 @@
   <div>
     <div class="container">
       <div class="shadow-lg bg-white rounded p-4">
-        <h2 class="text-center">Add Task</h2>
-        <form v-on:submit.prevent="addTask">
+        <h2 class="text-center">Edit Task</h2>
+        <form v-on:submit.prevent="editTask">
           <div class="form-group">
-            <label for="add-title">Title</label>
+            <label for="edit-title">Title</label>
             <input
               v-model="title"
               type=" text"
-              id="add-title"
+              id="edit-title"
               class="form-control"
             />
           </div>
           <div class="form-group">
-            <label for="add-password">Description</label>
+            <label for="edit-password">Description</label>
             <input
               v-model="description"
               type="text"
-              id="add-description"
+              id="edit-description"
               class="form-control"
             />
           </div>
           <div class="form-group">
-            <label for="add-category">Category</label>
-            <select v-model="category" id="add-category" class="form-control">
+            <label for="edit-category">Category</label>
+            <select v-model="category" id="edit-category" class="form-control">
               <option value="">Choose Category</option>
               <option value="Backlog">Backlog</option>
               <option value="Todo">Todo</option>
@@ -34,7 +34,7 @@
           </div>
           <div class="form-group text-center">
             <button type="submit" class="btn btn-primary text-center">
-              Add
+              Edit
             </button>
           </div>
         </form>
@@ -45,23 +45,26 @@
 
 <script>
 export default {
-  name: "add-page",
+  name: "edit-page",
   data() {
     return {
-      title: "",
-      description: "",
-      category: "",
+      id: this.detailTask.id,
+      title: this.detailTask.title,
+      description: this.detailTask.description,
+      category: this.detailTask.category,
     };
   },
+  props: ["detailTask"],
   methods: {
-    addTask() {
+    editTask() {
       let payload = {
+        id: this.id,
         title: this.title,
         description: this.description,
         category: this.category,
         UserEmail: localStorage.getItem("email"),
       };
-      this.$emit("addTask", payload);
+      this.$emit("editTask", payload);
     },
   },
 };

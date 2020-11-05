@@ -3,7 +3,6 @@ const { Kanban } = require('../models/')
 class KanbanController {
 
   static async findAll(req, res, next) {
-    // const UserId = +req.loginCredential.id
     try {
       const list = await Kanban.findAll()
       res.status(200).json(list)
@@ -16,8 +15,8 @@ class KanbanController {
     const data = {
       title: req.body.title,
       description: req.body.description,
-      tag: req.body.tag,
-      UserId: req.loginCredential.id
+      category: req.body.category,
+      UserEmail: req.loginCredential.email
     }
     try {
       const add = await Kanban.create(data)
@@ -32,11 +31,11 @@ class KanbanController {
     const data = {
       title: req.body.title,
       description: req.body.description,
-      tag: req.body.tag,
-      UserId: req.loginCredential.id
+      category: req.body.category,
+      UserEmail: req.loginCredential.email
     }
     try {
-      const edit = await Kanban.update(data, { where: { id, UserId: data.UserId }, returning: true })
+      const edit = await Kanban.update(data, { where: { id, UserEmail: data.UserEmail }, returning: true })
       if (!edit) {
         throw { message: 'Kanban Not Found', status: 404 }
       }
@@ -48,9 +47,9 @@ class KanbanController {
 
   static async deleted(req, res, next) {
     const id = req.params.id
-    const UserId = req.loginCredential.id
+    const UserEmail = req.loginCredential.email
     try {
-      const deleted = await Kanban.destroy({ where: { id, UserId } })
+      const deleted = await Kanban.destroy({ where: { id, UserEmail } })
       if (!deleted) {
         throw { message: 'Kanban Not Found', status: '404' }
       }

@@ -14,11 +14,11 @@ module.exports = {
       description: {
         type: Sequelize.STRING
       },
-      tag: {
+      category: {
         type: Sequelize.STRING
       },
-      UserId: {
-        type: Sequelize.INTEGER
+      UserEmail: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

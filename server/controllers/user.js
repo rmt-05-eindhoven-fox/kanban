@@ -36,7 +36,7 @@ class UserController {
           id: user.id,
           email: user.email
         })
-        res.status(200).json({ token, id: user.id })
+        res.status(200).json({ token, email: user.email })
       }
     } catch (error) {
       next(error)

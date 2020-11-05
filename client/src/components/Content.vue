@@ -3,6 +3,7 @@
     <div>
       <div class="container-fluid d-flex justify-content-between p-3">
         <h3>KANBAN</h3>
+        <h3>Hi {{ user }}</h3>
         <div>
           <button v-on:click="addPage" class="btn btn-primary">Add Task</button>
           <button v-on:click="logout" class="btn btn-danger">Sign out</button>
@@ -15,6 +16,8 @@
             :key="i"
             :tag="el"
             :task="task"
+            @editPage="editPage"
+            @deleted="deleted"
           ></Category>
         </div>
       </div>
@@ -29,13 +32,19 @@ export default {
   components: {
     Category,
   },
-  props: ["category", "task"],
+  props: ["category", "task", "user"],
   methods: {
     addPage() {
       this.$emit("addPage", "add");
     },
     logout() {
       this.$emit("logout");
+    },
+    editPage(payload) {
+      this.$emit("editPage", payload);
+    },
+    deleted(id) {
+      this.$emit("deleted", id);
     },
   },
 };

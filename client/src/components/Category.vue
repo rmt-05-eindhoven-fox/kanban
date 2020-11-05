@@ -9,9 +9,11 @@
     >
       <Task
         :border="tag.border"
-        v-for="el in task"
+        v-for="el in differCategory"
         :key="el.id"
-        :oneTask="el"
+        :el="el"
+        @deleted="deleted"
+        @editPage="editPage"
       ></Task>
     </div>
   </div>
@@ -21,13 +23,23 @@
 import Task from "./Task";
 export default {
   name: "Category",
-  data() {
-    return {};
-  },
   components: {
     Task,
   },
   props: ["tag", "task"],
+  computed: {
+    differCategory() {
+      return this.task.filter((cat) => cat.category == this.tag.name);
+    },
+  },
+  methods: {
+    editPage(payload) {
+      this.$emit("editPage", payload);
+    },
+    deleted(id) {
+      this.$emit("deleted", id);
+    },
+  },
 };
 </script>
 

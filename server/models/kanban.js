@@ -11,14 +11,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Kanban.belongsTo(models.User, { foreignKey: 'UserId' })
+      Kanban.belongsTo(models.User, { foreignKey: 'UserEmail' })
     }
   };
   Kanban.init({
     title: DataTypes.STRING,
     description: DataTypes.STRING,
-    tag: DataTypes.STRING,
-    UserId: DataTypes.INTEGER
+    category: DataTypes.STRING,
+    UserEmail: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Kanban',
