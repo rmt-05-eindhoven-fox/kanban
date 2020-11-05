@@ -8,72 +8,63 @@
     <title>Kanban</title>
 </head>
 <body>
-
-    <!-- header -->
-
+    <div id="app">
     <nav>
         <div id="logo">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT1zG4guiendpemb-ol_9fcxTIYTDQSJ5Iz0A&usqp=CAU" width="70px">
         </div>
         <div class="link">
             <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Discover</a></li>
-                <li><a href="#">All Recipes</a></li>
-                <li><a href="#">Favorite</a></li>
+                <li><a href="#">Create New Task</a></li>
             </ul>
         </div>
         <div class="link icon">
             <ul>
-                <li><a href="#">Create Project</a></li>
+                <li><a href="#"><button type="button" class="btn btn-danger">Sign Out</button></a></li>
             </ul>
         </div>
     </nav>
-
-    <!-- end header -->
-
-
-    <!-- flexbox -->
-
+    
     <div class="container">
         <div class="row">
              <div class="col-md-3 item">
                 <h5 class="mt-3 text-center text-white p-4 rounded bg-primary">Backlog</h5>
                 <div class="bg-light p-2 task-overflow shadow card rounded">
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officiis libero natus rem atque, quo soluta accusantium. Sunt, dolor. In esse sit exercitationem ipsa consequatur nostrum facilis. Suscipit expedita commodi quidem.</p>
+                    <div class="card"></div>
                 </div>
              </div>
              <div class="col-md-3 item">
                 <h5 class="mt-3 text-center text-white p-4 rounded bg-secondary">Todo</h5>
                 <div class="bg-light p-2 task-overflow shadow card rounded">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis obcaecati eligendi nam laboriosam sunt rerum, culpa quisquam praesentium, reiciendis fugit architecto ab animi libero magni. Quas incidunt voluptate consectetur velit.</p>
+                    <div class="card"></div>
                 </div>
              </div>
              <div class="col-md-3 item">
                 <h5 class="mt-3 text-center text-white p-4 rounded bg-success">Doing</h5>
                 <div class="bg-light p-2 task-overflow shadow card rounded">
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloremque in eos a quia aspernatur, quasi qui quibusdam neque esse enim magnam pariatur nihil est quidem vel id odit corporis amet.</p>
+                    <div class="card"></div>
                 </div>
              </div>
              <div class="col-md-3 item">
                 <h5 class="mt-3 text-center text-white p-4 rounded bg-danger">Completed</h5>
                 <div class="bg-light p-2 task-overflow shadow card rounded">
-                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam hic deserunt, reprehenderit, laudantium cumque vitae earum odit quo tenetur corrupti asperiores! Sed nesciunt quaerat dicta! Eveniet laudantium cumque excepturi incidunt?</p>
+                    <div class="card"></div>
                 </div>
              </div>
          </div>
-
+        </section>  
     <!-- end flexbox -->
 
     <!-- register form -->
-
-    <div class="container">
-        <div class="row content" id="register">
+    <section>
+        
+    <div class="container" id="register">
+        <div class="row content" >
             <div class="col-md-6 mb-3">
                 <img src="data.svg" class="img-fluid" alt="image">
             </div>
             <div class="col-md-6 mb-3">
-                <h3 class="signin-text mb-3">Sign Up Here!</h3>
+                <h3 class="signin-text mb-3" v-text="text"></h3>
                 <form>
                     <div class="form-group">
                         <label for="email">Email</label>
@@ -83,17 +74,17 @@
                         <label for="password">Password</label>
                         <input type="password" name="password" class="form-control">
                     </div>
-                    <button class="btn btn-primary">Log In</button>
+                    <button class="btn btn-primary">Sign Up</button>
                     <p role="button">Have an account?</p>
                 </form>
             </div>
         </div>
     </div>
-
+</section>
     <!-- end register form -->
 
     <!-- login -->
-    
+    <section>
         <div class="container">
             <div class="row content">
                 <div class="col-md-6 mb-3">
@@ -110,14 +101,64 @@
                             <label for="password">Password</label>
                             <input type="password" name="password" class="form-control">
                         </div>
-                        <button class="btn btn-primary">Log In</button>
+                        <button class="btn btn-primary">Sign In</button>
                         <p role="button">Don't have any account yet?</p>
                     </form>
                 </div>
             </div>
         </div>
-     
-        <!-- end login -->
-    
+    </section> 
+
+
+    <!-- create task -->
+    <section>
+        <div class="container">
+            <div class="row content">
+                <div class="col-md-6 mb-3">
+                    <h3 class="signin-text mb-3">Create Task</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="title">Title</label>
+                            <input type="title" name="title" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <input type="text-area" name="description" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <select class="form-control">
+                                <option>Backlog</option>
+                                <option>Todo</option>
+                                <option>Doing</option>
+                                <option>Completed</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section> 
+
+    <!-- end create task -->
+
+    <section>
+        <h1>Page not found !</h1>
+    </section>
+</div>
+ 
+        <!-- bootstrap -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        
+
+        <!-- script -->
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+        <!-- vuejs -->
+        <script src="./src/main.js"></script>
+        
 </body>
 </html>

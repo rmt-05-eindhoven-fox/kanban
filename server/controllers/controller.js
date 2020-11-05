@@ -24,13 +24,12 @@ class Controller {
     }
 
     static async login(req,res, next) {
+        const payload = {
+            email: req.body.email,
+            password: req.body.password
+        }
         try {
-            const payload = {
-                email: req.body.email,
-                password: req.body.password
-            }
-
-            //console.log(payload)
+            console.log(payload)
 
             const user = await User.findOne({
                 where: {
