@@ -30,10 +30,19 @@ class OrganizationController {
   static show(req, res, next) {
     const { id } = req.params;
     Organization.findByPk(id, {
-      include: [{ model: Category, 
-        include: [{ model: Task, 
-          include: [{ model: User, 
-            attributes: { exclude: ['password', 'createdAt', 'updatedAt'] } }] }] }]
+      include: [{
+        model: Category,
+        include: [{
+          model: Task,
+          include: [{
+            model: User,
+            attributes: { exclude: ['password', 'createdAt', 'updatedAt'] }
+          }]
+        }]
+      }],
+      order: [
+        [[Category, 'id', 'ASC']]
+      ],
     })
       .then((organization) => {
         res.status(200).json({ status: 200, organization });

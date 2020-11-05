@@ -9,8 +9,8 @@ class TaskController {
 
   static store(req, res, next) {
     const UserId = req.logedInUser.id;
-    const { name, OrganizationId, CategoryId } = req.body;
-    const input = { name, OrganizationId, CategoryId, UserId }
+    const { name, description, OrganizationId, CategoryId } = req.body;
+    const input = { name, description, OrganizationId, CategoryId, UserId }
     // res.status(200).json(input)
     Task.create(input)
       .then((task) => {
@@ -41,7 +41,7 @@ class TaskController {
 
   static update(req, res, next) {
     const { id } = req.params;
-    const { name, CategoryId, OrganizationId } = req.body;
+    const { name, description, CategoryId, OrganizationId } = req.body;
     const input = { name, CategoryId };
 
     Category.findByPk(CategoryId)

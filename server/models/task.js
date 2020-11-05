@@ -31,6 +31,20 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Description is required, can\'t be empty!'
+        },
+        notNull: {
+          args: true,
+          msg: 'Description is required, can\'t be null!'
+        }
+      }
+    },
     UserId: DataTypes.INTEGER,
     CategoryId: DataTypes.INTEGER,
     OrganizationId: DataTypes.INTEGER
