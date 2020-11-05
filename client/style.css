@@ -15,6 +15,53 @@ body {
   -webkit-overflow-scrolling: touch;
 } */
 
+/* LOGIN-REGISTER */
+.login-side {
+  min-height: 100vh;
+  background:#212531;
+  background: linear-gradient(to right bottom, #2f3441 50%, #212531 50%);
+}
+
+.login-card {
+  width: 25vw;
+  border-radius: 15px;
+  padding: 32px;
+}
+
+.login-form {
+  margin-top: 32px;
+}
+
+.login-btn {
+  background-color: #2E3031;
+  color: white;
+  width: 100%;
+  margin-top: 16px;
+}
+
+.login-btn:hover {
+  background-color: #2E3031E6;
+  color: white;
+}
+
+.to-login {
+  color: #2E3031;
+}
+
+.to-login:hover {
+  color: #2E3031E6;
+  cursor: pointer;
+}
+
+.kanban-illustration {
+  width: 30vw;
+}
+
+.brand-title {
+  margin-top: 32px;
+  font-size: 3rem;
+}
+
 /* SIDEBAR */
 .sidebar{
   background-color: #2E3031;
@@ -36,6 +83,12 @@ body {
 
 .edit-username {
   font-size: 18px;
+}
+
+.uname-input {
+  text-align: center;
+  margin-top: 12px;
+  margin-bottom: 8px;
 }
 
 hr {

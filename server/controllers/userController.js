@@ -61,6 +61,20 @@ class UserController {
   static googleLogin(req, res, next) {
 
   }
+
+  static async loggedInUserInfo(req, res, next) {
+    try {
+      const user = await User.findByPk(req.loggedInUser.id)
+      const userInfo = {
+        name: user.first_name + ' ' + user.last_name,
+        email: user.email,
+        profile_picture: user.profile_picture
+      }
+      res.status(200).json(userInfo)
+    } catch (error) {
+      next(error)
+    }
+  }
 }
 
 module.exports = UserController
