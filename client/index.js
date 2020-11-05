@@ -118,12 +118,12 @@ let app = new Vue({
           console.log(err)
         })
     },
-    edit() {
-      const
-    },
-    delete() {
+    // edit() {
+    //   const
+    // },
+    // delete() {
 
-    },
+    // },
     checkLogin() {
       if (localStorage.token) {
         this.pageName = 'content'

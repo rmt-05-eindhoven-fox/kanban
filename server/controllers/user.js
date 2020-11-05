@@ -10,6 +10,7 @@ class UserController {
     }
     try {
       const register = await User.create(payload)
+
       res.status(201).json({
         id: register.id,
         email: register.email
