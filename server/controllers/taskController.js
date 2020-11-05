@@ -2,7 +2,7 @@ const { request } = require("express");
 const { Task } = require("../models");
 
 class taskController{
-    static async viewAllTask(request, response, next) {
+    static async viewAllTask(request, response) {
         const userId = +request.loggedInUser.id;
         try {
             const data = await Task.findAll({
@@ -38,8 +38,40 @@ class taskController{
         }
     }
 
-    static async edit() {
+    static async updateTask(request, response) {
+        console.log("masuk");
+        try {
+            const userId = +request.loggedInUser.id;
+            const taskId = +request.params.id;
+            console.log(taskId);
+            const newData = {
+                title: request.body.title,
+                category: request.body.category
+            }
+            const data = await Task.update(newData, {
+                where: { UserId: userId, id: taskId },
+                returning: true
+            })
+            response.status(200).json(data[1][0]);
+        } catch (error) {
+            //console.log(error);
+            next(error)            
+        }
+    }
 
+    static async updateTaskCategory(request, response, next) {
+        try {
+            const userId = +request.loggedInUser.id;
+            const taskId = +request.params.id;
+            const newData = { category: request.body.category };
+            const data = await Task.update(newData, {
+                where: { UserId: userId, id: taskId },
+                returning: true
+            })
+            response.status(200).json(data[1][0]);
+        } catch (error) {
+            next(error)            
+        }
     }
 
     static async delete(request, response) {

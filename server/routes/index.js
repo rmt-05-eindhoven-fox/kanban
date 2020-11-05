@@ -10,6 +10,8 @@ router.post("/login", userController.login);
 router.use(authentication);
 router.get("/task", taskController.viewAllTask);
 router.post("/task", taskController.addTask);
+router.put("/task/:id", taskController.updateTask);
+router.patch("/task/:id", taskController.updateTaskCategory);
 router.delete("/task/delete/:id", authorization, taskController.delete);
 
 
