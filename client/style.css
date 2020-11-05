@@ -1,0 +1,42 @@
+.container{
+    display: flex;
+    background-color: teal;
+}
+
+.card{
+    margin-bottom: 10px;
+}
+
+.card-backlog{
+    background-color: #ffb74d;
+}
+
+.card-todo{
+    background-color: #b3e5fc;    
+}
+
+.card-ongoing{
+    background-color: #ccff90;
+}
+
+.card-done{
+    background-color: #ff9e80;
+}
+
+.btn{
+    margin-bottom: 10px;
+}
+
+body {
+    font-family: 'ABeeZee'; 
+    font-size: 15px;
+}
+
+.item{
+    padding: 20px;
+    font-size: 5em;
+}
+
+.col-sm{
+    background-color: #ffffff;
+}
