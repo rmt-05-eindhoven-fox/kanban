@@ -25,7 +25,9 @@ background: linear-gradient(0deg, rgba(155,89,182,1) 0%, rgba(142,68,173,1) 79%)
 <body>
   <div id="app">
     <!-- ! home-page -->
-    <section id="home-page" style="width: 100vw; height: 100vh; align-items: center; position: relative; display: none;">
+    <section 
+    v-if="pageName == 'home-page'"
+    id="home-page" style="width: 100vw; height: 100vh; align-items: center; position: relative;">
         <video autoplay muted loop id="myVideo" style="height: auto; width: 100%; position: absolute; z-index: -2;">
           <source src="/assets/discussing_features.mp4" type="video/mp4">
         </video>
@@ -37,19 +39,27 @@ background: linear-gradient(0deg, rgba(155,89,182,1) 0%, rgba(142,68,173,1) 79%)
           <p>Sometimes managing tasks can be hard, right?</p>
         </div>
         <div class="jumbotron jumbotron-fluid text-right px-4 bg-light shadow h-75" style="opacity: 0.8;">
-          <form>
+          <form
+          @submit.prevent="register()"
+          >
             <div class="form-group">
               <label for="sign-up-name">Name</label>
-              <input type="text" class="form-control" id="sign-up-name" aria-describedby="emailHelp" placeholder="Enter name" style="border: bottom;">
+              <input 
+              v-model="formRegister.name" 
+              type="text" class="form-control" id="sign-up-name" aria-describedby="emailHelp" placeholder="Enter name" style="border: bottom;">
             </div>
             <div class="form-group">
               <label for="sign-up-email">Email address</label>
-              <input type="email" class="form-control" id="sign-up-email" aria-describedby="emailHelp" placeholder="Enter email">
+              <input 
+              v-model="formRegister.email"
+              type="email" class="form-control" id="sign-up-email" aria-describedby="emailHelp" placeholder="Enter email">
               <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
             <div class="form-group">
               <label for="sign-up-password">Password</label>
-              <input type="password" class="form-control" id="sign-up-password" placeholder="Password">
+              <input 
+              v-model="formRegister.password"
+              type="password" class="form-control" id="sign-up-password" placeholder="Password">
             </div>
               <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter">
                 Sign In
@@ -69,27 +79,36 @@ background: linear-gradient(0deg, rgba(155,89,182,1) 0%, rgba(142,68,173,1) 79%)
               </button>
             </div>
             <div class="modal-body">
-              <form>
+              <form 
+              @submit.prevent="login()" >
                 <div class="form-group p-4">
                   <label for="sign-in-email">Email address</label>
-                  <input type="email" class="form-control" id="sign-in-email" aria-describedby="emailHelp" placeholder="Enter email">
+                  <input 
+                  v-model="formLogin.email"
+                  type="email" class="form-control" id="sign-in-email" aria-describedby="emailHelp" placeholder="Enter email">
                 </div>
                 <div class="form-group p-4">
                   <label for="sign-in-password">Password</label>
-                  <input type="password" class="form-control" id="sign-in-password" placeholder="Password">
+                  <input
+                  v-model="formLogin.password"
+                  type="password" class="form-control" id="sign-in-password" placeholder="Password">
                 </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button 
+                @click.prevent="login()"
+                type="submit" class="btn btn-primary" data-dismiss="modal">Save changes</button>
               </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
             </div>
           </div>
         </div>
       </div>
     </section>
     <!-- ! user-page -->
-    <section id="user-page" style="width: fit-content; padding-top: 10%; height: 100vh; background-color: #2c3e50;">
+    <section
+    v-else 
+    id="user-page" style="width: fit-content; padding-top: 10%; height: 100vh; background-color: #2c3e50;">
       <!-- ! Navbar -->
       <div class="fixed-top m-0 p-0 bg-info shadow" style="width: 100vw !important;">
         <nav class="navbar row navbar-expand-lg navbar-dark w-100 py-0 px-4 m-0" style="height: fit-content;">
@@ -505,8 +524,15 @@ background: linear-gradient(0deg, rgba(155,89,182,1) 0%, rgba(142,68,173,1) 79%)
       </div>
     </section>
   </div>
-<!-- ? Bootstrap jQuery and JS bundle w/ Popper.js -->
+<!-- ! Bootstrap jQuery and JS bundle w/ Popper.js -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+<!-- ! Axios -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<!-- ! SWAL -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<!-- ! Vue.js -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script src="main.js"></script>
 </body>
 </html>
