@@ -12,7 +12,7 @@ Vue.use(Vuetify)
 
 
 
-Vue.prototype.$BASE_URL = 'http://localhost:3000'
+Vue.prototype.$BASE_URL = 'https://kanban-dewi.herokuapp.com'
 
 new Vue({
   el: '#app',

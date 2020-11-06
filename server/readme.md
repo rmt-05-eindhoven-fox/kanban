@@ -5,8 +5,8 @@ Kanban Application uses Client-server model with specifications as follow:
 - API Documentation that includes : URLs, HTTP method, request, response (success dan error case)
 - RESTful endpoints for CRUD operations
 - JSON formatted response
-Deploy Server : 
-Deploy Client : 
+Deploy Server : https://kanban-dewi.herokuapp.com
+Deploy Client : https://kanban-dewi-92e8a.web.app
 Postman Documentation: https://documenter.getpostman.com/view/5729395/TVYQ3uk4
 ```
 
