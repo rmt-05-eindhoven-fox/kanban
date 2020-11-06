@@ -4,10 +4,6 @@
                 <div class="form-container sign-up-container">
                     <form @submit.prevent="register">
                         <h1>Create Account</h1>
-                        <div class="social-container">
-                            <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                        </div>
-                        <span>or use your email for registration</span>
                         <input v-model="username" type="text" placeholder="Name" />
                         <input v-model="email" type="email" placeholder="Email" />
                         <input v-model="password" type="password" placeholder="Password" />
@@ -18,7 +14,7 @@
                     <form @submit.prevent="login">
                         <h1>Sign in</h1>
                         <div class="social-container">
-                            <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                            <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess" :onFailure="onFailure"></GoogleLogin>
                         </div>
                         <span>or use your account</span>
                         <input v-model="email" type="email" placeholder="Email" />
@@ -46,13 +42,23 @@
 </template>
 
 <script>
+import GoogleLogin from 'vue-google-login';
+
 export default {
     name: "landingpage",
     data() {
         return {
             username: '',
             email: '',
-            password: ''
+            password: '',
+            params: {
+                    client_id: "907101746187-b27vqtifbs5p090efpq7oninu9gudgl3.apps.googleusercontent.com"
+            },
+            renderParams: {
+                width: 250,
+                height: 50,
+                longtitle: true
+            }
         };
     },
     methods: {
@@ -73,11 +79,22 @@ export default {
         },
         register(){
             let payload = {
+                username: this.username,
                 email: this.email,
                 password: this.password
             }
             this.$emit('register', payload);
+        },
+        onSuccess(googleUser) {
+            var id_token = googleUser.getAuthResponse().id_token;
+            this.$emit('googleLogin', id_token);
+        },
+        onFailure(error){
+            console.log(error);
         }
+    },
+    components: {
+        GoogleLogin
     }
 };
 </script>

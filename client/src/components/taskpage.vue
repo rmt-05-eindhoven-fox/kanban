@@ -123,7 +123,7 @@
                                 </div>
                             </div>
                             <div class="element-body" v-for="(task, i) in dataTasks.developmentTasks" :key="i">
-                                <p contenteditable="true">{{task.title}}</p>
+                                <p>{{task.title}}</p>
                                 <p>{{task.description}}</p>
                                     <button @click="patchTask(task.id, 'backlog')" type="button" class="btn btn-warning"><</button>
                                     <button @click="showModalEdit('development', 'development' + task.id, task)" type="button" class="btn btn-primary">
@@ -172,7 +172,7 @@
                     </article>
                     <article ref="kard" class="card">
                         <header style="background-color: #8F7EE6;" class="card-header">
-                        <h2>Product</h2>
+                        <h2>Doing</h2>
                         </header>
                         <div class="task-body"> 
                             <form>
@@ -208,7 +208,7 @@
                                 </div>
                             </div>
                             <div class="element-body" v-for="(task, i) in dataTasks.productionTasks" :key="i">
-                                <p contenteditable="true">{{task.title}}</p>
+                                <p>{{task.title}}</p>
                                 <p>{{task.description}}</p>
                                     <button @click="patchTask(task.id, 'development')" type="button" class="btn btn-warning"><</button>
                                     <button @click="showModalEdit('product', 'product' + task.id, task)" type="button" class="btn btn-primary">
@@ -293,7 +293,7 @@
                                 </div>
                             </div>
                             <div class="element-body" v-for="(task, i) in dataTasks.doneTasks" :key="i">
-                                <p contenteditable="true">{{task.title}}</p>
+                                <p>{{task.title}}</p>
                                 <p>{{task.description}}</p>
                                     <button @click="patchTask(task.id, 'production')" type="button" class="btn btn-warning"><</button>
                                     <button @click="showModalEdit('done', 'done' + task.id, task)" type="button" class="btn btn-primary">
@@ -340,7 +340,7 @@
                         </div>
                     </article>
                 </section>
-                <rightNav @logout="logout" :userData="dataTasks.email"></rightNav>
+                <rightNav @logout="logout" :userData="dataTasks.username"></rightNav>
 
     </div>
 </template>

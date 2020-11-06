@@ -13,6 +13,7 @@
     "bootstrap": "^4.5.3",
     "bootstrap-vue": "^2.18.1",
     "vue": "^2.6.12",
+    "vue-google-login": "^2.0.5",
     "vue-hot-reload-api": "^2.3.4"
   },
   "devDependencies": {
