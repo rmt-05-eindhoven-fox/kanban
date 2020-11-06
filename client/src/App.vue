@@ -11,10 +11,15 @@
       v-else-if="activePage == 'home-page'"
       :categories="categories"
       :organizationId="currentOrganizationId"
+      :allOrganizations="allOrganizations"
       @openAddTask="openAddTask"
       @deleteTask="deleteTask"
       @openEditTask="openEditTask"
       @changeCategory="changeCategory"
+      @changeOrganization="changeOrganization"
+      @createOrganization="createOrganization"
+      @createCategory="createCategory"
+      @logout="logout"
     >
     </Home>   
 
@@ -63,6 +68,7 @@ export default {
 
       //
       currentOrganizationId: "",
+      allOrganizations: {},
       payloadAddTask: {},
       payloadEditTask: {},
     };
@@ -71,8 +77,8 @@ export default {
   created() {
     const access_token = localStorage.getItem("access_token");
     if (access_token) {
-      this.changePage("home-page");
-      this.loadOrganizationById();
+      console.log("this");
+      this.afterLogin();
     } else {
       this.changePage("auth-page");
     }
@@ -85,13 +91,30 @@ export default {
     ModalEdit,
   },
 
+  watch: {
+    // whenever question changes, this function will run
+    currentOrganizationId() {
+      this.loadOrganizationById(this.currentOrganizationId);
+    },
+  },
+
   methods: {
     changeModal(params) {
       this.modalName = params;
     },
 
+    logout() {
+      localStorage.clear();
+      // this.allOrganizations = {};
+      this.changePage("auth-page");
+    },
+
     changePage(page) {
       this.activePage = page;
+    },
+
+    changeOrganization(id) {
+      this.currentOrganizationId = id;
     },
 
     openAddTask(payload) {
@@ -133,6 +156,8 @@ export default {
       })
         .then(({ data }) => {
           const fullname = data.fullname;
+          this.saveUserInfo(data);
+          this.changePage("home-page");
           this.afterLogin();
           this.$swal("Access Granted!", `Welcome, ${fullname}`, "success");
         })
@@ -148,12 +173,12 @@ export default {
         data: payload,
       })
         .then(({ data }) => {
+          this.user = data;
           this.$swal(
             "Access Granted!",
             "Register successfully, Please login first!",
             "success"
           );
-          this.user = data;
         })
         .catch((err) => {
           this.errorHandler(err, "Register Failed!");
@@ -161,14 +186,35 @@ export default {
     },
 
     afterLogin() {
-      this.saveUserInfo(data);
+      // this.allOrganizations = {};
       this.changePage("home-page");
-      this.loadOrganizationById();
+      this.loadUserOrganization();
+    },
+
+    loadUserOrganization() {
+      console.log("this");
+      axios({
+        url: "user/organizations",
+        method: "get",
+        headers: {
+          access_token: localStorage.getItem("access_token"),
+        },
+      })
+        .then(({ data }) => {
+          this.currentOrganizationId = data.Organizations[0].id || -1;
+          data.Organizations.forEach((org) => {
+            this.allOrganizations[org.id] = org.name;
+          });
+          console.log(this.allOrganizations), "=========>";
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
     },
 
     loadOrganizationById(organizationId = null) {
       // organizations
-      organizationId = 1;
+      organizationId = organizationId || this.currentOrganizationId;
       axios({
         url: "organizations/" + organizationId,
         method: "get",
@@ -177,16 +223,13 @@ export default {
         },
       })
         .then(({ data }) => {
-          this.currentOrganizationId = organizationId;
+          this.changeOrganization(organizationId);
           this.categories = data.organization.Categories;
         })
         .catch((err) => {
           console.log(err.response);
-          // this.errorHandler(err, "Register Failed!");
         });
     },
-
-    setCategory(data) {},
 
     // add task to database
     storeTask(payload) {
@@ -276,6 +319,84 @@ export default {
         });
     },
 
+    createOrganization() {
+      let message = "";
+      Swal.fire({
+        title: "Type organization name!",
+        input: "text",
+        inputAttributes: {
+          autocapitalize: "off",
+        },
+        showCancelButton: true,
+        confirmButtonText: "Create",
+        showLoaderOnConfirm: true,
+        preConfirm: (name) => {
+          console.log(name);
+          axios({
+            url: "organizations",
+            method: "post",
+            data: {
+              name,
+            },
+            headers: {
+              access_token: localStorage.getItem("access_token"),
+            },
+          })
+            .then(({ data }) => {
+              this.loadUserOrganization();
+              this.loadOrganizationById();
+              this.$swal.fire(
+                "Created!",
+                "Successfully create organization!",
+                "success"
+              );
+            })
+            .catch((err) => {
+              this.errorHandler(err, "Save Task Failed!");
+              console.log(err.response);
+            });
+        },
+        allowOutsideClick: () => !Swal.isLoading(),
+      });
+    },
+
+    createCategory() {
+      let message = "";
+      Swal.fire({
+        title: "Type new category!",
+        input: "text",
+        inputAttributes: {
+          autocapitalize: "off",
+        },
+        showCancelButton: true,
+        confirmButtonText: "Create",
+        showLoaderOnConfirm: true,
+        preConfirm: (name) => {
+          axios({
+            url: "categories",
+            method: "post",
+            data: {
+              name,
+              OrganizationId: this.currentOrganizationId,
+            },
+
+            headers: {
+              access_token: localStorage.getItem("access_token"),
+            },
+          })
+            .then(({ data }) => {
+              this.loadOrganizationById();
+              this.$swal.fire("Created!", "message", "success");
+            })
+            .catch((err) => {
+              this.errorHandler(err, "Save Task Failed!");
+              console.log(err.response);
+            });
+        },
+        allowOutsideClick: () => !Swal.isLoading(),
+      });
+    },
+
     changeCategory(payload) {
       this.$swal
         .fire({
@@ -288,6 +409,7 @@ export default {
         .then((result) => {
           console.log(result);
           if (result.isConfirmed) {
+            this.loadOrganizationById();
             this.prosesChangeCategory(payload, result.value);
           }
         })
@@ -313,11 +435,11 @@ export default {
       })
         .then(({ data }) => {
           this.loadOrganizationById();
-          const categories = this.getCategories();
-          const taskName = data.task.name;
-          const category = categories[data.task.CategoryId];
-          const message = `Chnge category ${taskName} to ${category}`;
-          this.$swal.fire("Deleted!", message, "success");
+          this.$swal.fire(
+            "Category Changed!",
+            "Succesfully Change Category!",
+            "success"
+          );
         })
         .catch((err) => {
           this.errorHandler(err, "Change Category Failed!");
@@ -334,6 +456,7 @@ export default {
 
     errorHandler(err, title) {
       const error = err.response.data;
+      // console.log(error)
       let message = "";
       if (Array.isArray(error.message)) {
         message = error.message[0].errors;

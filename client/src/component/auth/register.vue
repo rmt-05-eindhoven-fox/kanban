@@ -91,6 +91,7 @@ export default {
         password: this.password,
       };
       this.$emit("prosesRegister", payload);
+      console.log(this.user.status)
       if (this.user.status == 201) {
         this.clearForm();
         this.formLogin();
