@@ -66,7 +66,6 @@ class UserController {
             // console.log(access_token);
             res.status(201).json({
                access_token,
-               email: user.email,
                username: user.username
             })
          }
@@ -110,7 +109,8 @@ class UserController {
             })
 
             res.status(200).json({
-               access_token
+               access_token,
+               username: payload.name
             })
          } else {
             const access_token = signToken({
@@ -120,7 +120,8 @@ class UserController {
             })
 
             res.status(200).json({
-               access_token
+               access_token,
+               username: payload.name
             })
          }
 
