@@ -127,9 +127,7 @@ export default {
         }
       })
       .then(response => {
-        console.log(response);
         const {access_token, email} = response.data
-        console.log(email);
         localStorage.setItem('token', access_token)
         localStorage.setItem('email', email)
         this.pageName = 'home'

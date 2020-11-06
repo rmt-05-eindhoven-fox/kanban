@@ -50,8 +50,10 @@ export default {
   name: "CategoryBoard",
   props: ["nameCategories", "tasks"],
   computed: {
-    taskPerCategory() {
-      return this.tasks.filter(task => task.category == this.nameCategories.category)
+      taskPerCategory() {
+      let dataTasks = this.tasks
+      let resultTask = dataTasks.filter(task => task.category == this.nameCategories.category)
+      return resultTask
     }
   },
   data() {
@@ -66,7 +68,6 @@ export default {
       this.isShow = true;
       this.inputTitle = '';
     },
-
     closeForm() {
       this.isShow = false;
       this.inputTitle = ''
