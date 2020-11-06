@@ -1,0 +1,227 @@
+.landing{
+  background-image: url("https://lh3.googleusercontent.com/proxy/3O7LVqb7acl0OB1oESvJq2RZvTk9biyjXAG6itUBT_olPhh57TjNrX_y3kshX26ct-ls4-0R3FRP7sFsrOjge5HqFqWeZ-QwszuSheo61_7NWjwqMKqsu-KgQpHBzYPOG8vzXdTYN4XsS5H5luKJ-HBV5gfMdJnAIE-cTYh3lys1KsKWOZV78fd_O31Vw305Nk6VgyfMg1qbuKuY-iMZ9vi2JftwN_ef8xuDlg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+body {
+  background-image: url("https://cdn.shopify.com/s/files/1/0285/1316/products/m1906_1s_White-Washed-Brick-Wall-Mural-WallsNeedLove_For-Interior-Walls-9a.jpg?v=1586014100");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.app{
+  width: 95%;
+  box-sizing: border-box;
+}
+
+.container-app{
+  /* width: 95%; */
+  box-sizing: border-box;
+}
+
+.navbar-brand{
+  color: white;
+}
+
+.navhome{
+  padding: 0 30px;
+  background: rgba(97, 91, 91, 0.74);
+}
+
+.card {
+  max-height: 80vh;
+}
+
+.floating {
+  padding-top: 40px;
+  padding-right: 70px;
+}
+
+.card-header:first-child{
+  text-align: center;
+  font-weight: 600;
+}
+
+.card:hover{
+  box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+}
+
+.add-task:hover{
+  box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+}
+
+.containerItem{
+  padding: 0 30px;
+}
+
+.scrollable {
+  overflow-x: hidden;
+  max-height: 70vh;
+}
+
+.hide{
+  display: none;
+}
+
+li div.card:hover .hide {
+  display: block;
+}
+
+.card-text{
+  margin: 0;
+  padding: 0;
+}
+
+.fa{
+  padding-left: 10px;
+}
+
+.dropdown-toggle{
+  border: none;
+}
+
+/* Landing */
+.containerLanding {
+  margin: auto;
+  background-image: url("https://lh3.googleusercontent.com/proxy/3O7LVqb7acl0OB1oESvJq2RZvTk9biyjXAG6itUBT_olPhh57TjNrX_y3kshX26ct-ls4-0R3FRP7sFsrOjge5HqFqWeZ-QwszuSheo61_7NWjwqMKqsu-KgQpHBzYPOG8vzXdTYN4XsS5H5luKJ-HBV5gfMdJnAIE-cTYh3lys1KsKWOZV78fd_O31Vw305Nk6VgyfMg1qbuKuY-iMZ9vi2JftwN_ef8xuDlg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.frame {
+  width: 100%;
+  margin: 20vh auto;
+  height: 500px;
+  width: 430px;
+  background: rgba(255, 255, 255, .45);
+  border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+  overflow: hidden;
+  transition: all .5s ease
+}
+
+.nav {
+  width: 100%;
+  height: 100px;
+  padding-top: 40px;
+  opacity: 1;
+  transition: all .5s ease
+}
+
+.nav-up {
+  transform: translateY(-100px);
+  opacity: 0
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.nav ul{
+  padding: 0 30px;
+}
+
+.nav li {
+  padding-left: 10px;
+  font-size: 18px;
+  display: inline;
+  text-align: left;
+  text-transform: uppercase;
+  padding-right: 10px;
+}
+
+.signin-active a {
+  padding-bottom: 10px;
+  color: green;
+  text-decoration: none;
+  border-bottom: solid 2px green;
+  transition: all .25s ease;
+  cursor: pointer
+}
+
+.signin-inactive a {
+  padding-bottom: 0;
+  color: grey;
+  text-decoration: none;
+  border-bottom: none;
+  cursor: pointer
+}
+
+.signup-active a {
+  padding-bottom: 10px;
+  color: green;
+  text-decoration: none;
+  border-bottom: solid 2px green;
+  transition: all .25s ease;
+  cursor: pointer
+}
+
+.signup-inactive a {
+  padding-bottom: 0;
+  color: grey;
+  text-decoration: none;
+  border-bottom: none;
+  cursor: pointer
+}
+
+.form-signin {
+  width: 430px;
+  height: 300px;
+  font-size: 16px;
+  font-weight: 300;
+  padding-left: 37px;
+  padding-right: 37px;
+  padding-top: 10px;
+  transition: opacity .5s ease, transform .5s ease
+}
+
+.form-signin-left {
+  transform: translateX(-400px);
+  opacity: .0
+}
+
+.form-signup {
+  width: 430px;
+  height: 375px;
+  font-size: 16px;
+  font-weight: 300;
+  padding-left: 37px;
+  padding-right: 37px;
+  padding-top: 10px;
+  position: relative;
+  top: -375px;
+  left: 400px;
+  opacity: 0;
+  transition: all .5s ease
+}
+
+.form-signup-left {
+  transform: translateX(-399px);
+  opacity: 1
+}
+
+.form-signin input,
+.form-signup input {
+  color: black;
+  font-size: 13px
+}
+
+.form-styling {
+  width: 100%;
+  height: 35px;
+  padding-left: 15px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  border: none;
+  background: rgba(0, 0, 0, 0.096)
+}
+
+.kanbanImg{
+  width: 100%;
+}
+
+
+
+/*# sourceMappingURL=/style.e308ff8e.css.map */
