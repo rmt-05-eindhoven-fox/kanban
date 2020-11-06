@@ -1,9 +1,9 @@
-const { Task } = require('../models')
+const { Task, User } = require('../models')
 
 module.exports = class TaskController {
   static async view(req, res, next) {
     try {
-      let data = await Task.findAll()
+      let data = await Task.findAll({ include: User})
       // console.log(data)
       res.status(200).json(data)
     } catch (error) {
@@ -24,9 +24,10 @@ module.exports = class TaskController {
   static async patch(req, res, next) {
     try {
       let id = Number(req.params.id)
-      let { category } = req.body
-      let result = await Task.update({ category }, { where: { id }})
-      res.status(201).json({ msg: 'success edit'})
+      let { title, category } = req.body
+      let result = await Task.update({ title, category }, { where: { id }})
+      res.status(201).json(result)
+      // res.status(201).json({ msg: 'success edit'})
     } catch (error) {
       res.status(500).json({ msg: "Internal Server Error"})
       

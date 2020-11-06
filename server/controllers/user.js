@@ -52,7 +52,7 @@ module.exports = class UserController {
         res.status(200).json({ access_token })
       }
     } catch (error) {
-      res.status(500)/json({ msg: 'Internal server error'})
+      res.status(500).json({ msg: 'Internal server error'})
     }
   }
 }
