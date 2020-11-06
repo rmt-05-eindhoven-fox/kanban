@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,500;1,300&display=swap');
+
+* {
+   font-family: 'Poppins', sans-serif;
+   margin: 0;
+   padding: 0;
+}
+
+/* BOARD CSS */
+.board-container {
+   display: flex;
+   justify-content: center;
+   flex-wrap: wrap;
+   height: 73vh;
+   padding: 10px;
+   margin-top: 10px;
+   margin-left: 55px;
+   margin-right: 55px;
+}
+
+.category-container {
+   display: flex;
+   flex-direction: column;
+   background-color: #f1f2f6;
+   margin: 15px;
+   border-radius: 0.35em;
+   border: 0.1px solid #b2bec3;
+   width: 300px;
+}
+
+.progress {
+   height: 5px;
+}
+
+.card-header {
+   font-size: 25px;
+   font-weight: 400;
+}
+
+.card-header a {
+   align-items: flex-end;
+   float: right;
+}
+
+.task-container {
+   /* display: flex; */
+   flex-direction: column;
+   margin: 0px;
+   height: 60vh;
+}
+
+.card {
+   display: flex;
+   margin-top: 15px;
+   margin-left: 10px;
+   margin-right: 10px;
+}
+
+.card-title {
+   font-weight: 400;
+   font-size: 22px;
+}
+
+.card-body a {
+   font-size: 1rem;
+}
+
+.card-text {
+   font-weight: 300;
+   font-size: 18px;
+}
+
+.card-body h6 {
+   display: flex;
+   font-style: italic;
+   font-size: 15px;
+   padding-top: 6px;
+   color: #b2bec3;
+}
+
+/* NAVBAR CSS */
+nav {
+   background-color: #739299;
+}
+
+/* 404 CSS */
+
+.not-found p{
+   font-size: 19px;
+}
