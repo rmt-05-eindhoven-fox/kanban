@@ -19,7 +19,7 @@ class UserController {
           const match = comparePassword(inputPw, password);
           if (match) {
             const access_token = generateToken({ id, email, fullname })
-            res.status(200).json({ fullname, access_token })
+            res.status(200).json({ id, email, fullname, access_token })
           } else {
             next(createError(401, 'Wrong email / password!'))
           }

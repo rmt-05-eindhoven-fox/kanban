@@ -30,9 +30,9 @@ router.delete('/organizations/member/:id', authorizeOrganization, OrganizationCo
 /** 
  * Router Categories
  */
-// router.get('/categories/:OrganizationId', authorizeOrganization, CategoryController.index);
+router.get('/categories', authorizeOrganization, CategoryController.index);
 router.post('/categories', authorizeOrganization, CategoryController.store);
-router.get('/categories/:OrganizationId', authorizeOrganization, CategoryController.show);
+router.get('/categories/:id', authorizeOrganization, CategoryController.show);
 router.put('/categories/:id', authorizeCategory, CategoryController.update);
 router.delete('/categories/:id', authorizeCategory, CategoryController.destroy);
 

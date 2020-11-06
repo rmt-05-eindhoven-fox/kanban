@@ -3,10 +3,24 @@ const { Organization, Category, User, Task, UserOrganization } = require('../mod
 
 class CategoryController {
 
-  // static index(req, res, next) {
-  //   const { OrganizationId } = req.params; 
-  //   res.status(200).json({ message: 'index Conection OK' })
-  // }
+  static index(req, res, next) {
+    const { organizationid } = req.query;
+    Category.findAll({
+      where: { OrganizationId: organizationid },
+      include: [{
+        model: Task,
+        include: [{
+          model: User,
+          attributes: { exclude: ['password', 'createdAt', 'updatedAt'] }
+        }]
+      }]
+    })
+      .then((categories) => {
+        res.status(200).json(categories)
+      }).catch((err) => {
+        next(err)
+      });
+  }
 
   static store(req, res, next) {
     const { name, OrganizationId } = req.body;
@@ -20,12 +34,18 @@ class CategoryController {
   }
 
   static show(req, res, next) {
-    const { OrganizationId } = req.params;
-    Category.findAll({
-      where: { OrganizationId },
-      include: [{ model: Task, 
-        include: [{ model: User, 
-          attributes: { exclude: ['password', 'createdAt', 'updatedAt'] } }] }]
+    const { organizationid } = req.query;
+    const categoryid = req.params.id;
+    console.log('here', req.params)
+    Category.findByPk(categoryid, {
+      where: { OrganizationId: organizationid },
+      include: [{
+        model: Task,
+        include: [{
+          model: User,
+          attributes: { exclude: ['password', 'createdAt', 'updatedAt'] }
+        }]
+      }]
     })
       .then((categories) => {
         res.status(200).json(categories)

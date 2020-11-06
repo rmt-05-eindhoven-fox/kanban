@@ -32,7 +32,7 @@ function authentication(req, res, next) {
 function authorizeOrganization(req, res, next) {
   const source = req.originalUrl.replace('/', '');
   const method = req.method.toLowerCase();
-  const id = req.body.OrganizationId || req.params.id || req.params.OrganizationId;
+  const id = req.body.OrganizationId || req.query.organizationid || req.params.OrganizationId || req.params.id;
 
   Organization.findByPk(id, { include: [User] })
     .then((organization) => {
