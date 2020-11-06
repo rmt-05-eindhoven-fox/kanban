@@ -1,0 +1,189 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#register-page,
+#login-page {
+  min-height: 100vh;
+  background-color: #2F3640;
+  padding-top: 100px;
+}
+#register-page img,
+#login-page img {
+  display: flex;
+  align-items: center;
+}
+#register-page .logo-kanban,
+#login-page .logo-kanban {
+  margin-bottom: 30px;
+}
+#register-page h3,
+#login-page h3 {
+  font-family: "Inconsolata", monospace;
+  color: #CDCFD4;
+  margin-bottom: 20px;
+}
+#register-page .btn-section,
+#login-page .btn-section {
+  display: flex;
+  justify-content: space-between;
+}
+#register-page .btn-section .btn-register,
+#register-page .btn-section .btn-login,
+#login-page .btn-section .btn-register,
+#login-page .btn-section .btn-login {
+  background-color: #00A8FF;
+  color: #FFF;
+  width: 150px;
+}
+#register-page .btn-section .btn-register:hover,
+#register-page .btn-section .btn-login:hover,
+#login-page .btn-section .btn-register:hover,
+#login-page .btn-section .btn-login:hover {
+  color: #FFF;
+  background-color: #168eca;
+  transition: 0.3s ease-in-out;
+}
+#register-page .btn-link,
+#login-page .btn-link {
+  color: #CDCFD4;
+  text-decoration: underline;
+  padding-left: 0;
+}
+#register-page .btn-link:hover,
+#login-page .btn-link:hover {
+  color: #00A8FF;
+  transition: 0.3s;
+}
+
+nav {
+  background-color: #2F3640;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  align-items: center;
+  font-family: "Inconsolata", monospace;
+}
+nav li {
+  list-style: none;
+  display: inline;
+  margin-left: 10px;
+  margin-right: 20px;
+  align-items: center;
+}
+nav a {
+  text-decoration: none;
+  color: #ffffff;
+}
+nav ul {
+  margin-bottom: 0;
+}
+nav .links {
+  display: flex;
+  align-items: center;
+}
+nav .links button {
+  color: #CDCFD4;
+}
+nav .links button:hover {
+  color: #CDCFD4;
+  background-color: #f21616;
+  transition: 0.2s ease;
+}
+
+.main-board {
+  min-height: 100vh;
+}
+
+.task-header {
+  font-family: "Fredoka One", cursive;
+  margin: 20px 0;
+}
+
+.task-board {
+  font-family: "Inconsolata", monospace;
+  font-weight: 700;
+}
+.task-board .card-body {
+  padding: 8px;
+}
+.task-board h3 {
+  font-weight: 700;
+}
+.task-board .card-backlog {
+  background-color: #CDCFD4;
+  border-radius: 0px;
+  padding: 0;
+  max-height: 100vh;
+  overflow-y: auto;
+}
+.task-board .card-header {
+  border-top-right-radius: 13px;
+  border-top-left-radius: 13px;
+  background-color: #2F3640;
+  color: #00A8FF;
+  border: 2px solid #2F3640;
+  font-weight: lighter;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.task-board .card-header i {
+  color: #00A8FF;
+  font-size: 30px;
+}
+.task-board .card-header i:hover {
+  color: #168eca;
+  transition: 0.5s ease-in-out;
+}
+.task-board .card-title {
+  display: flex;
+  justify-content: space-between;
+}
+.task-board .card-text {
+  font-weight: 500;
+}
+
+.card-task-content {
+  border-radius: 15px;
+  margin-bottom: 10px;
+}
+.card-task-content .card-body {
+  padding: 15px;
+}
+.card-task-content i {
+  color: #00A8FF;
+  font-size: large;
+}
+.card-task-content i:hover {
+  color: #168eca;
+  transition: 0.2s ease-in-out;
+}
+.card-task-content .card-title {
+  font-family: "Inconsolata", monospace;
+  font-weight: bold;
+}
+.card-task-content .author,
+.card-task-content .date {
+  font-size: 12px;
+}
+.card-task-content .dropdown-menu {
+  border: 1px solid #2F3640;
+}
+.card-task-content .dropdown-menu a:hover {
+  background-color: #00A8FF;
+  color: #2F3640;
+}
+
+footer {
+  background-color: #2F3640;
+  font-family: "Inconsolata", monospace;
+  color: #00A8FF;
+  display: flex;
+  align-items: center;
+  min-height: 100px;
+}
+
+/*# sourceMappingURL=style.css.map */
