@@ -11,7 +11,7 @@ router.post('/', TaskController.addTask)
 
 router.put('/:id', authorization, TaskController.changeTaskDesc)
 router.delete('/:id', authorization, TaskController.deleteTask)
-router.patch('/:id', TaskController.changeTaskCategory)
+router.patch('/:id', authorization, TaskController.changeTaskCategory)
 
 router.get('/cat', TaskController.getCategories)
 router.post('/cat', TaskController.addCategory)
