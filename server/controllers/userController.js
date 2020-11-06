@@ -6,7 +6,6 @@ const { OAuth2Client } = require('google-auth-library')
 
 class UserController {
     static register(req, res, next){
-        console.log(req.body)
         const { email, password } = req.body
         User.create({
             email,
@@ -44,12 +43,12 @@ class UserController {
                     message: 'wrong email/password'
                 })
             } else {
-                const tokenAkses = signToken({
+                const access_token = signToken({
                     id: user.id,
                     email: user.email
                 })
                 res.status(200).json({
-                    tokenAkses : tokenAkses,
+                    access_token : access_token,
                     email: user.email
                 })
             }

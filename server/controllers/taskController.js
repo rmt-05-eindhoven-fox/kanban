@@ -5,10 +5,12 @@ class TaskController {
     static createTask(req, res, next){
         const { title, category } = req.body
         const UserId = req.loggedInUser.id
+       
         Task.create({
             title,
             category,
-            UserId
+            UserId 
+            // coment userid jika mencoba client
         },{
             returning:true
         })
@@ -23,11 +25,7 @@ class TaskController {
 
     static findAllTask(req, res, next){
         const userId = req.loggedInUser.id
-        Task.findAll({
-            where: {
-                UserId: userId
-            }
-        })
+        Task.findAll()
         .then( task => {
             res.status(200).json(task)
         })

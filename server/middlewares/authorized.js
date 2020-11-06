@@ -6,8 +6,6 @@ function authorization(req, res, next){
         where:  id
     })
     .then(data => {
-        // console.log(req.loggedInUser.id)
-        // console.log(data)
         if(!data){
             throw{ message : 'post not found', status: 404}
         } else if (data.UserId === req.loggedInUser.id){
@@ -17,9 +15,6 @@ function authorization(req, res, next){
         }
     })
     .catch( err => {
-        // const status = err.status || 500
-        // const msg = err.message || "internal server error"
-        // res.status(status).json({error : msg})
         next(err)
     })
 }
