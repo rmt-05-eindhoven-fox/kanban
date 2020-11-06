@@ -15,9 +15,5 @@ function decodeToken(token){
 
 // test drive
 
-const token = generateToken({ id : 13, email : 'kalonk13@mail.com'})
-console.log(token)
-
-console.log(decodeToken(token))
 
 module.exports = { generateToken, decodeToken }

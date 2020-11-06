@@ -1,0 +1,236 @@
+
+
+<!-- Page Register 🐶 -->
+
+<section id = "page-register">
+  
+  <div class = "container">
+    <div class="row">
+      <div class = "col"></div>
+      
+      <div class = "col-5">
+        <div class = "login-section mt-0">
+
+          <div class = "login-body mt-5">
+            <div class="form-login">
+              <h2 style="color: #1b206b;">Register</h2><hr>
+              <form>
+                <div class="form-group">
+                  <input v-model="register.name" type="text" class="form-control" id="register-name" aria-describedby="emailHelp" placeholder="Your Name">
+                </div>
+
+                <div class="form-group">
+                  <input v-model="register.email" type="email" class="form-control" id="register-email" aria-describedby="emailHelp" placeholder="youremail@email.com">
+                </div>
+
+                <div class="form-group">
+                  <input v-model="register.password" type="password" class="form-control" id="register-password" placeholder="Password">
+                </div>
+                
+                <button @click.prevent="userRegister()" type="submit" class="btn btn-outline-primary w-100">Register</button>
+              </form>
+              
+              <div class = "mt-2">
+                <a @click.prevent="changePage('page-login')" href="" >Back to Login</a>
+              </div>
+
+            </div>
+            
+
+          </div>
+
+        </div>
+      </div>
+      
+      <div class = "col"></div>
+
+    </div>
+
+  </div>
+
+  <!-- <svg style="position: fixed; bottom:0;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#a0bdfd" fill-opacity="1" d="M0,288L40,272C80,256,160,224,240,192C320,160,400,128,480,122.7C560,117,640,139,720,128C800,117,880,75,960,96C1040,117,1120,203,1200,229.3C1280,256,1360,224,1400,208L1440,192L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z"></path></svg> -->
+
+
+</section>
+
+<!-- Page Home 🐶 -->
+<section id="page-home">
+
+  <nav class = "navbar sticky" style="width:100%">
+    <div class = "navbar container">
+      <div class = "group-left">
+        <img src="./img/kanban_logo.png" style="width:50px" alt="Logo">
+
+       <!-- <h3>Logo Placeholder</h3> -->
+       <!-- <h3 style="color: #21206f;">Link 1</h3> -->
+      </div>
+
+      <div class = "group-right">
+        <h1 
+          @click.prevent = "userLogout"
+          style="color: #21206f; margin:0; cursor: pointer;">Logout</h1>
+      </div>
+
+    </div>
+  </nav>
+
+
+  <div class = "container kanban-content">
+  
+    <!-- Sample Card -->
+    <div class = "kanban-card-container">   
+
+      <h2>Sample Board</h2>  
+
+      <div class = "kanban-card-all">
+
+        <div class = "kanban-card">
+
+          <p>{{ debugDeo }}</p>
+
+          <div class = "kanban-card-footer">
+
+            <p style="margin:0; font-size:small; color:grey">Deo Mareza</p>
+
+            <div class = "kanban-card-control" style = "align-self: flex-end;">
+              <img src="./img/icons8-edit-24.png" style = "width: 15px;">
+              <img src="./img/icons8-delete-30.png" style = "width: 15px;">
+            </div>
+          </div>
+
+        </div>
+
+        <div class = "kanban-card">
+
+          <div class="kanban-card-edit">
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3">Task Description Edit</textarea>
+            <button type="button" class="btn btn-outline-success btn-sm mt-2"
+            style ="align-self: flex-end; width:100px"
+            >Edit</button>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class = "kanban-add-task mt-3">
+
+        <button type="button" class="btn btn-outline-info">＋  Add Task</button>
+
+
+      </div>
+      
+    </div>  
+
+
+    <div 
+      v-for="category in categories" 
+      :key = "category.id"
+      class = "kanban-card-container">    <!-- Card Container start -->
+
+      <h2>{{ category.name }}</h2>  <!-- Board Title -->
+
+      <div class = "kanban-card-all">
+
+        <span
+        v-for="task in tasks"
+        :key = "task.id"
+        >
+        <!-- <template
+          v-for="task in tasks"
+          :key = "task.id"> -->
+
+        <div 
+          v-if = "task.CategoryId == category.id"
+          class = "kanban-card">
+            
+          <!-- Normal Card -->
+          <div 
+            v-if = "!task.showEdit"
+            class = kanban-card-body>
+            <p>{{ task.description }}</p>
+
+            <div class = "kanban-card-footer">
+
+              <p style="margin:0; font-size:small; color:grey">{{ task.User.name }}</p>
+
+              <div class = "kanban-card-control" style = "align-self: flex-end;">
+                <img 
+                  @click.prevent = "showEditTask(task.id)"
+                  src="./img/icons8-edit-24.png" 
+                  style = "width: 15px; cursor:pointer;">
+
+                <img 
+                  @click.prevent = "deleteTask(task.id)"
+                  src="./img/icons8-delete-30.png" 
+                  style = "width: 15px; cursor:pointer;">
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- Toggle edit -->
+          <!-- v-model="task.description" -->
+
+          <div 
+            v-else
+            class="kanban-card-edit">
+            <textarea 
+              v-model = "task.description"
+              class="form-control" 
+              rows="3"></textarea>
+
+            <button 
+              @click.prevent = "postEditTask(task.id, task.description)"
+              type="button" 
+              class="btn btn-outline-success btn-sm mt-2"
+              style ="align-self: flex-end; width:100px"
+            >Edit</button>
+
+          </div>
+
+        </div>
+      </span>
+
+
+        
+
+
+      </div>
+
+      <div class = "kanban-add-task mt-3">
+
+        <button 
+          v-if = "!category.showAddTask"
+          @click.prevent="showAddTask(category.id)"
+          type="button" 
+          class="btn btn-outline-info">＋  Add Task</button>
+
+        <div 
+          v-else
+          class="kanban-card-edit">
+          <textarea 
+            v-model = "category.newTask"
+            class="form-control" 
+            rows="3"></textarea>
+
+          <button 
+            @click.prevent = "postAddTask(category.id)"
+            type="button" 
+            class="btn btn-outline-success btn-sm mt-2"
+            style ="align-self: flex-end; width:100px"
+          >Add Task</button>
+
+        </div>
+
+
+      </div>
+      
+    </div> 
+
+
+
+    
+
+  </div>

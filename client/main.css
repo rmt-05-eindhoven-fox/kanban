@@ -74,7 +74,7 @@ nav {
 .kanban-card-all{
   border-radius : 7px;
   border : 1px solid #dae5ff;
-  height : 600px;
+  height : 550px;
 
   overflow-y: scroll;  
   /* scrollbar-width: 0; */
@@ -112,6 +112,7 @@ nav {
 
 .kanban-add-task{
   display : flex;
+  flex-direction: column;
   justify-content: center;
   color : rgb(80, 80, 80);
 }
@@ -120,6 +121,11 @@ nav {
   position: fixed;
   top : 0;
   left : 0;
+}
+
+.kanban-card-edit-btns{
+  display:flex;
+  justify-content: space-between;
 }
 
 /* ==== Scrollbar ==== */
