@@ -2,18 +2,29 @@
   <div class="col main-col">
     <div class="topbar">
       <div class="d-flex justify-content-center">
-        <h1>{{ organization[0].name }}'s Board</h1>
+        <h1 class="board-title">{{ organization[0].name }}'s Board</h1>
       </div>
-      <div class="navbar-top d-flex">
-        <p>BOARD</p>
-        <P>SETTINGS</P>
-        <i class="fa fa-bell nav-icon dropdown-toggle" data-toggle="dropdown"
-          ><span id="notification_count" class="notification-alert"></span
-        ></i>
-        <div
-          id="notification-content"
-          class="dropdown-menu dropdown-menu-right"
-        ></div>
+      <div class="navbar-top d-flex justify-content-between">
+        <div class="navbar-left d-flex">
+          <p @click="hideDetail" class="nav-item">BOARD</p>
+          <P @click="showSettings" class="nav-item">SETTINGS</P>
+        </div>
+        <div class="navbar-right d-flex">
+          <div class="notification nav-item2">
+            <button
+              class="notification-bell fa fa-bell nav-icon dropdown-toggle"
+              data-toggle="dropdown"
+            >
+              <i
+                ><span id="notification_count" class="notification-alert"></span
+              ></i>
+            </button>
+            <div
+              id="notification-content"
+              class="dropdown-menu dropdown-menu-right"
+            ></div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="main-content">
@@ -73,12 +84,21 @@
           </div>
         </div>
       </div>
-      <TaskDetail
-        v-show="isShowDetail"
-        :task="taskDetail"
-        @editTask="editTask"
-        @back="hideDetail"
-      ></TaskDetail>
+      <div v-show="isShowDetail">
+        <TaskDetail
+          v-show="showTask"
+          :task="taskDetail"
+          @editTask="editTask"
+          @back="hideDetail"
+        ></TaskDetail>
+        <OrganizationSetting
+          v-show="!showTask"
+          :organization="organization[0]"
+          @editOrganization="editOrganization"
+          @back="hideDetail"
+        >
+        </OrganizationSetting>
+      </div>
     </div>
   </div>
 </template>
@@ -86,16 +106,18 @@
 <script>
 import TaskCategory from "./TaskCategory";
 import TaskDetail from "./TaskDetail";
+import OrganizationSetting from "./OrganizationSetting";
 
 export default {
   name: "MainContent",
   props: ["organization", "tasks", "isShowDetail"],
-  components: { TaskCategory, TaskDetail },
+  components: { TaskCategory, TaskDetail, OrganizationSetting },
   data() {
     return {
       taskDetail: null,
       isAddCategory: false,
       categoryTitle: "",
+      showTask: true,
     };
   },
   methods: {
@@ -108,6 +130,7 @@ export default {
     showDetail(payload) {
       this.taskDetail = payload;
       this.isShowDetail = true;
+      this.showTask = true;
     },
     editTask(payload) {
       this.isShowDetail = false;
@@ -136,6 +159,13 @@ export default {
     },
     deleteCategory(payload) {
       this.$emit("deleteCategory", payload);
+    },
+    showSettings() {
+      this.isShowDetail = true;
+      this.showTask = false;
+    },
+    editOrganization(payload) {
+      this.$emit("editOrganization", payload);
     },
   },
   computed: {},

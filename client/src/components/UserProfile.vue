@@ -1,5 +1,18 @@
 <template>
   <div class="user-profile">
+    <div class="btn-group-user">
+      <button
+        class="btn option-btn option-btn-user"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="fa fa-ellipsis-v"></i>
+      </button>
+      <div class="dropdown-menu">
+        <a @click.prevent="logout" class="dropdown-item" href="#">Logout</a>
+      </div>
+    </div>
     <div class="text-center">
       <img
         class="user-avatar"
@@ -42,6 +55,9 @@ export default {
         };
         this.$emit("editUsername", payload);
       }
+    },
+    logout() {
+      this.$emit("logout");
     },
   },
 };

@@ -6,7 +6,7 @@
         alt=""
         class="kanban-illustration"
       />
-      <h1 class="text-center brand-title">Kanban App</h1>
+      <h1 class="text-center brand-title">Hello, {{ user.name }}</h1>
       <h4 class="text-center">Choose organization to show board</h4>
     </div>
   </div>
@@ -15,6 +15,7 @@
 <script>
 export default {
   name: "NoOrganization",
+  props: ["user"],
 };
 </script>
 

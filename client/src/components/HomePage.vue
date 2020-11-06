@@ -8,6 +8,7 @@
             :isEditUsername="isEditUsername"
             @showEditUsername="showEditUsername"
             @editUsername="editUsername"
+            @logout="logout"
           ></UserProfile>
           <hr />
           <div class="side-navbar d-flex flex-column">
@@ -31,8 +32,9 @@
           @addCategory="addCategory"
           @editCategory="editCategory"
           @deleteCategory="deleteCategory"
+          @editOrganization="editOrganization"
         ></MainContent>
-        <NoOrganization v-else></NoOrganization>
+        <NoOrganization :user="userInfo" v-else></NoOrganization>
       </div>
     </div>
   </section>
@@ -96,6 +98,12 @@ export default {
     },
     deleteCategory(payload) {
       this.$emit("deleteCategory", payload);
+    },
+    logout() {
+      this.$emit("logout");
+    },
+    editOrganization(payload) {
+      this.$emit("editOrganization", payload);
     },
   },
   computed: {

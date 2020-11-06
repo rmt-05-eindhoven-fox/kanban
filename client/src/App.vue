@@ -9,6 +9,7 @@
       v-else-if="pageName === 'login-page'"
       @showRegister="changePage"
       @login="login"
+      @googlelogin="googlelogin"
     ></LoginPage>
     <HomePage
       v-else-if="pageName === 'home-page'"
@@ -28,6 +29,8 @@
       @addCategory="addCategory"
       @editCategory="editCategory"
       @deleteCategory="deleteCategory"
+      @logout="logout"
+      @editOrganization="editOrganization"
     ></HomePage>
   </section>
 </template>
@@ -96,6 +99,26 @@ export default {
         .then(({ data }) => {
           localStorage.setItem("access_token", data.access_token);
           this.pageName = "home-page";
+          afterLogin();
+        })
+        .catch((err) => {
+          console.log(err.response.data.msg);
+        });
+    },
+    googlelogin(payload) {
+      const { google_access_token } = payload;
+      axios({
+        url: "/google-login",
+        method: "post",
+        data: {
+          google_access_token,
+        },
+      })
+        .then(({ data }) => {
+          console.log(data);
+          localStorage.setItem("access_token", data.access_token);
+          this.pageName = "home-page";
+          afterLogin();
         })
         .catch((err) => {
           console.log(err.response.data.msg);
@@ -318,6 +341,31 @@ export default {
         .catch((err) => {
           console.log(err.response.data.msg);
         });
+    },
+    editOrganization(payload) {
+      const { id, name, description } = payload;
+      const access_token = localStorage.getItem("access_token");
+      axios({
+        url: `/organizations/${id}`,
+        method: "put",
+        headers: {
+          access_token,
+        },
+        data: {
+          name,
+          description,
+        },
+      })
+        .then(({ data }) => {
+          this.fetchTasksOrganization(this.activeOrgId);
+        })
+        .catch((err) => {
+          console.log(err.response.data.msg);
+        });
+    },
+    logout() {
+      localStorage.removeItem("access_token");
+      this.pageName = "login-page";
     },
   },
   created() {

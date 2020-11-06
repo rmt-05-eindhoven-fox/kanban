@@ -1,6 +1,7 @@
 const { User, User_Organization } = require('../models')
 const { comparePassword } = require('../helpers/bcrypt')
 const { signToken } = require('../helpers/jwt')
+const { OAuth2Client } = require('google-auth-library')
 
 class UserController {
   static async register(req, res, next) {
@@ -58,8 +59,50 @@ class UserController {
     }
   }
 
-  static googleLogin(req, res, next) {
-
+  static async googleLogin(req, res, next) {
+    let { google_access_token } = req.body
+    const client = new OAuth2Client(process.env.CLIENT_ID)
+    let payload;
+    try {
+      const ticket = await client.verifyIdToken({
+        idToken: google_access_token,
+        audience: process.env.CLIENT_ID
+      })
+      payload = ticket.getPayload()
+      const option = {
+        where: { email: payload.email }
+      }
+      const user = await User.findOne(option)
+      if (!user) {
+        const data = {
+          first_name: payload.given_name,
+          last_name: payload.family_name,
+          email: payload.email,
+          password: process.env.PASSWORD_CLIENT
+        }
+        const newUser = await User.create(data)
+        const payload2 = {
+          UserId: newUser.id,
+          OrganizationId: 1,
+          role: "Member"
+        }
+        const defaultOrg = await User_Organization.create(payload2)
+        const access_token = signToken({
+          id: newUser.id,
+          email: newUser.email
+        })
+        res.status(200).json({ access_token })
+      } else {
+        const access_token = signToken({
+          id: user.id,
+          email: user.email
+        })
+        res.status(200).json({ access_token })
+      }
+    } catch (error) {
+      console.log(error)
+      next(error)
+    }
   }
 
   static async loggedInUserInfo(req, res, next) {
