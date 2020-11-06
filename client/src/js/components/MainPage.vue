@@ -83,8 +83,7 @@ export default {
       personal: true,
       projectName: null,
       projectId: null,
-      detailProject: null,
-      invitations: []
+      detailProject: null
     }
   },
   props: ['allProjects', 'home'],

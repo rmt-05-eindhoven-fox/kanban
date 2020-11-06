@@ -66,10 +66,8 @@ export default {
   name: 'KanbanBoard',
   data() {
     return {
-      dialog: false,
       dialog2: false,
       editId: null,
-      invite: false,
       task: {
         title: null,
         description: null,
@@ -218,11 +216,6 @@ export default {
         this.editId = null
       }
     },
-    dialog: function(val, old) {
-      if (!val) {
-        this.invite = false
-      }
-    }
   },
   created() {
     this.fetchProjectTasks(this.project.id)
