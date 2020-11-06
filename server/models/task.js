@@ -21,6 +21,10 @@ module.exports = (sequelize, DataTypes) => {
             args: true,
             msg: "Please input title",
           },
+          len: {
+            args: [0, 16],
+            msg: "Title must not exceed 16 characters!",
+          },
         },
       },
       description: {

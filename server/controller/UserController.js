@@ -62,7 +62,7 @@ class UserController {
         } else {
           let userObj = {
             email,
-            password: "apasaja",
+            password: "randomsaja",
           };
           return User.create(userObj);
         }
@@ -72,7 +72,9 @@ class UserController {
           id: userData.id,
           email: userData.email,
         });
-        return res.status(200).json({ access_token: accessToken });
+        return res
+          .status(200)
+          .json({ access_token: accessToken, id: userData.id });
       })
       .catch((err) => {
         next(err);

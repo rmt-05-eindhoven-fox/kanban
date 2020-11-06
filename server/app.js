@@ -14,3 +14,10 @@ app.use(routes);
 app.use(Middleware.errorHandler);
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
+
+// .env:
+
+// SECRET="ENIGMATIC"
+// PORT=3000
+// SALT=8
+// CLIENT_ID=806307208459-0j4n1em9rtpqp0b3froaddqlg8dpfi8a.apps.googleusercontent.com
