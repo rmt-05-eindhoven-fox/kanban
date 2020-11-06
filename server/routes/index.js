@@ -1,24 +1,30 @@
-const router = require("express").router();
+const router = require("express").Router();
 const UserController = require("../controllers/UserController");
 const TaskController = require("../controllers/TaskController");
 const CategoryController = require("../controllers/CategoryController");
-
+const authentication = require('../middlewares/authentication')
+const authorization = require('../middlewares/authorization')
 // landing
-router.get('/', UserController.landingpage)
+// router.get('/', UserController.landingpage)
 //register
 router.post("/register", UserController.register);
 //login
 router.post("/login", UserController.login);
 
-//task CRUD
+//task CRUD endpoint
 //CREATE
-router.post("/tasks/:CategoryId",  TaskController.add);
+router.post("/tasks/:CategoryId", authentication,  TaskController.add);
 //READ
-router.get("/tasks", TaskController.show);
+router.get("/tasks",authentication, TaskController.show);
 
-router.get("/tasks/:id", TaskController.find);
+router.get("/tasks/:id", authentication, authorization, TaskController.find);
 //UPDATE
-router.put("/tasks/:id",  TaskController.edit);
+router.put("/tasks/:id", authentication, authorization, TaskController.edit);
 //DELETE
-router.delete("/tasks/:id",TaskController.delete);
+router.delete("/tasks/:id", authentication, authorization, TaskController.delete);
 
+
+//ENDPOINTS CATEGORY
+router.post("/categories", authentication, CategoryController.addCategory);
+
+module.exports = router;
