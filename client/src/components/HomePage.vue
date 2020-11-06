@@ -33,6 +33,7 @@
           @editCategory="editCategory"
           @deleteCategory="deleteCategory"
           @editOrganization="editOrganization"
+          @updateCategory="updateCategory"
         ></MainContent>
         <NoOrganization :user="userInfo" v-else></NoOrganization>
       </div>
@@ -104,6 +105,9 @@ export default {
     },
     editOrganization(payload) {
       this.$emit("editOrganization", payload);
+    },
+    updateCategory(payload) {
+      this.$emit("updateCategory", payload);
     },
   },
   computed: {

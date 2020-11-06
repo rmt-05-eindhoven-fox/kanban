@@ -4,6 +4,7 @@
       v-if="pageName === 'register-page'"
       @showLogin="changePage"
       @register="register"
+      @googlelogin="googlelogin"
     ></RegisterPage>
     <LoginPage
       v-else-if="pageName === 'login-page'"
@@ -31,6 +32,7 @@
       @deleteCategory="deleteCategory"
       @logout="logout"
       @editOrganization="editOrganization"
+      @updateCategory="updateCategory"
     ></HomePage>
   </section>
 </template>
@@ -354,6 +356,26 @@ export default {
         data: {
           name,
           description,
+        },
+      })
+        .then(({ data }) => {
+          this.fetchTasksOrganization(this.activeOrgId);
+        })
+        .catch((err) => {
+          console.log(err.response.data.msg);
+        });
+    },
+    updateCategory(payload) {
+      const access_token = localStorage.getItem("access_token");
+      const { id, CategoryId } = payload;
+      axios({
+        url: `/tasks/${id}`,
+        method: "patch",
+        headers: {
+          access_token,
+        },
+        data: {
+          CategoryId,
         },
       })
         .then(({ data }) => {

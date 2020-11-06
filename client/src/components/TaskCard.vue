@@ -25,6 +25,7 @@
               <a @click.prevent="deleteTask" class="dropdown-item" href="#"
                 >Delete</a
               >
+              <div class="dropdown-divider"></div>
             </div>
           </div>
         </div>
@@ -44,6 +45,28 @@
           </div>
         </div>
       </div>
+      <div class="card-footer">
+        <div class="btn-group dropright">
+          <button
+            type="button"
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            Move
+          </button>
+          <div class="dropdown-menu">
+            <CategoryDropdown
+              v-for="category in categories"
+              :key="category.id"
+              :category="category"
+              :TaskId="taskDetail.id"
+              @updateCategory="updateCategory"
+            ></CategoryDropdown>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 </template>
@@ -51,11 +74,12 @@
 <script>
 import AssigneeAvatar from "./AssigneeAvatar";
 import TaskTags from "./TaskTags";
+import CategoryDropdown from "./CategoryDropdown";
 
 export default {
   name: "TaskCard",
-  props: ["taskDetail"],
-  components: { AssigneeAvatar, TaskTags },
+  props: ["taskDetail", "categories"],
+  components: { AssigneeAvatar, TaskTags, CategoryDropdown },
   data() {
     return {
       title: "",
@@ -69,6 +93,9 @@ export default {
     showDetail() {
       const payload = this.taskDetail;
       this.$emit("showDetail", payload);
+    },
+    updateCategory(payload) {
+      this.$emit("updateCategory", payload);
     },
   },
   computed: {

@@ -41,6 +41,12 @@
                   >
                 </div>
               </form>
+              <button
+                v-google-signin-button="clientId"
+                class="google-signin-button"
+              >
+                Continue with Google
+              </button>
             </div>
           </div>
         </div>
@@ -68,6 +74,8 @@ export default {
       last_name: "",
       email: "",
       password: "",
+      clientId:
+        "871000054021-4p2lmcgbcr8a9dj7t1s8k413n93po7di.apps.googleusercontent.com",
     };
   },
   methods: {
@@ -83,9 +91,28 @@ export default {
       };
       this.$emit("register", payload);
     },
+    OnGoogleAuthSuccess(idToken) {
+      // Receive the idToken and make your magic with the backend
+      const payload = {
+        google_access_token: idToken,
+      };
+      this.$emit("googlelogin", payload);
+    },
+    OnGoogleAuthFail(error) {
+      console.log(error);
+    },
   },
 };
 </script>
 
 <style>
+.google-signin-button {
+  color: white;
+  background-color: red;
+  height: 50px;
+  font-size: 16px;
+  border-radius: 10px;
+  padding: 10px 20px 25px 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
 </style>

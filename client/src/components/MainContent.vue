@@ -40,11 +40,13 @@
             :tasks="
               tasks.filter((element) => element.category == category.name)
             "
+            :categories="organization[0].Categories"
             @addTask="addTask"
             @deleteTask="deleteTask"
             @showDetail="showDetail"
             @editCategory="editCategory"
             @deleteCategory="deleteCategory"
+            @updateCategory="updateCategory"
           ></TaskCategory>
           <div v-show="isAddCategory" class="card category category-add-form">
             <div class="card-body">
@@ -166,6 +168,9 @@ export default {
     },
     editOrganization(payload) {
       this.$emit("editOrganization", payload);
+    },
+    updateCategory(payload) {
+      this.$emit("updateCategory", payload);
     },
   },
   computed: {},

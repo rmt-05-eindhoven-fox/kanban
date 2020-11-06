@@ -67,8 +67,10 @@
           v-for="task in tasks"
           :key="task.id"
           :taskDetail="task"
+          :categories="allCategories"
           @deleteTask="deleteTask"
           @showDetail="showDetail"
+          @updateCategory="updateCategory"
         ></TaskCard>
       </div>
     </div>
@@ -80,7 +82,7 @@ import TaskCard from "./TaskCard";
 
 export default {
   name: "TaskCategory",
-  props: ["category", "tasks"],
+  props: ["category", "tasks", "categories"],
   methods: {
     showAddForm() {
       this.isAddForm = !this.isAddForm;
@@ -118,6 +120,9 @@ export default {
       };
       this.$emit("deleteCategory", payload);
     },
+    updateCategory(payload) {
+      this.$emit("updateCategory", payload);
+    },
   },
   components: { TaskCard },
   data() {
@@ -125,6 +130,7 @@ export default {
       isAddForm: false,
       title: "",
       isEditCat: false,
+      allCategories: this.categories,
     };
   },
 };
