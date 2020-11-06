@@ -1,16 +1,19 @@
 <template>
-<div class="global-container">
+<div id="add-page" class="global-container">
     <nav class="navbar navbar-dark bg-custom-2">
         <a class="navbar-brand" href="#a">Kanban Web</a>
     </nav>
+
     <div class="card login-form">
         <div class="card-body">
             <h3 class="card-title text-center">Add Task</h3>
             <div class="card-text">
                 <form>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Entry Your Task</label>
-                        <input type="email" class="form-control form-control-sm" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <label for="exampleInputEmail1">Title your Task</label>
+                        <input type="" class="form-control form-control-sm" id="" >
+                        <label for="exampleInputEmail1">Description</label>
+                        <input type="" class="form-control form-control-sm" id="" >
                     </div>
                     <div class="form-group">
                         <div class="addForm-dropdown">

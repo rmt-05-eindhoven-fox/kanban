@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid">
+    <div id="home-page" class="container-fluid">
 
         <nav class="navbar navbar-dark bg-custom-2">
         <a class="navbar-brand" href="#a">Kanban Web</a>

@@ -1,6 +1,6 @@
 <template>
   
-    <div class="global-container">
+    <div id="login-page" class="global-container">
         <div class="card login-form">
         <div class="card-body">
             <h3 class="card-title text-center">Log in to Kanban</h3>
@@ -21,6 +21,7 @@
                         Don't have an account? <a href="#">Create One</a>
                     </div>
                 </form>
+                <button v-google-signin-button="clientId" class="google-signin-button"> Continue with Google</button>
             </div>
         </div>
     </div>
@@ -59,11 +60,19 @@ export default {
                 pageName:'register-page'
             }
             this.$$emit('UserRegisterPage', payload)
+        },
+        OnGoogleAuthSuccess (idToken) {
+           console.log(idToken)
+        // Receive the idToken and make your magic with the backend
+        },
+        OnGoogleAuthFail (error) {
+        console.log(error)
         }
-    }
+  }
 
 }
 </script>
+
 
 <style>
 

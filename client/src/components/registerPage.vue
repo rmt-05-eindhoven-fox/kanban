@@ -1,6 +1,6 @@
 <template>
 
-    <div class="global-container">
+    <div id="register-page" class="global-container">
         <div class="card login-form">
         <div class="card-body">
             <h3 class="card-title text-center">Register Account</h3>

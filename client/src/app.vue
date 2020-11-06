@@ -1,11 +1,11 @@
 <template>
     <div>
-        <loginPage 
+        <LoginPage 
         v-if="pageName == 'login-page'"
         @login="login"
         @changePage="changePage"
         @UserRegisterPage="UserRegisterPage"
-        ></loginPage>
+        ></LoginPage>
 
         <RegisterPage 
         v-else-if="pageName == 'register-page'"
@@ -27,9 +27,10 @@
 
 <script>
 import RegisterPage from './components/registerPage'
-import loginPage from './components/loginPage'
+import LoginPage from './components/loginPage'
 import HomePage from './components/Homepage'
 import AddPage from './components/addPage'
+import axios from './config/axios'
 export default {
         name: 'App',
         data() {
@@ -38,10 +39,31 @@ export default {
             }
         },
         components: {
-            loginPage, 
-            registerPage, 
+            LoginPage, 
+            RegisterPage, 
             HomePage, 
             AddPage,
+        },
+
+        methods: {
+            changePage(name) {
+                this.pageName = name
+            }
+        },
+
+        UserLoginPage(payload) {
+            axio({
+                url: "/login",
+                method: "POST",
+                data: {
+                    email:payload.email,
+                    password:payload.password
+                },
+            })
+            .then(({data}) => {
+                const token = data.acces_token
+                localStorage.setItem("access_token", token)
+            })
         }
     
 }
