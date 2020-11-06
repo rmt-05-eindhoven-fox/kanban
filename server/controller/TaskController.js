@@ -1,9 +1,16 @@
-const { Task } = require("../models");
+const { Task, User } = require("../models");
 
 class TaskController {
   static async allTask(req, res, next) {
     try {
-      const foundAllTask = await Task.findAll();
+      const foundAllTask = await Task.findAll({
+        include: {
+          model: User,
+          attributes: {
+            exclude: ["password"],
+          },
+        },
+      });
       res.status(200).json({ foundAllTask });
     } catch (err) {
       next(err);
@@ -31,9 +38,15 @@ class TaskController {
     const taskId = +req.params.id;
 
     try {
-      await Task.findOne({
+      const foundTask = await Task.findOne({
         where: {
           id: taskId,
+        },
+        include: {
+          model: User,
+          attributes: {
+            exclude: ["password"],
+          },
         },
       });
       res.status(200).json({ foundTask });

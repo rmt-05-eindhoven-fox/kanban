@@ -50,6 +50,10 @@ nav div ul li a:hover {
   border-radius: 10px;
 }
 
+.txt-vibrant-yellow {
+  color: #ffd32a;
+}
+
 .outline-card {
   outline: rgba(165, 250, 144, 0.405);
   outline-style: groove;
@@ -76,4 +80,306 @@ nav div ul li a {
     rgba(164, 255, 241, 1) 50%,
     rgba(164, 255, 182, 1) 100%
   );
+}
+
+#loginbody {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background: linear-gradient(to right, #b92b27, #1565c0);
+  width: 100%;
+  height: 100vh;
+}
+
+#addForm {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background: linear-gradient(to right, #54daf2, #1565c0);
+  width: 100%;
+  height: 100vh;
+}
+
+#editForm {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background: linear-gradient(to right, #f59b9b, #b92b27);
+  width: 100%;
+  height: 100vh;
+}
+
+#registerbody {
+  background: rgb(21, 101, 192);
+  background: linear-gradient(
+    90deg,
+    rgba(21, 101, 192, 1) 0%,
+    rgba(185, 43, 39, 1) 100%
+  );
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  width: 100%;
+  height: 100vh;
+}
+
+.box {
+  width: 500px;
+  padding: 40px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: #191919;
+  text-align: center;
+  transition: 0.25s;
+  margin-top: 100px;
+  box-shadow: 5px 10px 50px #000000;
+  border-radius: 100px;
+}
+
+.box input[type="text"],
+.box input[type="password"],
+.box select {
+  border: 0;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px solid #3498db;
+  padding: 10px 10px;
+  width: 250px;
+  outline: none;
+  color: white;
+  border-radius: 24px;
+  transition: 0.25s;
+}
+
+.box h1 {
+  color: white;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.box input[type="text"]:focus,
+.box input[type="password"]:focus,
+.box select:focus {
+  width: 300px;
+  border-color: #2ecc71;
+}
+
+.box .login-ipt {
+  border: 0;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px solid #2ecc71;
+  padding: 14px 40px;
+  outline: none;
+  color: white;
+  border-radius: 24px;
+  transition: 0.25s;
+  cursor: pointer;
+}
+
+.box .back-ipt {
+  border: 0;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px solid #f23232;
+  padding: 14px 40px;
+  outline: none;
+  color: white;
+  border-radius: 24px;
+  transition: 0.25s;
+  cursor: pointer;
+}
+
+.box .register-ipt {
+  border: 0;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px solid #f7ff68;
+  padding: 14px 40px;
+  outline: none;
+  color: white;
+  border-radius: 24px;
+  transition: 0.25s;
+  cursor: pointer;
+}
+
+.box .login-ipt:hover {
+  background: #2ecc71;
+}
+
+.box .back-ipt:hover {
+  background: #f23232;
+}
+
+.box .register-ipt:hover {
+  background: #f7ff68;
+  color: #000000;
+}
+
+.to-register {
+  text-decoration: underline;
+  color: gray;
+}
+
+.to-register:hover {
+  text-decoration: none;
+  color: #f7ff68;
+}
+
+.to-login {
+  text-decoration: underline;
+  color: gray;
+}
+
+.to-login:hover {
+  text-decoration: none;
+  color: rgb(57, 237, 153);
+}
+
+ul.social-network {
+  list-style: none;
+  display: inline;
+  margin-left: 0 !important;
+  padding: 0;
+}
+
+ul.social-network li {
+  display: inline;
+  margin: 0 5px;
+}
+
+.social-network a.icoFacebook:hover {
+  background-color: #3b5998;
+}
+
+.social-network a.icoTwitter:hover {
+  background-color: #33ccff;
+}
+
+.social-network a.icoGoogle:hover {
+  background-color: #bd3518;
+}
+
+.social-network a.icoFacebook:hover i,
+.social-network a.icoTwitter:hover i,
+.social-network a.icoGoogle:hover i {
+  color: #fff;
+}
+
+a.socialIcon:hover,
+.socialHoverClass {
+  color: #44bcdd;
+}
+
+.social-circle li a {
+  display: inline-block;
+  position: relative;
+  margin: 0 auto 0 auto;
+  border-radius: 50%;
+  text-align: center;
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
+}
+
+.social-circle li i {
+  margin: 0;
+  line-height: 50px;
+  text-align: center;
+}
+
+.social-circle li a:hover i,
+.triggeredHover {
+  transform: rotate(360deg);
+  transition: all 0.2s;
+}
+
+.social-circle i {
+  color: #fff;
+  transition: all 0.8s;
+  transition: all 0.8s;
+}
+
+/* Add */
+.send-button {
+  background: #54c7c3;
+  width: 100%;
+  font-weight: 600;
+  color: #fff;
+  padding: 8px 25px;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.g-button {
+  color: #fff !important;
+  border: 1px solid #ea4335;
+  background: #ea4335 !important;
+  width: 100%;
+  font-weight: 600;
+  color: #fff;
+  padding: 8px 25px;
+}
+.my-input {
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  cursor: text;
+  padding: 8px 10px;
+  transition: border 0.1s linear;
+}
+.header-title {
+  margin: 5rem 0;
+}
+h1 {
+  font-size: 31px;
+  line-height: 40px;
+  font-weight: 600;
+  color: #4c5357;
+}
+h2 {
+  color: #5e8396;
+  font-size: 21px;
+  line-height: 32px;
+  font-weight: 400;
+}
+.login-or {
+  position: relative;
+  color: #aaa;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.span-or {
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: -2px;
+  margin-left: -25px;
+  background-color: #fff;
+  width: 50px;
+  text-align: center;
+}
+.hr-or {
+  height: 1px;
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+}
+@media screen and (max-width: 480px) {
+  h1 {
+    font-size: 26px;
+  }
+  h2 {
+    font-size: 20px;
+  }
 }
