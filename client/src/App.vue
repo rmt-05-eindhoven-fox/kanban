@@ -110,7 +110,7 @@ export default {
     fetchTasks() {
       axios({
       method: 'get',
-      url: 'http://localhost:3000/tasks',
+      url: '/tasks',
       headers: {
         access_token: this.access_token
         }
