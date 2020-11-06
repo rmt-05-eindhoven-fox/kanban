@@ -19,7 +19,9 @@ class OrganizationController {
 
     static async createOrg(req, res, next) {
         const { org_name, org_code } = req.body
+        console.log(req.body)
         const UserId = req.isSignedIn.id
+        console.log(UserId)
 
         try {
             const result = await Organization.create({

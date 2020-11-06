@@ -6,7 +6,7 @@ function generateToken(payload) {
 }
 
 function decodingToken(token) {
-    const decoded = jwt.verify(token)
+    const decoded = jwt.verify(token, 'rahasia')
     return decoded
 }
 

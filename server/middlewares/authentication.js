@@ -1,5 +1,5 @@
 const { decodingToken } = require('../helpers/jwt')
-const { User } = require()
+const { User } = require('../models/')
 
 async function authentication(req, res, next) {
     const { token } = req.headers
@@ -9,12 +9,14 @@ async function authentication(req, res, next) {
         }
         else {
             const decoded = decodingToken(token)
-
-            const result = User.findOne({
+            console.log(decoded)
+            const result = await User.findOne({
                 where: {
-                    email
+                    email: decoded.email
                 }
             })
+            console.log(result)
+            console.log(result.id)
 
             if(!result) {
                 throw { msg: 'Authorization failed', status: 401 }

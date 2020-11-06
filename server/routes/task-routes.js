@@ -5,6 +5,7 @@ const authentication = require("../middlewares/authentication")
 const authorization = require("../middlewares/authorization")
 
 router.use("/:id", authentication)
+router.post("/", TaskController.joinOrganization)
 router.get("/:id", TaskController.readTask)
 router.post("/:id", TaskController.createTask)
 

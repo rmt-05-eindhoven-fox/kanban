@@ -1,4 +1,4 @@
-const { Task, OrganizationUser, Organization } = require("../models/") 
+const { Task, OrganizationUser, UserTask, Organization } = require("../models/") 
 
 class TaskController {
 
@@ -43,6 +43,7 @@ class TaskController {
     static async createTask(req, res, next) {
         const { title, category, status } = req.body
         const OrganizationId = req.params.id
+        const UserId = req.isSignedIn.id
 
         try {
             const result = await Task.create({
@@ -50,6 +51,10 @@ class TaskController {
                 category,
                 status,
                 OrganizationId
+            })
+            const userTaskUpdated = await UserTask.create({
+                UserId: UserId,
+                TaskId: result.id
             })
             res.status(201).json({result})
         } catch (err) {
@@ -93,7 +98,7 @@ class TaskController {
                     id
                 }
             })
-            res.status(200).json
+            res.status(200).json('status changed successfully')
         } catch (err) {
             next(err)
         }
@@ -108,6 +113,7 @@ class TaskController {
                     id
                 }
             })
+            res.status(200).json('Task deleted successfully!')
         } catch (err) {
             next(err)
         }

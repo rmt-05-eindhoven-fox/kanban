@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Task.hasMany(models.UserTask, {foreignKey: 'TaskId'})
+      Task.belongsTo(models.Organization)
     }
   };
   Task.init({
