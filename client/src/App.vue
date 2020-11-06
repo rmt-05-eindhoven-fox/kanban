@@ -108,15 +108,17 @@ export default {
   },
   methods:{
     fetchTasks() {
+      console.log('inside fetch task');
       axios({
-      method: 'get',
-      url: '/tasks',
-      headers: {
-        access_token: this.access_token
-        }
+        method: 'get',
+        url: '/tasks',
+        headers: {
+          access_token: this.access_token
+          }
       })
         .then(({data}) => {
           this.tasks = data
+          console.log('we get the tasks');
         })
         .catch(err => {
           console.log(err.response);
