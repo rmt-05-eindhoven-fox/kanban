@@ -1,14 +1,19 @@
 <template>
-    <div class="h-auto bg-red-500 h-20 border border-gray-300 flex flex-col">
+    <div class="h-auto bg-yellow-500 h-20 border border-gray-300 flex flex-col">
         <div class="bg-blue-500">
-            <form @submit.prevent="changeTaskTitle" class="w-full h-full">
+            <!-- <button v-show="!edit" @click.prevent="showEdit" class="flex-wrap w-auto :hover-pointer">{{TaskTitle}}</button> -->
+            <form @submit.prevent="changeTaskTitle">
                 <input 
-                    type="text" 
-                    class=" 
+                    type="text-area" 
+                    class="
+                        whitespace-normal
+                        pl-2 
                         h-20
+                        min-h-full
                         w-full
                         cursor-pointer 
-                        bg-blue-500 
+                        bg-blue-500
+                        hover:bg-blue-600
                         focus:outline-none 
                         focus:bg-white 
                         focus:shadow-outline 
@@ -21,7 +26,7 @@
             <button 
                 v-show="!move" 
                 @click="showMove()" 
-                class="px-2"
+                class="px-2 bg-green-500 hover:bg-green-600"
             >
                 Move
             </button>
@@ -36,20 +41,20 @@
                             {{ category.title }}
                         </option>
                     </select>
-                    <button type="submit" class="w-1/2 bg-green-500">
+                    <button type="submit" class="w-full bg-green-500 hover:bg-green-600">
                         Move
                     </button>
                 </form>
                 <button 
                     @click.prevent="cancelMove()" 
-                    class="bg-blue-500 w-1/2"
+                    class="bg-blue-500 w-full hover:bg-blue-600"
                 >
                         Cancel
                 </button>
             </div>
 
             <!--Delete button-->
-            <button @click="deleteTask()" class="px-2">
+            <button @click="deleteTask()" class="px-2 bg-red-500 hover:bg-red-600">
                 Delete
             </button>
         </div>
@@ -63,6 +68,7 @@ export default {
       return {
           moveCategory: "",
           move: false,
+          edit: false,
           TaskTitle: this.task.title
       }
   },
@@ -79,6 +85,13 @@ export default {
       cancelMove() {
           this.moveCategory = ""
           this.move = false
+      },
+      showEdit() {
+          this.edit = true
+      },
+      cancelEdit() {
+          this.TaskTitle = this.task.title
+          this.edit = false
       },
       changeCategory() {
           const payload = {

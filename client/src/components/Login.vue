@@ -1,12 +1,12 @@
 <template>
-  <div v-if="pageName == 'Login'" class="w-1/2 m-auto mt-10 border-2 border-black flex flex-col justify-center">
+  <div v-if="pageName == 'Login'" class="w-1/2 m-auto  bg-blue-300 mt-10 shadow-md flex flex-col justify-center">
         <div class="m-auto my-5">Logo</div>
         <form @submit.prevent="postLogin()" class="m-auto flex-col flex">
             
             <input v-model="email" type="text" class="m-auto rounded-sm mb-3 p-2 bg-gray-200 hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300" placeholder="Email">
             <input v-model="password" type="password" class="m-auto rounded-sm mb-5 p-2 bg-gray-200 hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300" placeholder="Password">
             
-            <button type="submit" class="m-auto px-5 py-2 rounded-md bg-teal-500 hover:bg-teal-600 focus:outline-none focus:shadow-outline">
+            <button type="submit" class="m-auto px-5 py-2 shadow-md rounded-md bg-teal-400 hover:bg-teal-500 focus:outline-none focus:shadow-outline">
                 Sign in
             </button>
         </form>
@@ -26,7 +26,7 @@
 
         <div class="m-auto mb-6 text-center">
             <p>Don't have account ?</p>
-            <button @click="showRegister()" class="p-2 bg-blue-400 rounded-md text-white">Sign up here</button>
+            <button @click="showRegister()" class="p-2 bg-teal-400 shadow-md hover:bg-teal-500 rounded-md">Sign up here</button>
         </div>
   </div>
 </template>

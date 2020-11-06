@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bg-blue-100">
     <Login @postGoogleLogin="loginGoogle" @postLogin="login" @showRegister="changePage" :pageName="pageName"></Login>
     <Register @postGoogleLogin="loginGoogle" @postRegister="register" @showLogin="changePage" :pageName="pageName"></Register>
     <Home 
