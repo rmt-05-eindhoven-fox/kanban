@@ -19,7 +19,8 @@
       @addTask="addTask"
       @editTask="editTask"
       @deleteTask="deleteTask"
-      @patchTask="patchTask">
+      @patchTask="patchTask"
+      @addMember="addMember">
     </UserPage>
 
         <div class="modal fade" id="modal-password" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -175,6 +176,12 @@ export default {
       const payload = this.googleLogin2;
       this.register(payload);
     },
+    signOut() {
+      var auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function () {
+        console.log('User signed out.');
+      });
+    },
     register(payload) {
       Swal.showLoading();
       axios({
@@ -244,7 +251,7 @@ export default {
           }
         })
         .then(({ data }) => {
-          this.swalSuccess(`Successfully add ${data.name} to your projects`, 'center')
+          this.swalSuccess(`Successfully create new project`, 'center')
           this.fetchUserDetail();
         })
         .catch(err => {
@@ -324,6 +331,7 @@ export default {
         })
     },
     patchTask(payload) {
+      payload.CategoryId = payload.newCategoryId;
       axios({
         method: 'patch',
         url: `/projects/${payload.projectId}/categories/${payload.CategoryId}/tasks/${payload.id}`,
@@ -336,9 +344,25 @@ export default {
           this.toastSwal(`${data.title} has been successfully moved`);
         })
         .catch(err => {
-          console.log(err.error);
           this.swalFailed(err.response.data.error);
           this.fetchUserDetail();
+        })
+    },
+    addMember(payload) {
+      axios({
+        method: 'POST',
+        url: `/projects/${payload.projectId}`,
+        headers: {
+          access_token: localStorage.access_token
+        },
+        data: payload
+      })
+        .then(({ data }) => {
+          this.toastSwal(`Successfully add ${data.name} as project collaborator`);
+          this.fetchUserDetail();
+        })
+        .catch(err => {
+          this.swalFailed(err.response.data.error);
         })
     },
     swalSuccess(message, position, confirmButton, timer, cb) {

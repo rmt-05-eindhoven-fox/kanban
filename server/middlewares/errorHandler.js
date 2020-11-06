@@ -25,7 +25,7 @@ const errorHandler = (err, req, res, next) => {
       error = 'Error Not Found';
       break;
     case 'Error':
-      if (err.message === 'Please try different email') {
+      if (err.message === 'User already include as collaborators!') {
         status = 400;
         error = err.message;
         break;

@@ -67,7 +67,8 @@
       @addTask="addTask"
       @editTask="editTask"
       @deleteTask="deleteTask"
-      @patchTask="patchTask">
+      @patchTask="patchTask"
+      @addMember="addMember">
     </Project>
     <Project
       v-else
@@ -80,7 +81,8 @@
       @addTask="addTask"
       @editTask="editTask"
       @deleteTask="deleteTask"
-      @patchTask="patchTask">
+      @patchTask="patchTask"
+      @addMember="addMember">
     </Project>
   </section>
 </template>
@@ -161,6 +163,9 @@ export default {
     },
     patchTask(payload) {
       this.$emit('patchTask', payload);
+    },
+    addMember(payload) {
+      this.$emit('addMember', payload);
     }
   },
   created() {

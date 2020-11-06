@@ -78,9 +78,9 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <form>
+          <form
+            @submit.prevent="addMember">
             <div class="modal-body">
-              {{ filteredMember }}
               <div class="container overflow-auto h-100" style="max-height: 50vh;">
                 <table 
                   v-if="collaborators.length > 0"
@@ -112,7 +112,7 @@
                   id="members2">
                   <option value="" disabled>Choose other member</option>
                   <option
-                    v-for="member in filteredMember"
+                    v-for="member in otherUsers"
                     :value="member.id"
                     :key="member.id">{{ member.name }}
                   </option>
@@ -121,7 +121,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Add</button>
+              <button type="submit" class="btn btn-primary">Add</button>
             </div>
           </form>
         </div>
@@ -143,10 +143,10 @@
         @submit.prevent="createCategory()">
           <div class="modal-body">
               <div class="form-group p-4">
-                <label for="project-title">Category Name</label>
+                <label :for="`project-title${projectDetail.id}`">Category Name</label>
                 <input 
                 v-model="addCategoryForm.categoryName"
-                type="text" class="form-control" id="project-title" aria-describedby="emailHelp" placeholder="Your category name">
+                type="text" class="form-control" :id="`project-title${projectDetail.id}`" aria-describedby="emailHelp" placeholder="Your category name">
               </div>
           </div>
           <div class="modal-footer">
@@ -197,15 +197,6 @@ export default {
       } else {
         return this.projectDetail.Collaborators;
       }
-    },
-    filteredMember() {
-      if (this.otherUsers.length === 0 || this.collaborators.length == 0) {
-        return [];
-      } else {
-        const otherUsersId = this.otherUsers.map(user => user.id);
-        const collaboratorsId = this.collaborators.map(user => user.id);
-        return this.otherUsers.filter(user => !otherUsersId.includes(user.id));
-      }
     }
   },
   methods: {
@@ -249,7 +240,27 @@ export default {
     patchTask(payload) {
       payload.projectId = this.projectDetail.id;
       this.$emit('patchTask', payload);
-    }
+    },
+    addMember() {
+      $('#addMember').modal('toggle');
+      const payload = {
+        userId: this.addMemberForm.selectedMember
+      };
+      payload.projectId = this.projectDetail.id;
+      this.addMemberForm.selectedMember = '';
+      this.$emit('addMember', payload);
+    },
+    filteredMember() {
+      if(!this.otherUsers) this.filtered = [];
+      const arr = [];
+      this.otherUsers.forEach(user => {
+      this.projectDetail.Collaborators.forEach(el => {
+        if (user.id !== el.id) arr.push(user);
+        })
+      })
+      this.filtered = arr;
+  }
+
   }
 }
 </script>

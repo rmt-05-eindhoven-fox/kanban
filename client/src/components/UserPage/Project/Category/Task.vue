@@ -2,8 +2,8 @@
   <div class="card shadow my-2">
     <div class="w-100 d-flex align-items-center">
       <div class="flex-fill">
-        <h6 class="card-text flex-fill p-1">{{ taskDetail.title }}</h6>
-        <p><em><small>Created by: {{ usersPerTask.name }}</small></em></p>
+        <h6 class="card-text flex-fill p-1 mx-1">{{ taskDetail.title }}</h6>
+        <p class="mx-1"><em><small>Created by: {{ usersPerTask.name }}</small></em></p>
       </div>
       <button 
         @click.prevent="editForm"
@@ -27,16 +27,16 @@
             @submit.prevent="editTask">
           <div class="modal-body">
               <div class="form-group p-4">
-                <label for="exampleInputEmail1">Task Title</label>
+                <label :for="`exampleInputEmail1${taskDetail.id}`">Task Title</label>
                 <input 
                   v-model="editTaskForm.title"
-                  type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Your task title">
+                  type="text" class="form-control" :id="`exampleInputEmail1${taskDetail.id}`" aria-describedby="emailHelp" placeholder="Your task title">
               </div>
               <div class="form-group p-4">
-                <label for="exampleFormControlTextarea1">Description</label>
+                <label :for="`exampleFormControlTextarea1${taskDetail.id}`">Description</label>
                 <textarea 
                   v-model="editTaskForm.description"
-                  class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Description"></textarea>
+                  class="form-control" :id="`exampleFormControlTextarea1${taskDetail.id}`" rows="3" placeholder="Description"></textarea>
               </div>              
           </div>
           <div class="modal-footer">
@@ -47,8 +47,6 @@
         </div>
       </div>
     </div>
-
-  </div>
 </template>
 
 <script>
@@ -112,5 +110,4 @@ export default {
 </script>
 
 <style>
-
 </style>

@@ -64,7 +64,6 @@ class ProjectController {
         });
         project.dataValues.Collaborators = collaborators.Users;
       }
-      console.log()
       res.status(200).json(userProjects);
     } catch (err) {
       next(err);

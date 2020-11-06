@@ -19,43 +19,43 @@ class UserController {
         password
       });
 
-      // const createEmail = await axios({
-      //   url: `https://api.mailslurp.com/createInbox?apiKey=${process.env.MAILSLURPKEY}`,
-      //   method: 'post'
-      // });
+      const createEmail = await axios({
+        url: `https://api.mailslurp.com/createInbox?apiKey=${process.env.MAILSLURPKEY}`,
+        method: 'post'
+      });
 
-      // const sendEmailDeveloper = await axios({
-      //   method: "POST",
-      //   url: `https://api.mailslurp.com/sendEmail?apiKey=${process.env.MAILSLURPKEY}`,
-      //   data: {
-      //     senderId: createEmail.id,
-      //     to: 'gerrysimangunsong@gmail.com',
-      //     subject: "Kanban App Feedback",
-      //     body: `User ${user.name} is registered on your Kanban App with email ${user.email}`
-      //   }
-      // });
+      const sendEmailDeveloper = await axios({
+        method: "POST",
+        url: `https://api.mailslurp.com/sendEmail?apiKey=${process.env.MAILSLURPKEY}`,
+        data: {
+          senderId: createEmail.id,
+          to: 'gerrysimangunsong@gmail.com',
+          subject: "Kanban App Feedback",
+          body: `User ${user.name} is registered on your Kanban App with email ${user.email}`
+        }
+      });
 
-      // const sendEmailUser = await axios({
-      //   method: "POST",
-      //   url: `https://api.mailslurp.com/sendEmail?apiKey=${process.env.MAILSLURPKEY}`,
-      //   data: {
-      //     senderId: createEmail.id,
-      //     to: `${user.email}`,
-      //     subject: "Kanban App",
-      //     body: `Thanks ${user.name} for registering on Kanban App. Contact gerrysimangunsong@gmail.com for more information.`
-      //   }
-      // });
+      const sendEmailUser = await axios({
+        method: "POST",
+        url: `https://api.mailslurp.com/sendEmail?apiKey=${process.env.MAILSLURPKEY}`,
+        data: {
+          senderId: createEmail.id,
+          to: `${user.email}`,
+          subject: "Kanban App",
+          body: `Thanks ${user.name} for registering on Kanban App. Contact gerrysimangunsong@gmail.com for more information.`
+        }
+      });
 
-      // if(sendEmailDeveloper || sendEmailUser) {
+      if(sendEmailDeveloper || sendEmailUser) {
         res.status(201).json({
           id: user.id,
           email: user.email
         });
-      // } else {
-      //   throw {
-      //     name: 'Internal Server Error'
-      //   }
-      // }
+      } else {
+        throw {
+          name: 'Internal Server Error'
+        }
+      }
     } catch (error) {
       next(error);
     }

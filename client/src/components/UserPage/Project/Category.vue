@@ -2,7 +2,7 @@
   <div class="card mx-4 my-4 bg-light shadow" style="width:272px">
     <div class="card-body m-0 p-2">
       <h5 class="card-title text-center">{{categoryDetail.name}}</h5>
-        <draggable :list="categoryDetail.Tasks" :animation="200" ghost-class="ghost-card" group="tasks" @add="update()">
+        <draggable :list="categoryDetail.Tasks" :animation="200" ghost-class="ghost-card" group="tasks" @add="update(categoryDetail.id)">
           <Task
             v-for="task in categoryDetail.Tasks"
             :key="task.id"
@@ -19,6 +19,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">{{ categoryDetail.name }}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -27,16 +28,16 @@
             @submit.prevent="addTask">
           <div class="modal-body">
               <div class="form-group p-4">
-                <label for="exampleInputEmail1">Task Title</label>
+                <label :for="`exampleInputEmail1${categoryDetail.id}`">Task Title</label>
                 <input 
                   v-model="addTaskForm.title"
-                  type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Your task title">
+                  type="text" class="form-control" :id="`exampleInputEmail1${categoryDetail.id}`" aria-describedby="emailHelp" placeholder="Your task title">
               </div>
               <div class="form-group p-4">
-                <label for="exampleFormControlTextarea1">Description</label>
+                <label :for="`exampleFormControlTextarea1${categoryDetail.id}`">Description</label>
                 <textarea 
                   v-model="addTaskForm.description"
-                  class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Description"></textarea>
+                  class="form-control" :id="`exampleFormControlTextarea1${categoryDetail.id}`" rows="3" placeholder="Description"></textarea>
               </div>              
           </div>
           <div class="modal-footer">
@@ -97,11 +98,12 @@ export default {
       payload.categoryId = this.categoryDetail.id;
       this.$emit('deleteTask', payload);
     },
-    update() {
+    update(i) {
       let payload;
       this.categoryDetail.Tasks.forEach(task => {
         if(task.CategoryId !== this.categoryDetail.id) payload = task;  
       })
+      payload.newCategoryId = i
       this.$emit('patchTask', payload);
     },
   }

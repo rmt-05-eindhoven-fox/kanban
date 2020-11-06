@@ -13,18 +13,31 @@ class UserProjectController {
           name: 'NotFound'
         };
       } else {
+        const check = await UserProject.findOne({
+          where: {
+            UserId: newUserId,
+            ProjectId
+          }
+        });
+
         const junction = await UserProject.create({
           UserId: newUserId,
           ProjectId
         });
-        console.log('nyampeeeeeeeee')
-        res.status(201).json({
-          id: junction.UserId,
-          name: userToAdd.name,
-          email: userToAdd.email
-        });
-      }
 
+        if (check) {
+          throw {
+            message: 'User already include as collaborators!',
+            name: 'Error'
+          };
+        } else {
+          res.status(201).json({
+            id: junction.UserId,
+            name: userToAdd.name,
+            email: userToAdd.email
+          });
+        }
+      }
     } catch (err) {
       next(err);
     }
