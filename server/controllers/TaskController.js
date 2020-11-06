@@ -83,7 +83,18 @@ class TaskController {
 			});
 	}
 
+	static move(req, res, next) {
+		let params = {
+			CategoryId: req.body.CategoryId,
+		};
+		Task.update(params, { where: { id: req.params.id } })
+			.then((data) => {
+				return res.status(201).json(data);
+			})
+			.catch((err) => {
+				return next(err);
+			});
+	}
 }
-
 
 module.exports = TaskController;
