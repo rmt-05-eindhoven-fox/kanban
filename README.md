@@ -1,5 +1,5 @@
 # KANBAN By Diva
-Aplikasi ini digunakan untuk keperluan portofolio :). Untuk mebuat aplikasi ini saya menggunakan Vue.js, Bootstrap, dan CSS untuk bagian client (front-end). Sedangkan untuk server, saya menggunakan sequelize dengan db postgres. JWT Token digunakan untuk authentikasi dan Bcryptjs untuk melakukan proses decoding dan encoding password. Kamu bisa check aplikasi saya disini, walaupun belum sempurna but i hope u like the way i design this website with my heart hehe. I love to styling the website. 
+Aplikasi ini digunakan untuk keperluan portofolio :). Untuk membuat aplikasi ini saya menggunakan Vue.js, Bootstrap, dan CSS untuk bagian client (front-end). Sedangkan untuk server, saya menggunakan sequelize dengan db postgres. JWT Token digunakan untuk authentikasi dan Bcryptjs untuk melakukan proses decoding dan encoding password. Kamu bisa check aplikasi saya disini, walaupun belum sempurna but i hope u like the way i design this website with my heart hehe. I love to styling the website. 
 * **Deploy**
 - Firebase --> hosting
 - Server --> Heroku
