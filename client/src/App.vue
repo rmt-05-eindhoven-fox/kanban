@@ -18,7 +18,7 @@ export default {
     },
     data() {
         return {
-            base_url: `http://localhost:3000`,
+            base_url: `https://ramakanbannn.herokuapp.com`,
             message: 'Hello world',
             homeData: {
                 backlogTasks: [],
