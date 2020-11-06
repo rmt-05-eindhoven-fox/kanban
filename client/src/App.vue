@@ -18,6 +18,9 @@
       :username="userLoggedIn"
       @logout="logout"
       @postTask="postTask"
+      @editTask="editTask"
+      @editCategory="editCategory"
+      @deleteTask="deleteTask"
       v-else-if="pageName == 'home'"
     ></HomePage>
   </div>
@@ -123,12 +126,14 @@ export default {
     },
     postTask(payload){
       const token = localStorage.getItem('token')
+      const taskOwner = localStorage.getItem('full_name')
       axios({
         url: '/tasks',
         method: 'post',
         data:{
           title: payload.inputTitle,
-          category: payload.selectedCategory
+          category: payload.selectedCategory,
+          taskOwner: taskOwner
         },
         headers: {
           token
@@ -140,6 +145,67 @@ export default {
       })
       .catch(err => {
         console.log(err.response);
+      })
+    },
+    editTask(payload){
+      const id = +payload.id
+      const token = localStorage.getItem('token')
+      axios({
+        url: `/tasks/${id}`,
+        method: 'put',
+        data: {
+          title: payload.title,
+          category: payload.category
+        },
+        headers: {
+          token
+        }
+      })
+      .then(data => {
+        this.fetchTasks()
+      })
+      .catch(err => {
+        console.log(err.response);
+      })
+    },
+    editCategory(payload){
+      const id = +payload.id
+      const token = localStorage.getItem('token')
+      axios({
+        url: `/tasks/${id}`,
+        method: 'patch',
+        data: {
+          category: payload.category
+        },
+        headers:{
+          token
+        }
+      })
+      .then(data => {
+        console.log(data, 'succes chang category');
+        this.fetchTasks()
+      })
+      .catch(err => {
+        console.log(err.response);
+      })
+    },
+    deleteTask(payload){
+      const id = +payload.id
+      const token = localStorage.getItem('token')
+      axios({
+        url: `/tasks/${id}`,
+        method: `delete`,
+        headers : {
+          token
+        }
+      })
+      .then(data => {
+        console.log(data, 'successs');
+        this.fetchTasks()
+      })
+      .catch(err =>{
+        console.log(err.response);
+        this.fetchTasks()
       })
     }
   },

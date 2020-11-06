@@ -13,7 +13,7 @@
           <div class="form-group">
             <label for="input-title">Add new task</label>
             <select class="w-50" name="category" id="category-id" v-model="selectedCategory">
-              <option :value="nameCategories.category">{{nameCategories.category}}</option>
+              <option :value="nameCategories.category" selected>{{nameCategories.category}}</option>
             </select>
             <input
               v-model="inputTitle"
@@ -30,10 +30,14 @@
           <button @click="closeForm()" type="submit" class="btn btn-danger">
             Cancel
           </button>
+          <!-- FORM EDIT -->
         </form>
         <CategoryItem
         v-for="task in taskPerCategory" :key="task.id"
         :task="task"
+        @editTask="editTask"
+        @editCategory="editCategory"
+        @deleteTask="deleteTask"
         ></CategoryItem>
       </div>
     </div>
@@ -76,6 +80,15 @@ export default {
       this.$emit('postTask', inputData)
       this.inputTitle = ''
       this.isShow = false
+    },
+    editTask(payload){
+      this.$emit('editTask', payload)
+    },
+    editCategory(payload){
+      this.$emit('editCategory', payload)
+    },
+    deleteTask(payload){
+      this.$emit('deleteTask', payload)
     }
   },
   components: {

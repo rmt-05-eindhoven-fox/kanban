@@ -29,6 +29,9 @@
             :nameCategories="cat"
             :tasks="tasks"
             @postTask="postTask"
+            @editTask="editTask"
+            @editCategory="editCategory"
+            @deleteTask="deleteTask"
           ></CategoryBoard>
         </div>
       </div>
@@ -63,6 +66,15 @@ export default {
         selectedCategory: inputData.selectedCategory
       }
       this.$emit('postTask', payload)
+    },
+    editTask(payload){
+      this.$emit('editTask', payload)
+    },
+    editCategory(payload){
+      this.$emit('editCategory', payload)
+    },
+    deleteTask(payload){
+      this.$emit('deleteTask', payload)
     }
   }
 };

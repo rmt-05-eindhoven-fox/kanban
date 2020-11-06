@@ -29,7 +29,8 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    userId: DataTypes.INTEGER
+    userId: DataTypes.INTEGER,
+    taskOwner: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Task',

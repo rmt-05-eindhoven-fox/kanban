@@ -15,7 +15,7 @@ class TaskController {
 
   static async postTask(req, res, next) {
     const userId = +req.loggedInUser.id
-    console.log(userId);
+    const taskOwner = req.loggedInUser.full_name
     const {
       title,
       category,
@@ -24,14 +24,16 @@ class TaskController {
       const newTask = await Task.create({
         title,
         category,
-        userId
+        userId,
+        taskOwner
       })
 
       const taskResult = {
         id: newTask.id,
         title: newTask.title,
         category: newTask.category,
-        userId: newTask.userId
+        userId: newTask.userId,
+        taskOwner: newTask.taskOwner
       }
       res.status(201).json(taskResult)
     } catch (error) {
