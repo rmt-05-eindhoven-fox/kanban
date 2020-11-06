@@ -4,8 +4,7 @@ const TaskController = require("../controllers/TaskController");
 const CategoryController = require("../controllers/CategoryController");
 const authentication = require('../middlewares/authentication')
 const authorization = require('../middlewares/authorization')
-// landing
-// router.get('/', UserController.landingpage)
+
 //register
 router.post("/register", UserController.register);
 //login
