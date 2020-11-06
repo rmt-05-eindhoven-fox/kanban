@@ -16,19 +16,19 @@ class ProjectController {
 
       const newCategories = await Category.bulkCreate([
         {
-          name: 'backlog',
+          name: 'Backlog',
           ProjectId: userProject.ProjectId
         },
         {
-          name: 'todo',
+          name: 'Todo',
           ProjectId: userProject.ProjectId
         },
         {
-          name: 'doing',
+          name: 'Doing',
           ProjectId: userProject.ProjectId
         },
         {
-          name: 'done',
+          name: 'Done',
           ProjectId: userProject.ProjectId
         }
       ]);
@@ -50,17 +50,21 @@ class ProjectController {
         attributes: {
           exclude: ['password', 'createdAt', 'updatedAt']
         },
-        include: {
-          model: Project,
+        include: {all: true, nested: true}
+      });
+      
+      for(const project of userProjects.Projects) {
+        const collaborators = await Project.findByPk(project.id, {
           include: {
-            model: Category,
-            include: {
-              model: Task
+            model: User,
+            attributes: {
+              exclude: ['password']
             }
           }
-        }
-      });
-
+        });
+        project.dataValues.Collaborators = collaborators.Users;
+      }
+      console.log()
       res.status(200).json(userProjects);
     } catch (err) {
       next(err);

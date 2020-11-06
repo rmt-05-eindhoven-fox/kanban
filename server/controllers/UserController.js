@@ -12,6 +12,7 @@ class UserController {
   static async register(req, res, next) {
     try {
       const { name, email, password } = req.body;
+      // console.log(req.body);
       const user = await User.create({
         name,
         email,

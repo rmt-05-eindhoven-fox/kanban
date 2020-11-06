@@ -11,21 +11,28 @@
         <p>Sometimes managing tasks can be hard, right?</p>
       </div>
       <div class="jumbotron jumbotron-fluid text-right px-4 bg-light shadow h-75" style="opacity: 0.8;">
-        <form>
+        <form
+          @submit.prevent="passRegisForm()">
           <div class="form-group">
             <label for="sign-up-name">Name</label>
-            <input type="text" class="form-control" id="sign-up-name" aria-describedby="emailHelp" placeholder="Enter name" style="border: bottom;">
+            <input 
+              v-model="formRegister.name"
+              type="text" class="form-control" id="sign-up-name" aria-describedby="emailHelp" placeholder="Enter name" style="border: bottom;">
           </div>
           <div class="form-group">
             <label for="sign-up-email">Email address</label>
-            <input type="email" class="form-control" id="sign-up-email" aria-describedby="emailHelp" placeholder="Enter email">
+            <input 
+              v-model="formRegister.email"
+              type="email" class="form-control" id="sign-up-email" aria-describedby="emailHelp" placeholder="Enter email">
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
           </div>
           <div class="form-group">
             <label for="sign-up-password">Password</label>
-            <input type="password" class="form-control" id="sign-up-password" placeholder="Password">
+            <input 
+              v-model="formRegister.password"
+              type="password" class="form-control" id="sign-up-password" placeholder="Password">
           </div>
-            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter">
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-sign-in">
               Sign In
             </button>            
             <button type="submit" class="btn btn-primary">Sign Me Up</button>
@@ -34,7 +41,7 @@
     </div>
 
     <!-- ! Modal Sign in -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="modal-sign-in" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -42,20 +49,25 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-            <form>
+            <form
+            @submit.prevent="passLoginForm()">
           <div class="modal-body">
               <div class="form-group p-4">
                 <label for="sign-in-email">Email address</label>
-                <input type="email" class="form-control" id="sign-in-email" aria-describedby="emailHelp" placeholder="Enter email">
+                <input 
+                  v-model="formLogin.email"
+                  type="email" class="form-control" id="sign-in-email" aria-describedby="emailHelp" placeholder="Enter email">
               </div>
               <div class="form-group p-4">
                 <label for="sign-in-password">Password</label>
-                <input type="password" class="form-control" id="sign-in-password" placeholder="Password">
+                <input 
+                  v-model="formLogin.password"
+                  type="password" class="form-control" id="sign-in-password" placeholder="Password">
               </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+              <button type="submit" class="btn btn-primary">Let me in!</button>
             </form>
           </div>
         </div>
@@ -65,7 +77,42 @@
 
 <script>
 export default {
-  name: 'HomePage'
+  name: 'HomePage',
+  data() {
+    return {
+      formLogin: {
+        email: '',
+        password: ''
+      },
+      formRegister: {
+        name: '',
+        email: '',
+        password: ''
+      }
+    }
+  },
+  methods: {
+    passRegisForm() {
+      const payload = this.formRegister;
+      this.$emit('register', payload);
+    },
+    passLoginForm() {
+      $('#modal-sign-in').modal('toggle');
+      const payload = this.formLogin;
+      this.$emit('login', payload);
+    },
+    clearRegisForm() {
+      for (const key in this.formRegister) {
+        this.formRegister[key] = '';
+      }
+    },
+    clearLoginForm() {
+      for (const key in this.formLogin) {
+        this.formLogin[key] = '';
+      }
+    }
+  },
+  props: [ 'registered' ]
 }
 </script>
 
