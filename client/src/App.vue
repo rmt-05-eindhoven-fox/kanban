@@ -46,6 +46,7 @@ export default {
       categories : [],
       tasks : [],
       server: 'http://localhost:3000'
+      // server: 'http://localhost:3000'
     }
   },
   methods : {
