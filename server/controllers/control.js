@@ -69,6 +69,45 @@ class Controller {
 
     }
 
+    
+	static googleLogin(req, res, next) {
+        let {google_access_token} = req.body
+        const client = new OAuth2Client(process.env.CLIENT_ID);
+        let email = ''
+
+        client.verifyIdToken({
+            idToken: google_access_token,
+            audience: process.env.CLIENT_ID
+        })
+        .then(ticket => {
+            let payload = ticket.getPayload()
+            console.log(payload, '>>>>>>>>')
+            email = payload.email
+            return User.findOne({where: {email:payload.email}})
+        })
+        .then(user=>{
+            if(user ){
+
+                return user
+            } else {
+                var userObj = {
+                    email,
+                    password: 'random'
+                }
+                return User.create(userObj)
+            }
+        })
+        .then(dataUser => {
+            let access_token = signToken.signToken({id: dataUser.id, email: dataUser.email})
+            return res.status(200).json({access_token})
+        })
+        .catch(err => {
+            console.log(err)
+        })
+
+    }
+
+
     static async showAll(req, res) {
         try {
             const userId = req.loggedInUser.id
@@ -89,15 +128,16 @@ class Controller {
     static async create(req, res) {
         
         const UserId = req.loggedInUser.id
-        const { title, category } = req.body;
+        const { title, category, description } = req.body;
 		
 		try {
-			const dataTask = await Task.create({ title, category, UserId })
+			const dataTask = await Task.create({ title, category, description, UserId })
 
 			const result = {
 				"id": dataTask.id,
 				"title": dataTask.title,
                 "category": dataTask.category,
+                "description": dataTask.description,
                 "UserId": dataTask.UserId
             }
             console.log(result)
@@ -125,13 +165,14 @@ class Controller {
         
 		try {
             const id = +req.params.id;
-		    const { title, category } = req.body;
+		    const { title, category, description } = req.body;
             
             console.log("ini body>>>>>>>", req.body)
 
             const dataTask = await Task.update({
 				title,
-				category
+                category,
+                description
             }, { where: { id }, returning: true })
             
             console.log("dataTask>>>>>>>>>>",dataTask[1][0])

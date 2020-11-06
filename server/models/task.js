@@ -15,8 +15,29 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Task.init({
-    title: DataTypes.STRING,
-    category: DataTypes.STRING,
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "Input Title"
+        }
+      }
+      },
+    category: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: "Input Category"
+    }
+  },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: "Input Description"
+    }
+  },
     UserId: DataTypes.INTEGER
   }, {
     sequelize,
