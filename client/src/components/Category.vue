@@ -1,35 +1,30 @@
 <template>
-<div class="row">
-             <div class="col-md-3 item">
-                <h5 class="mt-3 text-center text-white p-4 rounded bg-primary">Backlog</h5>
-                <div class="bg-light p-2 task-overflow shadow card rounded">
-                    <div class="card"></div>
-                </div>
-             </div>
-             <div class="col-md-3 item">
-                <h5 class="mt-3 text-center text-white p-4 rounded bg-secondary">Todo</h5>
-                <div class="bg-light p-2 task-overflow shadow card rounded">
-                    <div class="card"></div>
-                </div>
-             </div>
-             <div class="col-md-3 item">
-                <h5 class="mt-3 text-center text-white p-4 rounded bg-success">Doing</h5>
-                <div class="bg-light p-2 task-overflow shadow card rounded">
-                    <div class="card"></div>
-                </div>
-             </div>
-             <div class="col-md-3 item">
-                <h5 class="mt-3 text-center text-white p-4 rounded bg-danger">Completed</h5>
-                <div class="bg-light p-2 task-overflow shadow card rounded">
-                    <div class="card"></div>
-                </div>
-             </div>
-         </div>
+        <div class="col-md-3 item">
+            <h5 class="mt-3 text-center text-white p-4 rounded bg-primary">{{titleDetails.title}}</h5>
+            <!-- {{titleDetails}} -->
+            <div class="bg-light p-2 task-overflow shadow card rounded">    
+                {{taskPerPhase}}
+                <Task v-for="task in tasks"
+                :key="task.id"></Task>
+            </div>
+        </div>
 </template>
 
+
+
 <script>
+import Task from './Task'
 export default {
-    name: 'Category'
+    name: 'category',
+    components: {
+        Task
+    },
+    props: ['titleDetails', 'tasks'],
+    computed : { 
+        taskPerPhase() { 
+             return this.tasks.filter(task => task.category == this.titleDetails.category)
+        }
+    }
 }
 </script>
 

@@ -11,23 +11,39 @@
         </div>
         <div class="link icon">
             <ul>
-                <li><a href="#"><button type="button" class="btn btn-danger">Sign Out</button></a></li>
+                <li><a href="#"><button @click.prevent="signOut" type="button" class="btn btn-danger">Sign Out</button></a></li>
             </ul>
         </div>
     </nav>
     
-    <div class="container">
-        <Category></Category>
+    <div class="container-category">
+        <div class="category-body">
+            <div class="row">
+                <category 
+                v-for="(cat,i) in categories"
+                :key="i"
+                :titleDetails="cat"
+                :tasks='tasks'
+                 ></category>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
-import Category from './Category'
+import category from './Category'
 export default {
     name: 'Homepage',
     components: {
-        Category
+        category
+    },
+    props: ['categories', 'tasks'],
+    methods: {
+        signOut() {
+            this.$emit('signout')
+        }
     }
+    
 };
 </script>
 

@@ -1,7 +1,10 @@
 <template>
   <div>
     <section id="main">
-        <Homepage v-if="pageName == 'home-page'"></Homepage>
+        <Homepage
+        :categories='titles'
+        :tasks='tasks'
+         @signout='signOut' v-if="pageName == 'home-page'"></Homepage>
         <RegisterPage @register='register' v-else-if="pageName == 'register-page'"></RegisterPage>
         <LoginPage @login='login' v-else-if="pageName == 'login-page'"></LoginPage>
         <AddForm v-else-if="pageName == 'add-page'"></AddForm>
@@ -27,7 +30,22 @@ export default {
     data() {
         return {
             msg: 'KanbanApp',
-            pageName: 'register-page'
+            pageName: "login-page",
+            titles: [
+                {
+                    'title': 'Backlog'
+                },
+                {
+                    'title': 'Todo'
+                },
+                {
+                    'title': 'Doing'
+                },
+                {
+                    'title': 'Completed'
+                }
+            ],
+            tasks: []
         }
     },
     components: {
@@ -35,8 +53,16 @@ export default {
     },
 
     methods: {
+        checkLogin() {
+            if(localStorage.tokenAccess) {
+                this.changePage('home-page')
+                this.fetchTask()
+            } else {
+                this.changePage('login-page')
+            }
+        },
         login(payload) {
-            console.log(payload.email, '<<<ini dari app')
+            //console.log(payload.email, '<<<ini dari app')
             axios({
                 url: '/login',
                 method: 'post',
@@ -73,14 +99,35 @@ export default {
             })
             .then(response => {
                 //console.log(response, 'yeay dapet response')
-                const token = localStorage.getItem('tokenAccess')
-                
+                this.changePage('login-page')
             })
             .catch(err => {
                 console.log(err, 'yah eror')
             })
+        },
+        signOut() {
+            localStorage.removeItem('tokenAccess')
+            this.changePage('login-page')
+        },
+        fetchTask() {
+            axios({
+                url: '/todos',
+                method: 'get',
+                headers: {
+                         token: localStorage.tokenAccess
+                        }
+            })
+            .then(({data}) => {
+                this.tasks = data
+            })
+            .catch(err => {
+                console.log(err.response, '<<<< error fetch')
+            })
         }
-    }
+    },
+    created() {
+        this.checkLogin()
+    },
 }
 </script>
 
