@@ -1,0 +1,63 @@
+body { 
+    background-color: white;
+    margin: 0;
+    padding: 0;
+}
+
+/* navbar style */
+.container-flex  { 
+    display: flex;
+    background-color: black;
+    /* color: white; */
+    justify-content: space-between;
+    /* flex-direction: row; */
+}
+
+.card.draggable {
+    margin-bottom: 1rem;
+    cursor: grab;
+}
+
+.droppable {
+    background-color: var(--success);
+    min-height: 120px;
+    margin-bottom: 1rem;
+}
+
+
+.btn-danger {
+    background-color: #dc3545;
+}
+
+.container { 
+    background-color: white;
+}
+
+
+
+.container-flex li { 
+    padding: 0 5px;
+}
+
+.container-flex ul {
+    list-style: none;
+    display: flex;
+    margin-bottom: 0;
+}
+
+.card.draggable {
+    margin-bottom: 1rem;
+    cursor: grab;
+}
+
+.item-flex { 
+    padding: 15px;
+    background-color: black;
+}
+
+.card.draggable {
+    margin-bottom: 1rem;
+    cursor: grab;
+}
+ 
+
