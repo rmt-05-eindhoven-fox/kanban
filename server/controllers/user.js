@@ -15,7 +15,6 @@ class UserController {
       const newUser = await User.create(payload);
       res.status(201).json(newUser);
     } catch (err) {
-      console.log(err);
       next(err);
     }
   }
