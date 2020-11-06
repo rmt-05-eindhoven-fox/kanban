@@ -7,6 +7,10 @@ const {
 const {
   generateToken
 } = require('../helpers/jwt')
+const {
+  OAuth2Client
+} = require('google-auth-library');
+
 
 class UserController {
   static async postRegister(req, res, next) {
@@ -71,6 +75,57 @@ class UserController {
     } catch (error) {
       next(error)
     }
+  }
+
+  static async postLoginGoogle(req, res, next) {
+    try {
+      const client = new OAuth2Client(process.env.GOOGLE_ID)
+      const {
+        google_access_token
+      } = req.headers
+      const ticket = await client.verifyIdToken({
+        idToken: google_access_token,
+        audience: process.env.GOOGLE_ID
+      })
+
+      const payload = ticket.getPayload()
+
+      let {
+        name,
+        email
+      } = payload
+      const password = 'defaultPassword'
+
+      let user = await User.findOne({
+        where: {
+          email
+        }
+      })
+
+      if (!user) {
+        user = await User.create({
+          name,
+          email,
+          password
+        })
+
+      }
+
+      const access_token = generateToken({
+        id: user.id,
+        email: user.email
+      })
+
+      res.status(200).json({
+        access_token,
+        email
+      })
+
+    } catch (error) {
+      next(error)
+    }
+
+
   }
 }
 

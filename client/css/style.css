@@ -26,7 +26,8 @@
 }
 #register-page .btn-section,
 #login-page .btn-section {
-  justify-content: start;
+  display: flex;
+  justify-content: space-between;
 }
 #register-page .btn-section .btn-register,
 #register-page .btn-section .btn-login,
@@ -44,14 +45,14 @@
   background-color: #168eca;
   transition: 0.3s ease-in-out;
 }
-#register-page .btn-section .btn-link,
-#login-page .btn-section .btn-link {
+#register-page .btn-link,
+#login-page .btn-link {
   color: #CDCFD4;
   text-decoration: underline;
   padding-left: 0;
 }
-#register-page .btn-section .btn-link:hover,
-#login-page .btn-section .btn-link:hover {
+#register-page .btn-link:hover,
+#login-page .btn-link:hover {
   color: #00A8FF;
   transition: 0.3s;
 }

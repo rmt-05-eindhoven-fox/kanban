@@ -4,6 +4,7 @@
     :logoPng="logoUrl" v-if="pageName == 'login'"
     @toRegisterPage="toRegisterPage"
     @userLogin="userLogin"
+    @googleLogin="googleLogin"
     ></LoginPage>
     <RegisterPage
       @createAccount="createAccount"
@@ -117,6 +118,28 @@ export default {
         console.log(err.response.data.message);
       })
     },
+    googleLogin(idToken) {
+      axios({
+        url: '/login-google',
+        method: `post`,
+        headers: {
+          google_access_token: idToken
+        }
+      })
+      .then(response => {
+        console.log(response);
+        const {access_token, email} = response.data
+        console.log(email);
+        localStorage.setItem('token', access_token)
+        localStorage.setItem('email', email)
+        this.pageName = 'home'
+        this.userLoggedIn = email
+        this.fetchTasks()
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    },
     toRegisterPage(data){
       this.pageName = data.pageName
     },
@@ -213,8 +236,9 @@ export default {
   created() {
     const token = localStorage.getItem('token')
     let username = localStorage.getItem('full_name')
+    let email = localStorage.getItem('email')
     if (token) {
-      this.userLoggedIn = username
+      this.userLoggedIn = username || email
       this.fetchTasks()
       this.pageName = 'home'
     } else {

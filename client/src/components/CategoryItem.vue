@@ -60,7 +60,7 @@
         <button @click="closeCategory" class="btn btn-dark btn-sm">Cancel</button>
       </div>
       </form>
-      <div class="card-text text-muted author">Post No {{ task.id }}, by {{task.taskOwner}}</div>
+      <div class="card-text text-muted author">Post No {{ task.id }}, by {{task.taskOwner || getEmail}}</div>
       <div class="card-text text-muted date">
         Posted At {{ new Date(task.createdAt).toISOString().split("T")[0] }}
       </div>
@@ -117,6 +117,12 @@ export default {
       this.$emit("deleteTask", payload);
     },
   },
+  computed: {
+    getEmail() {
+      let email = localStorage.getItem('email')
+      return email
+    }
+  }
 };
 </script>
 

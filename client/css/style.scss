@@ -26,8 +26,8 @@
   }
 
   .btn-section {
-    justify-content: start;
-
+    display: flex;
+    justify-content: space-between;
 
     .btn-register,
     .btn-login {
@@ -42,19 +42,21 @@
         transition: 0.3s ease-in-out;
       }
     }
+  }
 
-    .btn-link {
-      color: #CDCFD4;
-      text-decoration: underline;
-      padding-left: 0;
+  .btn-link {
+    color: #CDCFD4;
+    text-decoration: underline;
+    padding-left: 0;
 
 
-      &:hover {
-        color: #00A8FF;
-        transition: 0.3s;
-      }
+    &:hover {
+      color: #00A8FF;
+      transition: 0.3s;
     }
   }
+
+
 }
 
 nav {
@@ -88,9 +90,9 @@ nav {
     align-items: center;
 
     button {
-      color: #CDCFD4 ;
+      color: #CDCFD4;
 
-      &:hover{
+      &:hover {
         color: #CDCFD4;
 
         background-color: #f21616;
