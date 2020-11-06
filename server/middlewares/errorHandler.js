@@ -34,6 +34,6 @@ module.exports = function (err, request, response, next) {
 			status = 500;
 			message = "Internal Server Error!"
 	}
-
+	console.log(err);
 	response.status(status).json({message});
 }

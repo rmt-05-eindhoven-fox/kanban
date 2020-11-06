@@ -4,6 +4,7 @@ const { loginToken } = require("../helpers/jwt");
 
 class userController{
     static async register(request, response, next) {
+        console.log(request.body)
         try {
             const payload = {
                 name: request.body.name,
