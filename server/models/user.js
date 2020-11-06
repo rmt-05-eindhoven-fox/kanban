@@ -11,17 +11,52 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      User.hasMany(models.Task,{foreignKey:"UserId"})
+      User.hasMany(models.Task, { foreignKey: "UserId" })
     }
   };
   User.init({
-    first_name: DataTypes.STRING,
-    last_name: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING
+    first_name: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          msg: "last name cannot be empty"
+        }
+      }
+    },
+    last_name: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          msg: "first name cannot be empty"
+        }
+      }
+    },
+    email: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          msg: "email cannot be empty"
+        },
+        isEmail: {
+          msg: "must be email format"
+        }
+      }
+    },
+    password: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          msg: "password cannot be empty"
+        },
+        len: {
+          args: [6],
+          msg: "password min 6 character"
+        }
+      }
+    }
   }, {
-    hooks:{
-      beforeCreate(user){
+    hooks: {
+      beforeCreate(user) {
         user.password = hashPassword(user.password)
       }
     },

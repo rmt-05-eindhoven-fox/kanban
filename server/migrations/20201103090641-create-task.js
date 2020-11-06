@@ -14,6 +14,9 @@ module.exports = {
       category: {
         type: Sequelize.STRING
       },
+      tag: {
+        type: Sequelize.STRING
+      },
       UserId: {
         allowNull: false,
         type: Sequelize.INTEGER,

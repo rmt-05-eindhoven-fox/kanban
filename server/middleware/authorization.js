@@ -5,11 +5,11 @@ async function authorization(req,res,next){
     const id = +req.params.id
     const data = await Task.findByPk(id)
     if(!data){
-      throw {error:"not authorized"}
+      throw {error:"NotAuthorized"}
     }else if(data.UserId === req.loggedInUser.id){
       next()
     }else{
-      throw {error:"not authorized"}
+      throw {error:"NotAuthorized"}
     }
   } catch (error) {
     res.status(403).json({error});
