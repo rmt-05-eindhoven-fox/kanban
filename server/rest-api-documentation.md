@@ -2,7 +2,7 @@
 Create new user, returns json data containing new user's data.
 
 ### URL:
-`register`
+`/register`
 
 ### Method:
 `POST`
@@ -45,14 +45,14 @@ json
 
 ### Sample Call:
 ```
-$.ajax({
-	method: "POST",
-	url: "http://localhost:3000/login",
-	data: {
-		name,
-		email,
-		password
-	}
+axios({
+	url: "/register",
+  method: "POST",
+  data: {
+  name: payload.name,
+  email: payload.email,
+  password: payload.password,
+	},
 })
 ```
 
@@ -77,6 +77,7 @@ Status: 200 OK
 ```
 json
 {
+	name: Amanda Jehan
 	email: amandajehan@gmail.com,
 	access_token: eyeskjehslerawioderjlwa
 }
@@ -101,15 +102,15 @@ json
 }
 ```
 
-### Sample Call:
+### Request:
 ```
-$.ajax({
-	method: "POST",
-	url: "http://localhost:3000/login",
-	data: {
-		email,
-		password
-	}
+axios({
+  url: "/login",
+  method: "POST",
+  data: {
+    email: payload.email,
+    password: payload.password,
+  },
 })
 ```
 
@@ -143,6 +144,16 @@ json
 }
 ```
 
+### Request:
+```
+axios({
+  url: "/tasks",
+  method: "GET",
+  headers: {
+  token,
+	},
+})
+```
 
 # Add New Task
 To add a new task, returns json data about a new Task
@@ -189,19 +200,19 @@ json
 }
 ```
 
-### Sample Call
+### Request
 ```
-$.ajax({
-	method: "POST",
-	url: "http://localhost:3000/tasks",
-	headers: {
-		access_token
-	},
-	data: {
-		title,
-		category,
-		userId
-	}
+axios({
+  url: "/tasks",
+  method: "POST",
+  data: {
+  	title: payload.title,
+    tag: payload.tag,
+    category: payload.category,
+  },
+  headers: {
+  token,
+  },
 })
 ```
 
@@ -261,18 +272,18 @@ json
 }
 ```
 
-### Sample Call:
+### Request:
 ```
-$.ajax({
-	method: "PUT",
-	url: "http://localhost:3000/${id}",
-	headers: {
-		access_token
+axios({
+  url: `/tasks/${payload.id}`,
+  method: "PUT",
+  data: {
+    title: payload.title,
+    tag: payload.tag,
+  },
+  headers: {
+    token,
 	},
-	data: {
-		title,
-		category
-	}
 })
 ```
 
@@ -331,17 +342,17 @@ json
 }
 ```
 
-### Sample Call:
+### Request:
 ```
-$.ajax({
-	method: "PATCH",
-	url: "http://localhost:3000/${id}",
-	headers: {
-		access_token
-	},
+axios({
+  url: `/tasks/${payload.id}`,
+  method: "PATCH",
 	data: {
-		category
+		category: payload.category
 	}
+  headers: {
+    tokens
+  },
 })
 ```
 
@@ -389,13 +400,13 @@ json
 }
 ```
 
-### Sample Call:
+### Request:
 ```
-$.ajax({
-	method: "DELETE",
-	url: "http://localhost:3000/${id}",
-	headers: {
-		access_token
-	}
+axios({
+  url: `/tasks/${payload.id}`,
+  method: "DELETE",
+  headers: {
+    token,
+  },
 })
 ```

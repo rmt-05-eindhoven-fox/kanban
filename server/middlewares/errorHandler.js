@@ -1,7 +1,7 @@
 module.exports = function (err, req, res, next) {
 	let status = null;
 	let name = err.name;
-
+	console.log(name)
 	switch (name) {
 		case "SequelizeValidationError":
 			status = 400;

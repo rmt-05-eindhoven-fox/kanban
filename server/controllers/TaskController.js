@@ -1,10 +1,12 @@
-const { Task } = require("../models");
+const { Task, User } = require("../models");
 
 class TaskController {
 	//user can see all tasks on server w/o need to be authorized first
 	static async showAll(req, res, next) {
 		try {
-			const tasks = await Task.findAll()
+			const tasks = await Task.findAll({
+				include: [User]
+			})
 
 			res.status(200).json(tasks)
 
@@ -13,21 +15,34 @@ class TaskController {
 		}
 	}
 	
+	static async showById(req, res, next) {
+		try {
+			const id = +req.params.id
+			const task = await Task.findByPk(id)
+
+			res.status(200).json(task)
+			
+		} catch(err) {
+			next(err)
+		}
+	}
 	// Add New Task
 	static async add(req, res, next) {
 		try {
 			const userId = req.loggedInUser.id;
-			const { title, category } = req.body;
+			const { title, tag, category } = req.body;
 
 			const newTask = await Task.create({
 				title,
 				category,
+				tag,
 				userId
 			})
 
 			const result = {
 				"id": newTask.id,
 				"title": newTask.title,
+				"tag": newTask.tag,
 				"category": newTask.category,
 				"userId": newTask.userId
 			}
@@ -43,11 +58,11 @@ class TaskController {
 	static async edit(req, res, next) {
 		try {
 			const id = +req.params.id;
-			const { title, category } = req.body;
+			const { title, tag } = req.body;
 
 			const editedTask = await Task.update({
 				title,
-				category
+				tag,
 			}, {
 				where: { id },
 				returning: true
@@ -60,7 +75,7 @@ class TaskController {
 		}
 	}
 
-	//Update Task
+	//Update Task (draggable task to other category)
 	static async update(req, res, next) {
 		try {
 			const id = +req.params.id;

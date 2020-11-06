@@ -3,12 +3,12 @@ const { verifyToken } = require("../helpers/jwt.js");
 
 async function authentication(req, res, next) {
 	try {
-		const { access_token } = req.headers;
+		const { token } = req.headers;
 
-		if (!access_token) {
+		if (!token) {
 			throw { name: "AuthenticationFailed" }
 		} else {
-			const decoded = verifyToken(access_token);
+			const decoded = verifyToken(token);
 
 			const user = await User.findOne({
 				where: {

@@ -25,6 +25,15 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
+    tag: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          msg: "Tag is required"
+        }
+      }
+    }
+    ,
     userId: DataTypes.INTEGER
   }, {
     sequelize,

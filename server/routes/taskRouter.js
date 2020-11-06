@@ -6,7 +6,7 @@ const authorization = require("../middlewares/authorization.js");
 taskRouter.use(authentication);
 taskRouter.get("/", TaskController.showAll);
 taskRouter.post("/", TaskController.add);
-// taskRouter.get("/:id", TaskController.showById); //not yet
+taskRouter.get("/:id", TaskController.showById); 
 
 taskRouter.put("/:id", authorization, TaskController.edit);
 taskRouter.patch("/:id", authorization, TaskController.update)
