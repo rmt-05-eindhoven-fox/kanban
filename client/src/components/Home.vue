@@ -17,6 +17,7 @@
                     @deleteTask="deleteTask"
                     @moveCategory="moveCategory"
                     @changeCategoryTitle="changeCategoryTitle"
+                    @changeTaskTitle="changeTaskTitle"
                     :categories="categories"
                     :category="category" 
                     :tasks="tasks">
@@ -85,6 +86,11 @@ export default {
       },
       changeCategoryTitle(value) {
           this.$emit("changeCategoryTitle", value)
+      },
+      changeTaskTitle(value) {
+          console.log(`ini di home`)
+          console.log(value)
+          this.$emit("changeTaskTitle", value)
       }
   },
   props: ['pageName', 'tasks', 'categories']

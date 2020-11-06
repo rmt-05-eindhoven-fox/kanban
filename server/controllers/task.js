@@ -31,7 +31,6 @@ class TaskController {
         task,
       });
     } catch (err) {
-      console.log(err);
       next(err);
     }
   }
@@ -66,6 +65,31 @@ class TaskController {
       const task = await Task.update(newData, {
         where: {
           id: TaskId,
+        },
+      });
+
+      if (!task) {
+        throw { messsage: `Task not found`, status: 404 };
+      }
+
+      res.status(200).json({
+        task,
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  static async changeTaskTitle(req, res, next) {
+    try {
+      console.log(`==== Changing Task Title ====`);
+      const newData = {
+        title: req.body.title,
+      };
+
+      const task = await Task.update(newData, {
+        where: {
+          id: req.params.id,
         },
       });
 

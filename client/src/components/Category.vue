@@ -26,6 +26,7 @@
                 <Task 
                     @deleteTask="deleteTask"
                     @moveCategory="moveCategory"
+                    @changeTaskTitle="changeTaskTitle"
                     :categories="categories"
                     :task="task" 
                     :category="category">
@@ -91,6 +92,11 @@ export default {
               title: this.CategoryTitle
           }
           this.$emit("changeCategoryTitle", payload)
+      },
+      changeTaskTitle(value) {
+          console.log(`ini di category`)
+          console.log(value)
+          this.$emit("changeTaskTitle", value)
       }
   },
   components: {

@@ -10,6 +10,7 @@
         @deleteTask="deleteTask"
         @moveCategory="moveCategory"
         @changeCategoryTitle="changeCategoryTitle"
+        @changeTaskTitle="changeTaskTitle"
         :pageName="pageName" 
         :categories="categories"
         :tasks="tasks"></Home>
@@ -62,8 +63,6 @@ export default {
             })
         },
         loginGoogle(value) {
-            console.log(`in App vue`)
-            console.log(value)
             axios({
                 method: "POST",
                 url: this.SERVER + "/loginGoogle",
@@ -225,6 +224,26 @@ export default {
             axios({
                 method: "PATCH",
                 url: this.SERVER + `/categories/${value.id}`,
+                data: {
+                    title: value.title
+                },
+                headers: {
+                    access_token,
+                },
+            }).then((res) => {
+                this.fetchCategories()
+                this.fetchTasks()
+            }).catch((err) => {
+                console.log(err);
+            });
+        },
+        changeTaskTitle(value) {
+            const access_token = localStorage.getItem("access_token");
+            console.log(`ini di app`)
+            console.log(value)
+            axios({
+                method: "PATCH",
+                url: this.SERVER + `/tasks/${value.id}/task`,
                 data: {
                     title: value.title
                 },

@@ -1,7 +1,20 @@
 <template>
     <div class="h-auto bg-red-500 h-20 border border-gray-300 flex flex-col">
-        <div class="bg-blue-500 py-5">
-            <p>{{task.title}}</p>
+        <div class="bg-blue-500">
+            <form @submit.prevent="changeTaskTitle" class="w-full h-full">
+                <input 
+                    type="text" 
+                    class=" 
+                        h-20
+                        w-full
+                        cursor-pointer 
+                        bg-blue-500 
+                        focus:outline-none 
+                        focus:bg-white 
+                        focus:shadow-outline 
+                        focus:border-gray-300" 
+                    v-model="TaskTitle">
+            </form>
         </div>
         <div class="flex flex-col">
             <!--Move button-->
@@ -49,7 +62,8 @@ export default {
   data() {
       return {
           moveCategory: "",
-          move: false
+          move: false,
+          TaskTitle: this.task.title
       }
   },
   methods: {
@@ -72,6 +86,15 @@ export default {
               TaskId: this.task.id
           }
           this.$emit("moveCategory", payload)
+      },
+      changeTaskTitle() {
+          const payload = {
+              id: this.task.id,
+              title: this.TaskTitle
+          }
+          console.log(`ini di task`)
+          console.log(payload)
+          this.$emit("changeTaskTitle", payload)
       }
   },
   props: ['task', 'category', 'categories']
