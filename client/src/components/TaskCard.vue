@@ -1,8 +1,8 @@
 <template>
-    <div class="card my-2 shadow-sm">
+    <div class="card hover-pink my-2 shadow-sm">
         <div class="card-body">
             <h6 class="card-title font-weight-bolder pb-n3">{{task.title}}</h6>
-            <p class="card-text pt-n5 ">
+            <p  class="card-text pt-n5 ">
                 {{task.description}}
                 <br>
                 <small class="card-email ">{{task.User.email}}</small>
@@ -24,7 +24,7 @@ export default {
     props: ['task', 'email'],
     computed: {
         time() {
-            let d = new Date(this.task.createdAt)
+            let d = new Date(this.task.updatedAt)
             let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
   "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"
 ]
@@ -40,6 +40,7 @@ export default {
             this.$emit('toEditPage', payload)
         },
         deleteTask() {
+            
             let payload = {
                 page: 'edit-task',
                 task: this.task

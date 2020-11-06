@@ -1,6 +1,6 @@
 <template>
-    <div  class="col-3" style="position: relative;">
-        <!-- <img width="100px" src="./assets/monster.svg" style="position: absolute; "> -->
+    <div  class="col-3" >
+        
         <h5  class="text-center font-weight-bolder py-2 align-middle rounded " >{{categories.category}}</h5>
         <div class="item px-3 scrollbar scrollbar-rainy-ashville" >
             <TaskCard

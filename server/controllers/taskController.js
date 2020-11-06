@@ -19,9 +19,8 @@ class TaskController {
     }
     static async taskList(req, res, next) {
         try {
-            const taskList = await Task.findAll({order: [['createdAt', 'ASC']], include: [User]})
-
-            res.status(200).json(taskList)
+            const taskList = await Task.findAll({order: [['updatedAt', 'ASC']], include: [User]})
+            res.status(200).json({taskList, loggedInUser: req.loggedInUser.email})
         } catch (error) {
             next(error)
         }

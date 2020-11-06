@@ -2,21 +2,22 @@
     <div>
         <LoginPage 
             v-if="page == 'login'" 
-            class="container"
             @login="login"
             @changePage="changePage"
             @OnGoogleAuthSuccess="OnGoogleAuthSuccess"
             @OnGoogleAuthFail="OnGoogleAuthFail"
             :clientId="clientId"
-            
+           
         >
         </LoginPage>
 
         <RegisterPage 
             v-else-if="page == 'register'" 
-            class="container"
             @register="register"
             @changePage="changePage"
+            @OnGoogleAuthSuccess="OnGoogleAuthSuccess"
+            @OnGoogleAuthFail="OnGoogleAuthFail"
+            :clientId="clientId"
         >
         </RegisterPage>
 
@@ -93,9 +94,9 @@ export default {
             })
                 .then(({data}) => {
                     localStorage.setItem('access_token', data.access_token)
-                    this.email = data.email
+                    
                     this.page = 'home'
-
+                    this.fetchTasks()
                     Toast.fire({
                         icon: 'success',
                         title: 'Log in successfully'
@@ -111,7 +112,7 @@ export default {
                 })
         },
         OnGoogleAuthSuccess (idToken) {
-            console.log(idToken, 'token')
+            // console.log(idToken, 'token')
             // Receive the idToken and make your magic with the backend
             
             axios({
@@ -126,6 +127,7 @@ export default {
                     this.email = data.email
                     this.page = 'home'
                     this.googleToken = idToken
+                    this.fetchTasks()
                     Toast.fire({
                         icon: 'success',
                         title: 'Log in successfully'
@@ -199,6 +201,7 @@ export default {
             this.detailTask = payload.task
         },
         editTask(payload) {
+            
             axios({
                 url: `/tasks/${payload.id}`,
                 method: 'PUT',
@@ -213,8 +216,7 @@ export default {
             })
                 .then(({data}) => {
                     this.page = 'home'
-                    $('#edit-task').hide()
-                    $('.modal-backdrop').hide()
+                    $('#close-edit').trigger('click')
 
                     this.fetchTasks()
 
@@ -242,8 +244,8 @@ export default {
                 }
             })
                 .then(({data}) => {
-                    
-                    this.tasks = data
+                    this.email = data.loggedInUser
+                    this.tasks = data.taskList
                 })
                 .catch(err => {
                     console.log(err.response.data , 'fetch app')
@@ -269,8 +271,7 @@ export default {
             })
                 .then(({data}) => {
                     this.fetchTasks()
-                    $('#add-task').hide()
-                    $('.modal-backdrop').hide()
+                    $('#close-add').trigger('click')
                     this.page = 'home'
 
                     Toast.fire({
@@ -294,8 +295,8 @@ export default {
                 text: "You won't be able to revert this!",
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#38d39f',
-                cancelButtonColor: '#d33',
+                confirmButtonColor: '#6e578d',
+                cancelButtonColor: '#ff8080',
                 confirmButtonText: 'Yes, delete it!'
             }) .then((result) => {
                     if (result.isConfirmed) {
@@ -330,7 +331,6 @@ export default {
         }
     },
     created() {
-        
         this.checkLogin()
     }
 };

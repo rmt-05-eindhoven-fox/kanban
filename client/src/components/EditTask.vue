@@ -1,10 +1,11 @@
 <template>
     <section id="edit-task" class="modal fade" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <img class="rotate-img" width="90px" src="../assets/monsterDir.svg" style="position: absolute; z-index: 999999; right: 400px; top: 55px;">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Edit Task</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <h4 class="modal-title text-purple">Edit Task</h4>
+                    <button id="close-edit" type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -17,7 +18,7 @@
                             </label>
                             <input 
                                 v-model="title"
-                                class="form-control text-success"
+                                class="form-control text-purple"
                                 type="text"
                             >
                         </div>
@@ -28,7 +29,7 @@
                             </label>
                             <input 
                                 v-model="description"
-                                class="form-control text-success"
+                                class="form-control text-purple"
                                 type="text"
                             >
                         </div>
@@ -37,7 +38,8 @@
                             <label for="due-date-form">
                                 Category
                             </label>
-                            <select  v-model="category"  class="form-control">
+                            <select  v-model="category"  class="form-control text-purple">
+                                <option value="" disabled>Choose the category...</option>
                                 <option value="Backlog">Backlog</option>
                                 <option value="Todo">Todo</option>
                                 <option value="Doing">Doing</option>
@@ -46,7 +48,7 @@
                         </div>
                         
                 
-                        <button type="submit" class="btn btn-success btn-block">Edit</button>
+                        <button type="submit" class="btn btn-purple btn-block">Edit</button>
                         
                     </form>
                 </div>

@@ -1,8 +1,9 @@
 <template>
-        <div class="row justify-content-center" style="margin-top: 15vh;">
-            <div class="card shadow p-2" style="width: 20vw;">
+        <div class="row justify-content-center " style="margin-top: 20vh;">
+            
+            <div class="card shadow p-2 col-3 align-items-center" >
                 <div class="card-body">
-                    <h4 class="text-center">Login</h4>
+                    <h4 class="text-center text-purple">KANBAN</h4>
                     <form @submit.prevent="login">
                         <div class="form-group ">
                             <label >
@@ -10,7 +11,7 @@
                             </label>
                             <input 
                                 v-model="email"
-                                class="form-control text-success"
+                                class="form-control text-purple"
                                 type="email"
                             >
                         </div>
@@ -21,22 +22,23 @@
                             </label>
                             <input 
                                 v-model="password"
-                                class="form-control text-success"
+                                class="form-control text-purple"
                                 type="password"
                             >
                         </div>
                         
-                        <button type="submit" class="btn btn-success btn-block">Login</button>
+                        <button type="submit" class="btn btn-purple btn-block">Login</button>
                         <div class="text-center" style="font-size: 12px;">Don't have an account? <a @click.prevent="changePage" class="btn-link" href="#" >Register</a></div>  
                         <div class="text-center" style="font-size: 12px;">or</div>
-                        <div class="text-center" style="font-size: 12px;">Login with Google</div>
-
-                       
-                        
                     </form>
-                    <button v-google-signin-button="clientId" class="google-signin-button"> Continue with Google</button>
+                    <a v-google-signin-button="clientId" id="google-button" class="btn btn-block btn-social btn-google">
+                        <i class="fa fa-google"></i> Sign in with Google
+                    </a>
                 </div>
             </div>
+            
+            <img class="card shadow col-3 align-items-center" width="190px" src="https://image.freepik.com/free-vector/cute-purple-monster-face_1639-7293.jpg">   
+            
         </div>
 </template>
 

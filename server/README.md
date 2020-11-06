@@ -75,40 +75,43 @@
 * **Success Response:**
 
   * **Code:** 200 OK <br />
-    **Content:** `[
-        {
-            "id": 2,
-            "title": "es2 22 2t",
-            "description": "jadi",
-            "category": "Backlog",
-            "UserId": 2,
-            "createdAt": "2020-11-03T12:33:22.543Z",
-            "updatedAt": "2020-11-03T12:45:57.689Z",
-            "User": {
+    **Content:** `{
+        "taskList": [
+            {
                 "id": 2,
-                "email": "rafi@gmail.com",
-                "password": "$2a$10$HFJ3nKtBa2noAlxjQTCf3OwZT8F7PT4gr00Roh5Uue60Z1rM8neQq",
-                "createdAt": "2020-11-03T12:08:09.973Z",
-                "updatedAt": "2020-11-03T12:08:09.973Z"
-            }
-        },
-        {
-            "id": 3,
-            "title": "dar",
-            "description": "udinnnnnnnn",
-            "category": "TDone",
-            "UserId": 3,
-            "createdAt": "2020-11-03T12:34:39.683Z",
-            "updatedAt": "2020-11-03T12:34:39.683Z",
-            "User": {
+                "title": "es2 22 2t",
+                "description": "jadi",
+                "category": "Backlog",
+                "UserId": 2,
+                "createdAt": "2020-11-03T12:33:22.543Z",
+                "updatedAt": "2020-11-03T12:45:57.689Z",
+                "User": {
+                    "id": 2,
+                    "email": "rafi@gmail.com",
+                    "password": "$2a$10$HFJ3nKtBa2noAlxjQTCf3OwZT8F7PT4gr00Roh5Uue60Z1rM8neQq",
+                    "createdAt": "2020-11-03T12:08:09.973Z",
+                    "updatedAt": "2020-11-03T12:08:09.973Z"
+                }
+            },
+            {
                 "id": 3,
-                "email": "udin@gmail.com",
-                "password": "$2a$10$Nv9pyOsMr90qtAbr.2/equy9kRAqusD3RFwhH0eUhOVx57Gkwddd6",
-                "createdAt": "2020-11-03T12:33:31.127Z",
-                "updatedAt": "2020-11-03T12:33:31.127Z"
+                "title": "dar",
+                "description": "udinnnnnnnn",
+                "category": "TDone",
+                "UserId": 3,
+                "createdAt": "2020-11-03T12:34:39.683Z",
+                "updatedAt": "2020-11-03T12:34:39.683Z",
+                "User": {
+                    "id": 3,
+                    "email": "udin@gmail.com",
+                    "password": "$2a$10$Nv9pyOsMr90qtAbr.2/equy9kRAqusD3RFwhH0eUhOVx57Gkwddd6",
+                    "createdAt": "2020-11-03T12:33:31.127Z",
+                    "updatedAt": "2020-11-03T12:33:31.127Z"
+                }
             }
-        }
-    ]`
+        ],
+        "loggedInUser": "rafi@gmail.com"
+    }`
  
 * **Error Response:**
 

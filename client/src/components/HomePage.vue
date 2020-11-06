@@ -6,11 +6,12 @@
                 <div id="logo" class="text-white font-weight-bold">
                     <div >KANBAN</div>
                 </div>
-                <div style="display: flex; align-items: center;">
-                    <i type="button" class="fas fa-plus-square pr-4 text-white" data-toggle="modal" data-target="#add-task" >
+                <div style="display: flex; align-items: center; font-size: 12px">
+                    <span class="pr-1 text-white">Add</span>
+                    <i type="button" class="fas fa-plus-square pr-4 text-hover-pink " data-toggle="modal" data-target="#add-task">
                     </i>
-                    <div class="text-white">{{email}}</div>
-                    <a @click.prevent = "logout" class="text-decoration-none px-2 text-white" href="#">LOG OUT</a>
+                    <div class="text-white pr-3">{{email}}</div>
+                    <a @click.prevent = "logout" class="text-decoration-none px-2 text-hover-pink" href="#">LOG OUT</a>
                 </div>
             </nav>
         </div>
@@ -18,7 +19,9 @@
     
         <!-- MAIN-PAGE -->
         <div class="container" >
-            <div class="row mt-4" >
+            <div class="row mt-4" style="position: relative; " >
+                <img class="rotate-img" width="70px" src="../assets/monster 2.svg" style="position: absolute; z-index: 999999; left: 22px; top: -13px">
+                <img class="rotate-img" width="150px" src="../assets/cyclops.svg" style="position: absolute; z-index: 999999; right: 240px; bottom: -20px">
                 <Category 
                     v-for="(el, i) in categories"
                     :key="i"
