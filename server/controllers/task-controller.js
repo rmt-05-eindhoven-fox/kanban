@@ -33,11 +33,10 @@ class Controller {
         })
     }
 
-    static putTask(req, res, next){
-        const { title, category } = req.body
+    static patchTask(req, res, next){
+        const { category } = req.body
         const { id } = req.params
         let updateTask = {
-            title,
             category
         }
         Task.update(updateTask, {

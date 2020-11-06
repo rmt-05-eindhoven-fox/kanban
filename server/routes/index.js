@@ -6,11 +6,12 @@ const Authorization = require('../middlewares/authorization')
 
 router.post('/register', UserController.register)
 router.post('/login', UserController.login)
+router.post('/googleLogin', UserController.googleLogin)
 
 router.use(Authentication)
 router.post('/tasks', TaskController.postAddTask)
 router.get('/tasks', TaskController.getAllTasks)
-router.put('/tasks/:id', Authorization, TaskController.putTask)
+router.patch('/tasks/:id', Authorization, TaskController.patchTask)
 router.delete('/tasks/:id', Authorization, TaskController.deleteTask)
 
 

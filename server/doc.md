@@ -66,6 +66,39 @@
     **Content:** `{ "msg": "Internal Server Error" }`
 
 
+**LOGIN GOOGLE USER**
+----
+
+* **URL**
+
+  `/googleLogin`
+
+* **Method:**
+
+  `POST`
+
+* **Data Params**
+
+  **Required:**
+
+  `id_token=[string]`
+  
+* **Success Response:**
+
+  * **Code:** 200 OK<br />
+    **Content:** `{ "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZ3VuZ0BtYWlsLmNvbSIsImlhdCI6MTYwNDQwODA3NX0.bhstOGROEKfXBAGBD0Wsq_S_grR2BsnbEy-qJ7tnOdQ" }`
+ 
+* **Error Response:**
+
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** `{ "msg": "Invalid email/password" }`
+    
+  OR
+
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
+    **Content:** `{ "msg": "Internal Server Error" }`
+
+
 **CREATE NEW TASK**
 ----
 
