@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div> 
     <Auth
       v-if="activePage == 'auth-page'"
       @prosesLogin="prosesLogin"
@@ -7,14 +7,27 @@
       :user="user"
     ></Auth>
 
-    <Home v v-else-if="activePage == 'home-page'"> </Home>
-  </div>
+    <Home
+      v-else-if="activePage == 'home-page'"
+      :categories="categories"
+      :organizationId="currentOrganizationId"
+      @openAddTask="openAddTask"
+    >
+    </Home>   
+    <Modaladd 
+    v-if="modalName == 'addTodo'" 
+    v-show="showModal"  
+    @isDisplayModal="isDisplayModal"
+    :payload="payloadAddTask"
+    ></Modaladd>
 </template>
 
 <script>
 // ES6 Modules or TypeScript
+
 import axios from "./config/axios";
 import Swal from "sweetalert2";
+import Modaladd from "./component/home/add-todo";
 import Auth from "./component/auth-page.vue";
 import Home from "./component/home-page.vue";
 
@@ -23,23 +36,53 @@ export default {
   data() {
     return {
       user: {},
-      organizations: {},
-      activePage: "home-page",
+      organization: {},
+      categories: [],
+      activePage: "auth-page",
+      // Data Modal Add Task
+      modalAddTodo: false,
+      showModal: false,
+      modalName: "",
+      currentOrganizationId: "",
+      payloadAddTask: {},
     };
   },
+
   created() {
     const access_token = localStorage.getItem("access_token");
     if (access_token) {
-      this.loadOrganization();
+      this.activePage = "home-page";
+      this.loadOrganizationById();
+    } else {
+      this.activePage = "auth-page";
     }
   },
 
   components: {
     Auth,
     Home,
+    Modaladd,
   },
 
   methods: {
+    changeModal(params) {
+      this.modalName = params;
+    },
+
+    openAddTask(payload) {
+      this.payloadAddTask = payload;
+      console.log("clicked here");
+      this.isDisplayModal(true);
+      this.changeModal("addTodo");
+      console.log("is here");
+    },
+
+    isDisplayModal(params) {
+      this.showModal = params;
+      this.modalName = "";
+      this.modalAddTodo = params;
+    },
+
     prosesLogin(payload) {
       axios({
         url: "login",
@@ -76,21 +119,25 @@ export default {
         });
     },
 
-    loadOrganization() {
+    loadOrganizationById(organizationId = null) {
       // organizations
+      organizationId = 1;
       axios({
-        url: "organizations/2",
-        method: "get", 
+        url: "organizations/" + organizationId,
+        method: "get",
         headers: {
           access_token: localStorage.getItem("access_token"),
         },
       })
         .then(({ data }) => {
-          this.organizations = data;
-          console.log(data.organizations);
+          this.currentOrganizationId = organizationId;
+          // this.organization = data;
+          // console.log(data.organization.Categories)
+          this.categories = data.organization.Categories;
         })
         .catch((err) => {
-          this.errorHandler(err, "Register Failed!");
+          console.log(err.response);
+          // this.errorHandler(err, "Register Failed!");
         });
     },
 

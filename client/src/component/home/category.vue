@@ -2,7 +2,9 @@
   <div class="col-lg-4 col-md-12">
     <div class="card">
       <div class="header">
-        <h2><strong>Planned</strong></h2>
+        <h2>
+          <strong>{{ dataCategory.name }}</strong>
+        </h2>
         <ul class="header-dropdown">
           <li class="dropdown">
             <a
@@ -16,7 +18,15 @@
               <i class="zmdi zmdi-more"></i>
             </a>
             <ul class="dropdown-menu dropdown-menu-right slideUp">
-              <li><a href="javascript:void(0);">Add Task</a></li>
+              <li>
+                <a
+                  href="javascript:void(0);"
+                  @click.prevent="
+                    addTask(dataCategory.id, organizationId, dataCategory.name)
+                  "
+                  >Add Task</a
+                >
+              </li>
               <li><a href="javascript:void(0);">Delete Category</a></li>
             </ul>
           </li>
@@ -26,9 +36,11 @@
         <div class="dd" data-plugin="nestable">
           <ol class="dd-list">
             <!-- Task List -->
-            <Task></Task>
-            <Task></Task>
-            <Task></Task>
+            <Task
+              v-for="task in dataCategory.Tasks"
+              :key="task.id"
+              :task="task" 
+            ></Task>
           </ol>
         </div>
       </div>
@@ -43,8 +55,20 @@ export default {
   data() {
     return {};
   },
+  props: ["dataCategory", "organizationId"],
   components: {
     Task,
+  },
+  methods: {
+    addTask(catId, organizationId, taskName) {
+      const payload = {
+        catId,
+        organizationId,
+        taskName,
+      };
+      this.$emit("openAddTask", payload);
+      // console.log("Cat ID", catId, organizationId, taskName);
+    },
   },
 };
 </script>

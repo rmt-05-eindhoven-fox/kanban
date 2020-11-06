@@ -1,7 +1,7 @@
 <template>
   <li class="dd-item" data-id="1">
     <div class="dd-handle d-flex justify-content-between align-items-center">
-      <div class="h6 mb-0">Themeforest update update update update asasa</div>
+      <div class="h6 mb-0" title="Task name">{{ task.name }}</div>
       <div class="action">
         <div class="btn-group">
           <button
@@ -25,15 +25,14 @@
       </div>
     </div>
     <div class="dd-content p-15">
-      <p>
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry.
+      <p title="Description of task">
+        {{ task.description }}
       </p>
       <ul class="list-unstyled d-flex bd-default align-items-center">
         <li class="mr-2 flex-grow-1 bd-default">
-          <span class="badge badge-primary"
-            ><i class="zmdi zmdi-time"></i> 18 Jan</span
-          >
+          <span class="badge badge-primary" title="Created At"
+            ><i class="zmdi zmdi-time"></i> {{ formatDate(task.createdAt) }}
+          </span>
         </li>
         <li class="ml-3 bd-highlight">
           <ul class="list-unstyled team-info margin-0">
@@ -41,7 +40,7 @@
               <img
                 src="../images/profile.png"
                 alt="Avatar"
-                title="Riyan Pratama"
+                :title="task.User.fullname"
               />
             </li>
           </ul>
@@ -54,6 +53,29 @@
 <script>
 export default {
   name: "task",
+  props: ["task"],
+  methods: {
+    formatDate(date) {
+      const bulan = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ];
+      const newDate = new Date(date);
+      return `${newDate.getDate()} ${
+        bulan[newDate.getMonth()]
+      } ${newDate.getFullYear()}`;
+    },
+  },
 };
 </script>
 

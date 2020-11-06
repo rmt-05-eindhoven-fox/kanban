@@ -31,12 +31,13 @@
       </div>
       <div class="container-fluid testimonial-group">
         <div class="row flex-nowrap">
-          <Category></Category>
-          <Category></Category>
-          <Category></Category> 
-          <Category></Category> 
-          <Category></Category> 
-          <Category></Category> 
+          <Category
+            v-for="category in categories"
+            :key="category.id"
+            :dataCategory="category"
+            :organizationId="organizationId" 
+            @openAddTask="openAddTask"
+          ></Category>
           <!-- List Category -->
         </div>
       </div>
@@ -49,8 +50,14 @@ import Category from "../component/home/category.vue";
 
 export default {
   name: "home-page",
+  props: ["categories", "organizationId"],
   components: {
     Category,
+  },
+  methods: { 
+    openAddTask(payload) {
+      this.$emit("openAddTask", payload);
+    },
   },
 };
 </script>
