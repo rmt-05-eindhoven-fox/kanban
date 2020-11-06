@@ -25,6 +25,14 @@
 export default {
   name: 'NavbarHomePage',
   props: ['login_user'],
+  components: {
+
+  },
+  data() {
+    return {
+
+    }
+  },
   methods: {
     logout() {
       this.$emit('logout');

@@ -39,14 +39,14 @@
 
   * **Code:** 201 CREATED <br />
     **Content:** `{
-    "id": 4,
-    "title": "task 4",
-    "description": "Add Register and Login",
-    "status": "Undone",
-    "due_date": "2020-11-10",
-    "updatedAt": "2020-10-26T10:19:58.124Z",
-    "createdAt": "2020-10-26T10:19:58.124Z"
-    }`
+    "id": 45,
+    "title": "Kerjakan Kanban Server",
+    "description": "Membuat route server untuk kanban",
+    "category": "Backlog",
+    "UserId": 1,
+    "updatedAt": "2020-11-06T07:07:43.123Z",
+    "createdAt": "2020-11-06T07:07:43.123Z"
+}`
  
 * **Error Response:**
 
@@ -95,42 +95,96 @@
   * **Code:** 200 OK <br />
     **Content:**
     `[
-      {
-        "id": 1,
-        "title": "Rest API",
-        "description": "Learn how to make API Documentaion and REST API",
-        "status": "Done",
-        "due_date": "2020-11-01",
-        "createdAt": "2020-10-26T07:48:57.394Z",
-        "updatedAt": "2020-10-26T07:48:57.394Z"
-      },
-      {
+    {
         "id": 2,
-        "title": "Fancy task App",
-        "description": "Protofolio project week 1",
-        "status": "Undone",
-        "due_date": "2020-11-01",
-        "createdAt": "2020-10-26T07:48:57.394Z",
-        "updatedAt": "2020-10-26T07:48:57.394Z"
-      },
-      {
-        "id": 3,
-        "title": "task 3",
-        "description": "Kerjakan task Jangan Lupa",
-        "status": "Undone",
-        "due_date": "2020-11-05",
-        "createdAt": "2020-10-26T07:49:32.777Z",
-        "updatedAt": "2020-10-26T07:49:32.777Z"
-      },
-      {
-        "id": 4,
-        "title": "task 4",
-        "description": "Add Register and Login",
-        "status": "Undone",
-        "due_date": "2020-11-10",
-        "createdAt": "2020-10-26T10:19:58.124Z",
-        "updatedAt": "2020-10-26T10:19:58.124Z"
-      }
+        "title": "Kerjakan Kanban Server",
+        "description": "Membuat route server untuk kanban",
+        "category": "Backlog",
+        "UserId": 2,
+        "createdAt": "2020-11-04T11:57:23.674Z",
+        "updatedAt": "2020-11-04T11:57:23.674Z",
+        "User": {
+            "id": 2,
+            "email": "admin@gmail.com",
+            "createdAt": "2020-11-04T11:56:08.915Z",
+            "updatedAt": "2020-11-04T11:56:08.915Z"
+        }
+    },
+    {
+        "id": 23,
+        "title": "Pergi ke Pasar",
+        "description": "Ayo maju! Udh malem!",
+        "category": "Doing",
+        "UserId": 4,
+        "createdAt": "2020-11-04T15:35:11.363Z",
+        "updatedAt": "2020-11-04T15:35:11.363Z",
+        "User": {
+            "id": 4,
+            "email": "people@gmail.com",
+            "createdAt": "2020-11-04T15:34:43.738Z",
+            "updatedAt": "2020-11-04T15:34:43.738Z"
+        }
+    },
+    {
+        "id": 27,
+        "title": "Mancing Mania",
+        "description": "Membuat client side dengan Vue.js dan axios",
+        "category": "Done",
+        "UserId": 3,
+        "createdAt": "2020-11-04T17:24:47.039Z",
+        "updatedAt": "2020-11-04T17:24:47.039Z",
+        "User": {
+            "id": 3,
+            "email": "person@gmail.com",
+            "createdAt": "2020-11-04T12:01:09.767Z",
+            "updatedAt": "2020-11-04T12:01:09.767Z"
+        }
+    },
+    {
+        "id": 22,
+        "title": "Belajar JQuery Semalaman",
+        "description": "Membuat sebuah aplikasi web FancyTodo dengan HTML JQuery dan CSS",
+        "category": "Done",
+        "UserId": 1,
+        "createdAt": "2020-11-04T15:18:43.142Z",
+        "updatedAt": "2020-11-05T13:15:36.342Z",
+        "User": {
+            "id": 1,
+            "email": "user@gmail.com",
+            "createdAt": "2020-11-04T11:55:49.683Z",
+            "updatedAt": "2020-11-04T11:55:49.683Z"
+        }
+    },
+    {
+        "id": 26,
+        "title": "Client Vue.js xxx yyy",
+        "description": "Membuat client side dengan Vue.js dan axios",
+        "category": "Todo",
+        "UserId": 3,
+        "createdAt": "2020-11-04T17:24:28.273Z",
+        "updatedAt": "2020-11-05T13:21:01.854Z",
+        "User": {
+            "id": 3,
+            "email": "person@gmail.com",
+            "createdAt": "2020-11-04T12:01:09.767Z",
+            "updatedAt": "2020-11-04T12:01:09.767Z"
+        }
+    },
+    {
+        "id": 35,
+        "title": "dansa yok dansa",
+        "description": "Ayo maju! Udh malem!",
+        "category": "Todo",
+        "UserId": 1,
+        "createdAt": "2020-11-05T15:26:06.240Z",
+        "updatedAt": "2020-11-06T03:52:24.125Z",
+        "User": {
+            "id": 1,
+            "email": "user@gmail.com",
+            "createdAt": "2020-11-04T11:55:49.683Z",
+            "updatedAt": "2020-11-04T11:55:49.683Z"
+        }
+    }
     ]`
  
 * **Error Response:**
@@ -177,13 +231,19 @@
   * **Code:** 200 OK <br />
     **Content:**
     `{
-      "id": 1,
-      "title": "Rest API",
-      "description": "Learn how to make API Documentaion and REST API",
-      "status": "Done",
-      "due_date": "2020-11-01",
-      "createdAt": "2020-10-26T07:48:57.394Z",
-      "updatedAt": "2020-10-26T07:48:57.394Z"
+    "id": 24,
+    "title": "ABC LIMA DASAR",
+    "description": "Membuat sebuah aplikasi web FancyTodo dengan HTML JQuery dan CSS",
+    "category": "Backlog",
+    "UserId": 1,
+    "createdAt": "2020-11-04T15:57:47.321Z",
+    "updatedAt": "2020-11-06T04:10:44.105Z",
+      "User": {
+          "id": 1,
+          "email": "user@gmail.com",
+          "createdAt": "2020-11-04T11:55:49.683Z",
+          "updatedAt": "2020-11-04T11:55:49.683Z"
+      }
     }`
  
 * **Error Response:**
@@ -226,27 +286,25 @@
   **Required:**
    
   `title=[string]`,
-  `description=[string]`,
-  `category=[string]`
+  `description=[string]`
 
 * **Success Response:**
 
   * **Code:** 200 OK <br />
     **Content:**
     `{
-      "id": 2,
-      "title": "Fancy task App 2",
-      "description": "Protofolio project week 1",
-      "status": "Done",
-      "due_date": "2020-11-01",
-      "createdAt": "2020-10-26T07:48:57.394Z",
-      "updatedAt": "2020-10-26T11:24:21.311Z"
+      "id": 24,
+      "title": "Kerjakan Kanban Server & Error Handler",
+      "description": "Menambahkan server rest API untuk kanban",
+      "UserId": 1,
+      "createdAt": "2020-11-04T15:57:47.321Z",
+      "updatedAt": "2020-11-06T07:11:03.978Z"
     }`
  
 * **Error Response:**
 
   * **Code:** 400 BAD REQUEST <br />
-    **Content:** `{ msg : "Title is required!, Description is required!, Category is required!" }`
+    **Content:** `{ msg : "Title is required!, Description is required!" }`
 
   OR
 
@@ -299,13 +357,13 @@
   * **Code:** 200 OK <br />
     **Content:**
     `{
-      "id": 3,
-      "title": "task 3",
-      "description": "Kerjakan task Jangan Lupa",
-      "status": "Done",
-      "due_date": "2020-11-05",
-      "createdAt": "2020-10-26T07:49:32.777Z",
-      "updatedAt": "2020-10-26T11:27:31.187Z"
+    "id": 24,
+    "title": "Kerjakan Kanban Server & Error Handler",
+    "description": "Menambahkan server rest API untuk kanban",
+    "category": "Todo",
+    "UserId": 1,
+    "createdAt": "2020-11-04T15:57:47.321Z",
+    "updatedAt": "2020-11-06T07:13:39.418Z"
     }`
  
 * **Error Response:**
@@ -516,4 +574,3 @@
 
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** `{ msg : "Internal server error!" }`
-

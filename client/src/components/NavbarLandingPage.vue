@@ -17,7 +17,19 @@
 
 <script>
 export default {
-  name: 'NavbarLandingPage'
+  name: 'NavbarLandingPage',
+  props: [],
+  components: {
+
+  },
+  data() {
+    return {
+
+    }
+  },
+  methods: {
+
+  }
 }
 </script>
 

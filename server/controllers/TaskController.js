@@ -22,7 +22,7 @@ class TaskController {
   static async readAllTasks(req, res, next) {
     try {
       const UserId = +req.userLoggedIn.id;
-      const tasks = await Task.findAll({ order: [["updatedAt", "ASC"]], include: User });
+      const tasks = await Task.findAll({ order: [["updatedAt", "ASC"]], include: {model: User, attributes: {exclude: ["password"]}} });
       res.status(200).json(tasks);
     } catch (err) {
       next(err);
@@ -32,7 +32,7 @@ class TaskController {
   static async getTaskById(req, res, next) {
     try {
       let id = +req.params.id;
-      const task = await Task.findByPk(id, { include: User } );
+      const task = await Task.findByPk(id, { include: {model: User, attributes: {exclude: ["password"]}} });
       res.status(200).json(task);
     } catch (err) {
       next(err);

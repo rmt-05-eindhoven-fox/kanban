@@ -3,8 +3,7 @@
     <!-- NAVBAR LANDING PAGE -->
     <NavbarLandingPage
       v-if="default_page === 'login-page' || default_page === 'register-page'"
-      >
-    </NavbarLandingPage>
+    ></NavbarLandingPage>
     <!-- NAVBAR LANDING PAGE -->
 
     <!-- NAVBAR HOME PAGE -->
@@ -16,7 +15,15 @@
     <!-- NAVBAR HOME PAGE -->
 
     <!-- LOGIN PAGE -->
-    <section v-if="default_page === 'login-page'" id="login-page" class="container mt-5 pt-5">
+    <LoginPage
+    v-if="default_page === 'login-page'"
+    @login="login"
+    @changePage="changePage"
+    :user="user"
+    @OnGoogleAuthSuccess="OnGoogleAuthSuccess"
+    @OnGoogleAuthFail="OnGoogleAuthFail"
+    ></LoginPage>
+    <!-- <section v-if="default_page === 'login-page'" id="login-page" class="container mt-5 pt-5">
       <div class="row mt-5">
         <div class="col-sm-9 col-md-7 col-lg-5 m-auto">
           <div class="card card-login">
@@ -54,7 +61,7 @@
           © 2020 KhanBhanBhoard by Bobby Septianto
         </div>
       </div>
-    </section>
+    </section> -->
     <!-- LOGIN PAGE -->
 
     <!-- REGISTER PAGE -->
@@ -74,7 +81,7 @@
       @editTask="editTask"
       @deleteTask="deleteTask"
       @moveTask="moveTask"
-      @readAllTasks="readAllTasks"
+      @updateCategoryDrag="updateCategoryDrag"
     ></HomePage>
     <!-- HOME PAGE -->
   </div>
@@ -83,12 +90,21 @@
 <script>
 import NavbarLandingPage from "./components/NavbarLandingPage";
 import NavbarHomePage from "./components/NavbarHomePage";
+import LoginPage from "./components/LoginPage";
 import RegisterPage from "./components/RegisterPage";
 import HomePage from "./components/HomePage";
 import axios from "./config/axios";
 
 export default {
   name: 'App',
+  props: [],
+  components: {
+    NavbarLandingPage,
+    NavbarHomePage,
+    LoginPage,
+    RegisterPage,
+    HomePage
+  },
   data() {
     return {
     // MISC
@@ -96,10 +112,11 @@ export default {
     "login_user": '',
 
     // LOGIN
-    "email_login": '',
-    "password_login": '',
-    "remember": '',
-    "clientId": '347714341093-c0bqlieo0hp32k7e4mkhinqlb3m5m034.apps.googleusercontent.com',
+    "user": {
+      email_login: '',
+      password_login: '',
+      remember: ''
+    },
 
     // CATEGORIES
     "categories": [
@@ -137,37 +154,41 @@ export default {
     "tasks": [],
     };
   },
-  components: {
-    NavbarLandingPage,
-    NavbarHomePage,
-    RegisterPage,
-    HomePage
-  },
   methods: {
     changePage(name) {
       this.default_page = name;
     },
-    login() {
+    login(payload) {
       axios({
         method: 'POST',
         url: '/login',
         data: {
-          email: this.email_login,
-          password: this.password_login
+          email: payload.email_login,
+          password: payload.password_login
         }
       })
       .then((result) => {
         let access_token = result.data.access_token;
+        let login_user = result.data.email;
         localStorage.setItem('access_token', access_token);
+        localStorage.setItem('login_user', login_user);
 
-        // User Login
-        this.login_user = result.data.email;
+        this.login_user = localStorage.login_user;
 
         // Reset Form Login
-        if (!this.remember) {
-          this.email_login = '';
-          this.password_login= '';
+        if (!payload.remember) {
+          this.user.email_login = '';
+          this.user.password_login = '';
         }
+
+        this.$swal({
+          position: 'center',
+          icon: 'success',
+          title: 'Welcome to KhanBhanBhoard',
+          text: 'by Bobby Septianto',
+          showConfirmButton: false,
+          timer: 1750
+        });
 
         this.default_page = 'home-page';
         this.readAllTasks();
@@ -191,14 +212,24 @@ export default {
       })
       .then((result) => {
         let access_token = result.data.access_token;
+        let login_user = result.data.email;
         localStorage.setItem('access_token', access_token);
+        localStorage.setItem('login_user', login_user);
 
-        // User Login
-        this.login_user = result.data.email;
+        this.login_user = localStorage.login_user;
 
         // Reset Form Login
         this.email_login = '';
         this.password_login= '';
+
+        this.$swal({
+          position: 'center',
+          icon: 'success',
+          title: 'Welcome to KhanBhanBhoard',
+          text: 'by Bobby Septianto',
+          showConfirmButton: false,
+          timer: 1750
+        });
 
         this.changePage('home-page');
         this.readAllTasks();
@@ -247,6 +278,7 @@ export default {
     },
     isLogin() {
       if (localStorage.access_token) {
+        this.login_user = localStorage.login_user;
         this.default_page = 'home-page';
         this.readAllTasks();
       } else {
@@ -413,6 +445,36 @@ export default {
         this.$swal(
           'Error!',
           err,
+          'error'
+        );
+      });
+    },
+    updateCategoryDrag(payload) {
+      const access_token = localStorage.getItem('access_token');
+      axios({
+        method: "PATCH",
+        url: `/tasks/${payload.currentId}`,
+        headers: {
+          access_token
+        },
+        data: {
+          category: payload.currentCategory
+        }
+      })
+      .then((result) => {
+        this.$swal(
+          'Moved!',
+          `Your task has been moved to category "${payload.currentCategory}".`,
+          'success'
+        );
+        this.default_page = 'home-page';
+        this.readAllTasks();
+      })
+      .catch((err) => {
+        console.log(err.response.data.msg);
+        this.$swal(
+          'Error!',
+          err.response.data.msg,
           'error'
         );
       });

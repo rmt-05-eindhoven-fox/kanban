@@ -24,6 +24,14 @@
 export default {
   name: 'Task',
   props: ['category', 'task'],
+  components: {
+
+  },
+  data() {
+    return {
+
+    }
+  },
   methods: {
     showEditTaskForm() {
       let payload = {

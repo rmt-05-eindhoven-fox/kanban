@@ -36,6 +36,10 @@
 <script>
 export default {
   name: 'RegisterPage',
+  props: [],
+  components: {
+
+  },
   data() {
     return {
       email_register: '',
