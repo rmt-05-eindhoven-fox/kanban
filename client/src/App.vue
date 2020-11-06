@@ -133,6 +133,7 @@ export default {
                 method: 'POST',
                 data: {idToken}
             }).then(res => {
+                localStorage.setItem('username', res.data.username)
                 localStorage.setItem('access_token', res.data.access_token)
                 this.fetchAllTasks()
                 this.pageName = 'home-page'
