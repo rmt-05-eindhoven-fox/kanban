@@ -1,11 +1,13 @@
 const express = require('express');
 const router =  express.Router();
+const taskRouter = require('./task')
 const authentication = require('../middlewares/authentication');
-const authorization = require('../middlewares/authorization');
 
-const TaskController = require('../controllers/TaskController');
 const UserController = require('../controllers/UserController');
 // const QuoteController = require('../controllers/QuoteController');
+router.get('/',(req,res,next) => {
+    res.json({message : "Welcome to Kanban App by Diva"})
+})
 
 router.post('/signup', UserController.signup);
 router.post('/login', UserController.login);
@@ -13,12 +15,6 @@ router.post('/googleLogin', UserController.googleLogin);
 
 router.use(authentication);
 
-router.get('/tasks', TaskController.listTask);
-router.post('/tasks', TaskController.addTask);
-
-// router.get('/tasks/:id', authorization, TaskController.getTaskByID);
-router.put('/tasks/:id', authorization, TaskController.update);
-router.delete('/tasks/:id', authorization, TaskController.delete);
-
+router.use('/tasks', taskRouter);
 
 module.exports = router;
