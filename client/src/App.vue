@@ -15,6 +15,16 @@
       :userInfo="loggedInUser"
       :isEditUsername="isEditUsername"
       @showEditUsername="showEditUsername"
+      @editUsername="editUsername"
+      :organizations="organizations"
+      :organizationCount="organizationCount"
+      :activeOrgId="activeOrgId"
+      @activeOrg="activeOrg"
+      :tasks="tasks"
+      :members="members"
+      @addTask="addTask"
+      @deleteTask="deleteTask"
+      @editTask="editTask"
     ></HomePage>
   </section>
 </template>
@@ -34,6 +44,11 @@ export default {
       pageName: "",
       loggedInUser: null,
       isEditUsername: false,
+      organizations: null,
+      organizationCount: 0,
+      activeOrgId: null,
+      tasks: null,
+      members: null,
     };
   },
   components: {
@@ -86,6 +101,7 @@ export default {
     afterLogin() {
       this.pageName = "home-page";
       this.fetchUserProfile();
+      this.fetchOrganizationList();
     },
     fetchUserProfile() {
       const access_token = localStorage.getItem("access_token");
@@ -105,6 +121,143 @@ export default {
     },
     showEditUsername() {
       this.isEditUsername = true;
+    },
+    editUsername(payload) {
+      const access_token = localStorage.getItem("access_token");
+      const { first_name, last_name } = payload;
+      axios({
+        url: "/user",
+        method: "patch",
+        headers: {
+          access_token,
+        },
+        data: {
+          first_name,
+          last_name,
+        },
+      })
+        .then(({ data }) => {
+          this.isEditUsername = false;
+          this.fetchUserProfile();
+        })
+        .catch((err) => {
+          console.log(err.response.data.msg);
+        });
+    },
+    fetchOrganizationList() {
+      const access_token = localStorage.getItem("access_token");
+      axios({
+        url: "/organizations",
+        method: "get",
+        headers: {
+          access_token,
+        },
+      })
+        .then(({ data }) => {
+          this.organizations = data;
+          this.organizationCount = data.length;
+        })
+        .catch((err) => {
+          console.log(err.response.data.msg);
+        });
+    },
+    fetchTasksOrganization(OrganizationId) {
+      const access_token = localStorage.getItem("access_token");
+      axios({
+        url: `/tasks?OrganizationId=${OrganizationId}`,
+        method: "get",
+        headers: {
+          access_token,
+        },
+      })
+        .then(({ data }) => {
+          this.tasks = data;
+        })
+        .catch((err) => {
+          console.log(err.response.data.msg);
+        });
+    },
+    fetchOrganizationMember(OrganizationId) {
+      const access_token = localStorage.getItem("access_token");
+      axios({
+        url: `/organizations/${OrganizationId}/members`,
+        method: "get",
+        headers: {
+          access_token,
+        },
+      })
+        .then(({ data }) => {
+          this.members = data;
+        })
+        .catch((err) => {
+          console.log(err.response.data.msg);
+        });
+    },
+    activeOrg(payload) {
+      this.activeOrgId = payload;
+      this.fetchTasksOrganization(payload);
+      this.fetchOrganizationMember(payload);
+    },
+    addTask(payload) {
+      const access_token = localStorage.getItem("access_token");
+      const { title, OrganizationId, CategoryId } = payload;
+      axios({
+        url: "/tasks",
+        method: "post",
+        headers: {
+          access_token,
+        },
+        data: {
+          title,
+          OrganizationId,
+          CategoryId,
+        },
+      })
+        .then(({ data }) => {
+          this.fetchTasksOrganization(data.OrganizationId);
+        })
+        .catch((err) => {
+          console.log(err.response.data.msg);
+        });
+    },
+    deleteTask(payload) {
+      const access_token = localStorage.getItem("access_token");
+      axios({
+        url: `/tasks/${payload}`,
+        method: "delete",
+        headers: {
+          access_token,
+        },
+      })
+        .then(({ data }) => {
+          this.fetchTasksOrganization(this.activeOrgId);
+        })
+        .catch((err) => {
+          console.log(err.response.data.msg);
+        });
+    },
+    editTask(payload) {
+      console.log(payload);
+      const access_token = localStorage.getItem("access_token");
+      const { id, title, description, due_date } = payload;
+      axios({
+        url: `/tasks/${id}`,
+        method: "put",
+        headers: {
+          access_token,
+        },
+        data: {
+          title,
+          description,
+          due_date,
+        },
+      })
+        .then(({ data }) => {
+          this.fetchTasksOrganization(this.activeOrg);
+        })
+        .catch((err) => {
+          console.log(err.response.data.msg);
+        });
     },
   },
   created() {

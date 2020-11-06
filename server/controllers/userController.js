@@ -75,6 +75,40 @@ class UserController {
       next(error)
     }
   }
+
+  static async editUsername(req, res, next) {
+    try {
+      const payload = {
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        profile_picture: `https://ui-avatars.com/api/?name=${req.body.first_name}+${req.body.last_name}&background=random&rounded=true`
+      }
+      const option = {
+        where: {
+          id: req.loggedInUser.id
+        },
+        returning: true
+      }
+      const edited = await User.update(payload, option)
+      res.status(200).json(edited[1][0])
+    } catch (error) {
+      console.log(error)
+      next(error)
+    }
+  }
+
+  static async findOne(req, res, next) {
+    try {
+      const user = await User.findByPk(req.params.id)
+      res.status(200).json({
+        name: user.first_name + ' ' + user.last_name,
+        email: user.email,
+        profile_picture: user.profile_picture
+      })
+    } catch (error) {
+      next(error)
+    }
+  }
 }
 
 module.exports = UserController

@@ -8,5 +8,7 @@ router.post('/google-login', UserController.googleLogin)
 
 router.use(authentication)
 router.get('/user', UserController.loggedInUserInfo)
+router.patch('/user', UserController.editUsername)
+router.get("/user/:id", UserController.findOne)
 
 module.exports = router

@@ -21,7 +21,7 @@ class TaskController {
         }
         const data = await Task_Tag.findAll(option)
         const tasks = data.map(el => {
-          const { id, title, description, due_date, updatedAt } = el.Task
+          const { id, title, description, due_date, updatedAt, OwnerId } = el.Task
           const user = {
             name: el.Task.User.first_name + ' ' + el.Task.User.last_name,
             email: el.Task.User.email,
@@ -36,9 +36,18 @@ class TaskController {
             }
             return tag
           })
+          const assignees = el.Task.Assignees.map(el3 => {
+            const assignee = {
+              id: el3.User.id,
+              name: el3.User.first_name + ' ' + el3.User.last_name,
+              email: el3.User.email,
+              profile_picture: el3.User.profile_picture
+            }
+            return assignee
+          })
 
           const task = {
-            id, title, description, due_date, user, category, tags, updatedAt
+            id, title, description, due_date, user, category, tags, updatedAt, assignees, OwnerId
           }
           return task
         })
@@ -60,7 +69,7 @@ class TaskController {
         }
         const data = await Task.findAll(option)
         const tasks = data.map(el => {
-          const { id, title, description, due_date, updatedAt } = el
+          const { id, title, description, due_date, updatedAt, OwnerId } = el
           const user = {
             name: el.User.first_name + ' ' + el.User.last_name,
             email: el.User.email,
@@ -75,9 +84,18 @@ class TaskController {
             }
             return tag
           })
+          const assignees = el.Assignees.map(el3 => {
+            const assignee = {
+              id: el3.User.id,
+              name: el3.User.first_name + ' ' + el3.User.last_name,
+              email: el3.User.email,
+              profile_picture: el3.User.profile_picture
+            }
+            return assignee
+          })
 
           const task = {
-            id, title, description, due_date, user, category, tags, updatedAt
+            id, title, description, due_date, user, category, tags, updatedAt, assignees, OwnerId
           }
           return task
         })
@@ -111,7 +129,6 @@ class TaskController {
         description: req.body.description,
         due_date: req.body.due_date,
         UserId: req.loggedInUser.id,
-        CategoryId: req.body.CategoryId
       }
       const option = {
         where: {

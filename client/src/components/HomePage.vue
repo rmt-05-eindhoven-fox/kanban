@@ -7,177 +7,29 @@
             :userInfo="userInfo"
             :isEditUsername="isEditUsername"
             @showEditUsername="showEditUsername"
+            @editUsername="editUsername"
           ></UserProfile>
           <hr />
           <div class="side-navbar d-flex flex-column">
-            <p>Dashboard</p>
-            <div class="organization-sidebar">
-              <div class="d-flex justify-content-between align-self-center">
-                <p>
-                  Organizations <span class="badge badge-secondary">2</span>
-                </p>
-                <span><i class="fa fa-plus-circle"></i></span>
-              </div>
-              <div class="organization-list">
-                <p>> Kanban</p>
-                <p class="text-muted">> Group Project</p>
-                <p class="text-muted">> E-commerce</p>
-              </div>
-            </div>
+            <OrganizationSidebar
+              :organizations="organizations"
+              :organizationCount="organizationCount"
+              @activeOrg="activeOrg"
+              :activeOrgId="activeOrgId"
+            ></OrganizationSidebar>
           </div>
-          <div class="member-sidebar">
-            <div class="d-flex justify-content-between align-self-center">
-              <p>Members <span class="badge badge-secondary">10</span></p>
-              <span><i class="fa fa-plus-circle"></i></span>
-            </div>
-            <div class="member-list d-flex flex-wrap">
-              <img
-                class="member-avatar"
-                src="https://ui-avatars.com/api/?name=Yosia+Elnino&background=random&rounded=true"
-                alt="user-avatar"
-              />
-              <img
-                class="member-avatar"
-                src="https://ui-avatars.com/api/?name=Amanda+Jehan&background=random&rounded=true"
-                alt="user-avatar"
-              />
-              <img
-                class="member-avatar"
-                src="https://ui-avatars.com/api/?name=Nadiva+Ramadhani&background=random&rounded=true"
-                alt="user-avatar"
-              />
-              <img
-                class="member-avatar"
-                src="https://ui-avatars.com/api/?name=Rizky+Yoditia&background=random&rounded=true"
-                alt="user-avatar"
-              />
-              <img
-                class="member-avatar"
-                src="https://ui-avatars.com/api/?name=Dewi+Joanne&background=random&rounded=true"
-                alt="user-avatar"
-              />
-              <p class="member-avatar circle">+5</p>
-            </div>
-          </div>
+          <MemberSidebar v-if="activeOrgId" :members="members"></MemberSidebar>
         </div>
-        <div class="col main-col">
-          <div class="topbar">
-            <div class="d-flex justify-content-between">
-              <h1>Kanban</h1>
-            </div>
-            <div class="navbar-top d-flex">
-              <p>BOARD</p>
-              <P>SETTINGS</P>
-              <i
-                class="fa fa-bell nav-icon dropdown-toggle"
-                data-toggle="dropdown"
-                ><span id="notification_count" class="notification-alert"></span
-              ></i>
-              <div
-                id="notification-content"
-                class="dropdown-menu dropdown-menu-right"
-              ></div>
-            </div>
-          </div>
-          <div class="main-content">
-            <div
-              class="container-fluid scrollable scroll-touch category-content overflow-auto"
-            >
-              <div class="d-flex">
-                <div class="card category">
-                  <div class="card-body">
-                    <div class="card-title">
-                      <h5>
-                        Backlog
-                        <span id="doing-count" class="badge badge-count"></span>
-                      </h5>
-                      <a
-                        id="Doing"
-                        class="btn add-button"
-                        onclick="showAddTodo(id)"
-                        >Add Task</a
-                      >
-                    </div>
-                    <div class="scrollable category-body" id="doing-content">
-                      <div class="card card-task">
-                        <div class="card-body">
-                          <h1>hahaha</h1>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="card category">
-                  <div class="card-body">
-                    <div class="card-title">
-                      <h5>
-                        Todo
-                        <span id="doing-count" class="badge badge-count"></span>
-                      </h5>
-                      <a
-                        id="Doing"
-                        class="btn add-button"
-                        onclick="showAddTodo(id)"
-                        >Add Task</a
-                      >
-                    </div>
-                    <div
-                      class="scrollable category-body"
-                      id="doing-content"
-                    ></div>
-                  </div>
-                </div>
-                <div class="card category">
-                  <div class="card-body">
-                    <div class="card-title">
-                      <h5>
-                        Doing
-                        <span id="doing-count" class="badge badge-count"></span>
-                      </h5>
-                      <a
-                        id="Doing"
-                        class="btn add-button"
-                        onclick="showAddTodo(id)"
-                        >Add Task</a
-                      >
-                    </div>
-                    <div
-                      class="scrollable category-body"
-                      id="doing-content"
-                    ></div>
-                  </div>
-                </div>
-                <div class="card category">
-                  <div class="card-body">
-                    <div class="card-title">
-                      <h5>
-                        Done
-                        <span id="doing-count" class="badge badge-count"></span>
-                      </h5>
-                      <a
-                        id="Doing"
-                        class="btn add-button"
-                        onclick="showAddTodo(id)"
-                        >Add Task</a
-                      >
-                    </div>
-                    <div
-                      class="scrollable category-body"
-                      id="doing-content"
-                    ></div>
-                  </div>
-                </div>
-                <div class="card category">
-                  <div
-                    class="card-body d-flex flex-column justify-content-center"
-                  >
-                    <h3 class="text-center">+ Add Category</h3>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <MainContent
+          v-if="activeOrgId"
+          :organization="activeOrgDetail"
+          :tasks="tasks"
+          :isShowDetail="isShowDetail"
+          @addTask="addTask"
+          @deleteTask="deleteTask"
+          @editTask="editTask"
+        ></MainContent>
+        <NoOrganization v-else></NoOrganization>
       </div>
     </div>
   </section>
@@ -185,16 +37,58 @@
 
 <script>
 import UserProfile from "./UserProfile";
+import OrganizationSidebar from "./OrganizationSidebar";
+import MainContent from "./MainContent";
+import NoOrganization from "./NoOrganization";
+import MemberSidebar from "./MemberSidebar";
 
 export default {
   name: "HomePage",
   components: {
     UserProfile,
+    OrganizationSidebar,
+    MainContent,
+    NoOrganization,
+    MemberSidebar,
   },
-  props: ["userInfo", "isEditUsername"],
+  data() {
+    return {
+      isShowDetail: false,
+    };
+  },
+  props: [
+    "userInfo",
+    "isEditUsername",
+    "organizations",
+    "organizationCount",
+    "activeOrgId",
+    "tasks",
+    "members",
+  ],
   methods: {
     showEditUsername() {
       this.$emit("showEditUsername");
+    },
+    editUsername(payload) {
+      this.$emit("editUsername", payload);
+    },
+    activeOrg(payload) {
+      this.isShowDetail = false;
+      this.$emit("activeOrg", payload);
+    },
+    addTask(payload) {
+      this.$emit("addTask", payload);
+    },
+    deleteTask(payload) {
+      this.$emit("deleteTask", payload);
+    },
+    editTask(payload) {
+      this.$emit("editTask", payload);
+    },
+  },
+  computed: {
+    activeOrgDetail() {
+      return this.organizations.filter((org) => org.id === this.activeOrgId);
     },
   },
 };

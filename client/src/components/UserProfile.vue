@@ -15,7 +15,7 @@
       <input
         v-show="isEditUsername"
         v-model="userInfo.name"
-        @keyup.enter="editUsername()"
+        @keyup.enter="editUsername"
         type="text"
         class="uname-input"
         id="input-username"
@@ -40,7 +40,7 @@ export default {
           first_name: names[0],
           last_name: names[1],
         };
-        console.log(payload);
+        this.$emit("editUsername", payload);
       }
     },
   },
