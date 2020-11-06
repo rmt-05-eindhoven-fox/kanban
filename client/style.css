@@ -1,0 +1,311 @@
+/* GLOBAL */
+body {
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+.container-fluid { padding: 0;}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* LOGIN-REGISTER */
+.login-side {
+  min-height: 100vh;
+  background:#212531;
+  background: linear-gradient(to right bottom, #2f3441 50%, #212531 50%);
+}
+
+.login-card {
+  width: 25vw;
+  border-radius: 15px;
+  padding: 32px;
+}
+
+.login-form {
+  margin-top: 32px;
+}
+
+.login-btn {
+  background-color: #2E3031;
+  color: white;
+  width: 100%;
+  margin-top: 16px;
+}
+
+.login-btn:hover {
+  background-color: #2E3031E6;
+  color: white;
+}
+
+.to-login {
+  color: #2E3031;
+}
+
+.to-login:hover {
+  color: #2E3031E6;
+  cursor: pointer;
+}
+
+.kanban-illustration {
+  width: 30vw;
+}
+
+.brand-title {
+  margin-top: 32px;
+  font-size: 3rem;
+}
+
+/* SIDEBAR */
+.sidebar{
+  background-color: #2E3031;
+  height: 100vh;
+  color: white;
+}
+
+.btn-group-user {
+  float: right;
+}
+
+.option-btn-user {
+  color: white !important
+}
+
+.user-profile {
+  margin-left: 16px;
+}
+
+.user-avatar {
+  margin-top: 8px;
+}
+
+.user-name {
+  margin-top: 12px;
+}
+
+.edit-username {
+  font-size: 18px;
+}
+
+.uname-input {
+  text-align: center;
+  margin-top: 12px;
+  margin-bottom: 8px;
+}
+
+hr {
+  margin-left: 16px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  width: 100%;
+  border: 1px solid white;
+}
+
+.side-navbar {
+  margin-top: 16px;
+  margin-left: 20px;
+}
+
+.member-sidebar {
+  margin-top: 8px;
+  margin-left: 20px;
+}
+
+.badge-count {
+  border: 2px solid white;
+  padding: 2px;
+}
+
+.organization-list {
+  margin-left: 18px;
+}
+
+.organizationList-button:hover {
+  background-color: #f1f1f180;
+  cursor: pointer;
+}
+
+.member-avatar {
+  width: 30px;
+  margin-bottom: 8px;
+}
+
+.member-avatar + .member-avatar {
+  margin-left: 4px;
+}
+
+.circle {
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  border-radius: 50%;
+  color: black;
+  text-align: center;
+  background: #f1f1f1
+}
+
+/* MAIN COLUMN */
+.main-col {
+  height: 100vh;
+  width: 100%;
+  background-color: #f1f1f1;
+  padding: 0;
+}
+
+.board-title {
+  margin-top: 16px;
+}
+
+.topbar {
+  width: 100%;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 8px;
+  background-color: white;
+}
+
+.navbar-top {
+  margin-top: 8px;
+}
+
+.nav-item2 {
+  margin-right: 24px;
+}
+
+.notification-bell{
+  margin-bottom: 10px;
+  padding: 5px;
+  font-size: 1.5rem;
+}
+
+.navbar-left {
+  margin-left: 8px;
+}
+
+.logout-btn {
+  background-color: #2E3031;
+  color: white;
+  margin-right: 8px;
+  width: 10vw;
+  padding: 1px;
+}
+
+.main-content {
+  height: 80vh;
+  width: 83vw;
+  border-radius: 15px;
+  margin-left: 16px;
+}
+
+.category-content {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.category {
+  margin-top: 24px;
+  height: 80vh;
+  min-width: 20vw;
+  max-width: 20vw;
+  border-radius: 15px;
+}
+
+.category + .category {
+  margin-left: 16px;
+}
+
+.category-body {
+  max-height: 65vh;
+  overflow-y: auto;
+}
+
+.add-button {
+  background-color: #2E3031;
+  width: 100%;
+  color: white !important;
+  border-radius: 15px;
+  margin-top: 8px;
+}
+
+.add-button:hover {
+  background-color: #2E3031E6;
+  cursor: pointer;
+}
+
+.card-task {
+  margin-top: 16px;
+  background-color: #f1f1f1;
+  border-radius: 15px;
+}
+
+.card-task:hover {
+  background-color: #2E303130;
+  cursor: pointer;
+}
+
+.task-title {
+  margin-top: 8px;
+}
+
+.add-cat-card {
+  background-color: #2E303130;
+  border-radius: 15px;
+}
+
+.add-cat-card:hover {
+  background-color: rgba(255, 255, 255, 0.055);
+  cursor: pointer;
+}
+
+.btn-add-group {
+  margin-top: 8px;
+}
+
+.btn-addTask {
+  background-color: #2E3031;
+  width: 100%;
+  color: white;
+}
+
+.btn-addTask:hover {
+  background-color: #2E3031E6
+}
+
+.btn-close {
+  background-color: red;
+  width: 100%;
+  color: white;
+}
+
+.option-btn:hover {
+  cursor: pointer;
+}
+
+.edit-title-form {
+  margin-top: 8px;
+  font-size: 3rem;
+  height: 50px
+}
+
+.btn-group-edit {
+  margin-top: 64px;
+}
+
+.edit-bottom {
+  margin-top: 32px;
+}
+
+.category-add-form{
+  height: 26vh !important;
+}
+
+.nav-item:hover{
+  color: #2E303180;
+  cursor: pointer;
+}
+
+.nav-item + .nav-item {
+  margin-left: 32px;
+}
