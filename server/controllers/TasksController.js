@@ -3,7 +3,7 @@ const {Task, User} = require('../models/index');
 class TasksController {
     static async list(req, res, next) {
         try {
-            const tasks = await Task.findAll()
+            const tasks = await Task.findAll({ order: [["updatedAt", "ASC"]], include: {model: User, attributes: {exclude: ["password"]}} });
             res.status(200).json(tasks)
         } catch (err) {
             next(err)
@@ -59,7 +59,7 @@ class TasksController {
                 })
             } else {
                 res.status(200).json({
-                    message: 'Task Deleted Successfully'
+                    msg: 'Task Deleted Successfully'
                 });
             }
         } catch (err) {

@@ -1,38 +1,38 @@
 function errorHandler(err, req, res, next) {
     let name = err.name || '';
-    let status, error;
+    let status, msg;
 
     switch (name) {
         case 'SequelizeValidationError':
             status = 400;
-            error = err.errors.map(el => el.message).join(' ');
+            msg = err.errors.map(el => el.message).join(' ');
             break;
         case 'BadRequest':
             status = 400;
-            error = 'Wrong Email/Password!';
+            msg = 'Wrong Email/Password!';
             break;
         case 'Invalid':
             status = 400;
-            error = 'Invalid Email/Password!';
+            msg = 'Invalid Email/Password!';
             break;
         case 'AuthenticationFailed':
             status = 401;
-            error = 'Authentication Failed!';
+            msg = 'Authentication Failed!';
             break;
         case 'NotAuthorized':
             status = 403;
-            error = 'Not Authorized!';
+            msg = 'Not Authorized!';
             break;
         case 'NotFound':
             status = 404;
-            error = 'Error Not Found!';
+            msg = 'Error Not Found!';
             break;
         default:
             status = 500;
-            error = 'Internal Server error';
+            msg = 'Internal Server error';
             break;
     }
-    res.status(status).json({error})
+    res.status(status).json({msg})
 }
 
 module.exports = errorHandler;
