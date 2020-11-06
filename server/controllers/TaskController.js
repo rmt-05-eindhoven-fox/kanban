@@ -32,8 +32,7 @@ class TaskController {
           category: el.category,
           email: el.User.email,
           UserId: el.UserId,
-          createdAt: el.createdAt.toLocaleString(),
-          updatedAt: el.updatedAt
+          updatedAt: el.updatedAt.toLocaleString()
         }
       });
       res.status(200).json(taskList)
@@ -56,8 +55,7 @@ class TaskController {
           category: task.category,
           email: task.User.email,
           UserId: task.User.Id,
-          createdAt: task.createdAt.toLocaleString(),
-          updatedAt: task.updatedAt
+          updatedAt: el.updatedAt.toLocaleString()
         }
         res.status(200).json(selectedTask)
       }
@@ -111,7 +109,6 @@ class TaskController {
         returning: true
       }
       const task = await Task.destroy(options)
-      // console.log(task);
       res.status(200).json({msg: 'deleted succesfully'})
     } catch (err) {
       next(err)

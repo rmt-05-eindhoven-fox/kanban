@@ -24,9 +24,15 @@
             <label for="login-password">Password</label>
             <input v-model="password" type="password" class="form-control" id="login-password">
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
         </form>
-        <a v-on:click.prevent="changePage('register-page')" class="card-link mt-5" href="#">Don't have account? Register</a>
+        <div>
+          <button v-google-signin-button="clientId" class=" g-signin2"> Continue with Google</button>
+          <br>
+          <a v-on:click.prevent="changePage('register-page')" class="card-link mt-5" href="#">Don't have account? Register</a>
+        </div>
       </div>
     </div>
   </section>
@@ -38,7 +44,8 @@ export default {
   data() {
     return {
       email: '',
-      password: ''
+      password: '',
+      clientId: '605552826084-p50o3ksc0a9htdap0cp8v9ctobf26cgh.apps.googleusercontent.com'
     }
   },
   methods: {
@@ -51,11 +58,33 @@ export default {
         password: this.password
       }
       this.$emit('login', payload)
+    },
+    OnGoogleAuthSuccess (idToken) {
+      // console.log(idToken, 'mantul')
+      this.$emit('OnGoogleAuthSuccess', idToken)
+    },
+    OnGoogleAuthFail (error) {
+      // console.log(error, 'err')
+      this.$emit('OnGoogleAuthFail', error)
     }
   }
 }
 </script>
 
 <style>
-
+/* * {
+  background-image: url('../../assets/login-wave.svg');
+} */
+.google-signin-button {
+  background-color: transparent;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
 </style>

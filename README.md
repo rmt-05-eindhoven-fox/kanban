@@ -18,16 +18,19 @@ _Request Header_
 _Request Body_
 ```
 {
-  "email": "aher@mail.com",
-  "password": "asdasd"
+  "email": "odading@mail.com",
+  "password": "asdasd",
+  "first_name": "Mang",
+  "last_name": "Oleh"
 }
 ```
 
 _Response (201 - Created)_
 ```
 {
-  "id": 1,
-  "email": "aher@mail.com"
+  "email": "odading@mail.com",
+  "first_name": "Mang",
+  "last_name": "Oleh"
 }
 ```
 _Response (400 - Bad request)_
@@ -56,7 +59,7 @@ _Request Header_
 _Request Body_
 ```
 {
-  "email": "aher@mail.com",
+  "email": "odading@mail.com",
   "password": "asdasd"
 }
 ```
@@ -64,7 +67,9 @@ _Request Body_
 _Response (200 - OK)_
 ```
 {
-  "accesstoken": "<your access token>"
+  "accesstoken": "<your access token>",
+  "first_name": "Mang",
+  "last_name": "Oleh"
 }
 ```
 _Response (400 - Bad request)_
@@ -87,6 +92,38 @@ _Response (500 - Internal server error)_
 }
 ```
 ---
+///////////
+### POST /loginGoogle
+
+> Login user with google OAuth
+
+_Request Header_
+```
+<not needed>
+```
+
+_Request Body_
+```
+{
+  "access_token": <"your_google_token">
+}
+```
+
+_Response (200 - OK)_
+```
+{
+  "accesstoken": "<your access token>",
+  "first_name": "Mang",
+  "last_name": "Oleh"
+}
+```
+_Response (500 - Internal server error)_
+```
+{
+  "errors": "internal server error"
+}
+```
+---
 ### POST /tasks
 
 > Create new task
@@ -102,7 +139,7 @@ _Request Body_
 ```
 {
   "title": "Membuat server Kanban",
-  "category": "backlog"
+  "category": "Backlog"
 }
 ```
 
@@ -110,7 +147,7 @@ _Response (201 - Created)_
 ```
 {
   "title": "Membuat server Kanban",
-  "category": "backlog",
+  "category": "Backlog",
   "userId": 1,
   "createdAt": "2020-03-20T07:15:12.149Z",
   "updatedAt": "2020-03-20T07:15:12.149Z"
@@ -150,20 +187,20 @@ _Response (200 - OK)_
 ```
 [
   {
-    "id": 1,
+    "id": 3,
     "title": "Membuat server Kanban",
-    "category": "backlog"
-    "email": "aher@mail.com",
-    "createdAt": "2020-03-20",
-    "updatedAt": "2020-03-20T0",
+    "category": "Done"
+    "email": "ceer7@mail.com",
+    "UserId": 1,
+    "updatedAt": "11/4/2020, 21:15:27"
   },
   {
-    "id": 2,
+    "id": 4,
     "title": "Membuat client Kanban",
-    "category": "backlog"
+    "category": "Backlog"
     "email": "zaza@mail.com",
-    "createdAt": "2020-03-20",
-    "updatedAt": "2020-03-20",
+    "UserId": 2,
+    "updatedAt": "11/6/2020, 11:13:02"
   }
 ]
 ```
@@ -207,13 +244,24 @@ _Response (200 - OK)_
 {
   "id": 1,
   "title": "Membuat server Kanban",
-  "category": "backlog"
+  "category": "Backlog"
   "email": "aher@mail.com",
-  "createdAt": "2020-03-20",
-  "updatedAt": "2020-03-20"
+  "createdAt": "10/6/2020, 09:53:32",
+  "updatedAt": "11/6/2020, 11:13:02"
 }
 ```
-
+_Response (401 - Not authorized!)_
+```
+{
+  "errors": "Not authorized!"
+}
+```
+_Response (404 - Not Found!)_
+```
+{
+  "errors": "task not found!"
+}
+```
 _Response (500 - Internal server error)_
 ```
 {
@@ -240,20 +288,20 @@ _Request Params_
 _Request Body_
 ```
 {
-  "title": "Update login OAuth google",
-  "category": "backlog"
+  "title": "Membuat layout client",
+  "category": "Done"
 }
 ```
 
 _Response (200 - OK)_
 ```
 {
-  "id": 1,
-  "title": "Update login OAuth google",
-  "category": "backlog",
-  "userId": 1,
-  "createdAt": "2020-03-20T07:15:12.149Z",
-  "updatedAt": "2020-03-20T07:15:12.149Z"
+  "id": 5,
+  "title": "Membuat layout client",
+  "category": "Done"
+  "email": "007@mail.com",
+  "createdAt": "10/6/2020, 09:53:32",
+  "updatedAt": "11/6/2020, 11:13:02"
 }
 ```
 _Response (400 - Bad request)_
@@ -265,7 +313,13 @@ _Response (400 - Bad request)_
 _Response (401 - Not authorized!)_
 ```
 {
-  "errors": "Category is required!"
+  "errors": "Not authorized!"
+}
+```
+_Response (404 - Not Found!)_
+```
+{
+  "errors": "task not found!"
 }
 ```
 _Response (500 - Internal server error)_
@@ -294,16 +348,16 @@ _Request Params_
 _Request Body_
 ```
 {
-  "category": "backlog"
+  "category": "Backlog"
 }
 ```
 
 _Response (200 - OK)_
 ```
 {
-  "id": 1,
+  "id": 9,
   "title": "Mengupdate OAuth google",
-  "category": "done",
+  "category": "Backlog",
   "userId": 1,
   "createdAt": "2020-03-20T07:15:12.149Z",
   "updatedAt": "2020-03-20T07:15:12.149Z"
@@ -318,7 +372,13 @@ _Response (400 - Bad request)_
 _Response (401 - Not authorized!)_
 ```
 {
-  "errors": "Category is required!"
+  "errors": "Not authorized!"
+}
+```
+_Response (404 - Not Found!)_
+```
+{
+  "errors": "task not found!"
 }
 ```
 _Response (500 - Internal server error)_
@@ -360,13 +420,19 @@ _Response (201 - Created)_
 _Response (400 - Bad request)_
 ```
 {
-  "errors": "Category is required!"
+  "errors": "task ID is not valid!"
 }
 ```
 _Response (401 - Not authorized!)_
 ```
 {
-  "errors": "Category is required!"
+  "errors": "Not authorized!"
+}
+```
+_Response (404 - Not Found!)_
+```
+{
+  "errors": "task not found!"
 }
 ```
 _Response (500 - Internal server error)_

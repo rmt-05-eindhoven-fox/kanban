@@ -1,5 +1,10 @@
 <template>
   <section class="container mt-5" id="register-page">
+    <div>
+      <h1 class="text-center">
+        KANBAN
+      </h1>
+    </div>
     <div class="row d-flex align-items-center">
       <div class="col-4">
         <h3 class="text-center">Register</h3>

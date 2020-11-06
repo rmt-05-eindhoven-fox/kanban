@@ -4,9 +4,10 @@
       <h5 class="card-title">{{ task.title }}</h5>
       <!-- <p class="card-text">{{ task.category }}</p> -->
       <!-- <div class="d-flex justify-content-between"> -->
-        <div class="text-right font-weight-lighter" style="font-size: 0.8em">
+      <div class="d-flex justify-content-between">
+        <div class="font-weight-lighter" style="font-size: 0.8em">
           <p class="card-text text-muted my-0">{{ task.email }}</p>
-          <p class="card-text text-muted my-0">{{ task.createdAt }}</p>
+          <p class="card-text text-muted my-0">{{ task.updatedAt }}</p>
         </div>
         <div class="text-right">
           <a @click.prevent="toEditPage(task.id, task.category, task.title)" href="#" class="card-link">
@@ -16,6 +17,7 @@
             <i class="fas fa-trash"></i>
           </a>
         </div>
+      </div>
     </div>
   </div>
 </template>

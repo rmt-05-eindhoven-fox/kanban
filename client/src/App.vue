@@ -22,6 +22,8 @@
       v-if="pageName === 'login-page'"
       @changePage="changePage"
       @login='login'
+      @OnGoogleAuthSuccess='OnGoogleAuthSuccess'
+      @OnGoogleAuthFail='OnGoogleAuthFail'
       >
 
     </LoginPage>
@@ -137,13 +139,22 @@ export default {
         }
       })
         .then(({data}) => {
-          console.log(data);
+          // console.log(data);
           this.changePage('login-page')
+          Swal.fire({
+            icon: 'success',
+            title: 'Register Successfull',
+            text: `${data.email} registered succesfully!`
+          })
         })
         .catch(error => {
-          // console.log(error.response.data);
-          const err = error.response.data.msg
+         const err = error.response.data.msg
           console.log(err);
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: err
+          })
         })
     },
     login(payload) {
@@ -168,18 +179,45 @@ export default {
           this.logged_last_name = localStorage.getItem('logged_last_name')
           this.fetchTasks()
           this.changePage('main-page')
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Login Successfull',
+            text: `Welcome ${this.logged_first_name}`,
+            showConfirmButton: false,
+            timer: 1500
+          })
         })
         .catch(error => {
           // console.log(error.response.data);
           const err = error.response.data.msg
           console.log(err);
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: err
+          })
         })
     },
     logout(){
-      localStorage.clear()
-      this.logged_first_name = ''
-      this.logged_last_name = ''
-      this.changePage('login-page')
+      Swal.fire({
+        title: `Are you sure want to logout ${this.logged_first_name}?
+          :(`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: `Logout`
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          localStorage.clear()
+          this.logged_first_name = ''
+          this.logged_last_name = ''
+          this.changePage('login-page')
+          Swal.fire('Logged out!', '', 'success')
+        }
+      })
     },
     checkLogin() {
       const access_token = localStorage.getItem('access_token')
@@ -217,11 +255,12 @@ export default {
           console.log(data);
           this.fetchTasks()
           this.changePage('main-page')
+          Swal.fire('Add Task Successfull','Task added succesfully!', 'success')
         })
         .catch(error => {
           // console.log(error.response.data);
           const err = error.response.data.msg
-          console.log(err);
+          Swal.fire('Error',err, 'error')
         })
     },
     toEditPage(payload) {
@@ -246,35 +285,96 @@ export default {
         }
       })
         .then(({data}) => {
-          console.log(data);
+          // console.log(data);
+          Swal.fire('Edit Successfull','Edited in succesfully!', 'success')
           this.fetchTasks()
           this.changePage('main-page')
         })
         .catch(error => {
-          // console.log(error.response.data);
           const err = error.response.data.msg
-          console.log(err);
+          Swal.fire('Error',err, 'error')
         })
     },
     deleteTask(payload) {
-      const {id} = payload 
-      axios({
-        url: `/tasks/${id}`,
-        method: 'delete',
-        headers: {
-          access_token: this.access_token
+      const {id} = payload
+      Swal.fire({
+        title: `Delete`,
+        text: `Are you sure want to delete this Task?
+          :(`,
+        icon: 'warning',
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        showCancelButton: true,
+        confirmButtonText: `Delete`
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          return axios({
+            url: `/tasks/${id}`,
+            method: 'delete',
+            headers: {
+              access_token: this.access_token
+            }
+          })
+          Swal.fire('Task deleted succesfully!', '', 'success')
         }
       })
-        .then(({data}) => {
-          console.log(data);
-          this.fetchTasks()
-          this.changePage(payload.page)
+      .then((response) => {
+        this.fetchTasks()
+        this.changePage(payload.page)
+      })
+      .catch(error => {
+        const err = error.response.data.msg
+        Swal.fire('Error',err, 'error')
+      })
+    },
+    OnGoogleAuthSuccess (idToken) {
+      // console.log(idToken, 'mantul main')
+      const access_token = idToken
+      axios({
+        url: '/loginGoogle',
+        method: 'post',
+        data: {
+          access_token
+        }
+      })
+      .then(({data}) => {
+        const access_token = data.access_token
+        localStorage.setItem('logged_first_name', data.first_name)
+        localStorage.setItem('logged_last_name', data.last_name)
+        localStorage.setItem('access_token', access_token)
+        this.access_token = access_token
+        this.logged_first_name = localStorage.getItem('logged_first_name')
+        this.logged_last_name = localStorage.getItem('logged_last_name')
+        this.fetchTasks()
+        this.changePage('main-page')
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Login Successfull',
+          text: `Welcome ${this.logged_first_name}`,
+          showConfirmButton: false,
+          timer: 3000
         })
-        .catch(error => {
-          // console.log(error.response.data);
-          const err = error.response.data.msg
-          console.log(err);
+      })
+      .catch(error => {
+        const err = error.response.data.msg
+        console.log(err);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: err
         })
+      }) 
+      // Receive the idToken and make your magic with the backend
+    },
+    OnGoogleAuthFail(error) {
+      console.log(error, 'err main')
+      Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Google login failed!'
+      })
     }
   },
   created() {
