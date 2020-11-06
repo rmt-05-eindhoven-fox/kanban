@@ -10,7 +10,7 @@
                 </div>
 
                 <div class="col-md-7 col-lg-6 ml-auto">
-                    <form action="#">
+                    <form @submit.prevent="login">
                         <div class="row">
                             <!-- Email Address -->
                             <div class="input-group col-lg-12 mb-4">
@@ -19,7 +19,7 @@
                                         <i class="fa fa-envelope text-muted"></i>
                                     </span>
                                 </div>
-                                <input id="email" type="email" name="email" placeholder="Email Address" class="form-control bg-white border-left-0 border-md">
+                                <input v-model="email" id="email" type="email" name="email" placeholder="Email Address" class="form-control bg-white border-left-0 border-md">
                             </div>
 
                             <!-- Password -->
@@ -29,14 +29,14 @@
                                         <i class="fa fa-lock text-muted"></i>
                                     </span>
                                 </div>
-                                <input id="password" type="password" name="password" placeholder="Password" class="form-control bg-white border-left-0 border-md">
+                                <input v-model="password" id="password" type="password" name="password" placeholder="Password" class="form-control bg-white border-left-0 border-md">
                             </div>
 
                             <!-- Submit Button -->
                             <div class="form-group col-lg-12 mx-auto mb-0">
-                                <a v-on:click="changePage('home-page')" href="#" class="btn btn-primary btn-block py-2">
+                                <button type="submit" class="btn btn-primary btn-block py-2">
                                     <span class="font-weight-bold">Login</span>
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -48,7 +48,22 @@
 
 <script>
 export default {
-    name: 'LoginPage'
+    name: 'LoginPage',
+    data(){
+        return {
+            email: '',
+            password: ''
+        }
+    },
+    methods: {
+        login(){
+            let dataLogin = {
+                email: this.email,
+                password: this.password
+            }
+            this.$emit('login', dataLogin)
+        }
+    }
 }
 </script>
 

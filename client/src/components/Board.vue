@@ -4,7 +4,13 @@
             <div>
                 <h5>{{detailCategories.name}}</h5>
             </div>
-                <Todo></Todo>
+            <div class="todo">
+                <Todo v-for="todo in tiapTodo"
+                :key="todo.id"
+                :todo="todo"
+                @toEditPage="toEditPage"
+                @deleteTodo="deleteTodo"></Todo>
+            </div>
         </div>
     </div>
 </template>
@@ -16,7 +22,20 @@ export default {
     components: {
         Todo
     },
-    props: ['detailCategories']
+    methods: {
+        toEditPage(payload){
+            this.$emit('toEditPage', payload)
+        },
+        deleteTodo(payload){
+            this.$emit('deleteTodo', payload)
+        }
+    },
+    props: ['detailCategories', 'dataTodo'],
+    computed: {
+        tiapTodo(){
+            return this.dataTodo.filter(elemen => elemen.category === this.detailCategories.name)
+        }
+    }
 }
 </script>
 

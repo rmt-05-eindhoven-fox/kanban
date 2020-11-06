@@ -5,11 +5,10 @@ function authorization(req, res, next){
     .then((dataTask) => {
         if(!dataTask) throw {msg: "Task not found"}
         else{
-            console.log(dataTask.UserId, req.loggedIn)
             if(dataTask.UserId === req.loggedIn.id){
                 next()
             }
-            else throw {msg: "Not authorized"}
+            else throw {msg: "Not authorized", status: 403}
         }
     })
     .catch((err) => {

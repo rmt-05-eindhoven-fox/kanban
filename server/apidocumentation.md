@@ -178,6 +178,43 @@ _Response (403 - Forbidden)_
 }
 ```
 ---
+### GET /tasks/:id
+>Get task by id that created by all user
+
+_Request Params_
+```
+req.params.id 
+```
+
+_Request Headers_
+```
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhbmFuQGdtYWlsLmNvbSIsImlhdCI6MTYwNDQxMDc1MH0.VgDifLpE55AYZLb2tmLYeTwX34B0uLMz0wQEU91hfB8"
+}
+```
+
+_Request Body_
+```
+Not needed
+```
+_Response (200 - OK)_
+```
+{
+    "title": <string>,
+    "description": <string>,
+    "category": <string>
+}
+```
+
+_Response (403 - Forbidden)_
+```
+{
+    "errors": [
+        "Authentication failed"
+    ]
+}
+```
+---
 ### PUT /tasks
 >Update task only by user with the same UserId
 

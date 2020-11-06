@@ -30,7 +30,7 @@ class UserController{
             else{
                 let payload = { id: dataUser.id, email: dataUser.email }
                 let token = generateToken(payload)
-                res.status(200).json({token})
+                res.status(200).json({email: payload.email, token})
             }
         }).catch((err) => {
             next(err)
@@ -60,7 +60,7 @@ class UserController{
         .then(dataUser => {
             let payload = {id: dataUser.id, email: dataUser.email}
             let token = generateToken(payload)
-            return res.status(200).json({ token })
+            return res.status(200).json({ email: payload.email, token })
         })
         .catch(err => {
             next(err)

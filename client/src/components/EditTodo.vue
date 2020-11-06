@@ -1,8 +1,8 @@
 <template>
-        <div class="row justify-content-center mt-4">
+          <div class="row justify-content-center mt-4">
             <div class="col-4 container">
-                <form @submit.prevent="addTodo">
-                    <h1>CREATE TODO</h1>
+                <form @submit.prevent="editTodo">
+                    <h1>EDIT TODO</h1>
                     <div class="form-group">
                         <label for="title-todo">Title</label>
                         <input v-model="title" type="text" id="title-todo" class="form-control">
@@ -24,8 +24,8 @@
                             <option value="Done">Done</option>
                         </select>
                     </div>
-                    <div class="addForm-button">
-                    <button type="submit" class="btn btn-primary">Add Todo</button>
+                    <div class="editForm-button">
+                    <button type="submit" class="btn btn-primary">Edit Todo</button>
                     </div>
                 </form>
                 <div class="mt-3">
@@ -37,27 +37,30 @@
 
 <script>
 export default {
-    name: 'AddTodo',
+    name: 'EditTodo',
     data(){
         return {
-            title: '',
-            description: '',
-            category: ''
+            id: this.dataEdit.id,
+            title: this.dataEdit.title,
+            description: this.dataEdit.description,
+            category: this.dataEdit.category
         }
     },
     methods: {
         pindahKe(page){
             this.$emit('changePage', page)
         },
-        addTodo(){
+        editTodo(){
             let payload = {
+                id: this.id,
                 title: this.title,
                 description: this.description,
                 category: this.category
             }
-            this.$emit('addTodo', payload)
+            this.$emit('editTodo', payload)
         }
-    }
+    },
+    props: ['dataEdit']
 }
 </script>
 

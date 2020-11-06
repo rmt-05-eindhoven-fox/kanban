@@ -14,7 +14,7 @@ class TaskController{
     }
 
     static findAll(req, res, next){
-        Task.findAll({order: [["id", "asc"]], include: User})
+        Task.findAll({order: [["id", "asc"]], include: {model: User,attributes: {exclude: ["password"]}}})
         .then((dataTask) => {
             res.status(200).json({dataTask})
         })
@@ -24,9 +24,9 @@ class TaskController{
     }
     static findById(req, res, next){
         const id = req.params.id
-        Task.findByPk(id, {include: User})
+        Task.findByPk(id, {include: {model: User, attributes: {exclude: ["password"]}}})
         .then((dataTask) => {
-            res.status(200).json({dataTask})
+            res.status(200).json({title: dataTask.title, description: dataTask.description, category: dataTask.category})
         })
         .catch((err) => {
             next(err)
@@ -40,7 +40,7 @@ class TaskController{
         }).then((dataTask) => {
             if(!dataTask) throw {msg: "Task not found", status: 404}
             else{
-                res.status(201).json({dataTask, msg: "Success update task"})
+                res.status(200).json({dataTask, msg: "Success update task"})
             }
         }).catch((err) => {
             next(err)
