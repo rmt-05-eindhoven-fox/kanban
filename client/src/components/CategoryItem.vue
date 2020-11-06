@@ -31,11 +31,6 @@ export default {
   
   name: "CategoryItem",
   props: ["task"],
-  computed: {
-    convertDate(){
-      console.log(task);
-    }
-  }
 };
 </script>
 

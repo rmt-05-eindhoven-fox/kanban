@@ -13,9 +13,10 @@
         <h3 class="text-center">Login to your account</h3>
         <div class="row justify-content-center">
           <div class="col-12 col-lg-4">
-            <form>
+            <form @submit.prevent="userLogin">
               <div class="form-group">
                 <input
+                  v-model="email"
                   type="email"
                   class="form-control"
                   id="login-email"
@@ -26,6 +27,7 @@
               </div>
               <div class="form-group">
                 <input
+                  v-model="password"
                   type="password"
                   class="form-control"
                   id="login-password"
@@ -35,7 +37,7 @@
               </div>
               <div class="btn-section">
                 <button type="submit" class="btn btn-login">Login</button><br />
-                <button class="btn btn-link">Create your account</button>
+                <button type="button" @click="toRegisterPage" class="btn btn-link">Create your account</button>
               </div>
             </form>
           </div>
@@ -51,9 +53,26 @@ export default {
   props: ["logoPng"],
   data() {
     return {
-      logo,
+      email: '',
+      password: '',
     };
   },
+  methods: {
+    userLogin(){
+      let payload = {
+        email: this.email,
+        password: this.password
+      }
+      this.$emit('userLogin', payload)
+    },
+
+    toRegisterPage(){
+      let data = {
+        pageName: 'register'
+      }
+      this.$emit('toRegisterPage', data)
+    }
+  }
 };
 </script>
 

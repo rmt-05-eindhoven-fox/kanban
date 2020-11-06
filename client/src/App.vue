@@ -1,7 +1,13 @@
 <template>
   <div>
-    <LoginPage :logoPng="logoUrl" v-if="pageName == 'login'"></LoginPage>
+    <LoginPage 
+    :logoPng="logoUrl" v-if="pageName == 'login'"
+    @toRegisterPage="toRegisterPage"
+    @userLogin="userLogin"
+    ></LoginPage>
     <RegisterPage
+      @createAccount="createAccount"
+      @toLoginPage="toLoginPage"
       :logoPng="logoUrl"
       v-else-if="pageName == 'register'"
     ></RegisterPage>
@@ -24,7 +30,7 @@ export default {
   name: "App",
   data() {
     return {
-      pageName: "home",
+      pageName: "login",
       logoUrl: logo,
       categoryList: [
         {
@@ -51,20 +57,66 @@ export default {
   methods: {
     fetchTasks() {
       axios({
-        url: "/tasks",
+        url: '/tasks',
         method: 'get'
       })
       .then(({data}) => {
-        console.log(data, "data task");
         this.dataTasks = data
       })
       .catch(err => {
         console.log(err.response);
       })
+    },
+    createAccount(payload){
+      axios({
+        url: '/register',
+        method: 'post',
+        data: {
+          full_name: payload.full_name,
+          email: payload.email,
+          password: payload.password
+        }
+      })
+      .then(({data}) => {
+        console.log(data);
+        this.pageName = 'login'
+      })
+      .catch(err => {
+        console.log(err.response);
+      })
+    },
+    toLoginPage(data){
+      this.pageName = data.pageName
+    },
+    userLogin(payload){
+      axios({
+        url: '/login',
+        method: 'post',
+        data: {
+          email: payload.email,
+          password: payload.password
+        }
+      })
+      .then(({data}) => {
+        localStorage.setItem('token', data.access_token)
+      })
+      .catch(err => {
+        console.log(err.response);
+      })
+    },
+    toRegisterPage(data){
+      this.pageName = data.pageName
     }
   },
+
   created() {
-    this.fetchTasks()
+    const token = localStorage.getItem('token')
+    if (token) {
+      this.pageName = 'home'
+      this.fetchTasks()
+    } else {
+      this.pageName = 'login'
+    }
   }
 };
 </script>
