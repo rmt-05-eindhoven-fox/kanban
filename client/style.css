@@ -1,0 +1,101 @@
+body{
+  margin:0px;
+  padding:0px;
+}
+
+a{
+  text-decoration: none;
+}
+
+.containerFormLogin{
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  background-color: burlywood;
+  align-items: center;
+  background-image: linear-gradient(rgb(134, 255, 134), yellow);
+}
+
+.contentFormLogin{
+  display: flex;
+  width: 50%;
+  height: 70%;
+  
+}
+
+.cardImage{
+  
+  width: 50%;
+
+}
+
+.cardLogin{
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.containerKanban{
+  display: flex;
+  flex-direction: column;
+  background-image: linear-gradient(rgb(134, 255, 134), yellow);
+  height: 100vh;
+}
+
+.containerMenu{
+  display: flex;
+  justify-content: space-evenly;
+  background-color: #f5b461;
+  align-items: center;
+  padding: 10px;
+}
+.sizeIcon{
+  font-size: 30px;
+}
+.menulink{ 
+  width: 200px;
+  align-items: center;
+  text-align: center;
+}
+
+.titleTodo{
+  height: 40px; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  border-radius: 10px;
+  box-shadow: 5px 5px 8px 3px #8888;
+  width: 100%;
+}
+
+.contentTodo{ 
+background-color: #eeeeee;
+margin-top: 10px;
+border-radius: 10px;
+height: 70vh; 
+}
+
+.btnAddCard{
+  border: 2px solid #0278ae;
+  background-color: red;
+  height: 50px;
+}
+
+.btnCard{
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.card{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 80px;
+  padding:10px;
+  margin: 5px;
+  ;
+}
