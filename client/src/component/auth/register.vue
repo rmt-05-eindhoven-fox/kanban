@@ -60,7 +60,7 @@
           REGISTER
         </button>
         <div class="signin_with mt-3">
-          <a class="link" href="#" @click="formLogin"
+          <a class="link" href="#" @click.prevent="formLogin"
             >You already have a membership?</a
           >
         </div>
@@ -91,7 +91,7 @@ export default {
         password: this.password,
       };
       this.$emit("prosesRegister", payload);
-      console.log(this.user.status)
+      console.log(this.user.status);
       if (this.user.status == 201) {
         this.clearForm();
         this.formLogin();

@@ -23,7 +23,7 @@
             <button
               class="btn btn-primary btn-icon float-right"
               type="button"
-              @click="logout"
+              @click.prevent="logout"
             >
               <i class="zmdi zmdi-arrow-right"></i>
             </button>
@@ -34,7 +34,7 @@
               data-keyboard="false"
               type="button"
               title="Create new Category"
-              @click="createCategory"
+              @click.prevent="createCategory"
             >
               <i class="zmdi zmdi-reader"></i>
             </button>
@@ -45,7 +45,7 @@
               data-keyboard="false"
               type="button"
               title="Create new Organization"
-              @click="createOrganization"
+              @click.prevent="createOrganization"
             >
               <i class="zmdi zmdi-plus"></i>
             </button>
@@ -56,6 +56,7 @@
               data-keyboard="false"
               type="button"
               title="Logout"
+              @click.prevent="createMember"
             >
               <i class="zmdi zmdi-accounts"></i>
             </button>
@@ -169,6 +170,10 @@ export default {
 
     createCategory() {
       this.$emit("createCategory", null);
+    },
+
+    createMember() {
+      this.$emit("createMember", null);
     },
 
     logout() {

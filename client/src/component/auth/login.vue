@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form @submit.prevent="prosesLogin()" class="card auth_form">
+    <form @submit.prevent="prosesLogin" class="card auth_form">
       <div class="header">
         <!-- <img class="logo" src="public/images/" alt=""> -->
         <h5>Log in</h5>
@@ -33,7 +33,11 @@
           />
         </div>
         <div class="signin_with">
-          <button type="submit" class="btn-lg btn-link" @click="formRegister">
+          <button
+            type="submit"
+            class="btn-lg btn-link"
+            @click.prevent="formRegister"
+          >
             Register new membership?
           </button>
         </div>

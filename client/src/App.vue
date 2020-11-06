@@ -19,6 +19,7 @@
       @changeOrganization="changeOrganization"
       @createOrganization="createOrganization"
       @createCategory="createCategory"
+      @createMember="createMember"
       @logout="logout"
     >
     </Home>   
@@ -95,7 +96,7 @@ export default {
     // whenever question changes, this function will run
     currentOrganizationId() {
       this.loadOrganizationById(this.currentOrganizationId);
-    },
+    }, 
   },
 
   methods: {
@@ -104,8 +105,9 @@ export default {
     },
 
     logout() {
+      console.log("object tisini logout");
       localStorage.clear();
-      // this.allOrganizations = {};
+      this.allOrganizations = {};
       this.changePage("auth-page");
     },
 
@@ -386,10 +388,54 @@ export default {
           })
             .then(({ data }) => {
               this.loadOrganizationById();
-              this.$swal.fire("Created!", "message", "success");
+              this.$swal.fire(
+                "Created!",
+                "Sucessfully createt new category!",
+                "success"
+              );
             })
             .catch((err) => {
               this.errorHandler(err, "Save Task Failed!");
+              console.log(err.response);
+            });
+        },
+        allowOutsideClick: () => !Swal.isLoading(),
+      });
+    },
+
+    createMember() {
+      let message = "";
+      Swal.fire({
+        title: "Type email user!",
+        input: "text",
+        inputAttributes: {
+          autocapitalize: "off",
+        },
+        showCancelButton: true,
+        confirmButtonText: "Create",
+        showLoaderOnConfirm: true,
+        preConfirm: (email) => {
+          axios({
+            url: "organizations/member",
+            method: "post",
+            data: {
+              OrganizationId: this.currentOrganizationId,
+              email,
+            },
+            headers: {
+              access_token: localStorage.getItem("access_token"),
+            },
+          })
+            .then(({ data }) => {
+              this.loadOrganizationById();
+              this.$swal.fire(
+                "Created!",
+                "Successfully add new member",
+                "success"
+              );
+            })
+            .catch((err) => {
+              this.errorHandler(err, "Userr not found!");
               console.log(err.response);
             });
         },
