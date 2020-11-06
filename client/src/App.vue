@@ -5,7 +5,8 @@
       ref="homePage"
       v-if="pageName === 'home-page'"
       @register="register"
-      @login="login">
+      @login="login"
+      @googleLogin="googleLogin">
     </HomePage>
     <!-- ! user-page -->
     <UserPage 
@@ -17,8 +18,36 @@
       @createCategory="createCategory"
       @addTask="addTask"
       @editTask="editTask"
-      @deleteTask="deleteTask">
+      @deleteTask="deleteTask"
+      @patchTask="patchTask">
     </UserPage>
+
+        <div class="modal fade" id="modal-password" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+            <form
+            @submit.prevent="googleLoginFinal">
+          <div class="modal-body">
+              <div class="form-group p-4">
+                <label for="googleLogin">Enter Password</label>
+                <input 
+                  v-model="googleLogin2.password"
+                  type="password" class="form-control" id="googleLogin" placeholder="Password">
+              </div>
+            </div>
+            <div class="modal-footer"> 
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Let me in!</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
   </div>
 </template>
 
@@ -26,13 +55,13 @@
 import HomePage from './components/HomePage';
 import UserPage from './components/UserPage';
 import axios from './config/axios';
+
 export default {
   name: 'KanbanApp',
   data() {
     return {
       msg: 'Hello World!',
       pageName: '',
-      access_token: localStorage.access_token,
       formLogin: {
         email: '',
         password: ''
@@ -44,8 +73,11 @@ export default {
       },
       userDetail: [],
       otherUsers: '',
-      categories: [],
-      tasks: []
+      googleLogin2: {
+        name: '',
+        email: '',
+        password: ''
+      }
     }
   },
   components: {
@@ -54,12 +86,10 @@ export default {
   },
   methods: {
     changePage(pageName) {
-      if(this.pageName !== pageName) {
-        this.pageName = pageName;
-      }
+      this.pageName = pageName;
     },
     isLogin() {
-      if (this.access_token) {
+      if (localStorage.access_token) {
         this.fetchUserDetail();
         this.fetchUsers();
       } else {
@@ -67,19 +97,29 @@ export default {
       }
     },
     fetchUserDetail() {
-        axios.get('/projects')
-          .then(({ data }) => {
-            console.log(data);
-            this.userDetail = data;
-            this.changePage('user-page')
-          })
-          .catch(err => {
-            this.changePage('home-page');
-            console.log(err.response.data);
-          });
+      axios({
+        method: 'GET',
+        url: '/projects',
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then(({ data }) => {
+          this.userDetail = data;
+          this.changePage('user-page')
+        })
+        .catch(err => {
+          this.changePage('home-page');
+        });
     },
     fetchUsers() {
-      axios.get('/users')
+      axios({
+        method: 'GET',
+        url: '/users',
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
         .then(({ data }) => {
           this.otherUsers = data;
         })
@@ -87,11 +127,14 @@ export default {
     },
     login(payload) {
       Swal.showLoading();
-      axios.post('/login', payload)
+      axios({
+        method: 'post',
+        url: '/login',
+        data: payload
+      })
         .then(({ data }) => {
           this.toastSwal('Signed in successfully');
           localStorage.setItem('access_token', data.access_token);
-          localStorage.setItem('name', data.name);
           this.fetchUserDetail();
           this.activeUser.name = data.name;
           this.$refs.homePage.clearLoginForm();
@@ -100,14 +143,60 @@ export default {
           this.swalFailed(err.response.data.error);
         });
     },
+    googleLogin(payload) {
+      axios({
+        method: 'post',
+        url: '/login/google',
+        headers: {
+          google_access_token: payload.google_access_token
+        }
+      })
+        .then(({ data }) => {
+          Swal.close();
+          if(data.access_token) {
+            this.toastSwal('Signed in successfully');
+            localStorage.setItem('access_token', data.access_token);
+            this.fetchUserDetail();
+            this.activeUser.name = data.name;
+            this.$refs.homePage.clearLoginForm();
+          } else {
+            this.googleLogin2.name = data.name;
+            this.googleLogin2.email = data.email;
+            $('#modal-password').modal('toggle');
+          }
+        })
+        .catch(err => {
+          this.swalFailed(err.response.data.error);
+        })
+    },
+    googleLoginFinal() {
+      $('#modal-password').modal('toggle');
+      Swal.showLoading();
+      const payload = this.googleLogin2;
+      this.register(payload);
+    },
     register(payload) {
       Swal.showLoading();
-      axios.post('/register', payload)
+      axios({
+        method: 'POST',
+        url: '/register',
+        data: payload
+      })
         .then(({ data }) => {
-          this.swalSuccess('Thank you for registering on Kanban', 'center', undefined, undefined, () => {
-            $('#modal-sign-in').modal('toggle');
-          });
-            this.$refs.homePage.clearRegisForm();
+          if(this.googleLogin2.password) {
+            const payload = {
+              name: data.name,
+              email: data.email,
+              password: this.googleLogin2.password
+            }
+            this.login(payload);
+            this.googleLogin2.password = ''
+          } else {
+            this.swalSuccess('Thank you for registering on Kanban', 'center', undefined, undefined, () => {
+              $('#modal-sign-in').modal('toggle');
+            });
+              this.$refs.homePage.clearRegisForm();
+          }
         })
         .catch(err => {
           this.swalFailed(err.response.data.error);
@@ -130,11 +219,26 @@ export default {
         })
     },
     createProject(payload) {
-      console.log(payload, 'berhasil sampai ke App');
-      axios.post('/projects', payload)
+      console.log(payload, localStorage.access_token, 'sebelum request')
+      axios({
+        url: '/projects',
+        method: 'POST',
+        headers: {
+          access_token: localStorage.access_token
+        },
+        data: payload
+      })
         .then(response => {
           if(payload.userId) {
-            return axios.post(`/projects/${response.data.id}`, payload)
+            return axios({
+              method: 'POST',
+              url: `/projects/${response.data.id}`,
+              headers: {
+                access_token: localStorage.access_token
+              },
+              data: payload
+
+            })
           } else {
             return Promise.resolve(response);
           }
@@ -148,9 +252,16 @@ export default {
         });
     },
     createCategory(payload) {
-      axios.post(`/projects/${payload.projectId}/categories`, payload)
+      axios({
+        url: `/projects/${payload.projectId}/categories`,
+        method: 'post',
+        data: payload,
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
         .then(({ data }) => {
-          console.log(data);
+          // console.log(data);
           this.swalSuccess(`Successfully add ${data.name} as new category`, 'top-end');
           this.fetchUserDetail();
         })
@@ -159,7 +270,14 @@ export default {
         })
     },
     addTask(payload) {
-      axios.post(`/projects/${payload.projectId}/categories/${payload.categoryId}/tasks`, payload)
+      axios({
+        method: 'post',
+        url: `/projects/${payload.projectId}/categories/${payload.categoryId}/tasks`,
+        headers: {
+          access_token: localStorage.access_token
+        },
+        data: payload
+      })
         .then(({ data }) => {
           this.toastSwal(`${data.title} added as your task`);
           this.fetchUserDetail();
@@ -169,7 +287,14 @@ export default {
         });
     },
     editTask(payload) {
-      axios.put(`/projects/${payload.projectId}/categories/${payload.categoryId}/tasks/${payload.id}`, payload)
+      axios({
+        method: 'put',
+        url: `/projects/${payload.projectId}/categories/${payload.categoryId}/tasks/${payload.id}`,
+        headers: {
+          access_token: localStorage.access_token
+        },
+        data: payload
+      })
         .then(({ data }) => {
           this.toastSwal(`Successfully edit your task`);
           this.fetchUserDetail();
@@ -179,7 +304,13 @@ export default {
         });
     },
     deleteTask(payload) {
-      axios.delete(`/projects/${payload.projectId}/categories/${payload.categoryId}/tasks/${payload.id}`)
+      axios({
+        method: 'delete',
+        url: `/projects/${payload.projectId}/categories/${payload.categoryId}/tasks/${payload.id}`,
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
         .then(({ data }) => {
             Swal.fire(
               'Deleted!',
@@ -190,6 +321,24 @@ export default {
         })
         .catch(err => {
           this.swalFailed(err.response.data.error);
+        })
+    },
+    patchTask(payload) {
+      axios({
+        method: 'patch',
+        url: `/projects/${payload.projectId}/categories/${payload.CategoryId}/tasks/${payload.id}`,
+        headers: {
+          access_token: localStorage.access_token
+        },
+        data: payload
+      })
+        .then(({ data }) => {
+          this.toastSwal(`${data.title} has been successfully moved`);
+        })
+        .catch(err => {
+          console.log(err.error);
+          this.swalFailed(err.response.data.error);
+          this.fetchUserDetail();
         })
     },
     swalSuccess(message, position, confirmButton, timer, cb) {

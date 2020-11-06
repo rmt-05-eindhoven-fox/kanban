@@ -65,19 +65,24 @@
                   type="password" class="form-control" id="sign-in-password" placeholder="Password">
               </div>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer"> 
+              <GoogleLogin class="mr-auto" :params="params" :renderParams="renderParams" :onSuccess="onSuccess" :onFailure="onFailure"></GoogleLogin>              
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               <button type="submit" class="btn btn-primary">Let me in!</button>
             </form>
           </div>
         </div>
-      </div>
+      </div>    
   </section>
 </template>
 
 <script>
+import GoogleLogin from 'vue-google-login';
 export default {
   name: 'HomePage',
+  components: {
+    GoogleLogin
+  },
   data() {
     return {
       formLogin: {
@@ -88,6 +93,14 @@ export default {
         name: '',
         email: '',
         password: ''
+      },
+      params: {
+        client_id: '81303156909-bjn8cue6cp3sit10qh79ogo4qjt961qm.apps.googleusercontent.com'
+      },
+      renderParams: {
+        width: 150,
+        height: 40,
+        longtitle: false
       }
     }
   },
@@ -110,6 +123,18 @@ export default {
       for (const key in this.formLogin) {
         this.formLogin[key] = '';
       }
+    },
+    onSuccess(googleUser) {
+      $('#modal-sign-in').modal('toggle');
+      Swal.showLoading();
+      let google_access_token = googleUser.getAuthResponse().id_token;
+      const payload = {
+        google_access_token
+      };
+      this.$emit('googleLogin', payload);
+    },
+    onFailure() {
+      console.log('error')
     }
   },
   props: [ 'registered' ]
@@ -117,5 +142,13 @@ export default {
 </script>
 
 <style>
-
+.g-signin-button {
+  /* This is where you control how the button looks. Be creative! */
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 3px;
+  background-color: #3c82f7;
+  color: #fff;
+  box-shadow: 0 3px 0 #0f69ff;
+}
 </style>

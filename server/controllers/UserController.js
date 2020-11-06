@@ -110,14 +110,14 @@ class UserController {
           email
         }
       });
-  
+
       if(user) {
-        const accessToken = loginToken({
+        const access_token = loginToken({
           id: user.id,
           email: user.email
         });
         res.status(200).json({
-          accessToken, name: user.name
+          access_token, name: user.name
         })
       } else {
         res.status(200).json({

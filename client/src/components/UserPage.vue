@@ -58,13 +58,29 @@
       </nav>
     </div>
     <Project
-      :projectDetail="projectDetail"
+      v-if="!projectDetail"
       :userDetail="userDetail"
+      :otherUsers="otherUsers"
       :allUsers="allUsers"
+      @createProject="createProject"
       @createCategory="createCategory"
       @addTask="addTask"
       @editTask="editTask"
-      @deleteTask="deleteTask">
+      @deleteTask="deleteTask"
+      @patchTask="patchTask">
+    </Project>
+    <Project
+      v-else
+      :projectDetail="projectDetail"
+      :userDetail="userDetail"
+      :otherUsers="otherUsers"
+      :allUsers="allUsers"
+      @createProject="createProject"
+      @createCategory="createCategory"
+      @addTask="addTask"
+      @editTask="editTask"
+      @deleteTask="deleteTask"
+      @patchTask="patchTask">
     </Project>
   </section>
 </template>
@@ -142,6 +158,9 @@ export default {
     },
     deleteTask(payload) {
       this.$emit('deleteTask', payload);
+    },
+    patchTask(payload) {
+      this.$emit('patchTask', payload);
     }
   },
   created() {

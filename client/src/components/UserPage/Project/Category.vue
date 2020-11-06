@@ -2,14 +2,16 @@
   <div class="card mx-4 my-4 bg-light shadow" style="width:272px">
     <div class="card-body m-0 p-2">
       <h5 class="card-title text-center">{{categoryDetail.name}}</h5>
-      <Task
-        v-for="task in categoryDetail.Tasks"
-        :key="task.id"
-        :taskDetail="task"
-        :allUsers="allUsers"
-        @editTask="editTask"
-        @deleteTask="deleteTask">
-      </Task>
+        <draggable :list="categoryDetail.Tasks" :animation="200" ghost-class="ghost-card" group="tasks" @add="update()">
+          <Task
+            v-for="task in categoryDetail.Tasks"
+            :key="task.id"
+            :taskDetail="task"
+            :allUsers="allUsers"
+            @editTask="editTask"
+            @deleteTask="deleteTask">
+          </Task>
+        </draggable>
       <a href="#" class="btn btn-info btn-block p-1 mt-2" data-toggle="modal" :data-target="buttonModalId"><i class="fa fa-plus"></i> Add Task</a>
     </div>
         <!-- ! Modal Add Task -->
@@ -50,6 +52,7 @@
 </template>
 
 <script>
+import draggable from 'vuedraggable'
 import Task from './Category/Task'
 export default {
   name: 'Category',
@@ -58,11 +61,12 @@ export default {
       addTaskForm: {
         title: '',
         description: ''
-      },
+      }
     }
   },
   components: {
-    Task
+    Task,
+    draggable
   },
   props: ['categoryDetail', 'allUsers'],
   computed: {
@@ -81,6 +85,9 @@ export default {
       payload.category = this.categoryDetail.name;
       payload.categoryId = this.categoryDetail.id;
       this.$emit('addTask', payload);
+      for (const key in this.addTaskForm) {
+         this.addTaskForm[key] = '';
+      }
     },
     editTask(payload) {
       payload.categoryId = this.categoryDetail.id;
@@ -89,7 +96,14 @@ export default {
     deleteTask(payload) {
       payload.categoryId = this.categoryDetail.id;
       this.$emit('deleteTask', payload);
-    }
+    },
+    update() {
+      let payload;
+      this.categoryDetail.Tasks.forEach(task => {
+        if(task.CategoryId !== this.categoryDetail.id) payload = task;  
+      })
+      this.$emit('patchTask', payload);
+    },
   }
 }
 </script>

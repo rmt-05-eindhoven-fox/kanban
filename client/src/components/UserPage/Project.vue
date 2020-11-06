@@ -2,21 +2,24 @@
   <!-- ! Project content -->
   <div>
         <!-- ! Content -->
-    <div class="d-inline-flex overflow-auto" style="min-width: 100vw">
-      <!-- <p style="color: white">
-        {{ projectDetail }}
-        </p> -->
+    <div class="d-inline-flex overflow-auto" style="min-width: 100vw">        
       <Category
+        v-if="!projectDetail">
+      </Category>
+      <Category
+        v-else
         v-for="category in projectDetail.Categories"
         :key="category.id"
         :categoryDetail="category"
         :allUsers="allUsers"
         @addTask="addTask"
         @editTask="editTask"
-        @deleteTask="deleteTask">
+        @deleteTask="deleteTask"
+        @patchTask="patchTask">
       </Category>
       <div class="align-self-start mx-4 my-4 px-0">
         <span
+          v-if="projectDetail"
           data-toggle="modal" data-target="#addCategory"
           class="btn btn-primary mx-0"><i class="fa fa-plus"></i> Add Category</span>
       </div>
@@ -39,18 +42,20 @@
                 v-model="addProjectForm.projectName"
                 type="text" class="form-control" id="project-title" aria-describedby="emailHelp" placeholder="Your project name">
               </div>
-              <div class="form-group p-4">
+              <div 
+                v-if="otherUsers.length > 0"
+                class="form-group p-4">
                 <label for="members1">Add other project collaborator:</label>
-                <input 
+                <select 
                   v-model="addProjectForm.selectedMember"
-                  list="members1" name="member">
-                <datalist id="members1">
+                  id="members1">
+                  <option value="" disabled>Choose other member</option>
                   <option
                     v-for="member in otherUsers"
                     :value="member.id"
                     :key="member.id">{{ member.name }}
                   </option>
-                </datalist>
+                </select>
               </div>
           </div>
           <div class="modal-footer">
@@ -62,7 +67,9 @@
       </div>
     </div>
     <!-- ! Modal Add Member -->
-    <div class="modal fade" id="addMember" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div 
+      v-if="projectDetail"
+      class="modal fade" id="addMember" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -73,8 +80,11 @@
           </div>
           <form>
             <div class="modal-body">
+              {{ filteredMember }}
               <div class="container overflow-auto h-100" style="max-height: 50vh;">
-                <table class="table table-sm table-dark">
+                <table 
+                  v-if="collaborators.length > 0"
+                  class="table table-sm table-dark">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
@@ -93,17 +103,20 @@
                   </tbody>
                 </table>
               </div>
-                <div class="form-group p-4">
+                <div
+                  v-if="otherUsers.length > 0"
+                  class="form-group p-4">
                   <label for="members2">Add other project collaborator:</label>
-                  <input 
-                    v-model="addProjectForm.selectedMember"
-                    list="members2" name="member">
-                  <datalist id="members2">
-                    <option
-                      v-for="member in otherUsers"
-                      :key="member.id">{{ member.name }}
+                    <select 
+                  v-model="addMemberForm.selectedMember"
+                  id="members2">
+                  <option value="" disabled>Choose other member</option>
+                  <option
+                    v-for="member in filteredMember"
+                    :value="member.id"
+                    :key="member.id">{{ member.name }}
                   </option>
-                  </datalist>
+                </select>
                 </div>
             </div>
             <div class="modal-footer">
@@ -115,7 +128,9 @@
       </div>
     </div>
     <!-- ! Modal Add Category -->
-        <div class="modal fade" id="addCategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div 
+          v-if="projectDetail"
+          class="modal fade" id="addCategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -144,7 +159,6 @@
     </div>
 
 
-    <!-- ! Modal Edit Task NOT YET -->
     <!-- ! Button Add Project -->
     <div class="fixed-bottom p-5 d-flex">
       <button type="button" class="btn btn-success ml-auto text-white" data-toggle="modal" data-target="#addProject">Add New Project</button>
@@ -153,6 +167,7 @@
 </template>
 
 <script>
+import draggable from './Project/Category'
 import Category from './Project/Category'
 export default {
   name: 'Project',
@@ -164,24 +179,32 @@ export default {
       },
       addCategoryForm: {
         categoryName: ''
+      },
+      addMemberForm: {
+        selectedMember: ''
       }
     }
   },
   components: {
-    Category
+    Category,
+    draggable
   },
   props: ['otherUsers', 'projectDetail', 'userDetail', 'allUsers' ],
   computed: {
-    lookUpMembersById() {
-      return this.otherUsers.filter(person => {
-        return person.name == this.addProjectForm.selectedMember;
-      });
-    },
     collaborators() {
       if (!this.projectDetail) {
         return [];
       } else {
         return this.projectDetail.Collaborators;
+      }
+    },
+    filteredMember() {
+      if (this.otherUsers.length === 0 || this.collaborators.length == 0) {
+        return [];
+      } else {
+        const otherUsersId = this.otherUsers.map(user => user.id);
+        const collaboratorsId = this.collaborators.map(user => user.id);
+        return this.otherUsers.filter(user => !otherUsersId.includes(user.id));
       }
     }
   },
@@ -191,9 +214,12 @@ export default {
       Swal.showLoading();
       const payload = {
         projectName: this.addProjectForm.projectName,
-        userId: this.lookUpMembersById.id
+        userId: this.addProjectForm.selectedMember
       }
       this.$emit('createProject', payload);
+      for (const key in this.addProjectForm) {
+        this.addProjectForm[key] = '';
+      }
     },
     createCategory() {
       $('#addCategory').modal('toggle');
@@ -204,6 +230,9 @@ export default {
       }
       this.addCategoryForm.categoryName = '';
       this.$emit('createCategory', payload);
+      for (const key in this.addProjectForm) {
+        this.addProjectForm[key] = '';
+      }
     },
     addTask(payload) {
       payload.projectId = this.projectDetail.id;
@@ -216,6 +245,10 @@ export default {
     deleteTask(payload) {
       payload.projectId = this.projectDetail.id;
       this.$emit('deleteTask', payload);
+    },
+    patchTask(payload) {
+      payload.projectId = this.projectDetail.id;
+      this.$emit('patchTask', payload);
     }
   }
 }
