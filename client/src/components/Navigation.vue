@@ -16,7 +16,7 @@
      <button @click="toAddPage" class="btn btn-outline-success mr-2" type="button">
       Add Task
      </button>
-     <button @click="toLoginPage" class="btn btn-outline-danger" type="button">
+     <button @click="logout" class="btn btn-outline-danger" type="button">
       Logout
      </button>
     </div>
@@ -34,8 +34,8 @@ export default {
   toAddPage() {
    this.$emit('toAddPage', 'add-page')
   },
-  toLoginPage() {
-   this.$emit('toLoginPage', 'login-page')
+  logout() {
+   this.$emit('logout')
   }
  },
 }

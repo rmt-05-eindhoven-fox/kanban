@@ -23,7 +23,7 @@
 
       <div class="row">
        <div class="col">
-        <input type="button" name="" class="login-ipt" value="Edit Task" href="#" />
+        <input type="submit" name="" class="login-ipt" value="Add Task" href="" />
        </div>
        <div class="col">
         <input @click="toHomePage" type="submit" name="" class="back-ipt" value="Go Back" href="#" />

@@ -1,9 +1,8 @@
 <template>
 <div class="container bg-yriel-yellow shadow-lg rounded-lg mt-3 outline-board">
  <div class="row">
-  <task-board v-for="(cat, i) in category" :key="i" :categoryDetail="cat" :tasks="tasks">
+  <task-board v-for="(cat, i) in category" :key="i" :categoryDetail="cat" :tasks="tasks" @toEditPage="toEditPage" @deleteTask="deleteTask">
   </task-board>
-
  </div>
 </div>
 </template>
@@ -15,7 +14,15 @@ export default {
  components: {
   TaskBoard
  },
- props: ['category', "tasks"]
+ methods: {
+  toEditPage(payload) {
+   this.$emit('toEditPage', payload)
+  },
+  deleteTask(payload) {
+   this.$emit('deleteTask', payload)
+  }
+ },
+ props: ['category', 'tasks']
 }
 </script>
 

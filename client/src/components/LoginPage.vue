@@ -13,17 +13,11 @@
       <input type="password" v-model="password" placeholder="Password" />
       <p style="color: white; font-size: 1em;font-family: monospace;">
        Don't have an account? Register
-       <a class=" to-register" href="#" style="font-family: monospace;">
+       <a class=" to-register" @click="toRegisterPage" href="#" style="font-family: monospace;">
         here</a>
       </p>
       <input type="submit" name="" class="login-ipt" value="Login" href="" />
-      <div class="col-md-12">
-       <ul class="social-network social-circle">
-        <li>
-         <a href="" class="icoGoogle" title="Google +"><i class="fab fa-google-plus"></i></a>
-        </li>
-       </ul>
-      </div>
+      <div class="g-signin2" style="margin-left: 150px" data-onsuccess="onSignIn" @click="onSignIn"></div>
      </form>
     </div>
    </div>
@@ -48,8 +42,23 @@ export default {
     password: this.password
    }
    this.$emit("login", payload);
-  }
- }
+  },
+  toRegisterPage() {
+   this.$emit("toRegisterPage", "register-page")
+  },
+  onSignIn() {
+   this.$emit('onSignIn');
+  },
+  onSignIn(user) {
+   const profile = user.getBasicProfile()
+  },
+ },
+ mounted() {
+  gapi.signin2.render('google-signin-button', {
+   onsuccess: this.onSignIn
+  })
+ },
+
 }
 </script>
 

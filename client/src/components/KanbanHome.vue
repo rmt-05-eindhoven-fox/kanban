@@ -1,8 +1,9 @@
 <template>
 <div>
- <navigation @toLoginPage="toLoginPage" @toAddPage="toAddPage"></navigation>
+ <navigation @logout="logout" @toLoginPage="toLoginPage" @toAddPage="toAddPage"></navigation>
  <div>
-  <board-list :category="data" :tasks="tasks"></board-list>
+  <board-list @deleteTask="deleteTask" @toEditPage="toEditPage" :category="data" :tasks="tasks"></board-list>
+
  </div>
 </div>
 </template>
@@ -24,8 +25,17 @@ export default {
   toLoginPage(payload) {
    this.$emit('toLoginPage', payload)
   },
+  toEditPage(payload) {
+   this.$emit('toEditPage', payload)
+  },
+  logout() {
+   this.$emit('logout')
+  },
   toHomePage(payload) {
    this.$emit('toHomePage', payload)
+  },
+  deleteTask(payload) {
+   this.$emit('deleteTask', payload)
   }
  },
 };
