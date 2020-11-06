@@ -8,7 +8,7 @@
             <div @click="logout()" class="flex-grow-0 bg-red-500 flex-row">Logout</div>
         </nav>
         <!--Main-->
-        <div class="flex flex-row mt-3" id="content-container">
+        <div class="flex flex-row mt-3 overflow-scroll overscroll-contain">
             <!--Each Category-->
             <div v-for="(category, i) in categories" :key="i">
                 <Category 
@@ -55,7 +55,6 @@ export default {
   },
   methods: {
       logout() {
-          localStorage.removeItem("access_token")
           this.$emit("logout", "Login")
       },
       addCard(value) {

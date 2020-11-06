@@ -1,11 +1,11 @@
 <template>
   <div>
-    <Login @postLogin="login" @showRegister="changePage" :pageName="pageName"></Login>
-    <Register @postRegister="register" @showLogin="changePage" :pageName="pageName"></Register>
+    <Login @postGoogleLogin="loginGoogle" @postLogin="login" @showRegister="changePage" :pageName="pageName"></Login>
+    <Register @postGoogleLogin="loginGoogle" @postRegister="register" @showLogin="changePage" :pageName="pageName"></Register>
     <Home 
         @addTask="addTask" 
         @addCategory="addCategory" 
-        @logout="changePage" 
+        @logout="logout" 
         @deleteCategory="deleteCategory"
         @deleteTask="deleteTask"
         @moveCategory="moveCategory"
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-
+import GoogleLogin from 'vue-google-login';
 import Login from "./components/Login.vue"
 import Register from "./components/Register.vue"
 import Home from "./components/Home.vue"
@@ -36,7 +36,8 @@ export default {
     components: {
         Login,
         Register,
-        Home
+        Home,
+        GoogleLogin
     },
     methods: {
         changePage(value) {
@@ -51,6 +52,25 @@ export default {
                     password: value.password
                 }
             }).then((res) => {
+                const {access_token} = res.data
+                localStorage.setItem("access_token", access_token)
+                this.changePage("Home")
+                this.fetchCategories();
+                this.fetchTasks();
+            }).catch(err => {
+                console.log(err)
+            })
+        },
+        loginGoogle(value) {
+            console.log(`in App vue`)
+            console.log(value)
+            axios({
+                method: "POST",
+                url: this.SERVER + "/loginGoogle",
+                data: {
+                    google_token: value,
+                }
+            }).then(res => {
                 const {access_token} = res.data
                 localStorage.setItem("access_token", access_token)
                 this.changePage("Home")
@@ -75,6 +95,12 @@ export default {
             }).catch(err => {
                 console.log(err)
             })
+        },
+        logout(value) {
+            this.pageName = value
+            localStorage.removeItem("access_token")
+            const auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {});
         },
         checkLogin() {
             if (localStorage.access_token) {

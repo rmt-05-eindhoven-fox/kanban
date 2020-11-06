@@ -13,9 +13,7 @@
 
             <div class="m-auto my-5">OR</div>
 
-            <button class="m-auto w-1/2 mb-6 rounded-sm bg-teal-500 hover:bg-teal-600 focus:outline-none focus:shadow-outline">
-                Continue with Google
-            </button>
+            <div class="g-signin2 m-auto mb-5" data-onsuccess="onSignIn"></div>
             <div class="m-auto mb-6 text-center">
                 <p>Already have account ?</p>
                 <button @click="showLogin()">Sign in here</button>
@@ -44,6 +42,12 @@ export default {
       },
       showLogin() {
           this.$emit("showLogin", "Login")
+      },
+      onSignIn(googleUser) {
+          const google_token = googleUser.getAuthResponse().id_token;
+          console.log(`====Google Token====`)
+          console.log(google_token)
+          this.$emit("postGoogleLogin", google_token)
       }
   },
   props: ['pageName']
