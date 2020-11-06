@@ -10,6 +10,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "axios": "^0.21.0",
     "components": "^0.1.0",
     "vue": "^2.6.12",
     "vue-hot-reload-api": "^2.3.4"

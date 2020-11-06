@@ -2,16 +2,25 @@
 	<div>
 		<HeaderNavbar> </HeaderNavbar>
 
-		<LandingPage v-if="pageName == 'landing-page'"> </LandingPage>
+		<LandingPage
+			v-if="currentPage === 'landing-page'"
+			:currentPage="currentPage"
+		>
+		</LandingPage>
 
-		<LoginPage v-else-if="pageName == 'login-page'"> </LoginPage>
+		<LoginPage v-else-if="currentPage === 'login-page'" @login="login">
+		</LoginPage>
 
-		<BoardPage 
-        v-else-if="pageName == 'board-page'" 
-        :categories="categories">
-        </BoardPage>
+		<BoardPage
+			v-else-if="currentPage === 'board-page'"
+			:categories="categories"
+			:tasks="tasks"
+			@fetchTasks="fetchTasks"
+			@signOut="signOut"
+		>
+		</BoardPage>
 
-		<RegisterPage v-else-if="pageName == 'register-page'"> </RegisterPage>
+		<RegisterPage v-else-if="currentPage === 'register-page'"> </RegisterPage>
 
 		<NotFoundPage v-else> </NotFoundPage>
 	</div>
@@ -25,36 +34,33 @@ import RegisterPage from "./components/RegisterPage";
 import NotFoundPage from "./components/NotFoundPage";
 import LandingPage from "./components/LandingPage";
 
+import axios from "../config/axios";
+
 export default {
 	name: "App",
 	data() {
 		return {
-			message: "hello world",
-			pageName: "board-page",
+			currentPage: "login-page",
+			 tasks: [],
 			categories: [
 				{
-					"id": 1,
-					"name": "BACKLOG",
+					id: 1,
+					name: "BACKLOG",
 				},
 				{
-					"id": 2,
-					"name": "TODO",
+					id: 2,
+					name: "TODO",
 				},
 				{
-					"id": 3,
-					"name": "DONE",
+					id: 3,
+					name: "DONE",
 				},
 				{
-					"id": 4,
-					"name": "COMPLETE",
+					id: 4,
+					name: "COMPLETE",
 				},
 			],
 		};
-	},
-	methods: {
-		changePage(name) {
-			this.pageName = name;
-		},
 	},
 	components: {
 		BoardPage,
@@ -63,6 +69,76 @@ export default {
 		NotFoundPage,
 		HeaderNavbar,
 		LandingPage,
+	},
+	methods: {
+		changePage(name) {
+			this.currentPage = name;
+		},
+		checkAuth() {
+			if (localStorage.access_token) {
+				this.currentPage = "board-page";
+				this.fetchTasks();
+			} else {
+				this.currentPage = "landing-page";
+			}
+		},
+		login(payload) {
+			axios({
+				url: "/login",
+				method: "POST",
+				data: {
+					email: payload.email,
+					password: payload.password,
+				},
+			})
+				.then((data) => {
+					const access_token = data.data.access_token;
+					localStorage.setItem("access_token", access_token);
+					console.log(data, "login berhasil");
+					this.fetchTasks()
+					this.currentPage ="board-page";
+				})
+				.catch((err) => {
+					console.log(err);
+				}, " gagal login");
+		},
+		registerForm() {
+			axios({
+				method: "POST",
+				url: "/register",
+				data: {
+					email: this.email,
+					password: this.password,
+				},
+			})
+				.then(({ data }) => {
+					this.currentPage = "login-page";
+					(this.email = ""), (this.password = "");
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		},
+		fetchTasks() {
+				const access_token = data.data.access_token;
+					// localStorage.setItem("access_token", access_token);
+			axios({
+				url: "/tasks",
+				method: "GET",
+				
+				headers: {
+					access_token: access_token
+				}
+					.then(({ data }) => {
+						console.log(data, " <<< ini dari data");
+						this.tasks = data;
+						this.$emit("fetchTasks");
+					})
+					.catch((err) => {
+						console.log(err, "<<<< ini error nih fetch nya");
+					}),
+			});
+		},
 	},
 };
 </script>

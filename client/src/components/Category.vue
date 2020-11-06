@@ -3,16 +3,19 @@
 		<div class="category-section">
 			<!-- CATEGORY--------BACKLOG---------------------------------------------------------->
 			<div class="category-title pt-1 mt-5">
-				<h2 class="mt-2 ml-3">B A C K L O G</h2>
+				<h2 class="mt-2 ml-3">
+					{{ categoriesDetail.name }}
+				</h2>
 			</div>
 			<!-- CATEGORY HEADER ---------------------------------------------------------------->
 			<div class="category-content overflow-auto m-3">
 				<div class="row">
-					<Task> </Task>
+					<Task v-for="task in Tasks"
+					:key="task.id"
+					> 
 
-					<Task> </Task>
+					</Task>
 
-					<Task> </Task>
 				</div>
 			</div>
 			<!-- CATEGORY FOOTER -->
@@ -59,6 +62,14 @@ export default {
 	components: {
 		Task,
 	},
+	props: [ 'categoriesDetail', 'tasks'],
+	computed: {
+		TaskperCategory(){
+
+			return this.tasks.filter(tasks => tasks.CategoryId == this.categoriesDetail.id)
+
+		}
+	}
 };
 </script>
 

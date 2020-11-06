@@ -3,7 +3,11 @@
 	<section>
 		<div class="container-fluid mt-4">
 			<div class="row mt-3 d-flex">
-				<Category v-for="category in categories" v-bind:key="category.id">
+				<Category 
+          v-for="category in categories" 
+          v-bind:key="category.id"
+					:tasks="tasks"
+          :categoriesDetail="category">
 				</Category>
 			</div>
 		</div>
@@ -18,7 +22,7 @@ export default {
 	components: {
 		Category,
 	},
-	props: ["categories"],
+	props: ["categories", "tasks"],
 };
 </script>
 

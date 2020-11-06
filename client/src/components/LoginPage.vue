@@ -14,7 +14,7 @@
      <label>Password:</label>
      <input type="password" id="password-login" v-model="password" />
      <br />
-     <button v-on:click.prevent="changePage('board-page')" class="login-btn" type="submit">Sign
+     <button class="login-btn" type="submit">Sign
       in</button> <br />
     </form>
     <span>Don't have an account?
@@ -28,7 +28,24 @@
 
 <script>
 export default {
-    name: 'LoginPage'
+    name: 'LoginPage',
+    data() {
+  
+      return { email:'', password:'' }
+    },
+    props:['currentPage'],
+    methods: {
+
+      login(){
+
+        const payload = { email:this.email, password:this.password }
+
+        this.$emit('login',payload)
+
+      }
+
+    }
+    
 
 }
 </script>
