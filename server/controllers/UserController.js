@@ -65,7 +65,7 @@ class UserController {
         audience: process.env.CLIENT_ID,
       });
       const payload = ticket.getPayload();
-      console.log(payload);
+      // console.log(payload);
       let user = await User.findOne({where: {email: payload.email}})
       if (!user) {
         const createUser = {
