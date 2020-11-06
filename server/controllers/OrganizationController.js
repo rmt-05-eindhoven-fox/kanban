@@ -19,8 +19,13 @@ class OrganizationController {
   static store(req, res, next) {
     const { name } = req.body;
     const input = { name, UserId: req.logedInUser.id };
+    let organization = {};
     Organization.create(input)
-      .then((organization) => {
+      .then((data) => {
+        organization = data;
+        const org = { UserId: req.logedInUser.id, OrganizationId: data.id }
+        return UserOrganization.create(org);
+      }).then(userOrg => {
         res.status(201).json(organization);
       }).catch((err) => {
         next(err);

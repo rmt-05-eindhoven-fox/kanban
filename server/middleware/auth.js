@@ -43,7 +43,10 @@ function authorizeOrganization(req, res, next) {
         const arrTemp = organization.Users;
         const isMember = arrTemp.find(user => user.id == req.logedInUser.id);
         if (isAdmin || isMember) {
-          if (source == 'tasks' && isMember && method == 'post') {
+          console.log("ID", isAdmin, isMember);
+          if (source == 'tasks' && (isMember || isAdmin) && method == 'post') {
+            next();
+          } else if (isAdmin && method != 'get') {
             next();
           } else if (isMember && method != 'get') {
             next(createError(401, 'Not Authorize!'))
