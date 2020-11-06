@@ -8,9 +8,9 @@
             <button @click="logout()" class="flex-grow-0 bg-red-500 flex-row hover:bg-red-600 p-2">Logout</button>
         </nav>
         <!--Main-->
-        <div class="flex flex-row mt-3 overflow-scroll overscroll-contain h-screen w-screen">
+        <div class="flex mt-3 overflow-x-auto h-screen w-screen position-relative">
             <!--Each Category-->
-            <div v-for="(category, i) in categories" :key="i">
+            <div v-for="(category, i) in categories" :key="i" class="pl-2">
                 <Category 
                     @postCard="addCard" 
                     @deleteCategory="deleteCategory" 
@@ -23,7 +23,8 @@
                     :tasks="tasks">
                 </Category>
             </div>
-            <button v-show="!isShowAddCategory" @click="showAddCategory()" class="bg-blue-300 h-8 w-auto pl-5 pr-5 hover:bg-blue-500 rounded shadow-md">
+            <div class="flex w-64 pr-6">
+            <button v-show="!isShowAddCategory" @click="showAddCategory()" class="bg-blue-300 h-8 w-64 pl-5 pr-5 hover:bg-blue-500 rounded shadow-md">
                 + Add Category
             </button>
             <div v-show="isShowAddCategory" class="flex-col ">
@@ -38,6 +39,7 @@
                 <div class="w-auto bg-red-400 rounded hover:bg-red-500">
                 <button @click="closeAddCategory">Cancel</button>
                 </div>
+            </div>
             </div>
         </div>
   </div>

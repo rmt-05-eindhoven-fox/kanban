@@ -1,5 +1,5 @@
 <template>
-    <div class="flex-col h-auto w-auto mx-3 px-0 border border-gray-400 rounded-md shadow-md">
+    <div class="flex-col h-auto w-64 mx-3 px-0 border border-gray-400 rounded-md shadow-md">
         <div id="category-title" class="container w-full flex flex-row">
             <form @submit.prevent="changeCategoryTitle" class="w-full">
                 <input 
@@ -22,6 +22,7 @@
         </div>
 
         <!--Task Container -->
+        <div class="mt-3 overflow-auto position-relative" id="TaskContainer">
         <div v-for="(task, i) in tasks" :key="i"  >
             <div v-if="task.CategoryId == category.id">
                 <Task 
@@ -33,6 +34,7 @@
                     :category="category">
                 </Task>
             </div>
+        </div>
         </div>
 
         <button v-show="!isShowAddCard" @click="showAddCard()" id="add-card" class="bg-blue-100 h-8 w-full hover:bg-blue-300">
@@ -109,5 +111,7 @@ export default {
 </script>
 
 <style>
-
+    #TaskContainer {
+        max-height: 30rem;
+    }
 </style>

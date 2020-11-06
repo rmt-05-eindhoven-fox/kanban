@@ -28,7 +28,7 @@ export default {
     name: "App",
     data() {
         return {
-            SERVER: "http://localhost:3000",
+            SERVER: "https://glacial-anchorage-70554.herokuapp.com",
             pageName: "Login",
             categories: [],
             tasks: [],

@@ -1,5 +1,5 @@
 <template>
-    <div class="h-auto bg-yellow-500 h-20 border border-gray-300 flex flex-col">
+    <div class="h-auto bg-yellow-500 h-auto border border-gray-300 flex flex-col">
         <div class="bg-blue-500">
             <!-- <button v-show="!edit" @click.prevent="showEdit" class="flex-wrap w-auto :hover-pointer">{{TaskTitle}}</button> -->
             <form @submit.prevent="changeTaskTitle">
