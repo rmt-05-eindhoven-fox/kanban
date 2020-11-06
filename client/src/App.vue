@@ -25,6 +25,9 @@
       @addTask="addTask"
       @deleteTask="deleteTask"
       @editTask="editTask"
+      @addCategory="addCategory"
+      @editCategory="editCategory"
+      @deleteCategory="deleteCategory"
     ></HomePage>
   </section>
 </template>
@@ -237,7 +240,6 @@ export default {
         });
     },
     editTask(payload) {
-      console.log(payload);
       const access_token = localStorage.getItem("access_token");
       const { id, title, description, due_date } = payload;
       axios({
@@ -253,7 +255,65 @@ export default {
         },
       })
         .then(({ data }) => {
-          this.fetchTasksOrganization(this.activeOrg);
+          this.fetchTasksOrganization(this.activeOrgId);
+        })
+        .catch((err) => {
+          console.log(err.response.data.msg);
+        });
+    },
+    addCategory(payload) {
+      const { name, OrganizationId } = payload;
+      const access_token = localStorage.getItem("access_token");
+      axios({
+        url: `/categories`,
+        method: "post",
+        headers: {
+          access_token,
+        },
+        data: {
+          name,
+          OrganizationId,
+        },
+      })
+        .then(({ data }) => {
+          this.fetchTasksOrganization(this.activeOrgId);
+        })
+        .catch((err) => {
+          console.log(err.response.data.msg);
+        });
+    },
+    editCategory(payload) {
+      const { id, name } = payload;
+      const access_token = localStorage.getItem("access_token");
+      axios({
+        url: `/categories/${id}`,
+        method: "patch",
+        headers: {
+          access_token,
+        },
+        data: {
+          name,
+        },
+      })
+        .then(({ data }) => {
+          this.fetchTasksOrganization(this.activeOrgId);
+        })
+        .catch((err) => {
+          console.log(err.response.data.msg);
+        });
+    },
+    deleteCategory(payload) {
+      const access_token = localStorage.getItem("access_token");
+      const id = payload.id;
+      axios({
+        url: `/categories/${id}`,
+        method: "delete",
+        headers: {
+          access_token,
+        },
+      })
+        .then(({ data }) => {
+          this.fetchTasksOrganization(this.activeOrgId);
         })
         .catch((err) => {
           console.log(err.response.data.msg);

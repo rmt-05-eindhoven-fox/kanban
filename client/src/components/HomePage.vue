@@ -28,6 +28,9 @@
           @addTask="addTask"
           @deleteTask="deleteTask"
           @editTask="editTask"
+          @addCategory="addCategory"
+          @editCategory="editCategory"
+          @deleteCategory="deleteCategory"
         ></MainContent>
         <NoOrganization v-else></NoOrganization>
       </div>
@@ -84,6 +87,15 @@ export default {
     },
     editTask(payload) {
       this.$emit("editTask", payload);
+    },
+    addCategory(payload) {
+      this.$emit("addCategory", payload);
+    },
+    editCategory(payload) {
+      this.$emit("editCategory", payload);
+    },
+    deleteCategory(payload) {
+      this.$emit("deleteCategory", payload);
     },
   },
   computed: {

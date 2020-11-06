@@ -3,15 +3,39 @@
     <div class="card-body">
       <div class="card-title">
         <div class="d-flex justify-content-between">
-          <h5>
+          <h5 v-show="!isEditCat">
             {{ category.name }}
             <span id="doing-count" class="badge badge-secondary">{{
               tasks.length
             }}</span>
           </h5>
-          <button class="btn option-btn">
-            <i class="fa fa-ellipsis-v"></i>
-          </button>
+          <input
+            @keyup.enter.prevent="editCategory"
+            v-show="isEditCat"
+            v-model="category.name"
+            type="text"
+          />
+          <div class="btn-group">
+            <button
+              class="btn option-btn"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <i class="fa fa-ellipsis-v"></i>
+            </button>
+            <div class="dropdown-menu">
+              <a
+                @click.prevent="showEditCategory"
+                class="dropdown-item"
+                href="#"
+                >Edit</a
+              >
+              <a @click="deleteCategory" class="dropdown-item" href="#"
+                >Delete</a
+              >
+            </div>
+          </div>
         </div>
         <a @click="showAddForm" v-if="!isAddForm" class="btn add-button"
           >+ Add Task</a
@@ -77,12 +101,30 @@ export default {
     showDetail(payload) {
       this.$emit("showDetail", payload);
     },
+    showEditCategory() {
+      this.isEditCat = true;
+    },
+    editCategory() {
+      this.isEditCat = false;
+      const payload = {
+        id: this.category.id,
+        name: this.category.name,
+      };
+      this.$emit("editCategory", payload);
+    },
+    deleteCategory() {
+      const payload = {
+        id: this.category.id,
+      };
+      this.$emit("deleteCategory", payload);
+    },
   },
   components: { TaskCard },
   data() {
     return {
       isAddForm: false,
       title: "",
+      isEditCat: false,
     };
   },
 };

@@ -270,3 +270,7 @@ hr {
 .edit-bottom {
   margin-top: 32px;
 }
+
+.category-add-form{
+  height: 26vh !important;
+}
