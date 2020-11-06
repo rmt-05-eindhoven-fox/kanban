@@ -3,7 +3,7 @@
     <div class="bg-light shadow p-3">
       <h3>{{category.category}}</h3>
       <draggable :list="taskCategory" group="task" :move="onMove" :category="category" @end="updateCategory">
-      <Task @deleteTask="deleteTask" :task="task" v-for="task in taskCategory" :key="task.id" :id="task.id" ></Task>
+      <Task @editTask="editTask" @deleteTask="deleteTask" :task="task" v-for="task in taskCategory" :key="task.id" :id="task.id" ></Task>
       </draggable>
     </div>
   </div>
@@ -39,8 +39,10 @@ export default {
       }
       this.$emit("updateCategory", payload)
     },
+    editTask(payload){
+      this.$emit("editTask",payload)
+    },
     deleteTask(payload){
-      console.log(payload)
       this.$emit("deleteTask",payload)
     },
     onMove(event){

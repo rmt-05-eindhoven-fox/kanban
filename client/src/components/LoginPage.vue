@@ -36,10 +36,15 @@
             </div>
             <button type="submit" class="btn btn-primary">Login</button
             ><br /><br />
-            <div class="g-signin2" data-onsuccess="onSignIn"></div>
-            <br />
-            <span class="btn btn-link" @click="toRegister">Doesn't have an account? Register now!</span>
+            <span class="btn btn-link" @click="toRegister"
+              >Doesn't have an account? Register now!</span
+            >
           </form>
+          <GoogleLogin
+            :params="params"
+            :renderParams="renderParams"
+            :onSuccess="onSuccess" 
+          ></GoogleLogin>
         </div>
       </div>
     </div>
@@ -47,34 +52,56 @@
 </template>
 
 <script>
+import GoogleLogin from "vue-google-login";
 export default {
-  name:"LoginPage",
-  data(){
+  name: "LoginPage",
+  data() {
     return {
-      email:"",
-      password:""
-    }
+      email: "",
+      password: "",
+      params: {
+        client_id:
+          "826714744713-bgfnlofqm670dh9c00pj6ucagl5n3ram.apps.googleusercontent.com",
+      },
+      // only needed if you want to render the button with the google ui
+      renderParams: {
+        width: 250,
+        height: 50,
+        longtitle: true,
+      },
+    };
+  },
+  components: {
+    GoogleLogin,
   },
   methods: {
-    toRegister(){
+    toRegister() {
       let payload = {
-        pageName:"register-page"
-      }
-      this.$emit("changePage",payload.pageName)
+        pageName: "register-page",
+      };
+      this.$emit("changePage", payload.pageName);
     },
-    login(){
+    onSuccess(googleUser) {
+      const payload = {
+        email: googleUser.getBasicProfile().$t,
+        google_access_token:googleUser.wc.id_token
+      }
+    this.$emit("googleLogin", payload )
+      // This only gets the user information: id, name, imageUrl and email
+    },
+    login() {
       const payload = {
         email: this.email,
-        password: this.password
-      }
-      this.clearForm()
-      this.$emit("login", payload)
+        password: this.password,
+      };
+      this.clearForm();
+      this.$emit("login", payload);
     },
-    clearForm(){
-      this.email = ""
-      this.password = ""
-    }
-  }
+    clearForm() {
+      this.email = "";
+      this.password = "";
+    },
+  },
 };
 </script>
 
