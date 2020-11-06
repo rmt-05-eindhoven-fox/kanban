@@ -1,0 +1,146 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 15px;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+  background-image: url('https://images.unsplash.com/photo-1575109617029-908d72757334?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1867&q=80');
+  background-attachment: fixed;
+}
+
+.navbar {
+  font-family: 'Russo One', 'Montserrat', sans-serif;
+  background: linear-gradient(to top, #f6f6f6 0%, #1e2022 15%);
+}
+
+.navbar-brand {
+  font-weight: 300;
+  font-size: 25px;
+}
+
+.navbar-brand .icon-logo {
+  height: 35px;
+  width: auto;
+}
+
+.user-login {
+  font-size: 18px;
+}
+
+.board {
+  padding: 0 5vh;
+}
+
+.add-form {
+  background-color: #000000;
+  background-image: linear-gradient(147deg, #000000 0%, #2c3e50 74%);
+}
+
+.backlog {
+  background-color: #feae96;
+  background-image: linear-gradient(315deg, #feae96 0%, #fe0944 74%);
+}
+
+.todo {
+  background-color: #f39f86;
+  background-image: linear-gradient(315deg, #f39f86 0%, #f9d976 74%);
+}
+
+.doing {
+  background-color: #045de9;
+  background-image: linear-gradient(315deg, #045de9 0%, #09c6f9 74%);
+}
+
+.done {
+  background-color: #7ee8fa;
+  background-image: linear-gradient(315deg, #7ee8fa 0%, #80ff72 74%);  
+}
+
+.row-task .card:hover{
+  transform: scale(1.02);
+  box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+}
+
+/* Rainbow Text */
+.rainbow {
+  /* Font options */
+ text-shadow: 2px 2px 4px #000000;
+ animation: rainbow 3s infinite;
+}
+
+@keyframes rainbow{
+  0%{color: orange;}	
+  10%{color: purple;}	
+	20%{color: red;}
+  30%{color: CadetBlue;}
+	40%{color: yellow;}
+  50%{color: coral;}
+	60%{color: green;}
+  70%{color: cyan;}
+  80%{color: DeepPink;}
+  90%{color: DodgerBlue;}
+	100%{color: orange;}
+}
+
+.overflow {
+  height: 75vh;
+  overflow-y: scroll;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+body::-webkit-scrollbar,
+.overflow::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+body,
+.overflow {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* LOGIN & REGISTER */
+.card-login {
+  background-color: #000000;
+  background-image: linear-gradient(147deg, #000000 0%, #2c3e50 74%);
+  box-shadow:  41px 41px 82px purple, -41px -41px 82px blue;
+}
+
+.card-login .card-title {
+  font-weight: 300;
+  font-size: 1.5rem;
+}
+
+.form-login .btn {
+  letter-spacing: .15rem;
+  transition: all 0.2s;
+}
+
+/* Footer */
+.footer {
+  width: 100%;
+  margin-top: 15vh;
+}
+
+#register-page .footer {
+  width: 100%;
+  margin-top: 23.5vh;
+}
+
+/* Google */
+.google-signin-button {
+  color: white;
+  background-color: red;
+  height: 50px;
+  font-size: 16px;
+  border-radius: 10px;
+  padding: 10px 20px 25px 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
