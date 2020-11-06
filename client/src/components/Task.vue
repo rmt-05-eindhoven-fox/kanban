@@ -92,8 +92,6 @@ export default {
               id: this.task.id,
               title: this.TaskTitle
           }
-          console.log(`ini di task`)
-          console.log(payload)
           this.$emit("changeTaskTitle", payload)
       }
   },

@@ -239,11 +239,9 @@ export default {
         },
         changeTaskTitle(value) {
             const access_token = localStorage.getItem("access_token");
-            console.log(`ini di app`)
-            console.log(value)
             axios({
-                method: "PATCH",
-                url: this.SERVER + `/tasks/${value.id}/task`,
+                method: "PUT",
+                url: this.SERVER + `/tasks/${value.id}`,
                 data: {
                     title: value.title
                 },

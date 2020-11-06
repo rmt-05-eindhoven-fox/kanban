@@ -1,7 +1,7 @@
 <template>
     <div class="flex-col h-auto w-auto mx-3 px-0 border border-gray-400 rounded-md">
         <div id="category-title" class="container w-full flex flex-row">
-            <form @submit.prevent="changeCategoryTitle()" class="w-full">
+            <form @submit.prevent="changeCategoryTitle" class="w-full">
                 <input 
                     type="text" 
                     class="w-full 
@@ -94,8 +94,6 @@ export default {
           this.$emit("changeCategoryTitle", payload)
       },
       changeTaskTitle(value) {
-          console.log(`ini di category`)
-          console.log(value)
           this.$emit("changeTaskTitle", value)
       }
   },

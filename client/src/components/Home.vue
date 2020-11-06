@@ -88,8 +88,6 @@ export default {
           this.$emit("changeCategoryTitle", value)
       },
       changeTaskTitle(value) {
-          console.log(`ini di home`)
-          console.log(value)
           this.$emit("changeTaskTitle", value)
       }
   },
