@@ -6,9 +6,9 @@
       </div>
       <div class="links">
         <ul>
-          <li>Welcome, Username!</li>
+          <li>Welcome, {{username}}</li>
           <li>
-            <a href="#"><i class="fa fa-power-off"></i></a>
+            <button type="submit" class="btn btn-link" @click="logout"><i class="fa fa-power-off"></i></button>
           </li>
         </ul>
       </div>
@@ -19,7 +19,7 @@
       <div class="task-header">
         <h1>Task board</h1>
       </div>
-
+      
       <!-- TASK BOARD -->
       <div class="task-board">
         <div class="row">
@@ -28,6 +28,7 @@
             :key="i"
             :nameCategories="cat"
             :tasks="tasks"
+            @postTask="postTask"
           ></CategoryBoard>
         </div>
       </div>
@@ -41,12 +42,29 @@ import CategoryBoard from "./CategoryBoard";
 export default {
   name: "Homepage",
   data() {
-    return {};
+    return {
+      inputTitle: '',
+      selectedCategory: ''
+    };
   },
-  props: ["dataCat", "logoPng", "tasks"],
+  props: ["dataCat", "logoPng", "tasks", "username"],
   components: {
     CategoryBoard,
   },
+  methods: {
+    logout(){
+      let clear = localStorage.clear() 
+      this.$emit('logout', clear)
+    },
+
+    postTask(inputData){
+      let payload = {
+        inputTitle: inputData.inputTitle,
+        selectedCategory: inputData.selectedCategory
+      }
+      this.$emit('postTask', payload)
+    }
+  }
 };
 </script>
 

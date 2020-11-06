@@ -19,7 +19,7 @@
         </div>
       </div>
       <div class="card-text text-muted author">
-        Created by dickyundead@gmail.com
+        Created by {{task.id}}
       </div>
       <div class="card-text text-muted date">Posted At {{new Date(task.createdAt).toISOString().split('T')[0]}}</div>
     </div>

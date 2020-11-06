@@ -68,8 +68,8 @@ nav {
 nav li {
   list-style: none;
   display: inline;
-  margin-left: 20px;
-  margin-right: 50px;
+  margin-left: 10px;
+  margin-right: 20px;
   align-items: center;
 }
 nav a {
@@ -82,6 +82,14 @@ nav ul {
 nav .links {
   display: flex;
   align-items: center;
+}
+nav .links button {
+  color: #CDCFD4;
+}
+nav .links button:hover {
+  color: #CDCFD4;
+  background-color: #f21616;
+  transition: 0.2s ease;
 }
 
 .main-board {

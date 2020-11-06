@@ -63,7 +63,9 @@ class UserController {
           email: user.email
         })
         res.status(200).json({
-          access_token: userToken
+          access_token: userToken,
+          full_name: user.full_name,
+          email: user.email
         })
       }
     } catch (error) {

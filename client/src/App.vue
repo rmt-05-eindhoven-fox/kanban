@@ -15,6 +15,9 @@
       :dataCat="categoryList"
       :logoPng="logoUrl"
       :tasks="dataTasks"
+      :username="userLoggedIn"
+      @logout="logout"
+      @postTask="postTask"
       v-else-if="pageName == 'home'"
     ></HomePage>
   </div>
@@ -30,7 +33,7 @@ export default {
   name: "App",
   data() {
     return {
-      pageName: "login",
+      pageName: "home",
       logoUrl: logo,
       categoryList: [
         {
@@ -46,7 +49,8 @@ export default {
           category: "Completed",
         },
       ],
-      dataTasks: []
+      dataTasks: [],
+      userLoggedIn: ''
     };
   },
   components: {
@@ -99,21 +103,54 @@ export default {
       })
       .then(({data}) => {
         localStorage.setItem('token', data.access_token)
+        localStorage.setItem('full_name', data.full_name)
+        localStorage.setItem('email', data.email)
+        let username = localStorage.getItem('full_name')
+        this.userLoggedIn = username
+        this.pageName = 'home'
+        this.fetchTasks()
       })
       .catch(err => {
-        console.log(err.response);
+        console.log(err.response.data.message);
       })
     },
     toRegisterPage(data){
       this.pageName = data.pageName
+    },
+    logout(clear){
+      this.pageName = 'login'
+      this.userLoggedIn = ''
+    },
+    postTask(payload){
+      const token = localStorage.getItem('token')
+      axios({
+        url: '/tasks',
+        method: 'post',
+        data:{
+          title: payload.inputTitle,
+          category: payload.selectedCategory
+        },
+        headers: {
+          token
+        }
+      })
+      .then(data => {
+        console.log(data)
+        this.fetchTasks()
+      })
+      .catch(err => {
+        console.log(err.response);
+      })
     }
   },
 
   created() {
     const token = localStorage.getItem('token')
+    let username = localStorage.getItem('full_name')
     if (token) {
-      this.pageName = 'home'
+      this.userLoggedIn = username
       this.fetchTasks()
+      this.pageName = 'home'
     } else {
       this.pageName = 'login'
     }
