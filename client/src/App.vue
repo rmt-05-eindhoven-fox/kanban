@@ -11,6 +11,7 @@
       @form="move"
       v-if="!logged && page === 'login'"></login>
     <register 
+      @error="passwordErr"
       @form="move"
       @register="register"
       v-else-if="!logged && page === 'register'"></register>
@@ -22,14 +23,14 @@
 
     <modal v-model="success">
       <div class="d-flex flex-column justify-content-center align-items-center">
-        <p class="h1">{{ msgSuccess }} Successfully</p>
+        <p class="h1" style="text-align: center">{{ msgSuccess }} Successfully</p>
         <img src="./assets/success.gif">
       </div>
     </modal>
 
     <modal v-model="error">
       <div class="d-flex flex-column justify-content-center align-items-center">
-        <p class="h1">Error! {{ msgErr }}</p>
+        <p class="h1" style="text-align: center">Error! {{ msgErr }}</p>
         <img src="./assets/error.gif">
       </div>
     </modal>
@@ -61,6 +62,10 @@ export default {
     navbarku, login, home, register
   },
   methods: {
+    passwordErr(obj) {
+      console.log('sampai sini');
+      this.badNotif(obj.msg)
+    },
     logout(siji) {
       this.logged = siji
       this.page = 'login'
@@ -79,20 +84,19 @@ export default {
         this.logged = true
         this.goodNotif('Login')
       }).catch(err => {
-        console.log(err.response.data);
+        this.badNotif(err.response.data.msg);
       })
     },
     register(user) {
-      console.log(user);
       axios({
         method: 'post',
         url: '/users/register',
         data: user
       }).then(result => {
-        // notif registered or modal registered
-        console.log(result.data);
+        this.page = 'login'
+        this.goodNotif('Register')
       }).catch(err => {
-        console.log(err.response);
+        this.badNotif(err.response.data.msg);
       })
     },
     dataTask() {
@@ -112,7 +116,7 @@ export default {
         })
         this.task = temp
       }).catch(err => {
-        console.log(err, 'dari error');
+        this.badNotif(err.response.data.msg)
       })
     },
     delTask(id) {
@@ -121,10 +125,11 @@ export default {
         method: 'delete',
         url: '/tasks/' + id,
         headers: { access_token: token }
-      }).then(res => {
+      }).then(result => {
         this.dataTask()
+        this.goodNotif('Edit task')
       }).catch(err => {
-        console.log(err.response);
+        this.badNotif(err.response.data.msg)
       })
     },
     editTask(data) {
@@ -137,8 +142,9 @@ export default {
         data: { title, category }
       }).then(result => {
         this.dataTask()
+        this.goodNotif('Edit task')
       }).catch(err => {
-        console.log(err.response);
+        this.badNotif(err.response.data.msg)
       })
     },
     addTask(data) {
@@ -151,9 +157,9 @@ export default {
         data: { title, category }
       }).then(result => {
         this.dataTask()
+        this.goodNotif('Add task')
       }).catch(err => {
-
-        
+        this.badNotif(err.response.data.msg)
       })
     },
     goodNotif(msg) {

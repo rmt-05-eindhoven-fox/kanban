@@ -25,18 +25,18 @@
               </div>
               <div class="col-6">
                 <div class="p-2" >
-                  <form @submit.prevent="register">
+                  <form action=" " @submit.prevent="register" required>
                     <p class="h5 rounded" style="text-align: center; background-color: rgba(158, 10, 109, 0.6); height: 30px; color: white;">Register</p>
                     <div class="form-group">
                       <p class="h6 " style="text-shadow: -1px -1px 0px gainsboro;">Email</p>
-                      <input v-model="email" type="text" class="form-control" placeholder="Your email here" >
+                      <input v-model="email" type="text" class="form-control" placeholder="Your email here" required>
                     </div>
                     <div class="form-group">
                       <p class="h6 " style="text-shadow: -1px -1px 0px gainsboro;">Password</p>
-                      <input v-model="password" type="password" class="form-control" placeholder="Your password here" >
+                      <input v-model="password" type="password" class="form-control" placeholder="Your password here" required>
                     </div>
                     <div class="form-group">
-                      <input v-model="confirmPassword" type="password" class="form-control" placeholder="Retype your password" >
+                      <input v-model="confirmPassword" type="password" class="form-control" placeholder="Retype your password" required>
                     </div>
                     <div class="form-group">
                       <input type="submit" class="form-control btn btn-success">
@@ -75,9 +75,14 @@ export default {
       let data = {
         email : this.email, password: this.password
       }
-      this.email = ""
-      this.password = ""
-      this.$emit('register', data)
+      if(this.password !== this.confirmPassword) {
+        this.$emit('error', { msg : 'Password doesn\'t match'})
+      } else {
+        this.email = ""
+        this.password = ""
+        this.confirmPassword = ""
+        this.$emit('register', data)
+      }
     }
   }
 }

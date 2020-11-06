@@ -9,8 +9,9 @@ module.exports = class UserController {
       let { email, password } = req.body
       let result = await User.create({ email, password})
       res.status(201).json({email: result.email, id: result.id})
-    } catch (error) {
-      res.status(400).json(error)
+    } catch (error) {   
+      let msg = error.errors[0].message
+      next({ msg, status: 400 })
     }
   }
   
