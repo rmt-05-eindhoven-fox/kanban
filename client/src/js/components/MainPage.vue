@@ -13,24 +13,15 @@
             <v-card>
               <v-card-title class="headline">Create a New Project</v-card-title>
               <v-col cols="12" sm="12">
-                <v-text-field
-                  v-model="projectName"
-                  label="Project Name"
-                  single-line
-                  outlined
+                <v-text-field v-model="projectName" label="Project Name" single-line outlined
                 ></v-text-field>
               </v-col>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="green darken-1" text @click="dialog = false"
+                <v-btn color="orange darken-1" text @click="dialog = false"
                   >Cancel</v-btn
                 >
-                <v-btn
-                  color="green darken-1"
-                  text
-                  @click.prevent="createProject"
-                  >Submit</v-btn
-                >
+                <v-btn color="orange darken-1" text @click.prevent="createProject">Submit</v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
@@ -42,16 +33,8 @@
           <h1 class="mt-4"><center>Projects</center></h1>
           <img src="../assets/undraw_Playful_cat_rchv.svg" style="display: block; margin-top: 2vh; margin-left: 50vh; margin-bottom:5vh;" width="500px;" />
           <v-row>
-            <h4 v-if="allProjects.personal.length == 0">
-              Oops! No projects yet
-            </h4>
-            <v-col
-              v-else
-              md="4"
-              v-for="(project, i) in allProjects.personal"
-              :key="i"
-              @click.prevent="getDetail(project.ProjectId)"
-            >
+            <h4 v-if="allProjects.personal.length == 0">Oops! No projects yet</h4>
+            <v-col v-else md="4" v-for="(project, i) in allProjects.personal" :key="i" @click.prevent="getDetail(project.ProjectId)">
               <ProjectCard
                 :project="project"
                 v-on:DELETE_PROJECT="deleteProject"

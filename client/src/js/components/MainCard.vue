@@ -7,18 +7,8 @@
         >{{ category.name }}</v-card-title
       >
       <div id="taskCard">
-        <draggable
-          v-model="category.task"
-          group="category"
-          @start="drag = true"
-          @end="drag = false"
-        >
-          <TaskCard
-            v-for="(task, i) in category.task"
-            :key="i"
-            :task="task"
-            v-on:DELETE_TASK="deleteTask"
-            @EDIT_TASK="getEdit"
+        <draggable v-model="category.task" group="category" @start="drag = true" @end="drag = false">
+          <TaskCard v-for="(task, i) in category.task" :key="i" :task="task" v-on:DELETE_TASK="deleteTask" @EDIT_TASK="getEdit"
           ></TaskCard>
         </draggable>
       </div>

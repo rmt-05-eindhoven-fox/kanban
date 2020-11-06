@@ -1,14 +1,9 @@
 <template>
   <div>
-    <v-card color="green darken-2">
-      <v-card-title class="headline">{{ project.Project.name }}</v-card-title>
+    <v-card color="orange darken-2">
+      <v-card-title style="display: block; margin-top: 2vh; margin-left: 18vh; margin-bottom: 2vh;" class="headline">{{ project.Project.name }}</v-card-title>
       <v-card-actions>
-        <v-btn
-          text
-          v-if="project.Project.owner == userId"
-          @click.stop="deleteProject(project.ProjectId)"
-          >Delete Project</v-btn
-        >
+        <v-btn text v-if="project.Project.owner == userId" @click.stop="deleteProject(project.ProjectId)"><i class="fas fa-trash"></i></v-btn>
       </v-card-actions>
     </v-card>
   </div>

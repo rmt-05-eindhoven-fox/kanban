@@ -25,32 +25,18 @@
         >
         <v-card-title class="headline" v-else>Edit Task</v-card-title>
         <v-form>
-          <v-text-field
-            v-model="task.title"
-            type="text"
-            label="Title"
-            style="padding: 20px;"
+          <v-text-field v-model="task.title" type="text" label="Title" style="padding: 20px;"
           ></v-text-field>
-          <v-text-field
-            v-model="task.description"
-            type="text"
-            label="Description"
-            style="padding: 20px;"
+          <v-text-field v-model="task.description" type="text" label="Description" style="padding: 20px;"
           ></v-text-field>
         </v-form>
-        <v-btn
-          color="green darken-1"
-          text
-          @click.prevent="createTask"
-          v-if="!editId"
-        >
+        <v-btn color="orange darken-1" text @click.prevent="createTask" v-if="!editId">
           Submit
         </v-btn>
         <v-btn color="orange darken-1" text @click.prevent="editTask" v-else>
           Edit
         </v-btn>
-        <v-btn color="green darken-1" text @click.prevent="dialog2 = false">
-          Close
+        <v-btn color="green darken-1" text @click.prevent="dialog2 = false">Close
         </v-btn>
       </v-card>
     </v-dialog>
