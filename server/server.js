@@ -26,3 +26,4 @@ app.use(errorHandler);
 app.listen(port, () => {
   console.log(`App runing on ${process.env.BASE_URL}:${port}`)
 })
+

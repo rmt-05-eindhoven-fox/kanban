@@ -1,7 +1,7 @@
 const createError = require('http-errors');
 const { comparePassword } = require('../helper/bcrypt');
 const { generateToken } = require('../helper/jwt');
-const { User } = require('../models');
+const { User, Organization } = require('../models');
 
 class UserController {
 
@@ -37,6 +37,19 @@ class UserController {
         res.status(201).json({ status: 201, user })
       }).catch((err) => {
         next(err);
+      });
+  }
+
+  static userOganization(req, res, next) {
+    const id = req.logedInUser.id;
+    User.findByPk(id, {
+      include: [Organization]
+    })
+      .then((result) => {
+        delete result.dataValues.password;
+        res.status(200).json(result)
+      }).catch((err) => {
+        next(err)
       });
   }
 }

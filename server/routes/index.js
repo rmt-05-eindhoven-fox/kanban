@@ -16,6 +16,8 @@ router.post('/register', UserController.register);
 
 router.use(authentication)
 
+router.get('/user/organizations', UserController.userOganization);
+
 /** 
  * Router Organizations
  */
@@ -24,7 +26,7 @@ router.post('/organizations', OrganizationController.store); // All User can cre
 router.get('/organizations/:id', authorizeOrganization, OrganizationController.show); // show organization by id need authorize
 router.put('/organizations/:id', authorizeOrganization, OrganizationController.update);
 router.delete('/organizations/:id', authorizeOrganization, OrganizationController.destroy);
-router.post('/organizations/member/:id', authorizeOrganization, OrganizationController.addMember);
+router.post('/organizations/member', authorizeOrganization, OrganizationController.addMember);
 router.delete('/organizations/member/:id', authorizeOrganization, OrganizationController.destroyMember);
 
 /** 

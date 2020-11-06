@@ -42,7 +42,7 @@ class TaskController {
   static update(req, res, next) {
     const { id } = req.params;
     const { name, description, CategoryId, OrganizationId } = req.body;
-    const input = { name, CategoryId };
+    const input = { name, description, CategoryId };
 
     Category.findByPk(CategoryId)
       .then((category) => {
@@ -90,7 +90,7 @@ class TaskController {
       }).catch((err) => {
         next(err);
       });
-  } 
+  }
 }
 
 module.exports = TaskController;

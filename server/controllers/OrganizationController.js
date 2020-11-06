@@ -83,28 +83,60 @@ class OrganizationController {
       });
   }
 
+  static getUserInfo(email) {
+    User.findOne({
+      where: { email }
+    })
+      .then((user) => {
+        if (!user) {
+          next(createError(401, 'User not found!'));
+        } else {
+          const { id, email, fullname, password } = user;
+          const data = { id, email, fullname, password };
+          return data;
+        }
+      }).catch((err) => {
+        next(err)
+      });
+  }
+
   static addMember(req, res, next) {
-    const OrganizationId = req.params.id;
-    const { UserId } = req.body;
-    const input = { UserId, OrganizationId };
-    UserOrganization.findOne({
-      where: {
-        UserId, OrganizationId
-      }
-    }).then((result) => {
-      if (!result) {
-        return UserOrganization.create(input);
-      } else {
-        next(createError(400, 'User alredy exists in organization!'))
-      }
-    }).then(userOrganization => {
-      return User.findByPk(UserId)
-    }).then(member => {
-      member = { id: member.id, fullname: member.fullname }
-      res.status(201).json({ status: 201, message: 'Successfully add new member to organization!', member })
-    }).catch((err) => {
-      next(err)
-    });
+    const { email, OrganizationId } = req.body;
+    let UserId = -1;
+    let member = null;
+    let input = null;
+    User.findOne({
+      where: { email }
+    })
+      .then((user) => {
+        if (!user) {
+          next(createError(401, 'User not found!'));
+        } else {
+          const { id, email, fullname } = user;
+          member = { id, email, fullname };
+          UserId = id;
+          input = { UserId, OrganizationId }
+          return UserOrganization.findOne({
+            where: {
+              UserId, OrganizationId
+            }
+          })
+        }
+      }).then((result) => {
+        if (!result) {
+          return UserOrganization.create(input);
+        } else {
+          next(createError(400, 'User alredy exists in organization!'))
+        }
+      }).then(userOrganization => {
+        res.status(201).json({
+          status: 201,
+          message: 'Successfully add new member to organization!',
+          member
+        })
+      }).catch((err) => {
+        next(err)
+      });
   }
 
   static destroyMember(req, res, next) {
