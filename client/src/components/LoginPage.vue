@@ -34,13 +34,22 @@
             <button type="submit" class="shadow btn btn-dark">Login</button>
           </div>
         </form>
-        <button @click="toRegisterPage" class="btn btn-link mt-3">Not a user yet? Register here</button>
+        <GoogleLogin
+          :params="params"
+          :renderParams="renderParams"
+          :onSuccess="onSuccess"
+        ></GoogleLogin>
+        <button @click="toRegisterPage" class="btn btn-link mt-3">
+          Not a user yet? Register here
+        </button>
       </div>
     </div>
   </section>
 </template>
 
 <script>
+import GoogleLogin from "vue-google-login";
+
 export default {
   name: "LoginPage",
   data() {
@@ -49,14 +58,25 @@ export default {
         email: "",
         password: "",
       },
-      pageName: ''
+      pageName: "",
+      params: {
+        client_id: "298706422223-mdcaibtt1k52504ef7h9kss3uomedg3g.apps.googleusercontent.com",
+      },
+      renderParams: {
+        width: 250,
+        height: 50,
+        longtitle: true,
+      },
     };
+  },
+  components: {
+    GoogleLogin,
   },
   methods: {
     changePage() {
       let payload = {
-        pageName: 'home-page'
-      }
+        pageName: "home-page",
+      };
       this.$emit("changePage", payload.pageName);
     },
     login() {
@@ -68,10 +88,19 @@ export default {
     },
     toRegisterPage() {
       let payload = {
-        pageName: 'register-page'
+        pageName: "register-page",
+      };
+      this.$emit("toRegisterPage", payload);
+    },
+    onSuccess(googleUser) {
+      const payload = {
+        email: googleUser.getBasicProfile().$t,
+        google_access_token: googleUser.wc.id_token
       }
-      this.$emit('toRegisterPage', payload)
-    }
+      this.$emit("googleLogin", payload)
+      // console.log(googleUser);
+      // console.log(googleUser.getBasicProfile());
+    },
   },
 };
 </script>

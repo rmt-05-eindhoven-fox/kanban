@@ -86,7 +86,6 @@ class TaskController {
 				where: { id },
 				returning: true
 			})
-
 			res.status(200).json(updatedTask[1][0]);
 
 		} catch(err) {

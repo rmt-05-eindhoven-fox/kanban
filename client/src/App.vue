@@ -6,6 +6,7 @@
       @login="login"
       @changePage="changePage"
       @toRegisterPage="toRegisterPage"
+      @googleLogin="googleLogin"
     ></LoginPage>
     <!-- Register Page -->
     <RegisterPage
@@ -24,6 +25,7 @@
       @signOut="signOut"
       @addTask="addTask"
       @editTask="editTask"
+      @updateCategory="updateCategory"
     >
     </HomePage>
     <section></section>
@@ -187,7 +189,7 @@ export default {
         });
     },
     editTask(payload) {
-      console.log(payload, "<<<<<payload di App")
+      console.log(payload, "<<<<<payload di App");
       const token = localStorage.getItem("access_token");
       axios({
         url: `/tasks/${payload.id}`,
@@ -207,6 +209,47 @@ export default {
         .catch((err) => {
           this.$swal("Sorry!", `You can't edit other people's task!`, "error");
         });
+    },
+    googleLogin(payload) {
+      axios({
+        url: "/googleLogin",
+        method: "POST",
+        data: {
+          email: payload.email,
+          google_access_token: payload.google_access_token,
+        },
+      })
+        .then(({ data }) => {
+          const token = data.access_token;
+          localStorage.setItem("access_token", token);
+          this.fetchTasks();
+          this.pageName = "home-page";
+          this.$swal("Login Success", `Welcome back ${data.name}`, "success");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    updateCategory(payload) {
+      const token = localStorage.getItem("access_token");
+      console.log(payload)
+      axios({
+        url: `/tasks/${payload.id}`,
+        method: "PATCH",
+        data: {
+          category: payload.category,
+        },
+        headers: {
+          token,
+        },
+      })
+      .then(data => {
+        console.log("Update category is succeed")
+        this.fetchTasks()
+      })
+      .catch(err => {
+        this.$swal("Ooops!", "You can't move other people's task", "error")
+      })
     },
   },
   created() {

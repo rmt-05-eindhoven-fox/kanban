@@ -66,6 +66,7 @@ class UserController {
 	static googleLogin(req, res, next) {
 		let { google_access_token } = req.body;
 		let email = null;
+		let name = null;
 
 		const client = new OAuth2Client(process.env.CLIENT_ID);
 
@@ -75,11 +76,11 @@ class UserController {
 		})
 		.then(data => {
 			let payload = data.getPayload()
-			email = yaload.email;
-
+			email = payload.email;
+			name = `${payload.given_name} ${payload.family_name}`
 			return User.findOne({
-				wjere: {
-					where: payload.email
+				where: {
+					email: payload.email
 				}
 			})
 		})
@@ -89,10 +90,11 @@ class UserController {
 
 			} else {
 				let userData = {
+					name,
 					email,
-					password: "qwertyasdfgh"
+					password: "qwertyasdfgh",
 				}
-
+				console.log(userData)
 				return User.create(userData)
 			}
 		})
@@ -104,7 +106,8 @@ class UserController {
 
 			return res.status(200).json({
 				access_token,
-				email
+				email,
+				name
 			})
 		})
 		.catch(err => {

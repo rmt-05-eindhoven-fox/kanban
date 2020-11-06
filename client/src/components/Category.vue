@@ -5,14 +5,23 @@
     <!-- Board Content  -->
     <div class="task-container overflow-auto">
       <!-- Task Item -->
-      <Task
-        v-for="task in taskPerCategory"
-        :key="task.id"
-        :task="task"
-        @deleteTask="deleteTask"
-        @editTask="editTask"
+      <draggable
+        :move="onMove"
+        :list="taskPerCategory"
+        group="task"
+        :category="category"
+        @end="updateCategory"
       >
-      </Task>
+        <Task
+          v-for="task in taskPerCategory"
+          :key="task.id"
+          :task="task"
+          :id="task.id"
+          @deleteTask="deleteTask"
+          @editTask="editTask"
+        >
+        </Task>
+      </draggable>
 
       <!-- Add Task Form -->
       <AddForm
@@ -52,17 +61,21 @@
 <script>
 import Task from "./Task";
 import AddForm from "./AddForm";
+import draggable from "vuedraggable";
 
 export default {
   name: "Category",
   data() {
     return {
       formName: "",
+      currentId: null,
+      currentCategory: null
     };
   },
   components: {
     Task,
-    AddForm
+    AddForm,
+    draggable,
   },
   props: ["category", "tasks"],
   computed: {
@@ -84,8 +97,21 @@ export default {
       this.$emit("addTask", payload);
     },
     editTask(payload) {
-      console.log(payload,"<<<payload di category vue")
+      console.log(payload, "<<<payload di category vue");
       this.$emit("editTask", payload);
+    },
+    onMove(event) {
+      console.log(event)
+      this.currentId = event.draggedContext.element.id
+      this.currentCategory = event.relatedContext.component.$attrs.category
+    },
+    updateCategory() {
+      let payload = {
+        id: this.currentId,
+        category: this.currentCategory
+      }
+      console.log(payload, "di category vue")
+      this.$emit("updateCategory", payload)
     }
   },
 };

@@ -9,8 +9,8 @@
       <div class="nav-links">
         <ul>
           <li>
-            <a @click="signOut" href="#"
-              >Sign Out <i class="fas fa-sign-out-alt"></i
+            <a @click="signOut" href="#"><GoogleLogin class="btn btn-light" :params="params" :logoutButton="true"
+              >Sign Out <i class="fas fa-sign-out-alt"></i></GoogleLogin
             ></a>
           </li>
         </ul>
@@ -26,6 +26,7 @@
         @deleteTask="deleteTask"
         @addTask="addTask"
         @editTask="editTask"
+        @updateCategory="updateCategory"
       >
       </Category>
     </div>
@@ -34,11 +35,13 @@
 
 <script>
 import Category from "./Category.vue";
+import GoogleLogin from "vue-google-login";
 
 export default {
   name: "HomePage",
   components: {
     Category,
+    GoogleLogin,
   },
   props: ["categories", "tasks"],
   methods: {
@@ -46,6 +49,8 @@ export default {
       this.$emit("deleteTask", payload);
     },
     signOut() {
+      localStorage.clear();
+
       this.$emit("signOut");
     },
     toLoginPage() {
@@ -58,8 +63,10 @@ export default {
       this.$emit("addTask", payload);
     },
     editTask(payload) {
-      console.log(payload, "<<<payload di homepage vue");
       this.$emit("editTask", payload);
+    },
+    updateCategory(payload) {
+      this.$emit("updateCategory", payload);
     },
   },
   computed: {},
