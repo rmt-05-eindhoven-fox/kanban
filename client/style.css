@@ -2,6 +2,8 @@
 
 * {
    font-family: 'Poppins', sans-serif;
+   margin: 0;
+   padding: 0;
 }
 
 /* BOARD CSS */
@@ -23,7 +25,7 @@
    margin: 15px;
    border-radius: 0.35em;
    border: 0.1px solid #b2bec3;
-   width: 400px;
+   width: 300px;
 }
 
 .progress {
@@ -41,7 +43,7 @@
 }
 
 .task-container {
-   display: flex;
+   /* display: flex; */
    flex-direction: column;
    margin: 0px;
    height: 60vh;
@@ -69,7 +71,10 @@
 }
 
 .card-body h6 {
+   display: flex;
    font-style: italic;
+   font-size: 15px;
+   padding-top: 6px;
    color: #b2bec3;
 }
 

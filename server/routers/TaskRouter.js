@@ -10,7 +10,7 @@ router.post('/', TaskController.createTask)
 
 router.get('/:id', authorization, TaskController.getTaskById)
 router.put('/:id', authorization, TaskController.editTaskById)
-router.patch('/:id', authentication, TaskController.editTaskCategoryById)
+router.patch('/:id', authorization, TaskController.editTaskCategoryById)
 router.delete('/:id', authorization, TaskController.deleteTaskById)
 
 module.exports = router

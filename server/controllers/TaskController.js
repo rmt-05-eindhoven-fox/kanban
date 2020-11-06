@@ -18,6 +18,9 @@ class TaskController {
             include: User
          })
 
+         task.forEach(el => {
+            el.User.password = ""
+         });
          res.status(200).json(task)
       } catch (err) {
          next(err)
@@ -88,6 +91,7 @@ class TaskController {
          const editedTask = {
             category: req.body.category,
          }
+
          const task = await Task.update(editedTask, {
             where: {
                id
