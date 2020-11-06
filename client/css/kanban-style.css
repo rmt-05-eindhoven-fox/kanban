@@ -1,0 +1,761 @@
+/*--------------------------------------------------------------
+# Kanban Project by Diva
+--------------------------------------------------------------*/
+
+@media only screen 
+  and (min-device-width: 200px) 
+  and (max-device-width: 1199px)
+  {
+    .navbar {
+        background-color: black;
+    }
+    
+    .navbar a {
+        color: white;
+        font-size: 36px;
+        text-align: left;
+        padding-left: 3%;
+        text-transform: uppercase;
+        font-weight: 600;
+        color: #fff;
+        letter-spacing: 3px;
+        font-family: 'Poppins', sans-serif;
+    }
+    .kanban {
+        /* margin-top:-25px; */
+        background-color: black;
+    }
+    .kanban .box {
+      padding: 20px;
+      margin: 3vh .8vh;
+      background: black;
+      /* text-align: center; */
+      box-shadow: 0px 0px 4px #333;
+      border-radius: 5px;
+      position: relative;
+    }
+    
+    .box-header {
+        text-align: center;
+    }
+    
+    .box-content {
+        padding-top:5px; 
+        max-height: 65vh;
+        overflow: auto;
+        /* overflow: hidden;; */
+    }
+    
+    .kanban .box h3 {
+      font-weight: 400;
+      margin: -20px -20px 20px -20px;
+      padding: 20px 15px;
+      font-size: 30px;
+      font-weight: 600;
+      color: white;
+      background: black;
+    }
+    
+    .kanban .box h4 {
+      font-size: 36px;
+      color: white;
+      /* color: #106eea; */
+      font-weight: 600;
+      font-family: "Poppins", sans-serif;
+      margin-bottom: 20px;
+    }
+    
+    .kanban .box h4 sup {
+      color: white;
+      font-size: 20px;
+      top: -15px;
+      left: -3px;
+    }
+    
+    .kanban .box h4 span {
+      color: white;
+      font-size: 16px;
+      font-weight: 300;
+    }
+    
+    .kanban .box ul {
+      padding: 0;
+      list-style: none;
+      color: white;
+      text-align: center;
+      line-height: 20px;
+      font-size: 14px;
+    }
+    
+    .kanban .box ul li {
+      padding-bottom: 16px;
+    }
+    
+    .kanban .box ul i {
+      /* color: #106eea; */
+      color: white;
+      font-size: 18px;
+      padding-right: 4px;
+    }
+    
+    .kanban .box ul .na {
+      color: white;
+      text-decoration: line-through;
+    }
+    
+    .kanban .btn-wrap {
+      margin: 0px -20px -20px -20px;
+      padding: 20px 15px;
+      background:black;
+      /* background: #f8f8f8; */
+      text-align: center;
+    }
+    
+    .kanban .Backlog h3 {
+        background: #f85a40;
+    }
+    .kanban .Todo h3 {
+        background: #ca3287;
+    }
+    .kanban .Doing h3 {
+        background: #30c39e;
+    }
+    .kanban .Done h3 {
+        background: #a027b8;
+    }
+    
+    .Backlog {
+        background: #f85a40;
+    }
+    .Todo{
+        background: #ca3287;
+    }
+    .Doing {
+        background: #30c39e;
+    }
+    .Done {
+        background: #a027b8;
+    }
+    
+    .kanban .btn:hover {
+      opacity: .8;
+      /* background: #3b8af2; */
+    }
+    
+    .card-Backlog {
+        background-color:black; 
+        max-width: 28rem; 
+        box-shadow: 0px 0px 4px #f85a40
+    }
+    
+    .card-Todo {
+        background-color:black; 
+        max-width: 28rem; 
+        box-shadow: 0px 0px 4px #ca3287
+    }
+    
+    .card-Doing {
+        background-color:black; 
+        max-width: 28rem; 
+        box-shadow: 0px 0px 4px #30c39e
+    }
+    
+    .card-Done {
+        background-color:black; 
+        max-width: 28rem; 
+        box-shadow: 0px 0px 4px #a027b8
+    }
+    
+    .card-header {
+        font-size: 18px;
+        color:white;
+    }
+    
+    .card-header i {
+        font-size: 20px;
+        padding-right: 10px;
+        color:white;
+    }
+    
+    .footer {
+        text-align: center;
+        padding: 1em 1em;
+    }
+    .footer p {
+        font-size: 1em;
+        color: #fff;
+        margin: 0px;
+        letter-spacing: 2px;
+    }
+    
+    /* >>>>>>>>>>  MODAL FORM <<<<<<<<<<<<< */
+    .kanban-form {
+      position: relative;
+      z-index: 0;
+      display: grid;
+      align-items: center;
+    }
+    
+    .kanban-form .one-frm label {
+      margin-left: 18%;
+      font-style: normal;
+      font-size: 15px;
+      color: black;
+      display: block;
+      /* margin-bottom: 5px; */
+      font-weight: 400;
+    }
+    
+    .kanban-form input {
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid #212529;
+      color: #777;
+      background:transparent;
+      font-size: 16px;
+      line-height: 20px;
+      padding: 5px 10px;
+      width: 60%;
+      margin-left: 18%;
+      margin-bottom: 30px;
+      border-radius: 0;
+      outline: none;
+    }
+    
+    .kanban-form input:focus {
+      background: transparent;
+      border-bottom: 2px solid #4361ee;
+      box-shadow: none;
+    }
+    
+    /* -- placeholder --*/
+    ::-webkit-input-placeholder {
+        /* Chrome/Opera/Safari */
+        color: #777;
+    }
+    
+    ::-moz-placeholder {
+        /* Firefox 19+ */
+        color: #777;
+    }
+    
+    :-ms-input-placeholder {
+        /* IE 10+ */
+        color: #777;
+    }
+    
+    :-moz-placeholder {
+        /* Firefox 18- */
+        color: #777;
+    }
+    
+    /* >>>>>>>>>>  BUTTON  <<<<<<<<<<<<< */
+    .kanban .btn {
+      display: inline-block;
+      padding: 5px 15px;
+      border-radius: 4px;
+      transition: none;
+      color: #fff;
+      font-size: 20px;
+      font-weight: 400;
+      font-family: "Roboto", sans-serif;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .card-title .btn-del-edit {
+        display: inline-block;
+        text-align: center;
+        margin: 0 2px;
+        padding: 5px 10px;
+        border-radius: 4px;
+        justify-content: center;
+        transition: none;
+        color: #fff;
+        font-size: 17px;
+        font-weight: 400;
+        /* font-family: "Roboto", sans-serif; */
+        /* font-weight: 600; */
+        transition: 0.3s;
+    }
+    
+    .card-title .btn-del-edit:hover {
+        opacity: .8;
+        /* background: #3b8af2; */
+    }
+    
+    .tag .btn-tag { 
+        background-color: white;
+        color: black;
+        /* display: inline-block; */
+        margin-left: 10px;
+        padding: 5px 5px;
+        border-radius: 5px;
+        transition: none;
+        font-size: 15px;
+        font-weight: 200;
+        font-family: "Roboto", sans-serif;
+        font-weight: 600;
+        transition-duration: 0.4s;
+    }
+    
+    .btn-tag:hover {
+        opacity: .8;
+        /* color:#fff;
+        background-color: black; */
+        /* box-shadow: 0px 0px 4px #ca3287 */
+        /* background: #3b8af2; */
+    }
+    
+    .btn-add {
+        color: #fff;
+        background-color: black;
+        border-color: rgba(58, 176, 195, 0.5); 
+    }
+    .btn-add:hover {
+        color: black;
+        background-color: yellow;
+        border-color: #1f3180; 
+    }
+    
+    .close {
+        float: right;
+        font-size: 1.5rem;
+        font-weight: 700;
+        line-height: 1;
+        color: white;
+        opacity: 1; 
+    }
+    .close:hover {
+        color: yellow;
+        opacity: 1; 
+    }
+      
+    button.close {
+        padding: 0;
+        background-color: black;
+        border: 0;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none; 
+    }
+    
+    .btn-log-out {
+        font-size:24px;
+        color: white;
+        background-color: #28a745;
+        border-color:  #28a745; 
+    }
+    .btn-log-out:hover {
+        color:#28a745;
+        background-color: black;
+        border-color: black;
+    }
+    ::-webkit-scrollbar {
+        width: 0px;  /* Remove scrollbar space */
+        background: transparent;  /* Optional: just make scrollbar invisible */
+    }
+
+}
+/* ::-webkit-scrollbar {
+    display: none;
+} */
+@media only screen and (min-device-width: 1200px) 
+and (max-device-width: 2400px) 
+{
+    .navbar {
+        background-color: black;
+    }
+    
+    .navbar a {
+        color: white;
+        font-size: 36px;
+        text-align: left;
+        padding-left: 3%;
+        text-transform: uppercase;
+        font-weight: 600;
+        color: #fff;
+        letter-spacing: 3px;
+        font-family: 'Poppins', sans-serif;
+    }
+    h5 {
+        font-size: 18px;
+    }
+    .kanban {
+        min-height: 100vh;
+        background-color: black;
+    }
+    .kanban .box {
+      padding: 20px;
+      margin: 3vh .8vh;
+      background: black;
+      /* text-align: center; */
+      box-shadow: 0px 0px 4px #333;
+      border-radius: 5px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .box-header {
+        text-align: center;
+    }
+    
+    .box-content {
+        padding-top:5px; 
+        max-height: 65vh;
+        overflow: auto;
+        /* overflow: hidden;; */
+    }
+    
+    .kanban .box h3 {
+      font-weight: 400;
+      margin: -20px -20px 20px -20px;
+      padding: 20px 15px;
+      font-size: 30px;
+      font-weight: 600;
+      color: white;
+      background: black;
+    }
+    
+    .kanban .box h4 {
+      font-size: 36px;
+      color: white;
+      /* color: #106eea; */
+      font-weight: 600;
+      font-family: "Poppins", sans-serif;
+      margin-bottom: 20px;
+    }
+    
+    .kanban .box h4 sup {
+      color: white;
+      font-size: 20px;
+      top: -15px;
+      left: -3px;
+    }
+    
+    .kanban .box h4 span {
+      color: white;
+      font-size: 16px;
+      font-weight: 300;
+    }
+    
+    .kanban .box ul {
+      padding: 0;
+      list-style: none;
+      color: white;
+      text-align: center;
+      line-height: 20px;
+      font-size: 14px;
+    }
+    
+    .kanban .box ul li {
+      padding-bottom: 16px;
+    }
+    
+    .kanban .box ul i {
+      /* color: #106eea; */
+      color: white;
+      font-size: 18px;
+      padding-right: 4px;
+    }
+    
+    .kanban .box ul .na {
+      color: white;
+      text-decoration: line-through;
+    }
+    
+    .kanban .btn-wrap {
+      margin: 0px -20px -20px -20px;
+      padding: 20px 15px;
+      background:black;
+      /* background: #f8f8f8; */
+      text-align: center;
+    }
+    
+    .kanban .Backlog h3 {
+        background: #f85a40;
+    }
+    .kanban .Todo h3 {
+        background: #ca3287;
+    }
+    .kanban .Doing h3 {
+        background: #30c39e;
+    }
+    .kanban .Done h3 {
+        background: #a027b8;
+    }
+    
+    .Backlog {
+        background: #f85a40;
+    }
+    .Todo{
+        background: #ca3287;
+    }
+    .Doing {
+        background: #30c39e;
+    }
+    .Done {
+        background: #a027b8;
+    }
+    
+    .kanban .btn:hover {
+      opacity: .8;
+      /* background: #3b8af2; */
+    }
+    
+    .card-Backlog {
+        background-color:black; 
+        max-width: 28rem; 
+        box-shadow: 0px 0px 4px #f85a40
+    }
+    
+    .card-Todo {
+        background-color:black; 
+        max-width: 28rem; 
+        box-shadow: 0px 0px 4px #ca3287
+    }
+    
+    .card-Doing {
+        background-color:black; 
+        max-width: 28rem; 
+        box-shadow: 0px 0px 4px #30c39e
+    }
+    
+    .card-Done {
+        background-color:black; 
+        max-width: 28rem; 
+        box-shadow: 0px 0px 4px #a027b8
+    }
+    
+    .card-header {
+        font-size: 18px;
+        color:white;
+    }
+    
+    .card-header i {
+        font-size: 20px;
+        padding-right: 10px;
+        color:white;
+    }
+    
+    .footer {
+        text-align: center;
+        padding: 1em 1em;
+    }
+    .footer p {
+        font-size: 1em;
+        color: #fff;
+        margin: 0px;
+        letter-spacing: 2px;
+    }
+    
+    /* >>>>>>>>>>  MODAL FORM <<<<<<<<<<<<< */
+    .kanban-form {
+      position: relative;
+      z-index: 0;
+      display: grid;
+      align-items: center;
+    }
+    
+    .kanban-form .one-frm label {
+      margin-left: 18%;
+      font-style: normal;
+      font-size: 15px;
+      color: black;
+      display: block;
+      /* margin-bottom: 5px; */
+      font-weight: 400;
+    }
+    
+    .kanban-form input {
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid #212529;
+      color: #777;
+      background:transparent;
+      font-size: 16px;
+      line-height: 20px;
+      padding: 5px 10px;
+      width: 60%;
+      margin-left: 18%;
+      margin-bottom: 30px;
+      border-radius: 0;
+      outline: none;
+    }
+    
+    .kanban-form input:focus {
+      background: transparent;
+      border-bottom: 2px solid #4361ee;
+      box-shadow: none;
+    }
+    
+    /* -- placeholder --*/
+    ::-webkit-input-placeholder {
+        /* Chrome/Opera/Safari */
+        color: #777;
+    }
+    
+    ::-moz-placeholder {
+        /* Firefox 19+ */
+        color: #777;
+    }
+    
+    :-ms-input-placeholder {
+        /* IE 10+ */
+        color: #777;
+    }
+    
+    :-moz-placeholder {
+        /* Firefox 18- */
+        color: #777;
+    }
+    
+    /* >>>>>>>>>>  BUTTON  <<<<<<<<<<<<< */
+    .kanban .btn {
+      display: inline-block;
+      padding: 5px 15px;
+      border-radius: 4px;
+      transition: none;
+      color: #fff;
+      font-size: 20px;
+      font-weight: 400;
+      font-family: "Roboto", sans-serif;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+    
+    .card-title a{
+        float: right;
+    }
+
+    .card-title .btn-del-edit {
+        display: inline-block;
+        text-align: center;
+        margin: 0 2px;
+        padding: 5px 10px;
+        border-radius: 4px;
+        justify-content: center;
+        transition: none;
+        color: #fff;
+        font-size: 17px;
+        font-weight: 400;
+        /* font-family: "Roboto", sans-serif; */
+        /* font-weight: 600; */
+        transition: 0.3s;
+    }
+    
+    .card-title .btn-del-edit:hover {
+        opacity: .8;
+        /* background: #3b8af2; */
+    }
+    
+    .tag .btn-tag { 
+        background-color: white;
+        color: black;
+        /* display: inline-block; */
+        margin-left: 10px;
+        padding: 5px 5px;
+        border-radius: 5px;
+        transition: none;
+        font-size: 15px;
+        font-weight: 200;
+        font-family: "Roboto", sans-serif;
+        font-weight: 600;
+        transition-duration: 0.4s;
+    }
+    
+    .btn-tag:hover {
+        opacity: .8;
+        /* color:#fff;
+        background-color: black; */
+        /* box-shadow: 0px 0px 4px #ca3287 */
+        /* background: #3b8af2; */
+    }
+    
+    .btn-add {
+        color: #fff;
+        background-color: black;
+        border-color: rgba(58, 176, 195, 0.5); 
+    }
+    .btn-add:hover {
+        color: black;
+        background-color: yellow;
+        border-color: #1f3180; 
+    }
+    
+    .close {
+        float: right;
+        font-size: 1.5rem;
+        font-weight: 700;
+        line-height: 1;
+        color: white;
+        opacity: 1; 
+    }
+    .close:hover {
+        color: yellow;
+        opacity: 1; 
+    }
+      
+    button.close {
+        padding: 0;
+        background-color: black;
+        border: 0;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none; 
+    }
+    
+    .btn-log-out {
+        font-size:24px;
+        color: white;
+        background-color: #28a745;
+        border-color:  #28a745; 
+    }
+    .btn-log-out:hover {
+        color:#28a745;
+        background-color: black;
+        border-color: black;
+    }
+
+    html {
+        overflow: scroll;
+        overflow-x: hidden;
+    }
+    ::-webkit-scrollbar {
+        width: 0px;  /* Remove scrollbar space */
+        background: transparent;  /* Optional: just make scrollbar invisible */
+    }
+    /* Optional: show position indicator in red */
+    ::-webkit-scrollbar-thumb {
+        /* background: #fff; */
+        background: transparent;
+        opacity: .5;
+        width: 10px;
+        /* height: 30px; */
+        
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        /* background: #fff; */
+        background: white;
+        opacity: .5;
+        width: 30px;
+        height: 30px;
+        
+    }
+    
+    .scrolling-wrapper {
+        overflow-x: auto;
+        max-width: 100vw;
+        scrollbar-darkshadow-color: whitesmoke;
+        -ms-flex-wrap: nowrap !important;
+        flex-wrap: nowrap !important;
+        /* width: 200%;
+        overflow: auto;
+        -webkit-overflow-scrolling: auto; */
+        /* max-height: ; */
+    }
+}
+
+
+
+  
