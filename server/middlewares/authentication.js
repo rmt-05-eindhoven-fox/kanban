@@ -2,7 +2,8 @@ const { verifyToken } = require('../helpers/jwt')
 const { User } = require('../models')
 
 async function authentication (req, res, next) {
-    const { token } = req.headers;
+    //console.log(req.headers, 'ini headers')
+    const {token} = req.headers
     try {
         if(!token) {
             throw {msg: 'Authentication error', status: 401}

@@ -29,7 +29,7 @@ class Controller {
             password: req.body.password
         }
         try {
-            console.log(payload)
+            //console.log(payload)
 
             const user = await User.findOne({
                 where: {
@@ -49,6 +49,7 @@ class Controller {
                     id: user.id,
                     email: user.email
                 })
+                //console.log(tokenAccess, 'ini token controller')
                 res.status(200).json({tokenAccess})
             }
         } catch (error) {
