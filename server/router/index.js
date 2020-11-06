@@ -4,6 +4,9 @@ const authentication = require('../middlewares/authentication')
 const UserController = require('../controllers/user')
 const KanbanController = require('../controllers/kanban')
 
+route.get('/', (req, res) => {
+  res.send('masuk')
+})
 route.post('/register', UserController.register)
 route.post('/login', UserController.login)
 route.post('/googleLogin', UserController.googleLogin)
