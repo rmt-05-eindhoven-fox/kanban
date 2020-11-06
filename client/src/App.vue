@@ -46,7 +46,7 @@ export default {
   name: 'App',
   data() {
     return {
-      pageName: 'content',
+      pageName: 'login',
       categories: [
         {
           name: 'Backlog'
