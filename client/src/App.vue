@@ -108,7 +108,6 @@ export default {
   },
   methods:{
     fetchTasks() {
-      console.log('inside fetch task');
       axios({
         method: 'get',
         url: '/tasks',
@@ -118,7 +117,6 @@ export default {
       })
         .then(({data}) => {
           this.tasks = data
-          console.log('we get the tasks');
         })
         .catch(err => {
           console.log(err.response);
