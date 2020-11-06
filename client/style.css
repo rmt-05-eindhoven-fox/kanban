@@ -1,0 +1,146 @@
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+
+.item{
+    height: 75vh;
+    /* background-color: rgb(255, 255, 255); */
+    overflow-y: scroll;
+    color: #aa79a4;
+    /* border-radius: 25px; */
+    
+    /* margin-top: 10vh;
+    margin-bottom: 10vh; */
+    /* margin: 10px; */
+}
+
+.card{
+    margin: 0;
+    padding: 0;
+    background-color: rgba(236, 236, 236, 0.048);
+    transition: all.5s;
+}
+
+.hover-pink:hover {
+    background-color: rgb(255, 234, 245);
+}
+
+.card-body{
+    padding: 13px;
+}
+
+.card-title{
+    color: #745c97;
+}
+
+h5 {
+    color: #6e578d;
+}
+
+.card-text{
+    font-size: 12px;
+}
+
+.card-text .card-email{
+    color: rgb(153, 153, 153);
+}
+
+.card-text .card-date{
+    color: rgb(185, 185, 185);
+}
+
+
+
+.fa-pen {
+    color: #8ac6d1;
+    transition: all.3s;
+}
+
+.fa-pen:hover {
+    /* color: #926ec0; */
+    font-size: 16px;
+}
+
+.fa-trash {
+    color: #ff8080;
+    transition: all.3s;
+}
+
+.fa-trash:hover {
+    /* color: #926ec0; */
+    font-size: 16px;
+}
+
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px;
+}
+
+nav .links ul {
+    list-style: none;
+}
+
+.text-hover-pink{
+    transition: all.3s;
+    color: rgb(255, 255, 255); 
+}
+
+.text-hover-pink:hover {
+    color: rgb(255, 255, 255); 
+    text-shadow: 0 0 5px #ff8080;
+}
+
+.btn-purple {
+    background-color: #6e578d;
+    color: rgb(255, 255, 255);
+    transition: all.3s;
+}
+
+.btn-purple:hover {
+    background-color: #926ec0;
+    color: rgb(255, 255, 255);
+}
+
+.text-purple {
+    color: #926ec0;
+}
+
+.rotate-img {
+    transition: all .3s;
+}
+
+.rotate-img:hover {
+    transform: rotate(30deg);
+}
+
+#google-button {
+    font-size: 10px;
+    /* background-color: rgb(214, 227, 241); */
+    transition: all .3s;
+    color: rgb(97, 161, 201);
+}
+
+#google-button:hover {
+    background-color: rgb(243, 234, 234);
+    color: rgb(19, 107, 103);
+}
+
+
+.scrollbar-rainy-ashville::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: #F5F5F5;
+    border-radius: 10px; }
+    
+    .scrollbar-rainy-ashville::-webkit-scrollbar {
+    width: 12px;
+    background-color: #F5F5F5; }
+    
+    .scrollbar-rainy-ashville::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-image: -webkit-gradient(linear, left bottom, left top, from(#fbc2eb), to(#a6c1ee));
+    background-image: -webkit-linear-gradient(bottom, #fbc2eb 0%, #a6c1ee 100%);
+    background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%); }
