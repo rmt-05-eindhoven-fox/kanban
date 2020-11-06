@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bootstrap": "^4.5.3",
+    "bootstrap-vue": "^2.18.1",
     "vue": "^2.6.12",
     "vue-hot-reload-api": "^2.3.4"
   },

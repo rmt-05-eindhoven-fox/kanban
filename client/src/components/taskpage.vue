@@ -1,13 +1,45 @@
 <template>
     <div class="mainpage">
                 <section class="card-list">
-                    <article class="card">
+                    <article ref="kard" class="card">
                         <header style="background-color: #30BFBF;" class="card-header">
                         <h2>Backlog</h2>
                         </header>
                         <div class="task-body"> 
+                            <form>
+                                <button @click="showModal('backlog', 'addform')" type="button" class="btn btn-default btn-sm">
+                                    <span class="glyphicon">&#x2b;</span> Add Task
+                                </button>
+                            </form>
+                            <div ref="addform" class="add-form" style="margin-right: 10px;" id="myModal">
+                                <div class="modal-dialog">
+                                <div class="modal-content">
+                                
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                    <h4 class="modal-title">Add Task</h4>
+                                    </div>
+                                    
+                                    <!-- Modal body -->
+                                    <div class="modal-body">
+                                        <form>
+                                            <input v-model="title" type="text" placeholder="title">
+                                            <input v-model="description" type="text" placeholder="description">
+
+                                        </form>
+                                    </div>
+                                    
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" @click="submitTask('addform')">Submit</button>
+                                    <button type="button" class="btn btn-danger" @click="closeModal('addform')" >Close</button>
+                                    </div>
+                                    
+                                </div>
+                                </div>
+                            </div>
                             <div class="element-body" v-for="(task, i) in dataTasks.backlogTasks" :key="i">
-                                <p contenteditable="true">{{task.title}}</p>
+                                <p>{{task.title}}</p>
                                 <p>{{task.description}}</p>
                                     <button type="button" class="btn btn-primary">Edit</button>
                                     <button type="button" class="btn btn-danger"><span class="glyphicon">&#xe020;</span></button>
@@ -22,17 +54,44 @@
                                     </div>
                             </div>
                         </div>
-                        <form>
-                            <button type="button" class="btn btn-default btn-sm">
-                                <span class="glyphicon">&#x2b;</span> Add Task
-                            </button>
-                        </form>
                     </article>
-                    <article class="card">
+                    <article ref="kard" class="card">
                         <header class="card-header">
                         <h2>Development</h2>
                         </header>
                         <div class="task-body"> 
+                            <form>
+                                <button @click="showModal('development', 'devform')" type="button" class="btn btn-default btn-sm">
+                                    <span class="glyphicon">&#x2b;</span> Add Task
+                                </button>
+                            </form>
+                            <div ref="devform" class="add-form" style="margin-right: 10px;" id="myModal">
+                                <div class="modal-dialog">
+                                <div class="modal-content">
+                                
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                    <h4 class="modal-title">Add Task</h4>
+                                    </div>
+                                    
+                                    <!-- Modal body -->
+                                    <div class="modal-body">
+                                        <form>
+                                            <input v-model="title" type="text" placeholder="title">
+                                            <input v-model="description" type="text" placeholder="description">
+
+                                        </form>
+                                    </div>
+                                    
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" @click="submitTask('devform')" >Submit</button>
+                                    <button type="button" class="btn btn-danger" @click="closeModal('devform')" >Close</button>
+                                    </div>
+                                    
+                                </div>
+                                </div>
+                            </div>
                             <div class="element-body" v-for="(task, i) in dataTasks.developmentTasks" :key="i">
                                 <p contenteditable="true">{{task.title}}</p>
                                 <p>{{task.description}}</p>
@@ -49,18 +108,45 @@
                                     </div>
                             </div>
                         </div>
-                        <form>
-                            <button type="button" class="btn btn-default btn-sm">
-                                <span class="glyphicon">&#x2b;</span> Add Task
-                            </button>
-                        </form>
                     </article>
-                    <article class="card">
+                    <article ref="kard" class="card">
                         <header style="background-color: #8F7EE6;" class="card-header">
                         <h2>Product</h2>
                         </header>
                         <div class="task-body"> 
-                            <div class="element-body" v-for="(task, i) in dataTasks.productTasks" :key="i">
+                            <form>
+                                <button @click="showModal('production', 'productform')" type="button" class="btn btn-default btn-sm">
+                                    <span class="glyphicon">&#x2b;</span> Add Task
+                                </button>
+                            </form>
+                            <div ref="productform" class="add-form" style="margin-right: 10px;" id="myModal">
+                                <div class="modal-dialog">
+                                <div class="modal-content">
+                                
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                    <h4 class="modal-title">Add Task</h4>
+                                    </div>
+                                    
+                                    <!-- Modal body -->
+                                    <div class="modal-body">
+                                        <form>
+                                            <input v-model="title" type="text" placeholder="title">
+                                            <input v-model="description" type="text" placeholder="description">
+
+                                        </form>
+                                    </div>
+                                    
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary"  @click="submitTask('productform')" >Submit</button>
+                                    <button type="button" class="btn btn-danger" @click="closeModal('productform')" >Close</button>
+                                    </div>
+                                    
+                                </div>
+                                </div>
+                            </div>
+                            <div class="element-body" v-for="(task, i) in dataTasks.productionTasks" :key="i">
                                 <p contenteditable="true">{{task.title}}</p>
                                 <p>{{task.description}}</p>
                                     <button type="button" class="btn btn-primary">Edit</button>
@@ -76,17 +162,44 @@
                                     </div>
                             </div>
                         </div>
-                        <form>
-                            <button type="button" class="btn btn-default btn-sm">
-                                <span class="glyphicon">&#x2b;</span> Add Task
-                            </button>
-                        </form>
                     </article>
-                    <article class="card">
+                    <article ref="kard" class="card">
                         <header style="background-color: #77CF1F;" class="card-header">
                         <h2>Done</h2>
                         </header>
                         <div class="task-body"> 
+                            <form>
+                                <button @click="showModal('done', 'doneform')" type="button" class="btn btn-default btn-sm">
+                                    <span class="glyphicon">&#x2b;</span> Add Task
+                                </button>
+                            </form>
+                            <div ref="doneform" class="add-form" style="margin-right: 10px;" id="myModal">
+                                <div class="modal-dialog">
+                                <div class="modal-content">
+                                
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                    <h4 class="modal-title">Add Task</h4>
+                                    </div>
+                                    
+                                    <!-- Modal body -->
+                                    <div class="modal-body">
+                                        <form>
+                                            <input v-model="title" type="text" placeholder="title">
+                                            <input v-model="description" type="text" placeholder="description">
+
+                                        </form>
+                                    </div>
+                                    
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary"  @click="submitTask('doneform')" >Submit</button>
+                                    <button type="button" class="btn btn-danger" @click="closeModal('doneform')" >Close</button>
+                                    </div>
+                                    
+                                </div>
+                                </div>
+                            </div>
                             <div class="element-body" v-for="(task, i) in dataTasks.doneTasks" :key="i">
                                 <p contenteditable="true">{{task.title}}</p>
                                 <p>{{task.description}}</p>
@@ -103,14 +216,9 @@
                                     </div>
                             </div>
                         </div>
-                        <form>
-                            <button type="button" class="btn btn-default btn-sm">
-                                <span class="glyphicon">&#x2b;</span> Add Task
-                            </button>
-                        </form>
                     </article>
                 </section>
-                <rightNav @logout="logout"></rightNav>
+                <rightNav @logout="logout" :userData="dataTasks.email"></rightNav>
 
     </div>
 </template>
@@ -121,11 +229,31 @@ export default {
     name: "homepage",
     data() {
         return {
+            email: '',
+            title: '',
+            description: '',
+            category: ''
         };
     },
     methods: {
         logout(value){
             this.$emit('logout', value);
+        },
+        showModal(value, form){
+            this.category = value;
+            this.$refs[form].style.display = "block";
+        },
+        closeModal(form){
+            this.$refs[form].style.display = "none";
+        },
+        submitTask(form){
+            let payload = {
+                title: this.title,
+                description: this.description,
+                category: this.category
+            }
+            this.$refs[form].style.display = "none";
+            this.$emit('submitTask', payload);
         }
     },
     components: {
@@ -133,13 +261,16 @@ export default {
     },
     props: ['dataTasks'],
     created() {
-
     }
 };
 </script>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
+
+#myModal {
+    display: none;
+}
 
 body {
     padding: 0;
@@ -260,12 +391,9 @@ body {
 }
 
 .card:hover {
-    transform: translateY(-1rem);
+    transform: translateY(-10px);
 }
 
-.card:not(:first-child) {
-    /* margin-left: -100px; */
-}
 
 .container div .card {
     margin-top: 65px;

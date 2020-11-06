@@ -1,6 +1,6 @@
 <template>
     <div>
-        <taskpage @logout="logout" v-if="targetPage === 'task-page'" :dataTasks="tasks"></taskpage>
+        <taskpage @submitTask="addTask" @logout="logout" v-if="targetPage === 'task-page'" :dataTasks="homeData"></taskpage>
         <landingpage @register="register" @login="login" v-else-if="targetPage === 'landing-page'"></landingpage>
     </div>
 </template>
@@ -19,17 +19,20 @@ export default {
         return {
             base_url: `http://localhost:3000`,
             message: 'Hello world',
-            tasks: {
+            homeData: {
                 backlogTasks: [],
                 productionTasks: [],
                 doneTasks: [],
-                developmentTasks: []
+                developmentTasks: [],
+                email: ''
             },
+            watchData: '',
             targetPage: '',
         };
     },
     methods: {
         login(payload) {
+            this.homeData.email = payload.email;
             axios.post(`${this.base_url}/login`, {
                 email: payload.email,
                 password: payload.password 
@@ -44,7 +47,6 @@ export default {
             })
         },
         register(payload) {
-            let user = this.newUser;
             axios.post(`${this.base_url}/register`, {
                 email: payload.email,
                 password: payload.password
@@ -60,33 +62,67 @@ export default {
         },
         logout(value){
             this.targetPage = value;
-        }
-    },
-    created() {
-        axios.get(`${this.base_url}/tasks`, {
-                headers: {access_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJtYW5zdXJAeWFob28uYWMiLCJpYXQiOjE2MDQ1NzQ5MTl9.lJ71tV-eVX-aC1KjDa3cFzYrIgqayqAbB1xXIdfzb8o'}
+        },
+        addTask(payload){
+            let access_token = localStorage.getItem('access_token')
+            axios({
+                method: 'POST',
+                url: `${this.base_url}/tasks`,
+                headers: {
+                    access_token
+                },
+                data: {
+                    title: payload.title,
+                    description: payload.description,
+                    category: payload.category
+                }
             })
             .then(response => {
+                console.log(response);
+                this.watchData = response;
+            }).catch(error => {
+                console.log(error.response);
+            })
+        },
+        fetchData(){
+            axios.get(`${this.base_url}/tasks`, {
+                headers: {access_token: localStorage.getItem('access_token')}
+            })
+            .then(response => {
+                this.homeData.backlogTasks = [];
+                this.homeData.developmentTasks = [];
+                this.homeData.productionTasks = [];
+                this.homeData.doneTasks = [];
                 response.data.forEach((el) => {
                     if(el.category === 'backlog'){
-                        this.tasks.backlogTasks.push(el);
+                        this.homeData.backlogTasks.push(el);
                     } else if (el.category === 'production'){
-                        this.tasks.productionTasks.push(el);
+                        this.homeData.productionTasks.push(el);
                     } else if (el.category === 'development'){
-                        this.tasks.developmentTasks.push(el);
+                        this.homeData.developmentTasks.push(el);
                     } else {
-                        this.tasks.doneTasks.push(el);
+                        this.homeData.doneTasks.push(el);
                     }
                 })
             })
             .catch(error => {
                 this.tasks = error.response;
-        });
+            });
+        }
+    },
+    created() {
+        this.fetchData();
         let access_token = localStorage.getItem('access_token')
         if(access_token){
+            // this.homeData.email = payload.email;
             this.targetPage = 'task-page';
         } else {
             this.targetPage = 'landing-page';
+        }
+    },
+    watch: {
+        watchData() {
+            this.fetchData();
         }
     }
 };

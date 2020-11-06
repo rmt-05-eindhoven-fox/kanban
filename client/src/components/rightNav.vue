@@ -33,7 +33,7 @@
 
         </li>
         <li class="nav-item">
-            <span class="link-text"><h4>Mansur@gmail.com</h4></span>
+            <span class="link-text"><h4>{{userData}}</h4></span>
         </li>
         <br>
         <li class="nav-item">
@@ -53,7 +53,8 @@ export default {
         logout() {
             this.$emit('logout', 'landing-page');
         }
-    }
+    },
+    props: ['userData']
 }
 </script>
 
@@ -63,7 +64,7 @@ export default {
   font-family: 'Open Sans';
   --text-primary: #b6b6b6;
   --text-secondary: #ececec;
-  --bg-primary: #333C40;
+  --bg-primary: #33b4f5;
   --transition-speed: 600ms;
 }
 
