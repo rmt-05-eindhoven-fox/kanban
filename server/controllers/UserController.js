@@ -58,13 +58,14 @@ class UserController {
 
   static async loginGoogle(req, res, next) {
     const { access_token } = req.body
+    // console.log(access_token);
     try {
       const ticket = await client.verifyIdToken({
         idToken: access_token,
         audience: process.env.CLIENT_ID,
       });
       const payload = ticket.getPayload();
-      // console.log(payload);
+      console.log(payload);
       let user = await User.findOne({where: {email: payload.email}})
       if (!user) {
         const createUser = {
@@ -83,6 +84,7 @@ class UserController {
         last_name: user.last_name
       }
       res.status(200).json(data)
+      // res.status(200).json('ntab')
     } catch (err) {
       console.log(err, 'errorz');
       next(err)
