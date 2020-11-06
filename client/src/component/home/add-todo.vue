@@ -14,7 +14,7 @@
         <div class="modal-content card card-inside-title body">
           <div class="modal-header">
             <h6 class="title" id="defaultModalLabel">
-              Add Task to {{ AddCategoryName }}
+              <strong class="text-pink"> Add Task to </strong> {{ AddCategoryName }}
             </h6>
           </div>
           <form @submit.prevent="submitTask" id="add-todo">
@@ -28,7 +28,7 @@
                 <input
                   v-model="AddOrganizationId"
                   type="hidden"
-                  name="categoryId"
+                  name="organizationId"
                 />
                 <div class="col-12">
                   <div class="form-group">
@@ -115,9 +115,9 @@ export default {
         name: this.AddTaskName,
         description: this.AddTaskDescription,
       };
+      this.$emit("storeTask", payload);
       this.AddTaskName = "";
-      this.AddTaskDescription = "";
-      console.log(payload);
+      this.AddTaskDescription = ""; 
     },
 
     cancelTask() {

@@ -35,8 +35,11 @@
             v-for="category in categories"
             :key="category.id"
             :dataCategory="category"
-            :organizationId="organizationId" 
+            :organizationId="organizationId"
             @openAddTask="openAddTask"
+            @deleteTask="deleteTask"
+            @openEditTask="openEditTask"
+            @changeCategory="changeCategory"
           ></Category>
           <!-- List Category -->
         </div>
@@ -54,9 +57,21 @@ export default {
   components: {
     Category,
   },
-  methods: { 
+  methods: {
     openAddTask(payload) {
       this.$emit("openAddTask", payload);
+    },
+
+    openEditTask(payload) {
+      this.$emit("openEditTask", payload);
+    },
+
+    deleteTask(payload) {
+      this.$emit("deleteTask", payload);
+    },
+
+    changeCategory(payload) {
+      this.$emit("changeCategory", payload);
     },
   },
 };

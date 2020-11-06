@@ -40,7 +40,7 @@
           </div>
           <input
             v-model="password"
-            type="text"
+            type="password"
             class="form-control"
             placeholder="Password"
             required

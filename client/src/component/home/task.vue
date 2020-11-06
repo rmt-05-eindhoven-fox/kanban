@@ -14,12 +14,25 @@
             More
           </button>
           <div class="dropdown-menu">
-            <a class="dropdown-item p-2" href="javascript:void(0);"
+            <a
+              class="dropdown-item p-2"
+              href="javascript:void(0);"
+              @click.prevent="changeCategory"
               >Change Category</a
             >
-            <a class="dropdown-item p-2" href="javascript:void(0);">Edit</a>
+            <a
+              class="dropdown-item p-2"
+              href="javascript:void(0);"
+              @click.prevent="openEditTask()"
+              >Edit</a
+            >
             <div role="separator" class="dropdown-divider"></div>
-            <a class="dropdown-item p-2" href="javascript:void(0);">Delete</a>
+            <a
+              class="dropdown-item p-2"
+              href="javascript:void(0);"
+              @click.prevent="deleteTask()"
+              >Delete</a
+            >
           </div>
         </div>
       </div>
@@ -55,6 +68,41 @@ export default {
   name: "task",
   props: ["task"],
   methods: {
+    getPayload() {
+      const payload = {
+        id: this.task.id,
+        name: this.task.name,
+        description: this.task.description,
+        CategoryId: this.task.CategoryId,
+        OrganizationId: this.task.OrganizationId,
+        fullname: this.task.User.fullname,
+        UserId: this.task.UserId,
+      };
+      return payload;
+    },
+
+    deleteTask() {
+      const idStorange = localStorage.getItem("id");
+      if (idStorange != this.task.UserId) {
+        this.$swal("Delete Failed!", "This task is not yours!", "error");
+      } else {
+        this.$emit("deleteTask", this.getPayload());
+      }
+    },
+
+    openEditTask() {
+      const idStorange = localStorage.getItem("id");
+      if (idStorange != this.task.UserId) {
+        this.$swal("Edit Failed!", "This task is not yours!", "error");
+      } else {
+        this.$emit("openEditTask", this.getPayload());
+      }
+    },
+
+    changeCategory() {
+      this.$emit("changeCategory", this.getPayload());
+    },
+
     formatDate(date) {
       const bulan = [
         "Jan",

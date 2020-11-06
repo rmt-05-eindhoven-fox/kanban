@@ -39,7 +39,10 @@
             <Task
               v-for="task in dataCategory.Tasks"
               :key="task.id"
-              :task="task" 
+              :task="task"
+              @deleteTask="deleteTask"
+              @openEditTask="openEditTask"
+              @changeCategory="changeCategory"
             ></Task>
           </ol>
         </div>
@@ -68,6 +71,18 @@ export default {
       };
       this.$emit("openAddTask", payload);
       // console.log("Cat ID", catId, organizationId, taskName);
+    },
+
+    openEditTask(payload) {
+      this.$emit("openEditTask", payload);
+    },
+
+    deleteTask(payload) {
+      this.$emit("deleteTask", payload);
+    },
+
+    changeCategory(payload) {
+      this.$emit("changeCategory", payload);
     },
   },
 };
