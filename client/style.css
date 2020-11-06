@@ -23,8 +23,17 @@ nav .links a {
   color: #ffffff;
 }
 
+.bg-title {
+  background-color: #7f8c8d;
+  color: #ffffff;
+}
+
+.bg-body {
+  background-color: #ecf0f1;
+}
+
 .category-content {
-  height: 75vh;
+  height: 70vh;
   overflow: scroll;
 }
 

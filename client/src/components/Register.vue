@@ -1,7 +1,7 @@
 <template>
   <!--  REGISTER  -->
   <!-- <selection class="container" id="register"> -->
-    <div class="container row justify-content-center">
+    <div class="row justify-content-center">
       <div class="col-4">
         <h2>Register</h2><br>
         <form @submit.prevent="register">

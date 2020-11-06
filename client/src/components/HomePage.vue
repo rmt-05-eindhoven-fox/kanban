@@ -1,6 +1,6 @@
 <template>
   <!--CONTENT-->
-  <div class="container">
+  <div class="">
 
     <div class="row">
 

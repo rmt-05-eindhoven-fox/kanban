@@ -1,4 +1,4 @@
-const { Task } = require('../models/index.js');
+const { Task, User } = require('../models/index.js');
 
 class Controller {
     static async create (req, res, next) {
@@ -28,7 +28,9 @@ class Controller {
 
     static async showAll (req, res, next) {
         try {
-            const tasks = await Task.findAll();
+            const tasks = await Task.findAll({
+                include: [User]
+            });
 
             res.status(200).json(tasks);
 

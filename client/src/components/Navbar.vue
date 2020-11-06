@@ -1,15 +1,20 @@
 <template>
   <!--NAVBAR-->
-  <nav>
-    <div class="links">
-      <ul>
-        <li>
-          <a href="#">Kanban</a>
-        </li>
-        <li>
-          <a @click.prevent="logout" href="#">Log Out</a>
-        </li>
-      </ul>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">Kanban</a>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">           
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a @click.prevent="logout" href="#">Log Out</a>
+          </li>
+        </ul>
+      </div>
     </div>
   </nav>
   <!--END NAVBAR-->

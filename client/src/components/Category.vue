@@ -1,9 +1,9 @@
 <template>
   <div class="col-md-3 col-sm-6 col-12">
-    <div class="category-selection bg-warning">
+    <div class="category-selection bg-body">
 
       <!--CATEGORY HEADER-->
-      <div class="category-title bg-success p-4">
+      <div class="category-title bg-title p-4">
         <h2>{{ cat.name }}</h2>
       </div>
       <!--END CATEGORY HEADER-->

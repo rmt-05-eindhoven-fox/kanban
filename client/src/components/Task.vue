@@ -4,18 +4,24 @@
       <div v-if="task.id == editId" class="card-body">
         <form @submit.prevent="editTask(task.id)">
           <input
-            v-model="task.title"
+            v-model="title"
             class="form-control"
             type="text"
             placeholder="Title"
           >
           <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
           <input
-            v-model="task.description"
+            v-model="description"
             class="form-control"
             type="text"
             placeholder="Description"
           >
+          <select v-model="status" class="form-control">
+            <option value="backlog">Backlog</option>
+            <option value="todo">Todo</option>
+            <option value="doing">Doing</option>
+            <option value="finished">Finished</option>
+          </select>
           <button type="submit" class="btn btn-primary">Edit</button>
           <a @click.prevent="resetEdit" href="#" class="btn btn-primary">Cancel</a>
         </form>
@@ -23,7 +29,7 @@
 
       <div v-else class="card-body">
         <h5 class="card-title">{{ task.title }}</h5>
-        <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+        <h6 class="card-subtitle mb-2 text-muted">by {{ task.User.email }}</h6>
         <p class="card-text">{{ task.description }}</p>
         <a @click.prevent="editForm(task.id)" href="#" class="card-link">Edit</a>
         <a @click.prevent="deleteTask(task.id)" href="#" class="card-link">Delete</a>
@@ -39,11 +45,13 @@ export default {
     return {
       editId: 0,
       title: '',
-      description: ''
+      description: '',
+      status: ''
     }
   },
   props: [
-    'task'
+    'task',
+    'cat'
   ],
   methods: {
     deleteTask (id) {
@@ -51,6 +59,9 @@ export default {
     },
     editForm (id) {
       this.editId = id
+      this.title = this.task.title
+      this.description = this.task.description,
+      this.status = this.task.status
     },
     resetEdit () {
       this.editId = 0
@@ -59,7 +70,8 @@ export default {
       const edit = {
         id: id,
         title: this.title,
-        description: this.description
+        description: this.description,
+        status: this.status
       }
       this.editId = 0
       this.$emit('editTask', edit)

@@ -5,13 +5,16 @@
       @logout="logout"
     ></Navbar>
 
-    <!-- <div 
-    v-if="error != ''"
-    id="error" class="alert alert-danger" role="alert"></div> -->
+    <div 
+      v-if="error != ''"
+      id="error" class="alert alert-danger" role="alert"
+    >{{ error }}</div>
+
     <Login
       v-if="pageName == 'login'"
       @login="login"
       @changePage="changePage"
+      @googleLogin="googleLogin"
     ></Login>
     
     <Register
@@ -58,7 +61,8 @@ export default {
           name: 'Finished'
         }
       ],
-      tasks: []
+      tasks: [],
+      error: ''
     }
   },
   components: {
@@ -86,8 +90,7 @@ export default {
         this.afterLogin()
       })
       .catch(err => {
-        console.log(err.response, '<<<<<<<< err dari login');
-        // this.showError (err.message);
+        this.showError (err.response.data.message);
       })
     },
     register (user) {
@@ -105,7 +108,25 @@ export default {
         this.afterLogin()
       })
       .catch(err => {
-        console.log(err.response, '<<<<<<<< err dari register');
+        this.showError (err.response.data.message);
+      })
+    },
+    googleLogin (idToken) {
+      axios({
+        url: '/user/googleLogin',
+        method: 'POST',
+        data: {
+          google_access_token: idToken
+        }
+      })
+      .then(({ data }) => {
+        console.log(data)
+        localStorage.setItem('token', data.access_token)
+        this.afterLogin()
+      })
+      .catch(err => {
+        console.log(err, '<<<<<<<< err dari googleLogin')
+        this.showError(err.response);
       })
     },
     fetchTasks () {
@@ -121,6 +142,7 @@ export default {
       })
       .catch(err => {
         console.log(err.response,  '<<<<<<<<<< err dari fetchTask')
+        this.showError (err.response.data.message);
       })
     },
     addTask (addTask) {
@@ -141,6 +163,8 @@ export default {
       })
       .catch(err => {
         console.log(err.response, '<<<<<<< err dari addTask')
+        this.showError (err.response.data);
+        this.afterLogin()
       })
     },
     deleteTask (id) {
@@ -156,9 +180,12 @@ export default {
       })
       .catch(err => {
         console.log(err.response, '<<<<<<< err dari deleteTask')
+        this.showError (err.response.data);
+        this.afterLogin()
       })
     },
     editTask (edit) {
+      console.log(edit)
       axios({
         url: `/task/${edit.id}`,
         method: 'PUT',
@@ -167,7 +194,8 @@ export default {
         },
         data: {
           title: edit.title,
-          description: edit.description
+          description: edit.description,
+          status: edit.status
         }
       })
       .then(data => {
@@ -175,6 +203,15 @@ export default {
       })
       .catch(err => {
         console.log(err.response, '<<<<<<< err dari editTask')
+        let message = ''
+        if (err.response.data.message) {
+          message = err.response.data.message
+        }
+        else {
+          message = err.response.data
+        }
+        this.showError (message);
+        this.afterLogin()
       })
     },
     afterLogin () {
@@ -187,6 +224,12 @@ export default {
     logout () {
       localStorage.removeItem('token')
       this.afterLogout()
+    },
+    showError (error) {
+      this.error = error
+      setTimeout(() => {
+        this.error = ''
+      }, 3000)
     }
   },
   created () {
