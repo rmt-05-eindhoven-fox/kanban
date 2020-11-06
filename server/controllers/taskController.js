@@ -11,13 +11,28 @@ class TaskController {
         },
         include: [{
           model: User,
-          attributes: ['username', 'email']
+          attributes: ['username']
         }, {
           model: Category,
           attributes: ['name']
         }]
       })
       res.status(200).json(tasks)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  static async showCategories(req, res, next) {
+    try {
+      const categories = await Category.findAll({
+        attributes : {
+          exclude : [ 'updatedAt', 'createdAt' ]
+        }
+      })
+
+      res.status(200).json(categories)
+
     } catch (error) {
       next(error)
     }
@@ -72,15 +87,16 @@ class TaskController {
   }
 
   static async updateTask(req, res, next) {
-    const id = req.params.id
+    const taskId = req.params.id
     const {title, description, CategoryId} = req.body
 
     try {
       const update = await Task.update({
-        title, description, CategoryId
+        title, description, 
+        // CategoryId
       }, {
-        where: {id},
-        returning: ['title', 'description', 'CategoryId']
+        where: {taskId},
+      returning: ['title', 'description', /*'CategoryId'*/]
       })
       res.status(200).json(update[1][0])
     } catch(error) {
@@ -89,7 +105,19 @@ class TaskController {
     }
   }
 
-  static async patchTask(req, res, next) {
+  static async addCategory(req, res, next) {
+    try {
+      const {name} = req.body
+      const newCategory = await Category.create({
+        name
+      })
+      res.status(200).json(newCategory)
+    } catch(err) {
+      next(error)
+    }   
+  }
+
+  static async editCategory(req, res, next) {
     const id = req.params.id
     const {CategoryId} = req.body
 
@@ -117,6 +145,18 @@ class TaskController {
         message: 'task deleted successfully'
       })
     } catch (error) {
+      next(error)
+    }
+  }
+
+  static async deleteCategory(req, res, next) {
+    try {
+      const id = req.params.id
+      await Category.destroy({where: {id}})
+      res.status(200).json({
+        message: 'Category deleted successfully'
+      })
+    } catch(error) {
       next(error)
     }
   }

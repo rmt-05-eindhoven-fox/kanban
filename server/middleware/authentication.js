@@ -10,8 +10,8 @@ async function authentication(req, res, next) {
       const decoded = verifyToken(access_token);
       const user = await User.findOne({
         where: {
-          // email: decoded.email
-          username: decoded.username
+          email: decoded.email
+          // username: decoded.username
         }
       })
       if (!user) {

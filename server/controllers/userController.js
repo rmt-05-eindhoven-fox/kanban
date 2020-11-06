@@ -32,15 +32,15 @@ class UserController {
     static async login(req, res, next) {
       try {
         const credentials = {
-          // email: req.body.email,
-          username: req.body.username,
+          email: req.body.email,
+          // username: req.body.username,
           password: req.body.password
         }
   
         const user = await User.findOne({
           where: {
-            // email: credentials.email
-            username: credentials.username
+            email: credentials.email
+            // username: credentials.username
           }
         })
   
@@ -55,8 +55,8 @@ class UserController {
         } else {
           const access_token = signToken({
             id: user.id,
-            // email: user.email,
-            username: user.username,
+            email: user.email,
+            // username: user.username,
           })
   
           res.status(200).json({

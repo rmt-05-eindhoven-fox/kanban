@@ -8,9 +8,14 @@ router.use(authentication)
 router.get('/', TaskController.showTasks)
 router.post('/', TaskController.addTask)
 
-router.get('/:id', authorization, TaskController.getOneTask)
+// router.get('/:id', authorization, TaskController.getOneTask)
 router.put('/:id', authorization, TaskController.updateTask)
-router.patch('/:id', authorization, TaskController.patchTask)
 router.delete('/:id', authorization, TaskController.deleteTask)
+
+router.patch('/:id', authorization, TaskController.editCategory)
+router.get('/categories', TaskController.showCategories)
+router.post('/categories', TaskController.addCategory)
+// router.patch('/categories', TaskController.editCategory)
+router.delete('/categories', TaskController.deleteCategory)
 
 module.exports = router;
