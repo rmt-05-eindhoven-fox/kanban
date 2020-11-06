@@ -24,6 +24,41 @@ class TaskController {
             next(err);
         }
     }
+
+    static async deleteTask (req, res, next) {
+        try {
+            let task = await Task.destroy({where: {id: req.params.id}});
+            res.status(200).json(task);
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    static async patchTask (req, res, next){
+        try {
+            let payload = {
+                category: req.body.category
+            }
+            let task = await Task.update(payload, {where: {id: req.params.id}});
+            res.status(200).json(task);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    static async update (req, res, next){
+        try {
+            let payload = {
+                title: req.body.title,
+                description: req.body.description,
+                category: req.body.category
+            }
+            let task = await Task.update(payload, {where: {id: req.params.id}});
+            res.status(200).json(task);
+        } catch (error) {
+            next(error);
+        }
+    }
 }
 
 module.exports = TaskController

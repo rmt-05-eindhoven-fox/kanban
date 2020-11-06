@@ -41,15 +41,45 @@
                             <div class="element-body" v-for="(task, i) in dataTasks.backlogTasks" :key="i">
                                 <p>{{task.title}}</p>
                                 <p>{{task.description}}</p>
-                                    <button type="button" class="btn btn-primary">Edit</button>
-                                    <button type="button" class="btn btn-danger"><span class="glyphicon">&#xe020;</span></button>
-                                    <button type="button" class="btn btn-warning">></button>
+                                    <!-- <button type="button" class="btn btn-primary">Edit</button> -->
+                                    <button @click="showModalEdit('backlog', 'backlog' + task.id, task)" type="button" class="btn btn-primary">
+                                             Edit
+                                    </button>
+                                    <div :ref="`backlog${task.id}`" class="add-form" style="margin-right: 10px;" id="myModal">
+                                        <div class="modal-dialog">
+                                        <div class="modal-content">
+                                        
+                                            <!-- Modal Header -->
+                                            <div class="modal-header">
+                                            <h4 class="modal-title">Edit Task</h4>
+                                            </div>
+                                            
+                                            <!-- Modal body -->
+                                            <div class="modal-body">
+                                                <form>
+                                                    <input v-model="edit.title" type="text" placeholder="title">
+                                                    <input v-model="edit.description" type="text" placeholder="description"> 
+
+                                                </form>
+                                            </div>
+                                            
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary" @click="editTask(task.id, 'backlog' + task.id)">Submit</button>
+                                            <button type="button" class="btn btn-danger" @click="closeModal('backlog' + task.id)" >Close</button>
+                                            </div>
+                                            
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <button @click="deleteTask(task.id)" type="button" class="btn btn-danger"><span class="glyphicon">&#xe020;</span></button>                                    
+                                    <button @click="patchTask(task.id, 'development')" type="button" class="btn btn-warning">></button>
                                 <div class="card-author">
                                     <a class="author-avatar" href="#">
                                     <img src="avatar.png">
                                     </a>
                                     <div class="author-name">
-                                        Japra
+                                     {{task.User.email}}
                                         <span class="badge badge-success">{{task.category}}</span>
                                     </div>
                             </div>
@@ -95,15 +125,46 @@
                             <div class="element-body" v-for="(task, i) in dataTasks.developmentTasks" :key="i">
                                 <p contenteditable="true">{{task.title}}</p>
                                 <p>{{task.description}}</p>
-                                    <button type="button" class="btn btn-primary">Edit</button>
-                                    <button type="button" class="btn btn-danger"><span class="glyphicon">&#xe020;</span></button>
-                                    <button type="button" class="btn btn-warning">></button>
+                                    <button @click="patchTask(task.id, 'backlog')" type="button" class="btn btn-warning"><</button>
+                                    <button @click="showModalEdit('development', 'development' + task.id, task)" type="button" class="btn btn-primary">
+                                             Edit
+                                    </button>
+                                    <div :ref="`development${task.id}`" class="add-form" style="margin-right: 10px;" id="myModal">
+                                        <div class="modal-dialog">
+                                        <div class="modal-content">
+                                        
+                                            <!-- Modal Header -->
+                                            <div class="modal-header">
+                                            <h4 class="modal-title">Edit Task</h4>
+                                            </div>
+                                            
+                                            <!-- Modal body -->
+                                            <div class="modal-body">
+                                                <form>
+                                                    <input v-model="edit.title" type="text" placeholder="title">
+                                                    <input v-model="edit.description" type="text" placeholder="description"> 
+
+                                                </form>
+                                            </div>
+                                            
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary" @click="editTask(task.id, 'development' + task.id)">Submit</button>
+                                            <button type="button" class="btn btn-danger" @click="closeModal('development' + task.id)" >Close</button>
+                                            </div>
+                                            
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <button @click="deleteTask(task.id)" type="button" class="btn btn-danger"><span class="glyphicon">&#xe020;</span></button>
+                                    <button @click="patchTask(task.id, 'production')" type="button" class="btn btn-warning">></button>
+                                    
                                 <div class="card-author">
                                     <a class="author-avatar" href="#">
                                     <img src="avatar.png">
                                     </a>
                                     <div class="author-name">
-                                        Japra
+                                        {{task.User.email}}
                                         <span class="badge badge-success">{{task.category}}</span>
                                     </div>
                             </div>
@@ -149,9 +210,40 @@
                             <div class="element-body" v-for="(task, i) in dataTasks.productionTasks" :key="i">
                                 <p contenteditable="true">{{task.title}}</p>
                                 <p>{{task.description}}</p>
-                                    <button type="button" class="btn btn-primary">Edit</button>
-                                    <button type="button" class="btn btn-danger"><span class="glyphicon">&#xe020;</span></button>
-                                    <button type="button" class="btn btn-warning">></button>
+                                    <button @click="patchTask(task.id, 'development')" type="button" class="btn btn-warning"><</button>
+                                    <button @click="showModalEdit('product', 'product' + task.id, task)" type="button" class="btn btn-primary">
+                                             Edit
+                                    </button>
+                                    <div :ref="`product${task.id}`" class="add-form" style="margin-right: 10px;" id="myModal">
+                                        <div class="modal-dialog">
+                                        <div class="modal-content">
+                                        
+                                            <!-- Modal Header -->
+                                            <div class="modal-header">
+                                            <h4 class="modal-title">Edit Task</h4>
+                                            </div>
+                                            
+                                            <!-- Modal body -->
+                                            <div class="modal-body">
+                                                <form>
+                                                    <input v-model="edit.title" type="text" placeholder="title">
+                                                    <input v-model="edit.description" type="text" placeholder="description"> 
+
+                                                </form>
+                                            </div>
+                                            
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary" @click="editTask(task.id, 'product' + task.id)">Submit</button>
+                                            <button type="button" class="btn btn-danger" @click="closeModal('product' + task.id)" >Close</button>
+                                            </div>
+                                            
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <button @click="deleteTask(task.id)" type="button" class="btn btn-danger"><span class="glyphicon">&#xe020;</span></button>
+                                    <button @click="patchTask(task.id, 'done')" type="button" class="btn btn-warning">></button>
+                            
                                 <div class="card-author">
                                     <a class="author-avatar" href="#">
                                     <img src="avatar.png">
@@ -168,11 +260,11 @@
                         <h2>Done</h2>
                         </header>
                         <div class="task-body"> 
-                            <form>
+                            <!-- <form>
                                 <button @click="showModal('done', 'doneform')" type="button" class="btn btn-default btn-sm">
                                     <span class="glyphicon">&#x2b;</span> Add Task
                                 </button>
-                            </form>
+                            </form> -->
                             <div ref="doneform" class="add-form" style="margin-right: 10px;" id="myModal">
                                 <div class="modal-dialog">
                                 <div class="modal-content">
@@ -203,8 +295,38 @@
                             <div class="element-body" v-for="(task, i) in dataTasks.doneTasks" :key="i">
                                 <p contenteditable="true">{{task.title}}</p>
                                 <p>{{task.description}}</p>
-                                    <button type="button" class="btn btn-primary">Edit</button>
-                                    <button type="button" class="btn btn-danger"><span class="glyphicon">&#xe020;</span></button>
+                                    <button @click="patchTask(task.id, 'production')" type="button" class="btn btn-warning"><</button>
+                                    <button @click="showModalEdit('done', 'done' + task.id, task)" type="button" class="btn btn-primary">
+                                             Edit
+                                    </button>
+                                    <div :ref="`done${task.id}`" class="add-form" style="margin-right: 10px;" id="myModal">
+                                        <div class="modal-dialog">
+                                        <div class="modal-content">
+                                        
+                                            <!-- Modal Header -->
+                                            <div class="modal-header">
+                                            <h4 class="modal-title">Edit Task</h4>
+                                            </div>
+                                            
+                                            <!-- Modal body -->
+                                            <div class="modal-body">
+                                                <form>
+                                                    <input v-model="edit.title" type="text" placeholder="title">
+                                                    <input v-model="edit.description" type="text" placeholder="description"> 
+
+                                                </form>
+                                            </div>
+                                            
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary" @click="editTask(task.id, 'done' + task.id)">Submit</button>
+                                            <button type="button" class="btn btn-danger" @click="closeModal('done' + task.id)" >Close</button>
+                                            </div>
+                                            
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <button @click="deleteTask(task.id)" type="button" class="btn btn-danger"><span class="glyphicon">&#xe020;</span></button>
                                     <!-- <button type="button" class="btn btn-warning">></button> -->
                                 <div class="card-author">
                                     <a class="author-avatar" href="#">
@@ -232,7 +354,12 @@ export default {
             email: '',
             title: '',
             description: '',
-            category: ''
+            category: '',
+            edit: {
+                title: '',
+                description: '',
+                category: '',
+            }
         };
     },
     methods: {
@@ -243,8 +370,25 @@ export default {
             this.category = value;
             this.$refs[form].style.display = "block";
         },
+        showModalEdit(value, form, payload){
+            let divsToHide = document.getElementsByClassName("add-form");
+            for(let i = 0; i < divsToHide.length; i++){
+                divsToHide[i].style.display = "none";
+            }
+            this.category = value;
+            // let ref = form+id;
+            this.$refs[form][0].style.display = "block";
+            this.edit.title = payload.title;
+            this.edit.description = payload.description;
+            this.edit.category = payload.category;
+            console.log(this.$refs[form][0])
+        },
         closeModal(form){
-            this.$refs[form].style.display = "none";
+            if(Array.isArray(this.$refs[form])){
+                this.$refs[form][0].style.display = "none";
+            } else {
+                this.$refs[form].style.display = "none";
+            }
         },
         submitTask(form){
             let payload = {
@@ -254,7 +398,28 @@ export default {
             }
             this.$refs[form].style.display = "none";
             this.$emit('submitTask', payload);
+        },
+        editTask(id, form){
+            this.$refs[form][0].style.display = "none";
+            let payload = {
+                id,
+                title: this.edit.title,
+                description: this.edit.description,
+                category: this.edit.category
+            }
+            this.$emit('editTask', payload);
+        },
+        deleteTask(id) {
+            this.$emit('deleteTask', id);
+        },
+        patchTask(id, cat){
+            let payload = {
+                id,
+                category: cat
+            }
+            this.$emit('patchTask', payload);
         }
+
     },
     components: {
         rightNav

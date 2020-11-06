@@ -1,6 +1,6 @@
 <template>
     <div>
-        <taskpage @submitTask="addTask" @logout="logout" v-if="targetPage === 'task-page'" :dataTasks="homeData"></taskpage>
+        <taskpage @editTask="editTask" @patchTask="patchTask" @deleteTask="deleteTask" @submitTask="addTask" @logout="logout" v-if="targetPage === 'task-page'" :dataTasks="homeData"></taskpage>
         <landingpage @register="register" @login="login" v-else-if="targetPage === 'landing-page'"></landingpage>
     </div>
 </template>
@@ -84,6 +84,56 @@ export default {
                 console.log(error.response);
             })
         },
+        deleteTask(id){
+            let access_token = localStorage.getItem('access_token')
+            axios({
+                method: 'DELETE',
+                url: `${this.base_url}/tasks/${id}`,
+                headers: {access_token}
+            })
+            .then(response => {
+                this.watchData = response;
+            })
+            .catch(error => {
+                console.log(error.response);
+            })
+        },
+        editTask(payload){
+            let access_token = localStorage.getItem('access_token')
+            axios({
+                method: 'PUT',
+                url: `${this.base_url}/tasks/${payload.id}`,
+                headers: {access_token},
+                data: {
+                    title: payload.title,
+                    description: payload.description,
+                    category: payload.category
+                }
+            })
+            .then(response => {
+                this.watchData = response;
+                console.log(response);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        },
+        patchTask(payload){
+            let access_token = localStorage.getItem('access_token');
+            axios({
+                method: 'PATCH',
+                url: `${this.base_url}/tasks/${payload.id}`,
+                headers: {access_token},
+                data: {category: payload.category}
+            })
+            .then(response => {
+                this.watchData = response;
+                console.log(response)
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        },
         fetchData(){
             axios.get(`${this.base_url}/tasks`, {
                 headers: {access_token: localStorage.getItem('access_token')}
@@ -108,10 +158,25 @@ export default {
             .catch(error => {
                 this.tasks = error.response;
             });
+        },
+        getUser(){
+            let access_token = localStorage.getItem('access_token');
+            axios({
+                method: 'GET',
+                url: `${this.base_url}/getUser`,
+                headers: {access_token}
+            })
+            .then(response => {
+                this.homeData.email = response.data.email;
+            })
+            .catch(error => {
+                console.log(error.response);
+            })
         }
     },
     created() {
         this.fetchData();
+        this.getUser();
         let access_token = localStorage.getItem('access_token')
         if(access_token){
             // this.homeData.email = payload.email;
