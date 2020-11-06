@@ -12,10 +12,10 @@ module.exports = {
      * }], {});
     */
    await queryInterface.bulkInsert('Categories', [
-    { name : 'backlog', createdAt : new Date(), updatedAt : new Date() },
-    { name : 'todo', createdAt : new Date(), updatedAt : new Date() },
-    { name : 'doing', createdAt : new Date(), updatedAt : new Date() },
-    { name : 'done', createdAt : new Date(), updatedAt : new Date() }
+    { name : 'Backlog', createdAt : new Date(), updatedAt : new Date() },
+    { name : 'Todo', createdAt : new Date(), updatedAt : new Date() },
+    { name : 'Doing', createdAt : new Date(), updatedAt : new Date() },
+    { name : 'Done', createdAt : new Date(), updatedAt : new Date() }
    ], {})
   },
 
