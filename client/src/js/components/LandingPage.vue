@@ -8,73 +8,68 @@
         />
       </v-col>
       <v-col md="4" lg="4">
-        <h1>Welcome to Kanban</h1>
-        <h3 v-if="register">Please register to start</h3>
-        <h3 v-else>Login to your account and start</h3>
+      <img
+          src="../assets/images.png"
+        />
+        <h3 v-if="register">Hi! No entry until you register!</h3>
+        <h3 v-else>Hi! No entry until you login!</h3>
         <v-form>
           <v-row>
             <v-col md="10">
               <v-text-field
                 v-model="form.name"
-                label="Name"
+                label="Enter your name here"
                 required
                 md="8"
                 v-if="register"
               ></v-text-field>
-
+              <i class="fas fa-envelope"></i>
               <v-text-field
                 v-model="form.email"
                 type="email"
-                label="E-mail"
+                label="Enter your email here"
                 required
               ></v-text-field>
 
+               <i class="fas fa-lock"></i>
               <v-text-field
                 v-model="form.password"
                 type="password"
                 name="input-10-1"
-                label="Password"
-                hint="At least 6 characters"
+                label="Enter your password here"
+                hint="Whoops! Don't forget: at least 6 characters"
                 counter
                 required
               ></v-text-field>
 
               <v-btn
-                color="success"
-                class="mr-4"
-                @click.prevent="registerUser"
-                v-if="register"
-              >
-                Register
-              </v-btn>
+                color="success" class="mr-4" style="display: block; margin-top: 2vh; margin-left: 19vh;" @click.prevent="registerUser" v-if="register"><i class="fas fa-star"></i>Register</v-btn>
 
-              <v-btn color="success" class="mr-4" @click.prevent="login" v-else>
-                Login
-              </v-btn>
+              <v-btn color="success" class="mr-4" style="display: block; margin-top: 2vh; margin-left: 19vh;" @click.prevent="login" v-else><i class="fas fa-star"></i>Login</v-btn>
             </v-col>
+            
             <h4 v-if="register">
-              Already have an account?
-              <a href="#" @click.prevent="changeRegister">Login here</a>
+              <h4 style="display: block; margin-top: 2vh; margin-left: 20vh;">Have an account?</h4>
+              <a style="display: block; margin-top: 2vh; margin-left: 24vh;" href="#" @click.prevent="changeRegister">Login here</a>
             </h4>
-            <h4 v-else>
-              Dont have an account?
-              <a href="#" @click.prevent="changeRegister">Register here</a>
+            <h4 style="display: block; margin-top: 2vh; margin-left: 15vh;" v-else>
+              No account?
+              <a style="display: block; margin-top: 2vh; margin-left: 5vh;" href="#" @click.prevent="changeRegister">Register here</a>
             </h4>
           </v-row>
 
-          <h4 class="mt-4">Or you can login with your existing account</h4>
-
-          <v-row class="social-login">
+          <h4 style="display: block; margin-top: 2vh; margin-left: 10vh;">You can log in with Google too!</h4>
+          <v-row class="social-login " style="display: block; margin-top: 2vh; margin-left: 15vh; margin-bottom: 10vh;">
             <v-col md="12">
               <v-btn color="primary">
-                <v-icon>mdi-google</v-icon>
+                <i class="fab fa-google"></i>
                 <g-signin-button
                   id="gSign"
                   :params="googleSignInParams"
                   @success="onSignInSuccess"
                   @error="onSignInError"
                 >
-                  Login with google
+                  Google
                 </g-signin-button>
               </v-btn>
             </v-col>
@@ -136,7 +131,7 @@ export default {
         .post(`${this.$BASE_URL}/users/google`, { idToken: idToken })
         .then(({ data }) => {
           localStorage.setItem('access_token', data.access_token)
-          Swal.fire('Welcome', 'Login success', 'success')
+          Swal.fire('Hi!', 'Welcome!', 'success')
           return this.$emit('hasLoggedIn', true)
         })
         .catch(err => {
@@ -156,9 +151,10 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.social-login .v-btn {
-  color: white;
-  width: 500px;
-  padding: 5px;
+.g-signin-button {
+  padding: 4px 8px;
+  border-radius: 15px 50px 30px 5px;
+  color: #fff;
+  box-shadow: 0 3px 0 #0f69ff;
 }
 </style>
