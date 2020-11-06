@@ -9,6 +9,7 @@
             @deleteTask="deleteTask"
             @logout="logout"
             @moveCategory="moveCategory"
+            
         ></HomePage>
         <CreateTaskPage v-else-if="pageName == 'createTask-page'"
             :createName="createName"
@@ -75,7 +76,11 @@ export default {
             ],
             tasks: [],
             createName: '',
-            editTask: {} 
+            editTask: {},
+            users: {
+               username: '',
+               email: ''
+            } 
         }
     },
     components: {
@@ -88,7 +93,6 @@ export default {
     },
     methods: {
         backHome() {
-            console.log('di app');
             this.pageName = 'home-page'
         },
 
@@ -105,7 +109,6 @@ export default {
                 this.fetchAllTasks()
             }).catch(err => {
                Swal.fire('Oops...', `You're not allowed to edit other users task.`, 'error')
-               //  console.log({err});
             })
         },
 
@@ -115,12 +118,12 @@ export default {
                 method: 'POST',
                 data: payload
             }).then(res => {
-                localStorage.setItem('access_token', res.data.access_token)
-                this.fetchAllTasks()
-                this.pageName = 'home-page'
+               localStorage.setItem('username', res.data.username)
+               localStorage.setItem('access_token', res.data.access_token)
+               this.fetchAllTasks()
+               this.pageName = 'home-page'
             }).catch(err => {
                Swal.fire('Oops...', `${err.response.data}`, 'error')
-                // console.log({err}); 
             })
         },
 
@@ -130,7 +133,6 @@ export default {
                 method: 'POST',
                 data: {idToken}
             }).then(res => {
-                // console.log(res);
                 localStorage.setItem('access_token', res.data.access_token)
                 this.fetchAllTasks()
                 this.pageName = 'home-page'
@@ -157,14 +159,12 @@ export default {
         },
 
         changeToEditPage(payload){
-            console.log(payload);
             this.pageName = payload.pageName
             this.editTask = payload.task
         },
 
         fetchAllTasks() {
             let access_token = localStorage.getItem('access_token')
-            // let access_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJnYWJyaWVsQGdtYWlsLmNvbSIsImlhdCI6MTYwNDYwMDg4N30.DX73i64lZd0SmdxlWHHpZlAIzCnxeFEyWySobvg1Pdw'
             axios({
                 url: `tasks`,
                 method: 'GET',
@@ -191,7 +191,6 @@ export default {
                 this.pageName = 'home-page'
             }).catch(err => {
                 Swal.fire(`Error ${err.response.status} ${err.response.data.error}`, `You're not allowed to edit other users tasks.`, 'error')
-                // console.log(err);
             })
         },
 
@@ -203,10 +202,8 @@ export default {
                 headers: {access_token},
             }).then(data => {
                 this.fetchAllTasks()
-                // this.pageName = 'home-page'
             }).catch((err) => {
                 Swal.fire(`Error ${err.response.status} ${err.response.data.error}`, `You're not allowed to delete other users tasks.`, 'error')
-                console.log(err.response);
             })
         },
 
@@ -235,18 +232,17 @@ export default {
                 this.pageName = 'home-page'
             }).catch(err => {
                 console.log(err.response);
-                // Swal.fire(`Error ${err.response.data}`, `You're not allowed to edit other users tasks.`, 'error')
             })
         },
 
         logout() {
             this.pageName = 'login-page'
             localStorage.removeItem('access_token')
+            localStorage.removeItem('username')
         }
 
     },
     created() {
-        // this.fetchAllTasks()
         this.checkLogin()
     }
 }

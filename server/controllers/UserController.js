@@ -59,13 +59,15 @@ class UserController {
          } else {
             const access_token = signToken({
                id: user.id,
-               name: user.name,
+               name: user.username,
                email: user.email
             })
 
             // console.log(access_token);
             res.status(201).json({
-               access_token
+               access_token,
+               email: user.email,
+               username: user.username
             })
          }
       } catch (err) {
