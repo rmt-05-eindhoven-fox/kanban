@@ -5,6 +5,7 @@ class KanbanController {
   static async findAll(req, res, next) {
     try {
       const list = await Kanban.findAll()
+
       res.status(200).json(list)
     } catch (error) {
       next(error)
@@ -36,9 +37,7 @@ class KanbanController {
     }
     try {
       const edit = await Kanban.update(data, { where: { id, UserEmail: data.UserEmail }, returning: true })
-      if (!edit) {
-        throw { message: 'Kanban Not Found', status: 404 }
-      }
+
       res.status(200).json(edit[1][0])
     } catch (error) {
       next(error)
@@ -49,10 +48,7 @@ class KanbanController {
     const id = req.params.id
     const UserEmail = req.loginCredential.email
     try {
-      const deleted = await Kanban.destroy({ where: { id, UserEmail } })
-      if (!deleted) {
-        throw { message: 'Kanban Not Found', status: '404' }
-      }
+      await Kanban.destroy({ where: { UserEmail, id } })
       res.status(200).json('Kanban Deleted Successfully')
     } catch (error) {
       next(error)

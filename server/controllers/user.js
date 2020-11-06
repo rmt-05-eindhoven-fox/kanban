@@ -1,5 +1,6 @@
 const { User } = require('../models/')
 const { Bcrypt, JSONWebToken } = require('../helpers/helper')
+const { OAuth2Client } = require('google-auth-library');
 
 class UserController {
 
@@ -40,6 +41,35 @@ class UserController {
       }
     } catch (error) {
       next(error)
+    }
+  }
+
+  static async googleLogin(req, res, next) {
+    let id_token = req.body.token
+    const CLIENT_ID = process.env.GOOGLE_CLIENT_ID
+    const client = new OAuth2Client(CLIENT_ID);
+    try {
+      const ticket = await client.verifyIdToken({
+        idToken: id_token,
+        audience: CLIENT_ID,
+      });
+      const payload = ticket.getPayload();
+      let user = await User.findOne({
+        where: {
+          email: payload.email
+        }
+      })
+      if (!user) {
+        user = await User.create({
+          email: payload.email,
+          password: id_token
+        })
+      }
+      let token = JSONWebToken.signToken({ id: user.id, email: user.email })
+      console.log(token)
+      res.status(200).json({ token, email: user.email })
+    } catch (err) {
+      next(err)
     }
   }
 }

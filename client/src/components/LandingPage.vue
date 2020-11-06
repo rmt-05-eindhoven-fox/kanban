@@ -12,11 +12,15 @@
         v-if="login == true"
         @isLogin="isLogin"
         @logingIn="logingIn"
+        @googleLogin="googleLogin"
+        @googleLoginError="googleLoginError"
+        :error="error"
       ></Login>
       <Register
         v-if="login == false"
         @register="register"
         @isLogin="isLogin"
+        :error="error"
       ></Register>
     </div>
   </div>
@@ -27,14 +31,11 @@ import Login from "./Login";
 import Register from "./Register";
 export default {
   name: "LandingPage",
-  data() {
-    return {};
-  },
   components: {
     Login,
     Register,
   },
-  props: ["login"],
+  props: ["login", "error"],
   methods: {
     register(payload) {
       this.$emit("register", payload);
@@ -44,6 +45,12 @@ export default {
     },
     logingIn(payload) {
       this.$emit("logingIn", payload);
+    },
+    googleLogin(token) {
+      this.$emit("googleLogin", token);
+    },
+    googleLoginError(error) {
+      this.$emit("googleLoginError", error);
     },
   },
 };

@@ -3,6 +3,9 @@
     <div class="container">
       <div class="shadow-lg bg-white rounded p-4">
         <h2 class="text-center">Edit Task</h2>
+        <div v-if="error" class="alert alert-danger text-center" role="alert">
+          <p v-for="(er, i) in error" :key="i">{{ er }}</p>
+        </div>
         <form v-on:submit.prevent="editTask">
           <div class="form-group">
             <label for="edit-title">Title</label>
@@ -54,7 +57,7 @@ export default {
       category: this.detailTask.category,
     };
   },
-  props: ["detailTask"],
+  props: ["detailTask", "error"],
   methods: {
     editTask() {
       let payload = {

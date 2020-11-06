@@ -15,10 +15,40 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Kanban.init({
-    title: DataTypes.STRING,
-    description: DataTypes.STRING,
-    category: DataTypes.STRING,
-    UserEmail: DataTypes.STRING
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: false,
+          msg: `Title Can't Be Empty!`
+        }
+      }
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: false,
+          msg: `Description Can't Be Empty!`
+        }
+      }
+    },
+    category: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: `Category Can't Be Empty!`
+        }
+      }
+    },
+    UserEmail: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    }
   }, {
     sequelize,
     modelName: 'Kanban',

@@ -3,7 +3,10 @@
     <div class="shadow-lg bg-white rounded p-4" style="width: 30em">
       <h1 class="text-center">WELCOME TO KANBAN APP</h1>
       <h2 class="text-center">Register</h2>
-      <form v-on:submit="register">
+      <div v-if="error" class="alert alert-danger text-center" role="alert">
+        <p v-for="(er, i) in error" :key="i">{{ er }}</p>
+      </div>
+      <form v-on:submit.prevent="register">
         <div class="form-group">
           <label for="register-email">Email</label>
           <input
@@ -47,6 +50,7 @@ export default {
       password: "",
     };
   },
+  props: ["error"],
   methods: {
     register() {
       let payload = {

@@ -1,10 +1,6 @@
 <template>
   <div>
-    <div
-      type="button"
-      class="card bg-white mb-2 shadow rounded p-2"
-      style="width: 15em; height: 13em; overflow: scroll"
-    >
+    <div type="button" class="card bg-white mb-2 shadow rounded p-2">
       <div class="btn-group btn-task-menu">
         <button
           data-toggle="dropdown"
@@ -14,9 +10,15 @@
         >
           menu
         </button>
-        <div class="dropdown-menu dropdown-menu-right">
+        <div
+          v-if="user == el.UserEmail"
+          class="dropdown-menu dropdown-menu-right"
+        >
           <button v-on:click="editPage" class="dropdown-item">Edit</button>
           <button v-on:click="deleted" class="dropdown-item">Delete</button>
+        </div>
+        <div v-else class="dropdown-menu dropdown-menu-right">
+          <button class="dropdown-item">Unauthorized Action</button>
         </div>
       </div>
       <div>
@@ -36,10 +38,7 @@
 <script>
 export default {
   name: "Task",
-  data() {
-    return {};
-  },
-  props: ["border", "el"],
+  props: ["border", "el", "task", "user"],
   methods: {
     editPage() {
       let payload = {

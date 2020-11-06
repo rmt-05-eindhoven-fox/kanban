@@ -6,6 +6,9 @@
       @isLogin="isLogin"
       @logingIn="logingIn"
       :login="login"
+      @googleLogin="googleLogin"
+      @googleLoginError="googleLoginError"
+      :error="error"
     ></LandingPage>
     <Content
       v-else-if="pageName == 'content'"
@@ -17,11 +20,16 @@
       @deleted="deleteTask"
       :user="user"
     ></Content>
-    <AddContent v-else-if="pageName == 'add'" @addTask="addTask"></AddContent>
+    <AddContent
+      v-else-if="pageName == 'add'"
+      @addTask="addTask"
+      :error="error"
+    ></AddContent>
     <EditContent
       v-else-if="pageName == 'edit'"
       :detailTask="detailTask"
       @editTask="editTask"
+      :error="error"
     ></EditContent>
     <NotFound v-else></NotFound>
   </div>
@@ -65,7 +73,8 @@ export default {
       ],
       task: [],
       detailTask: null,
-      user: localStorage.getItem("email"),
+      user: "",
+      error: null,
     };
   },
   components: {
@@ -79,6 +88,9 @@ export default {
     changePage(name) {
       this.pageName = name;
     },
+    getUser() {
+      this.user = localStorage.getItem("email");
+    },
     isLogin(payload) {
       this.login = payload;
     },
@@ -89,14 +101,34 @@ export default {
         data: payload,
       })
         .then((res) => {
-          console.log(res.data);
           localStorage.setItem("token", res.data.token);
           localStorage.setItem("email", res.data.email);
           this.checkLogin();
+          this.getUser();
         })
         .catch((err) => {
-          console.log(err);
+          this.timer(err.response.data);
         });
+    },
+    googleLogin(token) {
+      axios({
+        method: "POST",
+        url: "/googleLogin",
+        data: { token },
+      })
+        .then((res) => {
+          console.log(res);
+          localStorage.setItem("token", res.data.token);
+          localStorage.setItem("email", res.data.email);
+          this.checkLogin();
+          this.getUser();
+        })
+        .catch((err) => {
+          this.timer(err.response.data);
+        });
+    },
+    googleLoginError(error) {
+      timer(error);
     },
     logout() {
       localStorage.clear();
@@ -111,7 +143,9 @@ export default {
         .then((res) => {
           this.login = true;
         })
-        .catch((err) => {});
+        .catch((err) => {
+          this.timer(err.response.data);
+        });
     },
     showContent() {
       axios({
@@ -124,7 +158,9 @@ export default {
         .then((res) => {
           this.task = res.data;
         })
-        .catch((err) => {});
+        .catch((err) => {
+          this.timer(err.response.data);
+        });
     },
     addTask(payload) {
       axios({
@@ -138,7 +174,9 @@ export default {
         .then((res) => {
           this.checkLogin();
         })
-        .catch((err) => {});
+        .catch((err) => {
+          this.timer(err.response.data);
+        });
     },
     editPage(payload) {
       this.pageName = payload.pageName;
@@ -168,7 +206,9 @@ export default {
         .then((res) => {
           this.checkLogin();
         })
-        .catch((err) => {});
+        .catch((err) => {
+          this.timer(err.response.data);
+        });
     },
     deleteTask(id) {
       axios({
@@ -180,9 +220,11 @@ export default {
         },
       })
         .then((res) => {
-          this.showContent();
+          this.checkLogin();
         })
-        .catch((err) => {});
+        .catch((err) => {
+          console.log(err);
+        });
     },
     checkLogin() {
       if (localStorage.token) {
@@ -192,6 +234,16 @@ export default {
         this.pageName = "landingPage";
       }
     },
+    timer(error) {
+      this.error = error;
+      setTimeout(() => {
+        this.error = null;
+      }, 3000);
+    },
+  },
+  created() {
+    this.checkLogin();
+    this.getUser();
   },
 };
 </script>

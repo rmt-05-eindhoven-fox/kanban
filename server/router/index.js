@@ -6,7 +6,7 @@ const KanbanController = require('../controllers/kanban')
 
 route.post('/register', UserController.register)
 route.post('/login', UserController.login)
-// route.post('/googleLogin' UserController.googleLogin)
+route.post('/googleLogin', UserController.googleLogin)
 route.use(authentication)
 route.get('/kanban', KanbanController.findAll)
 route.post('/kanban', KanbanController.add)

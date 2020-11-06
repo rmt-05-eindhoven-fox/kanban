@@ -14,6 +14,7 @@
         :el="el"
         @deleted="deleted"
         @editPage="editPage"
+        :user="user"
       ></Task>
     </div>
   </div>
@@ -26,7 +27,7 @@ export default {
   components: {
     Task,
   },
-  props: ["tag", "task"],
+  props: ["tag", "task", "user"],
   computed: {
     differCategory() {
       return this.task.filter((cat) => cat.category == this.tag.name);

@@ -1,21 +1,22 @@
 module.exports = (err, req, res, next) => {
-  let status, error
-  if (err.name == 'ValidationErrorItem' || err.name == 'SequelizeValidationError') {
-    err.errors.forEach((el, i) => {
+  let status = ''
+  let error = []
+  if (err.name == 'TypeError' && err.message == `Cannot read property 'UserEmail' of null`) {
+    status = 404
+    error.push('Kanban Not Found')
+  } else if (err.name == 'ValidationErrorItem' || err.name == 'SequelizeValidationError') {
+    err.errors.forEach((el) => {
       if (el.message) {
-        error += el.message
-      }
-      if (i != err.errors.length - 1) {
-        error += ', '
+        error.push(el.message)
       }
     })
     status = 400
   } else if (err.name == 'JsonWebTokenError') {
     status = 401
-    error = 'Authentication Failed'
+    error.push('Authentication Failed')
   } else {
     status = err.status || 500
-    error = err.message || 'Internal Server Error'
+    error.push(err.message || 'Internal Server Error')
   }
-  res.status(status).json({ error })
+  res.status(status).json(error)
 }

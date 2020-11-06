@@ -18,6 +18,7 @@
             :task="task"
             @editPage="editPage"
             @deleted="deleted"
+            :user="user"
           ></Category>
         </div>
       </div>

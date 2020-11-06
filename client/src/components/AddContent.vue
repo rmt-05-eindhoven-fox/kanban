@@ -3,6 +3,9 @@
     <div class="container">
       <div class="shadow-lg bg-white rounded p-4">
         <h2 class="text-center">Add Task</h2>
+        <div v-if="error" class="alert alert-danger text-center" role="alert">
+          <p v-for="(er, i) in error" :key="i">{{ er }}</p>
+        </div>
         <form v-on:submit.prevent="addTask">
           <div class="form-group">
             <label for="add-title">Title</label>
@@ -53,6 +56,7 @@ export default {
       category: "",
     };
   },
+  props: ["error"],
   methods: {
     addTask() {
       let payload = {
