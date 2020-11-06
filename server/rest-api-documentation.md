@@ -351,7 +351,7 @@ axios({
 		category: payload.category
 	}
   headers: {
-    tokens
+    tokens,
   },
 })
 ```
