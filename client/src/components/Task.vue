@@ -8,7 +8,7 @@
         draggable = true
         @dragstart="startDrag($event, taskDetail.id, taskDetail.CategoryId)" 
 
-        v-if="!this.showEdit"
+        v-if="!showEdit"
         class = kanban-card-body>
         <p>{{ taskDetail.description }}</p>
 

@@ -12,6 +12,7 @@
 
           <div class = "login-body mt-4">
             <div class="form-login">
+              <h1 style="color: #1b206b;">Kanban App</h1><hr>
               <h2 style="color: #1b206b;">Login</h2>
               <form>
                 <div class="form-group">
