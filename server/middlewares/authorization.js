@@ -7,7 +7,7 @@ function authorization(req, res, next){
     .findByPk(id)
     .then(data => {
         if(!data) {
-            res.status(404).json({msg: 'todo not found'})
+            res.status(404).json({msg: 'Task not found'})
             // throw { msg: 'todo not found', status: 404 }
         } else if (data.UserId === req.loggedInUser.id) {
             next()
