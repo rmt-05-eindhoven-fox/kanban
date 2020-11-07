@@ -190,7 +190,37 @@ _Response (200 -OK)_
             "updatedAt": "2020-11-03T16:58:58.405Z"
             "Tasks" : []
         }
-    ]
+    ],
+    "Collaborators": [
+            {
+                "id": 4,
+                "name": "Anjay",
+                "email": "mantap@mail.com",
+                "createdAt": "2020-11-07T02:42:02.159Z",
+                "updatedAt": "2020-11-07T02:42:02.159Z",
+                "UserProject": {
+                    "UserId": 4,
+                    "ProjectId": 1,
+                    "createdAt": "2020-11-07T02:47:06.237Z",
+                    "updatedAt": "2020-11-07T02:47:06.237Z"
+                }
+            },
+                            {
+                "id": 1,
+                "name": "John Doe",
+                "email": "a@mail.com",
+                "createdAt": "2020-11-07T02:42:02.159Z",
+                "updatedAt": "2020-11-07T02:42:02.159Z",
+                "UserProject": {
+                    "UserId": 1,
+                    "ProjectId": 1,
+                    "createdAt": "2020-11-07T02:47:06.237Z",
+                    "updatedAt": "2020-11-07T02:47:06.237Z"
+                }
+            },
+            { ... },
+            { ... }
+        ]
   },
   {
     "id": 2,
@@ -248,20 +278,20 @@ _Response (200 -OK)_
                     "updatedAt": "2020-11-07T02:42:02.159Z",
                     "UserProject": {
                         "UserId": 4,
-                        "ProjectId": 1,
+                        "ProjectId": 2,
                         "createdAt": "2020-11-07T02:47:06.237Z",
                         "updatedAt": "2020-11-07T02:47:06.237Z"
                     }
                 },
                                 {
-                    "id": 4,
-                    "name": "Anjay",
-                    "email": "mantap@mail.com",
+                    "id": 2,
+                    "name": "Jane Doe",
+                    "email": "b@mail.com",
                     "createdAt": "2020-11-07T02:42:02.159Z",
                     "updatedAt": "2020-11-07T02:42:02.159Z",
                     "UserProject": {
-                        "UserId": 4,
-                        "ProjectId": 1,
+                        "UserId": 2,
+                        "ProjectId": 2,
                         "createdAt": "2020-11-07T02:47:06.237Z",
                         "updatedAt": "2020-11-07T02:47:06.237Z"
                     }
