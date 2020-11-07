@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Kanban</title>
+</head>
+
+<body>
+    <div id="app-vue">
+        <!-- header -->
+        <nav>
+            <div v-if="pageName !== 'login-page' && pageName !== 'register-page'" id="navigation-bar" class="link icon">
+                <ul>
+                    <li v-on:click.prevent="redirect('login-page')"><a href="#">Logout</a></li>
+                    <li @click.prevent="redirect('home-page')"><a href="#">Home</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!-- end header -->
+
+        <!-- flexbox -->
+            <!-- List Task Based on Card -->
+        <div v-if="pageName === 'home-page'" id="home-page" class="container">
+            <div class="row">
+                <div class="col-md-3 item blue">
+                    <h5 class="mt-4 text-center text-white p-4 rounded bg-primary">Backlog</h5>
+                    <div id="card-backlog item blue" class="overflow-auto" style="height: 80vh;">
+                        <div v-for="(task, index) in tasks" :key="index" class="bg-light p-1 task-overflow shadow card rounded">
+                            {{task.title}}
+                            <button @click="">Edit</button>
+                            <button @click="">Delete</button>
+                        </div>
+                        <div class="text-center">
+                            <button v-on:click.prevent="redirect('add-form')" class="btn btn-primary">Add New Task</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 item grey">
+                    <h5 class="mt-4 text-center text-white p-4 rounded bg-secondary">Product</h5>
+                    <div id="card-product item grey" class="overflow-auto" style="height: 80vh;">
+                        <div v-for="(task, index) in tasks" :key="index" class="bg-light p-1 task-overflow shadow card rounded">
+                            {{task.title}}
+                            <button @click="">Edit</button>
+                            <button @click="">Delete</button>
+                        </div>
+                        <div class="text-center">
+                            <button v-on:click.prevent="redirect('add-form')" class="btn btn-primary">Add New Task</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 item green">
+                    <h5 class="mt-4 text-center text-white p-4 rounded bg-success">Development</h5>
+                    <div id="card-developement item green" class="overflow-auto" style="height: 80vh;">
+                        <div v-for="(task, index) in tasks" :key="index" class="bg-light p-1 task-overflow shadow card rounded">
+                            {{task.title}}
+                            <button @click="">Edit</button>
+                            <button @click="">Delete</button>
+                        </div>
+                        <div class="text-center">
+                            <button v-on:click.prevent="redirect('add-form')" class="btn btn-primary">Add New Task</button>
+                        </div>
+                    </div>  
+                </div>
+                <div class="col-md-3 item red">
+                    <h5 class="mt-4 text-center text-white p-4 rounded bg-danger">Done</h5>
+                    <div id="card-done item red" class="overflow-auto" style="height: 80vh;">
+                        <div v-for="(task, index) in tasks" :key="index" class="bg-light p-1 task-overflow shadow card rounded">
+                           {{task.title}}
+                           <button @click="">Edit</button>
+                           <button @click="">Delete</button>
+                        </div>
+                        <div class="text-center">
+                            <button v-on:click.prevent="redirect('add-form')" class="btn btn-primary">Add New Task</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end flexbox -->
+
+        <!-- add Form Task -->
+        <div v-if="pageName === 'add-form'" id="add-form" class="col-md-10">
+            <div class="card mb-4">
+              <div class="card-body">
+                <h5 class="font-weight-light mb-3">Add New Task</h5>
+                <form @submit.prevent="addTodo">
+                  <div class="row">
+                    <div class="col-md-12">
+                        <label for="add-title" class="text-center">Title</label><br>
+                        <input v-model="addTask.title" type="text" name="title" id="add-title" placeholder="task name" class="text-center"><br>
+                      <label for="tag">Choose category tag:</label>
+                      <select class="form-control" v-model="addTask.category">
+                        <option value="">=== Please Select Category ===</option>
+                        <option value="backlog">Backlog</option>
+                        <option value="todo">Todo</option>
+                        <option value="doing">Doing</option>
+                        <option value="done">Done</option>
+                      </select>
+                    </div>
+                    <div class="col-md-8 mx-auto mt-3"><button class="btn btn-primary btn-block"
+                        type="submit">Submit</button></div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        <!-- end Form Task -->
+
+        <!-- register form -->
+        <div v-if="pageName === 'register-page'" id="register-page" class="register">
+            <section>
+                <div class="container mt-5">
+                    <div class="row justify-content-center">
+                        <div class="col-md-4">
+                            <h1 class="mb-4">Register Your Account!</h1>
+                            <form>
+                                <div class="form_group">
+                                    <label for="email">Email</label><br>
+                                    <input type="email" class="form-control" id="login-email"
+                                        aria-describedby="emailHelp" placeholder="Enter email" /> <br>
+                                    <label for="password">Password</label><br>
+                                    <input type="password" class="form-control" id="login-password"
+                                        aria-describedby="emailHelp" placeholder="Enter password" /> <br>
+                                    <button type="submit" class="btn btn-primary" style="background-color:blue;"
+                                        onclick="loginPage()">Sign Up</button>
+                                    <p role="button" v-on:click.prevent="redirect('login-page')">Have an account?</p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- end register form -->
+
+        <!-- login -->
+        <div v-if="pageName === 'login-page'" id="login-page" class="container my-3">
+            <div class="row">
+                <div class="col-12 p-0 text-center">
+                    <img src="./security.svg" alt="" style="height:40%;" />
+                    <h5 class="font-weight-light mb-3">You shall not pass, please verify your identity</h5>
+                    <div class="row">
+                        <div class="col-md-6 mx-auto">
+                            <form @submit.prevent="login">
+                                <div class="form-group">
+                                    <label for="login-email" class="text-left">Email address</label>
+                                    <input v-model="user.email" type="email" class="form-control" id="login-email"
+                                        aria-describedby="emailHelp" placeholder="Enter email" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="login-password">Password</label>
+                                    <input v-model="user.password" type="password" class="form-control" id="login-password"
+                                        aria-describedby="emailHelp" placeholder="Enter password" />
+                                </div>
+
+                                <button type="submit" class="btn btn-primary btn-block" style="background-color: blue;">Log
+                                    In</button>
+                            </form>
+                            <button type="button" class="btn btn-primary"
+                                v-on:click.prevent="redirect('register-page')">Register</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end login -->
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="./index.js"></script>
+</body>
+
+</html
