@@ -2,6 +2,7 @@ const createError = require('http-errors');
 const { comparePassword } = require('../helper/bcrypt');
 const { generateToken } = require('../helper/jwt');
 const { User, Organization } = require('../models');
+const { OAuth2Client } = require('google-auth-library');
 
 class UserController {
 
@@ -38,6 +39,39 @@ class UserController {
       }).catch((err) => {
         next(err);
       });
+  }
+
+  static async googlesignin(req, res, next) {
+    let { google_access_token } = req.body;
+    const client = new OAuth2Client(process.env.CLIENT_ID);
+    let userGoogle = {}
+    
+    client.verifyIdToken({
+      idToken: google_access_token,
+      audience: process.env.CLIENT_ID,
+    }).then(ticket => {
+      const payload = ticket.getPayload();
+      const { name, email, picture } = payload;
+      userGoogle = { name, email, picture } 
+      return User.findOne({ where: { email } })
+    }).then(user => {
+      if (user) {
+        return user
+      } else {
+        const newUser = {
+          fullname: userGoogle.name,
+          password: 'jJys8Hsk8wEmJSa',
+          email: userGoogle.email
+        }
+        return User.create(newUser)
+      }
+    }).then(data => {
+      const { id, fullname, email } = data;
+      const access_token = generateToken({ id, email, fullname })
+      res.status(200).json({ id, email, fullname, access_token })
+    }).catch(err => {
+      next(err)
+    })
   }
 
   static userOganization(req, res, next) {

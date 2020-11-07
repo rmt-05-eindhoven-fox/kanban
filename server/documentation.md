@@ -118,7 +118,7 @@
     ```js
     { 
       "email": "member1@mail.com", 
-      "password": "11111111"
+      "password": "asdasdsaere"
     }
     ```
 
@@ -126,15 +126,12 @@
 
     * **Code:** 201 <br />
       **Content:** 
-      ```javascript
+      ```json
       { 
-        id: 1, 
-        title: "Todo Title", 
-        description: "Todo Description", 
-        status: "pending", 
-        due_date: "2020-10-26T05:29:38.084Z", 
-        createdAt: "2020-10-26T05:17:59.133Z", 
-        updatedAt: "2020-10-26T05:17:59.133Z" 
+        "id": 9, 
+        "email": "rpratama.sky@gmail.com", 
+        "fullname": "Riyan Pratama", 
+        "access_token": "eyJhbGciOiJIUzI1NiJ9."
       }
       ```
   
@@ -158,7 +155,66 @@
       ```  
 </details> 
 
-## 3. Get User Organizations
+## 3. Login Google
+<details>
+  <summary>Click to expand!</summary>
+  
+  ### login
+
+  * **URL**
+
+    `/googlesignin`
+
+
+  * **Method:**
+
+    `POST` 
+
+  * **Data Params**
+    
+    *data*
+
+    ```js
+    { 
+      "google_access_token": "xsxBHAJKanKBSD,MABtu784wy"
+    }
+    ```
+
+  * **Success Response**
+
+    * **Code:** 201 <br />
+      **Content:** 
+      ```json
+      { 
+        "id": 9, 
+        "email": "rpratama.sky@gmail.com", 
+        "fullname": "Riyan Pratama", 
+        "access_token": "eyJhbGciOiJIUzI1NiJ9."
+      }
+      ```
+  
+  * **Error Response:**
+
+    * **Code:** 400 BAD  REQUEST <br />
+      **Content:** 
+      ```json
+      {
+        "message": "Wrong email / password!",
+        "status": 401
+      }
+      ```
+
+    OR
+
+    * **Code:** 500 INTERNAL SERVER ERROR <br />
+      **Content:** 
+      ```javascript
+      { error : "Something error message from server" }
+      ```  
+</details> 
+
+
+## 4. Get User Organizations
 <details>
   <summary>Click to expand!</summary>
   
