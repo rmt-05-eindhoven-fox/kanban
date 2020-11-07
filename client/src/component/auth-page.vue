@@ -9,6 +9,7 @@
             v-if="form == 'auth-login'"
             @changeForm="changeForm"
             @prosesLogin="prosesLogin"
+            @googleLogin="googleLogin"
           ></Login>
           <Register
             v-else-if="form == 'auth-register'"
@@ -37,7 +38,7 @@ import Login from "./auth/login.vue";
 import Register from "./auth/register.vue";
 
 export default {
-  name: 'auth-page',
+  name: "auth-page",
   data() {
     return {
       thisYear: new Date().getFullYear(),
@@ -58,6 +59,9 @@ export default {
     },
     prosesRegister(payload) {
       this.$emit("prosesRegister", payload);
+    },
+    googleLogin(authCode) {
+      this.$emit("googleLogin", authCode);
     },
   },
 };

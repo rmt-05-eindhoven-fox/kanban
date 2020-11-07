@@ -51,8 +51,15 @@
           <p class="mb-0">or Sign Up using</p>
           <button
             class="btn btn-primary btn-icon btn-icon-mini btn-round facebook"
+            @click="loginWithGoogle"
           >
             <i class="zmdi zmdi-google"></i>
+          </button>
+          <button
+            class="btn btn-primary btn-icon btn-icon-mini btn-round facebook"
+            @click="logout"
+          >
+            <i class="zmdi zmdi-facebook"></i>
           </button>
         </div>
       </div>
@@ -89,6 +96,21 @@ export default {
     clearForm() {
       this.email = "";
       this.password = "";
+    },
+
+    loginWithGoogle() {
+      this.$gAuth
+        .signIn()
+        .then((googleUser) => {
+          const userInfo = googleUser.getAuthResponse();
+          console.log(googleUser)
+          console.log(userInfo)
+          const access_token = this.$emit("googleLogin", userInfo.id_token);
+        })
+        .catch((err) => {});
+    },
+    logout() {
+      this.$gAuth.signOut();
     },
   },
 };

@@ -15,6 +15,7 @@
     "node-waves": "^0.7.6",
     "sweetalert2": "^10.9.0",
     "vue": "^2.6.12",
+    "vue-google-oauth2": "^1.5.5",
     "vue-hot-reload-api": "^2.3.4",
     "vue-sweetalert2": "^4.1.1"
   },

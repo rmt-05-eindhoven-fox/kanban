@@ -5,6 +5,7 @@
       @prosesLogin="prosesLogin"
       @prosesRegister="prosesRegister"
       :user="user"
+      @googleLogin="googleLogin"
     ></Auth>
 
     <Home
@@ -96,7 +97,7 @@ export default {
     // whenever question changes, this function will run
     currentOrganizationId() {
       this.loadOrganizationById(this.currentOrganizationId);
-    }, 
+    },
   },
 
   methods: {
@@ -109,6 +110,7 @@ export default {
       localStorage.clear();
       this.allOrganizations = {};
       this.changePage("auth-page");
+      this.$gAuth.signOut();
     },
 
     changePage(page) {
@@ -148,6 +150,22 @@ export default {
       this.showModal = params;
       this.modalName = "";
       this.modalAddTodo = params;
+    },
+
+    googleLogin(authCode) {
+      axios({
+        url: "googlesignin",
+        method: "post",
+        data: {
+          google_access_token: authCode,
+        },
+      })
+        .then(({ data }) => {
+          console.log(data);
+        })
+        .catch((err) => {
+          console.log(err.response)
+        });
     },
 
     prosesLogin(payload) {
