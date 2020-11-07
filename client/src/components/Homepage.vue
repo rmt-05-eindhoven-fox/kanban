@@ -6,7 +6,7 @@
         </div>
         <div class="link">
             <ul>
-                <li><a href="#">Create New Task</a></li>
+                <li><a href="#" @click.prevent='$emit("changePage", "add-page")'>Create New Task</a></li>
             </ul>
         </div>
         <div class="link icon">
@@ -19,28 +19,33 @@
     <div class="container-category">
         <div class="category-body">
             <div class="row">
-                <category 
+                <Category 
                 v-for="(cat,i) in categories"
                 :key="i"
                 :titleDetails="cat"
                 :tasks='tasks'
-                 ></category>
+                @editTask="editTask"
+                @fetchTask="$emit('fetchTask')"
+                 ></Category>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import category from './Category'
+import Category from './Category'
 export default {
     name: 'Homepage',
     components: {
-        category
+        Category
     },
     props: ['categories', 'tasks'],
     methods: {
         signOut() {
             this.$emit('signout')
+        },
+        editTask(task){
+            this.$emit('editTask', task)
         }
     }
     
