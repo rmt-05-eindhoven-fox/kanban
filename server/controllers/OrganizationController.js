@@ -44,6 +44,9 @@ class OrganizationController {
             attributes: { exclude: ['password', 'createdAt', 'updatedAt'] }
           }]
         }]
+      }, {
+        model: User,
+        attributes: { exclude: ['password', 'createdAt', 'updatedAt'] }
       }],
       order: [
         [[Category, 'id', 'ASC']]

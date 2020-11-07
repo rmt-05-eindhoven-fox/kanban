@@ -13,6 +13,7 @@
       :categories="categories"
       :organizationId="currentOrganizationId"
       :allOrganizations="allOrganizations"
+      :members="members"
       @openAddTask="openAddTask"
       @deleteTask="deleteTask"
       @openEditTask="openEditTask"
@@ -61,6 +62,7 @@ export default {
       user: {},
       organization: {},
       categories: [],
+      members: [],
       activePage: "auth-page",
 
       // Data Modal Add Task
@@ -208,7 +210,7 @@ export default {
         });
     },
 
-    afterLogin() { 
+    afterLogin() {
       this.changePage("home-page");
       this.loadUserOrganization();
     },
@@ -249,6 +251,7 @@ export default {
         .then(({ data }) => {
           this.changeOrganization(organizationId);
           this.categories = data.organization.Categories;
+          this.members = data.organization.Users;
         })
         .catch((err) => {
           console.log(err.response);

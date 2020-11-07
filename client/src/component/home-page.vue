@@ -87,8 +87,19 @@
       <div class="card">
         <div class="body">
           <div class="user p-0 m-0">
-            <img src="./images/avatar.png" alt="avatar" width="35vh" />
-            <img src="./images/avatar.png" alt="avatar" width="35vh" />
+            <a
+              v-for="(member, i) in members"
+              :href="'#' + member.fullname"
+              :key="i"
+            >
+              <img
+                class="p-1"
+                src="./images/avatar.png"
+                :title="member.fullname"
+                alt="avatar"
+                width="35vh"
+              />
+            </a>
           </div>
         </div>
       </div>
@@ -116,7 +127,7 @@ import Category from "../component/home/category.vue";
 
 export default {
   name: "home-page",
-  props: ["categories", "organizationId", "allOrganizations"],
+  props: ["categories", "organizationId", "allOrganizations", "members"],
   components: {
     Category,
   },
