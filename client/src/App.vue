@@ -54,6 +54,7 @@ import Modaladd from "./component/home/add-todo.vue";
 import ModalEdit from "./component/home/edit-todo.vue";
 import Auth from "./component/auth-page.vue";
 import Home from "./component/home-page.vue";
+import img from "./component/images/ajax-progres.gif";
 
 export default {
   name: "App",
@@ -64,7 +65,6 @@ export default {
       categories: [],
       members: [],
       activePage: "auth-page",
-
       // Data Modal Add Task
       modalAddTodo: false,
       showModal: false,
@@ -154,6 +154,16 @@ export default {
     },
 
     googleLogin(authCode) {
+      this.$swal.fire({
+        title: "Please wait!",
+        text: "",
+        imageUrl: img,
+        imageWidth: 50,
+        imageHeight: 50,
+        imageAlt: "Custom image",
+        showConfirmButton: false,
+        allowOutsideClick: false,
+      });
       axios({
         url: "googlesignin",
         method: "post",
@@ -174,6 +184,16 @@ export default {
     },
 
     prosesLogin(payload) {
+      this.$swal.fire({
+        title: "Please wait!",
+        text: "",
+        imageUrl: img,
+        imageWidth: 50,
+        imageHeight: 50,
+        imageAlt: "Custom image",
+        showConfirmButton: false,
+        allowOutsideClick: false,
+      });
       axios({
         url: "login",
         method: "post",
@@ -192,6 +212,16 @@ export default {
     },
 
     prosesRegister(payload) {
+      this.$swal.fire({
+        title: "Please wait!",
+        text: "",
+        imageUrl: img,
+        imageWidth: 50,
+        imageHeight: 50,
+        imageAlt: "Custom image",
+        showConfirmButton: false,
+        allowOutsideClick: false,
+      });
       axios({
         url: "register",
         method: "post",
@@ -241,6 +271,7 @@ export default {
     loadOrganizationById(organizationId = null) {
       // organizations
       organizationId = organizationId || this.currentOrganizationId;
+
       axios({
         url: "organizations/" + organizationId,
         method: "get",
@@ -260,6 +291,16 @@ export default {
 
     // add task to database
     storeTask(payload) {
+      this.$swal.fire({
+        title: "Please wait!",
+        text: "",
+        imageUrl: img,
+        imageWidth: 50,
+        imageHeight: 50,
+        imageAlt: "Custom image",
+        showConfirmButton: false,
+        allowOutsideClick: false,
+      });
       axios({
         url: "tasks",
         method: "post",
@@ -284,6 +325,16 @@ export default {
       this.isDisplayModal(false);
       const { id, CategoryId, OrganizationId, name, description } = payload;
       const update = { CategoryId, OrganizationId, name, description };
+      this.$swal.fire({
+        title: "Please wait!",
+        text: "",
+        imageUrl: img,
+        imageWidth: 50,
+        imageHeight: 50,
+        imageAlt: "Custom image",
+        showConfirmButton: false,
+        allowOutsideClick: false,
+      });
       axios({
         url: "tasks/" + id,
         method: "put",
@@ -296,7 +347,6 @@ export default {
           this.loadOrganizationById();
           const message = data.task.name || "";
           this.$swal("Edit new Task Successfully!", message, "success");
-          // console.log(data);
         })
         .catch((err) => {
           this.errorHandler(err, "Edit Task Failed!");
@@ -348,6 +398,7 @@ export default {
 
     createOrganization() {
       let message = "";
+      
       Swal.fire({
         title: "Type organization name!",
         input: "text",
