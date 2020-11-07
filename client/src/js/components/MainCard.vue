@@ -51,9 +51,9 @@ export default {
               headers: { access_token: localStorage.getItem('access_token') }
             })
             .then(response => {
-              this.$socket.emit('changeTask', 'task deleted')
+              this.emit('changeTask', 'task deleted')
               Swal.fire('Whoops!', 'Task Successfully Deleted!', 'success')
-              return this.$emit('FETCH_DONG', this.projectId)
+              return this.$emit('FETCH_Now', this.projectId)
             })
             .catch(({ response }) => {
               Swal.fire('Oops', response.data.msg, 'error')

@@ -143,7 +143,7 @@ export default {
     }
   },
   mounted() {
-    this.$socket.on('newDetail', msg => {
+    this.on('newDetail', msg => {
       this.getDetail(this.projectId)
     })
   },

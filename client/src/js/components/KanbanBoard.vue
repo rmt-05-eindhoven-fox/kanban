@@ -12,7 +12,7 @@
         <MainCard
           :category="category"
           @EDIT_DATA="getEdit"
-          @FETCH_DONG="fetchDong"
+          @FETCH_Now="fetchNow"
         ></MainCard>
       </v-col>
     </v-row>
@@ -121,13 +121,13 @@ export default {
           Swal.fire('Success', 'New task added', 'success')
           this.dialog2 = false
           this.fetchProjectTasks(id)
-          this.$socket.emit('changeTask', 'new task added')
+          this.emit('changeTask', 'new task added')
         })
         .catch(({ response }) => {
           console.log(response)
         })
     },
-    fetchDong(val) {
+    fetchNow(val) {
       return this.fetchProjectTasks(val)
     },
     getEdit(val) {
@@ -149,7 +149,7 @@ export default {
         .then(result => {
           this.dialog2 = false
           this.fetchProjectTasks(id)
-          this.$socket.emit('changeTask', 'task edited')
+          this.emit('changeTask', 'task edited')
           Swal.fire({
             title: 'Success',
             text: 'Task edited',
@@ -182,7 +182,7 @@ export default {
                   )
                   .then(response => {
                     this.fetchProjectTasks(this.task.projectId)
-                    this.$socket.emit('changeTask', 'task moved')
+                    this.emit('changeTask', 'task moved')
                   })
                   .catch(({ response }) => {
                     if (response.code == 403) {
@@ -208,7 +208,7 @@ export default {
   },
   mounted() {
     const projectId = this.project.id
-    this.$socket.on('taskChanged', msg => {
+    this.on('taskChanged', msg => {
       this.fetchProjectTasks(projectId)
     })
   }
