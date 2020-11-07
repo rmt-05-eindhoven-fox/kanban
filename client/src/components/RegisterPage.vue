@@ -16,7 +16,9 @@
                         <input v-model="password" type="password" name="password" class="form-control">
                     </div>
                     <button class="btn btn-primary">Sign Up</button>
-                    <p role="button">Have an account?</p>
+                    <p role="button"
+                    @click.prevent="$emit('changePage', 'login-page')"
+                    >Have an account?</p>
                 </form>
             </div>
         </div>
