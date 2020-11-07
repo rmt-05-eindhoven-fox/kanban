@@ -1,7 +1,12 @@
-process.env.NODE_ENV = 'development'
-if (process.env.NODE_ENV != 'production') {
-  require('dotenv').config() 
+
+if (!process.env.NODE_ENV) {
+  process.env.NODE_ENV = 'development'
 }
+
+if (process.env.NODE_ENV != 'production') {
+  require('dotenv').config()
+}
+
 const express = require('express');
 const createError = require('http-errors');
 const router = require('./routes');
