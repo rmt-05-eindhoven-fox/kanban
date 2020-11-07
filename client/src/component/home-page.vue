@@ -40,14 +40,14 @@
             </button>
 
             <button
-              class="btn btn-success btn-icon float-right"
+              class="btn btn-warning btn-icon float-right"
               data-backdrop="static"
               data-keyboard="false"
               type="button"
               title="Create new Organization"
               @click.prevent="createOrganization"
             >
-              <i class="zmdi zmdi-plus"></i>
+              <i class="zmdi zmdi-group-work"></i>
             </button>
 
             <button

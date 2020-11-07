@@ -108,7 +108,6 @@ export default {
     logout() {
       console.log("object tisini logout");
       localStorage.clear();
-      this.allOrganizations = {};
       this.changePage("auth-page");
       this.$gAuth.signOut();
     },
@@ -161,10 +160,14 @@ export default {
         },
       })
         .then(({ data }) => {
-          console.log(data);
+          const fullname = data.fullname;
+          this.saveUserInfo(data);
+          this.changePage("home-page");
+          this.afterLogin();
+          this.$swal("Access Granted!", `Welcome, ${fullname}`, "success");
         })
         .catch((err) => {
-          console.log(err.response)
+          console.log(err.response);
         });
     },
 
@@ -205,8 +208,7 @@ export default {
         });
     },
 
-    afterLogin() {
-      // this.allOrganizations = {};
+    afterLogin() { 
       this.changePage("home-page");
       this.loadUserOrganization();
     },
@@ -221,10 +223,12 @@ export default {
         },
       })
         .then(({ data }) => {
+          const tempOrg = {};
           this.currentOrganizationId = data.Organizations[0].id || -1;
           data.Organizations.forEach((org) => {
-            this.allOrganizations[org.id] = org.name;
+            tempOrg[org.id] = org.name;
           });
+          this.allOrganizations = tempOrg;
           console.log(this.allOrganizations), "=========>";
         })
         .catch((err) => {
