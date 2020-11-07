@@ -1,0 +1,79 @@
+body {
+    font-family: "Lato", sans-serif;
+  }
+#home{
+    font-size: 20px;
+}
+  .sidenav {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 12vw;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #ffffff;
+    overflow-x: hidden;
+    padding: 1.5%;
+  }
+  
+  .sidenav span {
+    cursor: pointer;
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    display: block;
+  }
+  
+  .sidenav span:hover {
+    background-color: rgb(68, 147, 221);
+  }
+  #content{
+    width: 85vw;
+    margin-left: 14vw; /* Same as the width of the sidenav */
+    height: 100vh;
+    background-position: center;
+    background-size: 100vw 130vh;
+  }
+
+  @media screen and (max-width: 1100px) {
+    .sidenav {
+      width: 100%;
+      height: auto;
+      position: relative;
+      font-size: 10px;
+      flex-direction: row;
+      position: fixed;
+    }
+    .sidenav a {float: left;}
+    div.content {margin-left: 0;}
+    #home{
+      display: none;
+    }
+  }
+  
+  ::-webkit-scrollbar{
+    width: 0;
+  }
+  /* On screens that are less than 400px, display the bar vertically, instead of horizontally */
+  @media screen and (max-width: 400px) {
+    .sidenav a {
+      text-align: center;
+      float: none;
+      display: none;
+    }
+    .sidenav{
+      position: fixed;
+    }
+    .sidenav span{
+      font-size: 15px;
+    }
+  }
+  
+  @media screen and (max-width: 300px) {
+    .sidenav span{
+      font-size: 12px;
+    }
+  
+  }
