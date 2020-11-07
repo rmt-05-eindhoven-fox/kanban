@@ -235,8 +235,40 @@ _Response (200 -OK)_
             "createdAt": "2020-11-03T16:58:58.405Z",
             "updatedAt": "2020-11-03T16:58:58.405Z"
             "Tasks" : []
-        }
-    ]
+        },
+        { ... },
+        { ... }
+    ],
+    "Collaborators": [
+                {
+                    "id": 4,
+                    "name": "Anjay",
+                    "email": "mantap@mail.com",
+                    "createdAt": "2020-11-07T02:42:02.159Z",
+                    "updatedAt": "2020-11-07T02:42:02.159Z",
+                    "UserProject": {
+                        "UserId": 4,
+                        "ProjectId": 1,
+                        "createdAt": "2020-11-07T02:47:06.237Z",
+                        "updatedAt": "2020-11-07T02:47:06.237Z"
+                    }
+                },
+                                {
+                    "id": 4,
+                    "name": "Anjay",
+                    "email": "mantap@mail.com",
+                    "createdAt": "2020-11-07T02:42:02.159Z",
+                    "updatedAt": "2020-11-07T02:42:02.159Z",
+                    "UserProject": {
+                        "UserId": 4,
+                        "ProjectId": 1,
+                        "createdAt": "2020-11-07T02:47:06.237Z",
+                        "updatedAt": "2020-11-07T02:47:06.237Z"
+                    }
+                },
+                { ... },
+                { ... }
+            ]
   },
   { ... },
   { ... }
@@ -274,28 +306,28 @@ _Response (200)_
   "Categories": [
     {
         "id": 5,
-        "name": "backlog",
+        "name": "Backlog",
         "ProjectId": 2,
         "createdAt": "2020-11-03T16:58:58.405Z",
         "updatedAt": "2020-11-03T16:58:58.405Z"
     },
     {
         "id": 6,
-        "name": "todo",
+        "name": "Todo",
         "ProjectId": 2,
         "createdAt": "2020-11-03T16:58:58.405Z",
         "updatedAt": "2020-11-03T16:58:58.405Z"
     },
     {
         "id": 7,
-        "name": "doing",
+        "name": "Doing",
         "ProjectId": 2,
         "createdAt": "2020-11-03T16:58:58.405Z",
         "updatedAt": "2020-11-03T16:58:58.405Z"
     },
     {
         "id": 8,
-        "name": "done",
+        "name": "Done",
         "ProjectId": 2,
         "createdAt": "2020-11-03T16:58:58.405Z",
         "updatedAt": "2020-11-03T16:58:58.405Z"
@@ -339,7 +371,7 @@ _Response (201 - Created)_
 
 ### GET /projects/:projectId/categories
 
-> Get all tasks and task owner in specified category on a specified project
+> Get all category on a specified project
 
 _Request Headers_
 ```
@@ -363,53 +395,40 @@ not needed
 _Response (200 - OK)_
 ```
 [
-  {
-    "id": 1,
-    "title": "Create client",
-    "category": "coding",
-    "description": "using jquery",
-    "ProjectId": 1,
-    "UserId": 1,
-    "createdAt": "2020-11-03T11:30:58.589Z",
-    "updatedAt": "2020-11-03T11:30:58.589Z",
-    "User": {
-        "id": 1,
-        "name": "John Doe",
-        "email": "a@mail.com",
-    }
-  },
-  {
-    "id": 2,
-    "title": "Create server",
-    "category": "coding",
-    "description": "using sequelize, pg and express",
-    "ProjectId": 1,
-    "UserId": 1,
-    "createdAt": "2020-11-04T11:30:58.589Z",
-    "updatedAt": "2020-11-04T11:30:58.589Z",
-    "User": {
-        "id": 1,
-        "name": "John Doe",
-        "email": "a@mail.com",
-    }
-  },
-  {
-    "id": 3,
-    "title": "Deploy server",
-    "category": "coding",
-    "description": "using heroku",
-    "ProjectId": 1,
-    "UserId": 2,
-    "createdAt": "2020-11-05T11:30:58.589Z",
-    "updatedAt": "2020-11-05T11:30:58.589Z",
-    "User": {
+    {
         "id": 2,
-        "name": "Jane Doe",
-        "email": "b@mail.com",
-    }
-  },
-  { ... },  
-  { ... }
+        "name": "Todo",
+        "ProjectId": 1,
+        "createdAt": "2020-11-07T02:47:06.251Z",
+        "updatedAt": "2020-11-07T02:47:06.251Z",
+        "Tasks": []
+    },
+    {
+        "id": 4,
+        "name": "Done",
+        "ProjectId": 1,
+        "createdAt": "2020-11-07T02:47:06.251Z",
+        "updatedAt": "2020-11-07T02:47:06.251Z",
+        "Tasks": []
+    },
+    {
+        "id": 1,
+        "name": "Backlog",
+        "ProjectId": 1,
+        "createdAt": "2020-11-07T02:47:06.251Z",
+        "updatedAt": "2020-11-07T02:47:06.251Z",
+        "Tasks": []
+    },
+    {
+        "id": 3,
+        "name": "Doing",
+        "ProjectId": 1,
+        "createdAt": "2020-11-07T02:47:06.251Z",
+        "updatedAt": "2020-11-07T02:47:06.251Z",
+        "Tasks": []
+    },
+    { ... },
+    { ... }
 ]
 ```
 
@@ -542,7 +561,6 @@ _Request Body_
 ```
 {
   "title": "Bikin Server",
-  "category": "coding",
   "description": "using sequelize, express"
 }
 ```
@@ -574,7 +592,8 @@ _Path Parameters_
 ```
 {
   "projectId": 1,
-  "categoryId": 3
+  "categoryId": 3,
+  "taskId": 1
 }
 ```
 
@@ -582,7 +601,7 @@ _Request Body_
 ```
 {
   "title": "Fixing Server",
-  "category": "debugging",
+  "CategoryId": 4,
   "description": ""
 }
 ```
@@ -592,7 +611,7 @@ _Response (200 - OK)_
 {
   "id": 1,
   "title": "Fixing Server",
-  "category": "debugging",
+  "CategoryId": 4,
   "description": ""
 }
 ```
@@ -612,14 +631,15 @@ _Path Parameters_
 ```
 {
   "projectId": 1,
-  "categoryId": 3
+  "categoryId": 3,
+  "taskId": 1
 }
 ```
 
 _Request Body_
 ```
 {
-  "category": "hehehe",
+  "CategoryId": 4,
 }
 ```
 
@@ -628,7 +648,7 @@ _Response (200 - OK)_
 {
   "id": 1,
   "title": "Fixing Server",
-  "category": "hehehe",
+  "CategoryId": 4,
   "description": ""
 }
 ```
@@ -648,7 +668,8 @@ _Path Parameters_
 ```
 {
   "projectId": 1,
-  "categoryId": 3
+  "categoryId": 3,
+  "taskId": 1
 }
 ```
 
