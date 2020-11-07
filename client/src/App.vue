@@ -174,7 +174,8 @@ export default {
         .then(({ data }) => {
           const fullname = data.fullname;
           this.saveUserInfo(data);
-          this.changePage("home-page");
+          this.categories = [];
+          this.members = [];
           this.afterLogin();
           this.$swal("Access Granted!", `Welcome, ${fullname}`, "success");
         })
@@ -202,7 +203,6 @@ export default {
         .then(({ data }) => {
           const fullname = data.fullname;
           this.saveUserInfo(data);
-          this.changePage("home-page");
           this.afterLogin();
           this.$swal("Access Granted!", `Welcome, ${fullname}`, "success");
         })
@@ -241,12 +241,15 @@ export default {
     },
 
     afterLogin() {
+      this.categories = [];
       this.changePage("home-page");
       this.loadUserOrganization();
+      this.loadOrganizationById();
     },
 
     loadUserOrganization() {
-      console.log("this");
+      const tempOrg = {};
+      this.allOrganizations = tempOrg;
       axios({
         url: "user/organizations",
         method: "get",
@@ -255,13 +258,11 @@ export default {
         },
       })
         .then(({ data }) => {
-          const tempOrg = {};
           this.currentOrganizationId = data.Organizations[0].id || -1;
           data.Organizations.forEach((org) => {
             tempOrg[org.id] = org.name;
           });
           this.allOrganizations = tempOrg;
-          console.log(this.allOrganizations), "=========>";
         })
         .catch((err) => {
           console.log(err.response);
@@ -270,8 +271,7 @@ export default {
 
     loadOrganizationById(organizationId = null) {
       // organizations
-      organizationId = organizationId || this.currentOrganizationId;
-
+      organizationId = organizationId || this.currentOrganizationId || -1;
       axios({
         url: "organizations/" + organizationId,
         method: "get",
@@ -398,7 +398,7 @@ export default {
 
     createOrganization() {
       let message = "";
-      
+
       Swal.fire({
         title: "Type organization name!",
         input: "text",
