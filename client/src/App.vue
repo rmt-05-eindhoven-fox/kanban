@@ -98,7 +98,7 @@ export default {
   watch: {
     // whenever question changes, this function will run
     currentOrganizationId() {
-      this.loadOrganizationById(this.currentOrganizationId);
+      this.loadOrganizationById();
     },
   },
 
@@ -153,7 +153,7 @@ export default {
       this.modalAddTodo = params;
     },
 
-    googleLogin(authCode) {
+    showLoading() {
       this.$swal.fire({
         title: "Please wait!",
         text: "",
@@ -164,6 +164,10 @@ export default {
         showConfirmButton: false,
         allowOutsideClick: false,
       });
+    },
+
+    googleLogin(authCode) {
+      this.showLoading();
       axios({
         url: "googlesignin",
         method: "post",
@@ -176,8 +180,14 @@ export default {
           this.saveUserInfo(data);
           this.categories = [];
           this.members = [];
-          this.afterLogin();
-          this.$swal("Access Granted!", `Welcome, ${fullname}`, "success");
+          this.$swal({
+            title: "Access Granted!",
+            text: `Welcome, ${fullname}`,
+            icon: "success",
+            willClose: () => {
+              this.afterLogin();
+            },
+          });
         })
         .catch((err) => {
           console.log(err.response);
@@ -185,16 +195,7 @@ export default {
     },
 
     prosesLogin(payload) {
-      this.$swal.fire({
-        title: "Please wait!",
-        text: "",
-        imageUrl: img,
-        imageWidth: 50,
-        imageHeight: 50,
-        imageAlt: "Custom image",
-        showConfirmButton: false,
-        allowOutsideClick: false,
-      });
+      this.showLoading();
       axios({
         url: "login",
         method: "post",
@@ -203,8 +204,14 @@ export default {
         .then(({ data }) => {
           const fullname = data.fullname;
           this.saveUserInfo(data);
-          this.afterLogin();
-          this.$swal("Access Granted!", `Welcome, ${fullname}`, "success");
+          this.$swal({
+            title: "Access Granted!",
+            text: `Welcome, ${fullname}`,
+            icon: "success",
+            willClose: () => {
+              this.afterLogin();
+            },
+          });
         })
         .catch((err) => {
           this.errorHandler(err, "Access Denied!");
@@ -212,16 +219,7 @@ export default {
     },
 
     prosesRegister(payload) {
-      this.$swal.fire({
-        title: "Please wait!",
-        text: "",
-        imageUrl: img,
-        imageWidth: 50,
-        imageHeight: 50,
-        imageAlt: "Custom image",
-        showConfirmButton: false,
-        allowOutsideClick: false,
-      });
+      this.showLoading();
       axios({
         url: "register",
         method: "post",
@@ -229,11 +227,7 @@ export default {
       })
         .then(({ data }) => {
           this.user = data;
-          this.$swal(
-            "Register Succesfully!",
-            "Please login first!",
-            "success"
-          );
+          this.$swal("Register Succesfully!", "Please login first!", "success");
         })
         .catch((err) => {
           this.errorHandler(err, "Register Failed!");
@@ -243,8 +237,7 @@ export default {
     afterLogin() {
       this.categories = [];
       this.changePage("home-page");
-      this.loadUserOrganization();
-      this.loadOrganizationById();
+      this.loadUserOrganization(); 
     },
 
     loadUserOrganization() {
@@ -258,7 +251,9 @@ export default {
         },
       })
         .then(({ data }) => {
-          this.currentOrganizationId = data.Organizations[0].id || -1;
+          if (!this.currentOrganizationId) {
+            this.currentOrganizationId = data.Organizations[0].id;
+          }
           data.Organizations.forEach((org) => {
             tempOrg[org.id] = org.name;
           });
@@ -272,6 +267,7 @@ export default {
     loadOrganizationById(organizationId = null) {
       // organizations
       organizationId = organizationId || this.currentOrganizationId || -1;
+      this.showLoading();
       axios({
         url: "organizations/" + organizationId,
         method: "get",
@@ -283,6 +279,7 @@ export default {
           this.changeOrganization(organizationId);
           this.categories = data.organization.Categories;
           this.members = data.organization.Users;
+          this.$swal.close();
         })
         .catch((err) => {
           console.log(err.response);
@@ -291,16 +288,7 @@ export default {
 
     // add task to database
     storeTask(payload) {
-      this.$swal.fire({
-        title: "Please wait!",
-        text: "",
-        imageUrl: img,
-        imageWidth: 50,
-        imageHeight: 50,
-        imageAlt: "Custom image",
-        showConfirmButton: false,
-        allowOutsideClick: false,
-      });
+      this.showLoading();
       axios({
         url: "tasks",
         method: "post",
@@ -311,13 +299,17 @@ export default {
       })
         .then(({ data }) => {
           const message = data.task.name || "";
-          this.loadOrganizationById();
-          this.$swal("Add new Task Successfully!", message, "success");
-          // console.log(data);
+          this.$swal({
+            title: "Add new Task Successfully!",
+            text: message,
+            icon: "success",
+            willClose: () => {
+              this.loadOrganizationById();
+            },
+          });
         })
         .catch((err) => {
           this.errorHandler(err, "Save Task Failed!");
-          console.log(err.response);
         });
     },
 
@@ -325,16 +317,7 @@ export default {
       this.isDisplayModal(false);
       const { id, CategoryId, OrganizationId, name, description } = payload;
       const update = { CategoryId, OrganizationId, name, description };
-      this.$swal.fire({
-        title: "Please wait!",
-        text: "",
-        imageUrl: img,
-        imageWidth: 50,
-        imageHeight: 50,
-        imageAlt: "Custom image",
-        showConfirmButton: false,
-        allowOutsideClick: false,
-      });
+      this.showLoading();
       axios({
         url: "tasks/" + id,
         method: "put",
@@ -344,13 +327,18 @@ export default {
         },
       })
         .then(({ data }) => {
-          this.loadOrganizationById();
           const message = data.task.name || "";
-          this.$swal("Edit new Task Successfully!", message, "success");
+          this.$swal({
+            title: "Edit Task Successfully!",
+            text: message,
+            icon: "success",
+            willClose: () => {
+              this.loadOrganizationById();
+            },
+          });
         })
         .catch((err) => {
           this.errorHandler(err, "Edit Task Failed!");
-          console.log(err.response);
         });
       console.log(payload);
     },
@@ -372,6 +360,7 @@ export default {
         })
         .then((result) => {
           if (result.isConfirmed) {
+            this.showLoading();
             axios({
               url: "tasks/" + id,
               method: "delete",
@@ -383,14 +372,19 @@ export default {
               },
             })
               .then(({ data }) => {
-                this.loadOrganizationById();
                 const message =
                   (data.message || "Failed deleted task!") + ` ${taskName}`;
-                this.$swal.fire("Deleted!", message, "success");
+                this.$swal({
+                  title: "Deleted!",
+                  text: message,
+                  icon: "success",
+                  willClose: () => {
+                    this.loadOrganizationById();
+                  },
+                });
               })
               .catch((err) => {
                 this.errorHandler(err, "Save Task Failed!");
-                console.log(err.response);
               });
           }
         });
@@ -409,8 +403,7 @@ export default {
         confirmButtonText: "Create",
         showLoaderOnConfirm: true,
         preConfirm: (name) => {
-          console.log(name);
-          axios({
+          return axios({
             url: "organizations",
             method: "post",
             data: {
@@ -421,20 +414,39 @@ export default {
             },
           })
             .then(({ data }) => {
-              this.loadUserOrganization();
-              this.loadOrganizationById();
-              this.$swal.fire(
-                "Created!",
-                "Successfully create organization!",
-                "success"
-              );
+              if (data.hasOwnProperty("name")) {
+                return data;
+              } else {
+                throw new Error("Failed created organization");
+              }
             })
             .catch((err) => {
-              this.errorHandler(err, "Save Task Failed!");
-              console.log(err.response);
+              const error = err.response.data;
+              let msg = " Somthing error!";
+              if (Array.isArray(error.message)) {
+                msg = error.message[0].errors;
+              }
+              const message = Swal.showValidationMessage(
+                `Request failed: ${msg}`
+              );
+              console.log(err.response.data);
             });
         },
         allowOutsideClick: () => !Swal.isLoading(),
+      }).then((result) => {
+        if (result.isConfirmed) {
+          console.log("is confirmed", result);
+          this.$swal({
+            title: "Created!",
+            text: "Successfully create organization!",
+            icon: "success",
+            willClose: () => {
+              this.loadUserOrganization();
+              this.loadOrganizationById();
+              console.log("execute");
+            },
+          });
+        }
       });
     },
 
@@ -463,19 +475,34 @@ export default {
             },
           })
             .then(({ data }) => {
-              this.loadOrganizationById();
-              this.$swal.fire(
-                "Created!",
-                "Sucessfully createt new category!",
-                "success"
-              );
+              console.log("from return data");
+              return data;
             })
             .catch((err) => {
-              this.errorHandler(err, "Save Task Failed!");
-              console.log(err.response);
+              const error = err.response.data;
+              let msg = err.response.data.message || "Somthing error!";
+              if (Array.isArray(error.message)) {
+                msg = error.message[0].errors;
+              }
+              console.log(err.response.data);
+              const message = Swal.showValidationMessage(
+                `Request failed: ${msg}`
+              );
             });
         },
         allowOutsideClick: () => !Swal.isLoading(),
+      }).then((result) => {
+        console.log("is confirmed", result);
+        if (result.isConfirmed) {
+          this.$swal({
+            title: "Created!",
+            text: "Successfully create new category! sdsds",
+            icon: "success",
+            willClose: () => {
+              this.loadOrganizationById();
+            },
+          });
+        }
       });
     },
 
@@ -503,19 +530,33 @@ export default {
             },
           })
             .then(({ data }) => {
-              this.loadOrganizationById();
-              this.$swal.fire(
-                "Created!",
-                "Successfully add new member",
-                "success"
-              );
+              return data;
             })
             .catch((err) => {
-              this.errorHandler(err, "Userr not found!");
-              console.log(err.response);
+              const error = err.response.data;
+              let msg = " Somthing error!";
+              if (Array.isArray(error.message)) {
+                msg = error.message[0].errors;
+              }
+              const message = Swal.showValidationMessage(
+                `Request failed: ${msg}`
+              );
+              console.log(err.response.data);
             });
         },
         allowOutsideClick: () => !Swal.isLoading(),
+      }).then((result) => {
+        if (result.isConfirmed) {
+          console.log("is confirmed", result);
+          this.$swal({
+            title: "Created!",
+            text: "Successfully add new member!",
+            icon: "success",
+            willClose: () => {
+              this.loadOrganizationById();
+            },
+          });
+        }
       });
     },
 
