@@ -95,7 +95,9 @@ export default {
   watch: {
     // whenever question changes, this function will run
     currentOrganizationId() {
-      this.loadOrganizationById();
+      if (this.currentOrganizationId) {
+        this.loadOrganizationById();
+      }
     },
   },
 
@@ -248,8 +250,10 @@ export default {
     },
 
     afterLogin() {
+      this.currentOrganizationId = 0;
       this.categories = [];
       this.members = [];
+      this.admin = {};
       this.changePage("home-page");
       this.loadUserOrganization();
     },
