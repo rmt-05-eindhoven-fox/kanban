@@ -1,13 +1,8 @@
 # **API Documentation** Kanban
 ## Local server : 
   `http://localhost:3000`
-----
-## production SERVER 
-
 ---- 
-## production CLIENT
 
-----  
 <br>
 
 # User
@@ -214,7 +209,64 @@
 </details> 
 
 
-## 4. Get User Organizations
+## 4. Verify Token
+<details>
+  <summary>Click to expand!</summary>
+  
+  ### verify token
+
+  * **URL**
+
+    `/users/verify`
+
+
+  * **Method:**
+
+    `get` 
+
+  * **Headers**
+    
+    *data*
+
+    ```json
+    { 
+      "access_token": "asasKJ7dj7knKHm ... "
+    }
+    ```
+
+  * **Success Response**
+
+    * **Code:** 200 <br />
+      **Content:** 
+      ```json
+      { 
+        "id": 9, 
+        "email": "rpratama.sky@gmail.com", 
+        "fullname": "Riyan Pratama",  
+      }
+      ```
+  
+  * **Error Response:**
+
+    * **Code:** 401 NOTAUTHORIZE <br />
+      **Content:** 
+      ```json
+      { 
+        "status":401,
+        "message": "Not Authorize!",  
+      }
+      ```
+
+    OR
+
+    * **Code:** 500 INTERNAL SERVER ERROR <br />
+      **Content:** 
+      ```javascript
+      { error : "Something error message from server" }
+      ```  
+</details> 
+
+## 5. Get User Organizations
 <details>
   <summary>Click to expand!</summary>
   
