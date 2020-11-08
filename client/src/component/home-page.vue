@@ -147,26 +147,26 @@ export default {
     };
   },
 
-  // created() { 
+  // created() {
   //   this.currentOrgId = this.organizationId;
   // },
 
-  updated() { 
+  updated() {
     this.currentOrgId = this.organizationId;
   },
 
   watch: {
     currentOrgId() {
       this.$emit("changeOrganization", this.currentOrgId);
-    }, 
+    },
   },
   computed: {
     adminName() {
-      let name = this.admin.fullname || "You don't have an organization!";
+      let name = this.admin.fullname;
       if (this.admin.id == localStorage.getItem("id")) {
         name += " (yourself)";
       }
-      return name;
+      return name || "You don't have an organization!";
     },
   },
 
