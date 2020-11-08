@@ -84,10 +84,7 @@
 <script>
 export default {
   name: "modal-add-task",
-  props: ["payload"],
-  created() {
-    // console.log(this.payload);
-  },
+  props: ["payload"], 
 
   data() {
     return {
@@ -124,8 +121,7 @@ export default {
       this.isShow = "";
       this.ariaModal = false;
       this.ariaHidden = !this.ariaModal;
-      this.$emit("isDisplayModal", false);
-      console.log("clicked cancel");
+      this.$emit("isDisplayModal", false); 
     },
   },
 };

@@ -125,8 +125,7 @@ export default {
       this.isShow = "";
       this.ariaModal = false;
       this.ariaHidden = !this.ariaModal;
-      this.$emit("isDisplayModal", false);
-      console.log("clicked cancel");
+      this.$emit("isDisplayModal", false); 
     },
 
     submitTask() {

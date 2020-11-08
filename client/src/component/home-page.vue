@@ -81,8 +81,11 @@
           </div>
         </div>
       </div>
+      <div class="p-0 m-0 float-left">
+        <span>Admin Organization : {{ adminName }}</span>
+      </div>
       <div class="p-0 m-0 float-right">
-        <span>{{ fullname }}</span>
+        <span>Login as : {{ fullname }}</span>
       </div>
       <div class="card">
         <div class="body">
@@ -127,7 +130,13 @@ import Category from "../component/home/category.vue";
 
 export default {
   name: "home-page",
-  props: ["categories", "organizationId", "allOrganizations", "members"],
+  props: [
+    "categories",
+    "organizationId",
+    "allOrganizations",
+    "members",
+    "admin",
+  ],
   components: {
     Category,
   },
@@ -138,26 +147,29 @@ export default {
     };
   },
 
-  created() {
-    console.log("created ====>", this.organizationId);
-    this.currentOrgId = this.organizationId;
-  },
+  // created() { 
+  //   this.currentOrgId = this.organizationId;
+  // },
 
-  updated() {
-    console.log("updated ====>", this.organizationId);
+  updated() { 
     this.currentOrgId = this.organizationId;
   },
 
   watch: {
     currentOrgId() {
       this.$emit("changeOrganization", this.currentOrgId);
-    },
-
-    allOrganizations() {
-      console.log("here ====>", this.organizationId);
-      // this.currentOrgId = this.organizationId;
+    }, 
+  },
+  computed: {
+    adminName() {
+      let name = this.admin.fullname;
+      if (this.admin.id == localStorage.getItem("id")) {
+        name += " (yourself)";
+      }
+      return name;
     },
   },
+
   methods: {
     openAddTask(payload) {
       this.$emit("openAddTask", payload);

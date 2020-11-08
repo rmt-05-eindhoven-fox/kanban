@@ -69,8 +69,7 @@ export default {
         organizationId,
         taskName,
       };
-      this.$emit("openAddTask", payload);
-      // console.log("Cat ID", catId, organizationId, taskName);
+      this.$emit("openAddTask", payload); 
     },
 
     openEditTask(payload) {
