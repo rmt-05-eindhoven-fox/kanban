@@ -3,6 +3,9 @@ const { User, Todo } = require('../models')
 
 const { comparePassword} = require('../helpers/bcrypt')
 const { signToken } = require('../helpers/jwt')
+const { OAuth2Client } = require('google-auth-library')
+const { sign } = require('jsonwebtoken')
+const { ne } = require('sequelize/types/lib/operators')
 
 class Controller {
     static async register(req,res, next) {
@@ -114,6 +117,43 @@ class Controller {
             //console.log(error)
             next(500).json(error)
         }
+    }
+
+    static googleLogin(req, res, next) {
+        let { google_access_token } = req.body
+        const client = new OAuth2Client('645674868541-6vv79eleg938e6i99t9idd1vpr0r3flj.apps.googleusercontent.com')
+
+        let email = ''
+
+        client.verifyIdToken({
+            idToken: google_access_token,
+            audience: '645674868541-6vv79eleg938e6i99t9idd1vpr0r3flj.apps.googleusercontent.com'
+        })
+        .then(ticket => {
+            const payload = ticket.getPayload()
+            email = payload.email
+            return User.findOne({
+                where: {email}
+            })
+        })
+        .then(user => {
+            if(user) {
+                return user
+            } else {
+                let objUser = {
+                    email,
+                    password: 'random'
+                }
+                return User.create(objUser)
+            }
+        })
+        .then(dataUser => {
+            let token = signToken({id:dataUser.id, email:dataUser.email})
+            return res.status(200).json({tokenAccess})
+        })
+        .catch(err => {
+            next(err)
+        })
     }
 }
 

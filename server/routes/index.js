@@ -4,6 +4,7 @@ const authentication = require('../middlewares/authentication')
 const authorization = require('../middlewares/authorization')
 
 route.post('/register', controller.register)
+route.post('/googleLogin', controller.googleLogin)
 route.post('/login', controller.login)
 route.use(authentication)
 route.post('/todos', controller.create)
