@@ -1,44 +1,54 @@
 <template>
     <section>
-                <nav class="navbar">
-                <a href="#" class="navbar-brand">Kanban</a>
+        <nav class="navbar">
+            <a href="#" class="navbar-brand">Kanban</a>
 
             <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#addModal">
-                Add Task
+                    Add Task
             </button> 
 
 
-
-
-        <button  @click.prevent="signout" class="btn btn-primary my-2 my-sm-0" type="button">Logout</button>
-    </nav>
-        <AddPage 
+            <button  @click.prevent="signout" class="btn btn-primary my-2 my-sm-0" type="button">Logout</button>
+        </nav>
+        <add-modal 
         @addTask="addTask"> 
-        </AddPage>
+        </add-modal>
               <div class="container pt-3">
                 <div class="row flex-row flex-sm-nowrap py-3">
-                    <Phase 
+                    <phase 
                     v-for="(phase, i) in phases" 
                     :key="i" 
                     :phase="phase"
                     :tasks="tasks"
-                    @deleteData="deleteData"></Phase>
+                    @deleteTask="deleteTask"
+                    @editTask="editTask"
+                    @updateCategory="updateCategory"></phase>
                 </div>
-            </div>
-            </section>
+                    <edit-modal
+                    :editTask="show_task"
+                    @updateTask="updateTask">
+                    </edit-modal>
+                </div>
+    </section>
 </template>
 
 <script>
 import Phase from "../components/Phase"
-import AddPage from "./AddPage"
+import AddModal from "./AddModal"
+import EditModal from "../components/EditModal"
 export default {
     name : "HomePage", 
     components : { 
         Phase, 
-        AddPage, 
-
+        AddModal, 
+        EditModal
     }, 
-    props : ["phases", "tasks"], 
+    props : ["phases", "tasks"],
+    data() {
+        return { 
+            show_task : ""
+        }
+    },
     methods : { 
         signout() { 
             this.$emit("signout")
@@ -48,10 +58,21 @@ export default {
             this.$emit("addTask", payload)
         }, 
 
-        deleteData(id){ 
-            this.$emit("deleteData", id)
+        updateTask(payload) { 
+            this.$emit("updateTask", payload)
+        },
+
+        deleteTask(id){ 
+            this.$emit("deleteTask", id)
         }, 
         
+        editTask(payload) { 
+            this.show_task = payload
+        }, 
+
+        updateCategory(payload) { 
+            this.$emit("updateCategory", payload)
+        }
 
     }
 }

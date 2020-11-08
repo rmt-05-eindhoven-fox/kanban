@@ -9,16 +9,17 @@
         </button>
       </div>
       <div class="modal-body">
-          <form id="dataToEdit" @submit.prevent="editPage">
+          <form @submit.prevent="updateTask(editTask.id)">
                         <center>
+                          {{editTask}}
                               <div class="form-group col-md-6">
                                     <label for="title">Title</label>
-                                    <input v-model="title" type="text" class="form-control" id="title-edit" 
+                                    <input v-model="title" type="text" class="form-control" id="title" 
                                     style="text-align: center;">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="description">Description</label>
-                                    <input v-model="description" type="text" class="form-control" id="description-edit"
+                                    <input v-model="description" type="text" class="form-control" id="description"
                                     style="text-align: center;">
                                 </div>
                         </center>
@@ -34,16 +35,35 @@
 
 <script>
 export default {
-  name : "EditPage", 
+  name : "EditModal", 
+  props : ["editTask"],
   data() { 
     return { 
       title : "", 
       description : "", 
-      CategoryId : ""
+    }
+  }, 
+
+  watch : { 
+    editTask() { 
+      this.title = this.editTask.title
+      this.description = this.editTask.description
+    }
+  }, 
+
+  methods : { 
+    updateTask() { 
+      const payload = { 
+        id : this.editTask.id,
+        title : this.title, 
+        description : this.description, 
+      }
+      this.$emit("updateTask", payload)
     }
   }
 }
 </script>
+
 
 <style>
 

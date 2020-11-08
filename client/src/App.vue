@@ -1,25 +1,26 @@
 <template>
    <section id="home-page">
-            <LoginPage v-if="pageName == 'LoginPage'" 
+            <login-page v-if="pageName == 'LoginPage'" 
             @login="login"
             @changeRegister="changeRegister"
-            @gAuth="googleLogin">
-            </LoginPage>
-            <RegisterPage v-else-if="pageName == 'RegisterPage'"
+            @loginGoogle="loginGoogle">
+            </login-page>
+            <register-page v-else-if="pageName == 'RegisterPage'"
             @register="register">
-            </RegisterPage>
-            <HomePage 
+            </register-page>
+            <home-page 
              v-else-if="pageName == 'home-page'"
              :phases="phases"
              :tasks="tasks"
              @signout="signout"
              @addTask="addTask"
-             @deleteData="deleteData"
-             @logoutEvent = "logout"
+             @deleteTask="deleteTask"
+             @updateTask="updateTask"
+             @updateCategory="updateCategory"
              >
-            </HomePage>
-            <AddPage v-else-if="pageName == 'add-page'">
-            </AddPage>
+            </home-page>
+            <add-modal v-else-if="pageName == 'add-page'">
+            </add-modal>
 
         </section>
 </template>
@@ -28,7 +29,7 @@
 import LoginPage from "./views/Login"
 import RegisterPage from "./views/Register"
 import HomePage from "./views/HomePage"
-import AddPage from "./views/AddPage"
+import AddModal from "./views/AddModal"
 import axios from "./config/axios"
 export default {
     name : "App",
@@ -36,11 +37,11 @@ export default {
         LoginPage,
         RegisterPage,
         HomePage, 
-        AddPage 
+        AddModal 
     },
  data: function () {
     return {
-        pageName : 'AddPage', 
+        pageName : 'LoginPage', 
         phases : [
             { 
                 phase : "BackLog", 
@@ -59,8 +60,8 @@ export default {
                 id : 4
             }
         ],
-    tasks : []
-    }    
+    tasks : [], 
+    }   
  }, 
  methods : { 
     login(payload)  {
@@ -70,27 +71,21 @@ export default {
             data : { 
                 email : payload.email, 
                 password : payload.password, 
-                clientId : "931729982611-knngcbecfkuufm822u2vca4f22mhchfq.apps.googleusercontent.com" 
             }
             
         }).then( res => { 
             const access_token = res.data.access_token
             localStorage.setItem("access_token", access_token)
             this.checkLogin()
-
+    
         }).catch(err => { 
             console.log(err.response);
         })
     },
 
-        OnGoogleAuthSuccess (idToken) {
-        console.log(idToken, "token")
-        // Receive the idToken and make your magic with the backend
-        },
-        OnGoogleAuthFail (error) {
-        console.log(error)
-    },
 
+
+    
     register(payload) { 
 
         axios({ 
@@ -111,25 +106,27 @@ export default {
         this.pageName = name
     },
 
-    googleLogin(auth) { 
+    loginGoogle(google_token) { 
         axios({ 
             url : "/googleLogin", 
             method : "POST", 
-            data : { 
-                id_token : auth
+            data : {    
+                google_token
             }
         }).then(({data}) => { 
-            localStorage.token = data.token 
-            localStorage.email = data.email
-            this.checkLogin()
+          console.log(data, "<< data dari google");
+          localStorage.setItem("access_token", data.access_token);
+          this.checkLogin()
+
+          this.pageName = "home-page"
         }).catch(err => { 
             console.log(err);
         })
     },
 
     signout() { 
-        localStorage.removeItem('access_token')
-        this.pageName = 'LoginPage'
+        localStorage.removeItem("access_token")
+        this.pageName = 'LoginPage' 
     },
 
     fetchTasks() { 
@@ -170,13 +167,56 @@ export default {
             }
         }).then(({data}) => { 
             console.log(data)
-            this.fetchTasks()
+            this.fetchTasks()       
+
         }).catch(err => { 
             console.log(err);
         })
     },
 
-    deleteData(id) { 
+    updateTask(payload) { 
+        const access_token = localStorage.getItem("access_token")
+        axios({ 
+           url : `/tasks/${payload.id}`, 
+           method : "PUT", 
+           data : { 
+               title : payload.title, 
+               description : payload.description
+           }, 
+           headers : { 
+               access_token
+           }
+        }).then(({data}) => { 
+            console.log(data);
+            this.fetchTasks()
+        }).catch(err => { 
+            console.log(err);
+        })
+
+    },
+
+
+    updateCategory(payload) { 
+        console.log(payload, "<<<< payload updateCategory");
+        const access_token = localStorage.getItem("access_token")
+        axios({ 
+            url : `/tasks/${payload.id}`,
+            method : "PATCH", 
+            data : { 
+                CategoryId : payload.CategoryId
+            }, 
+            headers : { 
+                access_token
+            }
+        }).then(({data}) => { 
+            console.log(data, "<<< data dari updateCategory");
+            this.fetchTasks()
+        }).catch(err => {
+            console.log(err);
+        })
+    },
+
+    deleteTask(id) { 
         const access_token =  localStorage.getItem("access_token")
         axios({ 
             url: `/tasks/${id}`,

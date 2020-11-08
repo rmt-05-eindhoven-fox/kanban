@@ -1,6 +1,6 @@
 <template>
 
-        <!-- Section Login -->
+    <!-- Section Login -->
     <section class="Form my-4 mx-5" id="LoginPage">
         <div class="container">
             <div class="row no-gutters" >
@@ -28,18 +28,18 @@
                             </div>
                         </div>
                          <div class="form-row">
-                    <p>Don't have an account? <a @click="changeRegister" href="#">Register here</a></p>
+                            <p>Don't have an account? <a @click="changeRegister" href="#">Register here</a></p>
                 </div>
                     </form>
                          <div class="form-row">
                             <div class="col-lg-7">
-                                <div class="g-signin2" data-onsuccess="onSignIn"></div><br>
+                                <button v-google-signin-button="clientId" class="google-signin-button" > Continue with Google</button>                          
                             </div>
+                                    <div style="margin:20px">
+                                    </div>
+                             </div>
                         </div>
-                </div>
                        
-
-               
             </div>
         </div>
 
@@ -57,9 +57,11 @@ export default {
     name : "LoginPage", 
     data() { 
         return { 
+    clientId : "49451175960-b368nrt4o6cgd5cli4q5t9k6ott33lrj.apps.googleusercontent.com", 
             user : { 
                 email : "", 
-                password : ""
+                password : "", 
+    
             }
         }
     }, 
@@ -71,11 +73,17 @@ export default {
 
         login() { 
             let payload = this.user
-            console.log(payload);   
             this.$emit('login', payload)
         
         }, 
 
+        OnGoogleAuthSuccess (google_token) {
+        this.$emit("loginGoogle", google_token)
+        },
+        OnGoogleAuthFail (error) {
+            console.log(error, "error")
+        },
+      
         changeRegister(){ 
             this.$emit("changeRegister", "RegisterPage")
         }

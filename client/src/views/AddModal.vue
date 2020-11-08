@@ -34,7 +34,7 @@
 
 <script>
 export default {
-    name : "AddPage", 
+    name : "AddModal", 
 
     data() { 
       return { 
@@ -49,7 +49,6 @@ export default {
           title : this.title, 
           description : this.description
         }
-        console.log(payload, "<<< ini payload");
         this.$emit("addTask", payload)
       }
     }

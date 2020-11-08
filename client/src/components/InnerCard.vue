@@ -10,10 +10,10 @@
             {{task.description}}    
            </div>    
            <div>
-            <button @click="changePage" type="danger" class="btn btn-outline-dark" data-toggle="modal"
+            <button @click="editTask" type="danger" class="btn btn-outline-dark" data-toggle="modal"
              data-target="#editModal"><i class="fa fa-pencil-square-o"></i></button>
 
-              <button @click="deleteData" type="danger" class="btn btn-outline-dark"><i class="fa fa-trash" aria-hidden="true"></i></button>
+              <button @click="deleteTask" type="danger" class="btn btn-outline-dark"><i class="fa fa-trash" aria-hidden="true"></i></button>
            </div>
     </div>
    </div>
@@ -23,15 +23,24 @@
 <script>
 
 export default {
-    name : "ChildCard",
-    props : ["task"], 
+    name : "InnerCard",
+    props : ["task", "phase"], 
     methods : { 
-      changePage() { 
-      this.$emit("changePage", payload)
-    },
-    deleteData() { 
-      this.$emit("deleteData", this.task.id)
-    }
+        changePage() { 
+        this.$emit("changePage", payload)
+        },
+        deleteTask() { 
+          this.$emit("deleteTask", this.task.id)
+        }, 
+        editTask() { 
+          const payload = { 
+            id: this.task.id,
+            title : this.task.title, 
+            description : this.task.description, 
+            CategoryId : this.task.CategoryId
+          }
+          this.$emit("editTask", payload)
+        }
     }
 }
 </script>

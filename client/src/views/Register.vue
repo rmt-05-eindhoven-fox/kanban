@@ -7,16 +7,16 @@
                 </div>
                 <div class="col-lg-7 px-5 pt-5">
                     <h3>Register your account</h3>
-                    <form>
+                    <form @submit.prevent="register">
                         <div class="form-row">
                             <div class="col-lg-7">
-                                <input v-model="email" type="email" id="register-email" class="form-control my-3 p-4"
+                                <input v-model="user.email" type="email" id="register-email" class="form-control my-3 p-4"
                                     placeholder="Email address" required="">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="col-lg-7">
-                                <input v-model="password" type="password" id="register-password" class="form-control my-3 p-4"
+                                <input v-model="user.password" type="password" id="register-password" class="form-control my-3 p-4"
                                     placeholder="password" required="">
                             </div>
                         </div>
@@ -45,8 +45,10 @@ export default {
   
   data() { 
       return { 
-          email : "", 
-          password : ""
+          user : { 
+              email : "", 
+              password : ""
+          }
       }
   }, 
   methods : { 
