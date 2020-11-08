@@ -4,9 +4,9 @@ const PORT = 3000
 const task = require('./routes/task')
 const user = require('./routes/user')
 const errorHandler = require("./middlewares/errorHandler")
-// const cors = require('cors');
+const cors = require('cors');
 
-// app.use(cors())
+app.use(cors())
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 

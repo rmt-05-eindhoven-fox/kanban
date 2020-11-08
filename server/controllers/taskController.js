@@ -14,7 +14,7 @@ class TaskController {
     }
     static list (req,res, next) {
         const UserId = req.loggedInUser.id
-        Task.findAll({where: {UserId}})
+        Task.findAll()
         .then(data => {
             res.status(200).json(data)
         })
