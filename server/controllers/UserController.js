@@ -45,14 +45,14 @@ class UserController {
     let { google_access_token } = req.body;
     const client = new OAuth2Client(process.env.CLIENT_ID);
     let userGoogle = {}
-    
+
     client.verifyIdToken({
       idToken: google_access_token,
       audience: process.env.CLIENT_ID,
     }).then(ticket => {
       const payload = ticket.getPayload();
       const { name, email, picture } = payload;
-      userGoogle = { name, email, picture } 
+      userGoogle = { name, email, picture }
       return User.findOne({ where: { email } })
     }).then(user => {
       if (user) {
@@ -67,11 +67,22 @@ class UserController {
       }
     }).then(data => {
       const { id, fullname, email } = data;
-      const access_token = generateToken({ id, email, fullname })
-      res.status(200).json({ id, email, fullname, access_token })
+      const access_token = generateToken({ id, email, fullname });
+      res.status(200).json({ id, email, fullname, access_token });
     }).catch(err => {
       next(err)
     })
+  }
+
+  static verifyToken(req, res, next) {
+    const id = req.logedInUser.id;
+    User.findByPk(id)
+      .then((result) => {
+        const { id, fullname, email } = result; 
+        res.status(200).json({ id, email, fullname });
+      }).catch((err) => {
+        next(err);
+      });
   }
 
   static userOganization(req, res, next) {

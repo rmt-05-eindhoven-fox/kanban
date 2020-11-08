@@ -12,12 +12,13 @@ router.get('/', (req, res, next) => {
 
 
 router.post('/login', UserController.login);
-router.post('/register', UserController.register); 
+router.post('/register', UserController.register);
 router.post('/googlesignin', UserController.googlesignin);
 
 router.use(authentication)
 
-router.get('/user/organizations', UserController.userOganization);
+router.post('/users/verify', UserController.verifyToken);
+router.get('/users/organizations', UserController.userOganization);
 
 /** 
  * Router Organizations
