@@ -104,7 +104,7 @@ export default {
       this.modalName = params;
     },
 
-    logout() { 
+    logout() {
       localStorage.clear();
       this.changePage("auth-page");
       this.$gAuth.signOut();
@@ -119,7 +119,7 @@ export default {
     },
 
     openAddTask(payload) {
-      this.payloadAddTask = payload; 
+      this.payloadAddTask = payload;
       this.isDisplayModal(true);
       this.changeModal("addTodo");
     },
@@ -134,8 +134,8 @@ export default {
 
     openEditTask(payload) {
       // arrCat.push(objCat);
-      payload.categories = this.getCategories(); 
-      this.payloadEditTask = payload; 
+      payload.categories = this.getCategories();
+      this.payloadEditTask = payload;
       this.isDisplayModal(true);
       this.changeModal("editTodo");
     },
@@ -168,7 +168,7 @@ export default {
           access_token: localStorage.getItem("access_token"),
         },
       })
-        .then(({ data }) => { 
+        .then(({ data }) => {
           this.$swal.close();
           const access_token = localStorage.getItem("access_token");
           data.access_token = access_token;
@@ -360,7 +360,7 @@ export default {
         })
         .catch((err) => {
           this.errorHandler(err, "Edit Task Failed!");
-        }); 
+        });
     },
 
     deleteTask(payload) {
@@ -446,19 +446,19 @@ export default {
               }
               const message = Swal.showValidationMessage(
                 `Request failed: ${msg}`
-              ); 
+              );
             });
         },
         allowOutsideClick: () => !Swal.isLoading(),
       }).then((result) => {
-        if (result.isConfirmed) { 
+        if (result.isConfirmed) {
           this.$swal({
             title: "Created!",
             text: "Successfully create organization!",
             icon: "success",
             willClose: () => {
               this.loadUserOrganization();
-              this.loadOrganizationById(); 
+              this.loadOrganizationById();
             },
           });
         }
@@ -497,18 +497,18 @@ export default {
               let msg = err.response.data.message || "Somthing error!";
               if (Array.isArray(error.message)) {
                 msg = error.message[0].errors;
-              } 
+              }
               const message = Swal.showValidationMessage(
                 `Request failed: ${msg}`
               );
             });
         },
         allowOutsideClick: () => !Swal.isLoading(),
-      }).then((result) => { 
+      }).then((result) => {
         if (result.isConfirmed) {
           this.$swal({
             title: "Created!",
-            text: "Successfully create new category! sdsds",
+            text: "Successfully create new category!",
             icon: "success",
             willClose: () => {
               this.loadOrganizationById();
@@ -549,7 +549,7 @@ export default {
               let msg = err.response.data.message || "Somthing error!";
               if (Array.isArray(error.message)) {
                 msg = error.message[0].errors;
-              } 
+              }
               const message = Swal.showValidationMessage(
                 `Request failed: ${msg}`
               );
@@ -557,7 +557,7 @@ export default {
         },
         allowOutsideClick: () => !Swal.isLoading(),
       }).then((result) => {
-        if (result.isConfirmed) { 
+        if (result.isConfirmed) {
           this.$swal({
             title: "Created!",
             text: "Successfully add new member!",
@@ -579,20 +579,20 @@ export default {
           inputPlaceholder: "Select category",
           showCancelButton: true,
         })
-        .then((result) => { 
+        .then((result) => {
           if (result.isConfirmed) {
-            this.loadOrganizationById();
             this.prosesChangeCategory(payload, result.value);
           }
         })
         .catch((err) => {
-          console.log(err); 
+          console.log(err);
         });
     },
 
     prosesChangeCategory(payload, newCategoryId) {
       const CategoryId = newCategoryId;
       const OrganizationId = payload.OrganizationId;
+      this.showLoading();
       axios({
         url: "tasks/" + payload.id,
         method: "patch",
@@ -613,7 +613,7 @@ export default {
           );
         })
         .catch((err) => {
-          this.errorHandler(err, "Change Category Failed!"); 
+          this.errorHandler(err, "Change Category Failed!");
         });
     },
 
@@ -625,7 +625,7 @@ export default {
     },
 
     errorHandler(err, title) {
-      const error = err.response.data; 
+      const error = err.response.data;
       let message = "";
       if (Array.isArray(error.message)) {
         message = error.message[0].errors;
