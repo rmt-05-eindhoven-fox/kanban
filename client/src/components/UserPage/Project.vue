@@ -49,7 +49,7 @@
                 <select 
                   v-model="addProjectForm.selectedMember"
                   id="members1">
-                  <option value="" disabled>Choose other member</option>
+                  <option value="">Choose other member</option>
                   <option
                     v-for="member in otherUsers"
                     :value="member.id"

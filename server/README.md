@@ -393,7 +393,8 @@ _Request Body_
 _Response (201 - Created)_
 ```
 {
-  "id": 2,
+  "ProjectId": 1,
+  "UserId": 2,
   "name": "Jane Doe"
   "email": "a@mail.com",
 }

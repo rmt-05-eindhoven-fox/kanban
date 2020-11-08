@@ -48,11 +48,11 @@
           </div>
         </div>
       </div>
-
   </div>
 </template>
 
 <script>
+import io from 'socket.io-client';
 import HomePage from './components/HomePage';
 import UserPage from './components/UserPage';
 import axios from './config/axios';
@@ -61,7 +61,10 @@ export default {
   name: 'KanbanApp',
   data() {
     return {
-      msg: 'Hello World!',
+      server: 'https://kanban-porto-app.herokuapp.com',
+      socket: {},
+      dataInserted: false,
+      dataChanged: false,
       pageName: '',
       formLogin: {
         email: '',
@@ -72,8 +75,8 @@ export default {
         email: '',
         password: ''
       },
-      userDetail: [],
-      otherUsers: '',
+      userDetail: '',
+      otherUsers: [],
       googleLogin2: {
         name: '',
         email: '',
@@ -107,7 +110,7 @@ export default {
       })
         .then(({ data }) => {
           this.userDetail = data;
-          this.changePage('user-page')
+          this.changePage('user-page');
         })
         .catch(err => {
           this.changePage('home-page');
@@ -137,6 +140,7 @@ export default {
           this.toastSwal('Signed in successfully');
           localStorage.setItem('access_token', data.access_token);
           this.fetchUserDetail();
+          this.fetchUsers();
           this.activeUser.name = data.name;
           this.$refs.homePage.clearLoginForm();
         })
@@ -176,12 +180,6 @@ export default {
       const payload = this.googleLogin2;
       this.register(payload);
     },
-    signOut() {
-      var auth2 = gapi.auth2.getAuthInstance();
-      auth2.signOut().then(function () {
-        console.log('User signed out.');
-      });
-    },
     register(payload) {
       Swal.showLoading();
       axios({
@@ -202,8 +200,9 @@ export default {
             this.swalSuccess('Thank you for registering on Kanban', 'center', undefined, undefined, () => {
               $('#modal-sign-in').modal('toggle');
             });
-              this.$refs.homePage.clearRegisForm();
+            this.$refs.homePage.clearRegisForm();
           }
+          this.socket.emit('newData', { msg: `${data.name} has joined on Kanban`, userId: '', projectId: '' });
         })
         .catch(err => {
           this.swalFailed(err.response.data.error);
@@ -221,12 +220,12 @@ export default {
         .then((result) => {
           if (result.isConfirmed) {
           localStorage.clear();
+          this.userDetail = '';
           this.changePage('home-page')
           }
         })
     },
     createProject(payload) {
-      console.log(payload, localStorage.access_token, 'sebelum request')
       axios({
         url: '/projects',
         method: 'POST',
@@ -244,7 +243,6 @@ export default {
                 access_token: localStorage.access_token
               },
               data: payload
-
             })
           } else {
             return Promise.resolve(response);
@@ -253,6 +251,9 @@ export default {
         .then(({ data }) => {
           this.swalSuccess(`Successfully create new project`, 'center')
           this.fetchUserDetail();
+          if (data.email) {
+            this.socket.emit('newData', { msg: `${this.userDetail.name} has added you to his/her project`, userId: data.UserId, createdBy: '' } );
+          }
         })
         .catch(err => {
           this.swalFailed(err.response.data.error);
@@ -268,9 +269,9 @@ export default {
         }
       })
         .then(({ data }) => {
-          // console.log(data);
           this.swalSuccess(`Successfully add ${data.name} as new category`, 'top-end');
           this.fetchUserDetail();
+          this.socket.emit('newData', { msg: `${this.userDetail.name} has added new category on`, projectId: payload.projectId, userId: '', createdBy: this.userDetail.id});
         })
         .catch(err => {
           this.swalFailed(err.response.data.error);
@@ -288,6 +289,7 @@ export default {
         .then(({ data }) => {
           this.toastSwal(`${data.title} added as your task`);
           this.fetchUserDetail();
+          this.socket.emit('newData', { msg: '', userId: '', projectId: '' });
         })
         .catch(err => {
           this.swalFailed(err.response.data.error);
@@ -305,6 +307,7 @@ export default {
         .then(({ data }) => {
           this.toastSwal(`Successfully edit your task`);
           this.fetchUserDetail();
+          this.socket.emit('newData', { msg: '', userId: '', projectId: '' });
         })
         .catch(err => {
           this.swalFailed(err.response.data.error);
@@ -325,6 +328,7 @@ export default {
               'success'
             )
             this.fetchUserDetail();
+            this.socket.emit('newData', { msg: '', userId: '', projectId: '' });
         })
         .catch(err => {
           this.swalFailed(err.response.data.error);
@@ -342,6 +346,7 @@ export default {
       })
         .then(({ data }) => {
           this.toastSwal(`${data.title} has been successfully moved`);
+          this.socket.emit('newData', { msg: '', userId: '', projectId: '' });
         })
         .catch(err => {
           this.swalFailed(err.response.data.error);
@@ -360,6 +365,7 @@ export default {
         .then(({ data }) => {
           this.toastSwal(`Successfully add ${data.name} as project collaborator`);
           this.fetchUserDetail();
+          this.socket.emit('newData', { msg: `${this.userDetail.name} has added you to his/her project`, userId: data.UserId, projectId: '' });
         })
         .catch(err => {
           this.swalFailed(err.response.data.error);
@@ -415,7 +421,23 @@ export default {
     }
   },
   created() {
+    this.socket = io(this.server);
     this.isLogin();
+    this.socket.on('dataChanged', (payload) => {
+      if (this.userDetail) {
+        this.fetchUserDetail();
+        this.fetchUsers();
+        if (!payload.userId && !payload.projectId && payload.msg) {
+          this.toastSwal(payload.msg);
+        } else if (payload.userId === this.userDetail.id && !payload.projectId) {
+          this.toastSwal(payload.msg);
+        } else if (payload.projectId) {
+          for (const project of this.userDetail.Projects) {
+            if (project.id === payload.projectId && this.userDetail.id != payload.createdBy) this.toastSwal(`${payload.msg} ${project.name} project`); 
+          }
+        }
+      }
+    });
   }
 }
 </script>

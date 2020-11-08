@@ -95,7 +95,7 @@ export default {
         password: ''
       },
       params: {
-        client_id: '81303156909-bjn8cue6cp3sit10qh79ogo4qjt961qm.apps.googleusercontent.com'
+        client_id: '89881871470-n1et9bdvaq385m5luesm1bv8f72jhudm.apps.googleusercontent.com'
       },
       renderParams: {
         width: 150,
@@ -132,6 +132,10 @@ export default {
         google_access_token
       };
       this.$emit('googleLogin', payload);
+      var auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function () {
+        console.log('User signed out.');
+      });
     },
     onFailure() {
       console.log('error')

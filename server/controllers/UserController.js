@@ -12,7 +12,6 @@ class UserController {
   static async register(req, res, next) {
     const { name, email, password } = req.body;
     try {
-      // console.log(req.body);
       const user = await User.create({
         name,
         email,
@@ -52,6 +51,7 @@ class UserController {
 
       res.status(201).json({
           id: user.id,
+          name: user.name,
           email: user.email
         });
     } catch (error) {

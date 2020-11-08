@@ -32,7 +32,8 @@ class UserProjectController {
           };
         } else {
           res.status(201).json({
-            id: junction.UserId,
+            ProjectId: junction.ProjectId,
+            UserId: junction.UserId,
             name: userToAdd.name,
             email: userToAdd.email
           });

@@ -107,13 +107,6 @@ export default {
       return this.userDetail.Projects
     },
     projectDetail() {
-      // if(!this.activeProjectId) {
-      //   return this.userDetail.Projects[0]
-      // } else {
-      //   return this.userDetail.Projects.find(project => {
-      //     project.id === this.activeProjectId;
-      //   });
-      // }
       if(this.userDetail.Projects.length !== 0) {
         for (const i in this.userDetail.Projects) {
           if (this.userDetail.Projects[i].id === this.activeProjectId) {
@@ -138,7 +131,6 @@ export default {
       this.$emit('logout');
     },
     createProject(payload) {
-      console.log(payload, 'ini di userpageee');
       this.$emit('createProject', payload);
     },
     changeProject(id) {

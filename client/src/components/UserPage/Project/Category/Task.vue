@@ -8,14 +8,14 @@
       <button 
         @click.prevent="editForm"
         data-toggle="modal"
-        :data-target="buttonModalId"
+        :data-target="`#modal${taskDetail.CategoryId}-${taskDetail.id}`"
         class="btn h-100 mx-0 px-1 fa fa-pencil"></button>
       <button 
         @click.prevent="deleteTask"
         class="btn h-100 mx-0 px-1 fa fa-trash"></button>
     </div>
     <!-- ! Modal Edit Task -->
-        <div class="modal fade" :id="modalId" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal fade" :id="`modal${taskDetail.CategoryId}-${taskDetail.id}`" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -27,16 +27,16 @@
             @submit.prevent="editTask">
           <div class="modal-body">
               <div class="form-group p-4">
-                <label :for="`exampleInputEmail1${taskDetail.id}`">Task Title</label>
+                <label :for="`exampleInputEmail1${taskDetail.CategoryId}-${taskDetail.id}`">Task Title</label>
                 <input 
                   v-model="editTaskForm.title"
-                  type="text" class="form-control" :id="`exampleInputEmail1${taskDetail.id}`" aria-describedby="emailHelp" placeholder="Your task title">
+                  type="text" class="form-control" :id="`exampleInputEmail1${taskDetail.CategoryId}-${taskDetail.id}`" aria-describedby="emailHelp" placeholder="Your task title">
               </div>
               <div class="form-group p-4">
-                <label :for="`exampleFormControlTextarea1${taskDetail.id}`">Description</label>
+                <label :for="`exampleFormControlTextarea1${taskDetail.CategoryId}-${taskDetail.id}`">Description</label>
                 <textarea 
                   v-model="editTaskForm.description"
-                  class="form-control" :id="`exampleFormControlTextarea1${taskDetail.id}`" rows="3" placeholder="Description"></textarea>
+                  class="form-control" :id="`exampleFormControlTextarea1${taskDetail.CategoryId}-${taskDetail.id}`" rows="3" placeholder="Description"></textarea>
               </div>              
           </div>
           <div class="modal-footer">
@@ -67,11 +67,8 @@ export default {
         return user.id == this.taskDetail.UserId
       });
     },
-    buttonModalId() {
-      return `#modal${this.taskDetail.id}`
-    },
-    modalId() {
-      return `modal${this.taskDetail.id}`
+    coba() {
+      return `${this.taskDetail}`
     }
   },
   methods: {
@@ -80,7 +77,7 @@ export default {
       this.editTaskForm.description = this.taskDetail.description;
     },
     editTask() {
-      $(`#${this.modalId}`).modal('toggle');
+      $(`#modal${this.taskDetail.CategoryId}-${this.taskDetail.id}`).modal('toggle');
       Swal.showLoading();
       const payload = this.editTaskForm;
       payload.id = this.taskDetail.id;
