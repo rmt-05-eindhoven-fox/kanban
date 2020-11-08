@@ -97,7 +97,7 @@ class OrganizationController {
     })
       .then((user) => {
         if (!user) {
-          next(createError(401, 'User not found!'));
+          throw (createError(401, 'User not found!'));
         } else {
           const { id, email, fullname, password } = user;
           const data = { id, email, fullname, password };
@@ -118,7 +118,7 @@ class OrganizationController {
     })
       .then((user) => {
         if (!user) {
-          next(createError(401, 'User not found!'));
+          throw (createError(401, 'User not found!'));
         } else {
           const { id, email, fullname } = user;
           member = { id, email, fullname };
@@ -130,11 +130,11 @@ class OrganizationController {
             }
           })
         }
-      }).then((result) => {
+      }).then((result) => { 
         if (!result) {
           return UserOrganization.create(input);
         } else {
-          next(createError(400, 'User alredy exists in organization!'))
+          throw (createError(400, 'User alredy exists in organization!'))
         }
       }).then(userOrganization => {
         res.status(201).json({

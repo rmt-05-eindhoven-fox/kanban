@@ -14,15 +14,15 @@ class UserController {
     })
       .then((user) => {
         if (!user) {
-          next(createError(401, 'Wrong email / password!'));
+          throw (createError(401, 'Wrong email / password!'));
         } else {
           const { id, email, fullname, password } = user;
           const match = comparePassword(inputPw, password);
           if (match) {
-            const access_token = generateToken({ id, email, fullname })
-            res.status(200).json({ id, email, fullname, access_token })
+            const access_token = generateToken({ id, email, fullname });
+            res.status(200).json({ id, email, fullname, access_token });
           } else {
-            next(createError(401, 'Wrong email / password!'))
+            throw (createError(401, 'Wrong email / password!'));
           }
         }
       }).catch((err) => {

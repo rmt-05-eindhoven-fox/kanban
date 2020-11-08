@@ -23,6 +23,7 @@
             <button
               class="btn btn-primary btn-icon float-right"
               type="button"
+              title="Logout"
               @click.prevent="logout"
             >
               <i class="zmdi zmdi-arrow-right"></i>
@@ -55,7 +56,7 @@
               data-backdrop="static"
               data-keyboard="false"
               type="button"
-              title="Logout"
+              title="Add new member"
               @click.prevent="createMember"
             >
               <i class="zmdi zmdi-accounts"></i>

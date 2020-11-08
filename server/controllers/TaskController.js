@@ -49,9 +49,7 @@ class TaskController {
         // res.status(200).json(category.OrganizationId == OrganizationId)
         if (category) {
           if (category.OrganizationId != OrganizationId) {
-            let err = new Error('Acces Denied!\nYou try requested move task out of organization!');
-            err.status = 401;
-            throw err;
+            throw (createError(401, 'Acces Denied!\nYou try requested move task out of organization!'));
           } else {
           }
         } else {
@@ -63,9 +61,7 @@ class TaskController {
         })
       }).then((result) => {
         if (result == 0) {
-          let err = new Error('Category Id Not Found!');
-          err.status = 404;
-          throw err;
+          throw (createError(404, 'Category Id Not Found!'));
         }
         res.status(200).json({ status: 200, task: result[1][0] })
       }).catch((err) => {

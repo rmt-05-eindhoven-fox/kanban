@@ -7,7 +7,7 @@ function authentication(req, res, next) {
   const { access_token } = req.headers;
   try {
     if (!access_token) {
-      next(createError(401, 'Authentication failed!'));
+      throw (createError(401, 'Authentication failed!'));
     } else {
       const decoded = verifyToken(access_token);
       User.findOne({
@@ -15,17 +15,17 @@ function authentication(req, res, next) {
       })
         .then((user) => {
           if (!user) {
-            next(createError(401, 'Authentication failed!'));
+            throw (createError(401, 'Authentication failed!'));
           } else {
             req.logedInUser = decoded;
             next();
           }
         }).catch((err) => {
-          next(createError(500, err.message));
+          throw (createError(500, err.message));
         });
     }
   } catch (err) {
-    next(createError(500, err.message));
+    next(err);
   }
 }
 
@@ -37,7 +37,7 @@ function authorizeOrganization(req, res, next) {
   Organization.findByPk(id, { include: [User] })
     .then((organization) => {
       if (!organization) {
-        next(createError(404, 'Organization ID Not Found'))
+        throw (createError(404, 'Organization ID Not Found'))
       } else {
         const isAdmin = organization.UserId == req.logedInUser.id;
         const arrTemp = organization.Users;
@@ -49,12 +49,12 @@ function authorizeOrganization(req, res, next) {
           } else if (isAdmin && method != 'get') {
             next();
           } else if (isMember && method != 'get') {
-            next(createError(401, 'Not Authorize!'))
+            throw (createError(401, 'Not Authorize!'))
           } else {
             next();
           }
         } else {
-          next(createError(401, 'Not authorize, For members only!'));
+          throw (createError(401, 'Not authorize, For members only!'));
         }
       }
     }).catch((err) => {
@@ -67,13 +67,13 @@ function authorizeCategory(req, res, next) {
   Category.findByPk(id)
     .then((category) => {
       if (!category) {
-        next(createError(404, 'Category id not found!'));
+        throw (createError(404, 'Category id not found!'));
       } else {
         const { OrganizationId } = req.body;
         if (OrganizationId != category.OrganizationId) {
-          next(createError(401), 'Not authorize!');
+          throw (createError(401), 'Not authorize!');
         } else if (category.UserId != req.logedInUser.id) {
-          next(createError(401), 'Not authorize!');
+          throw (createError(401), 'Not authorize!');
         } else {
           next();
         }
@@ -103,7 +103,7 @@ function authorizeTask(req, res, next) {
   })
     .then((task) => {
       if (!task) {
-        next(createError(404, 'Task id not found!'));
+        throw (createError(404, 'Task id not found!'));
       } else {
         const members = task.Organization.Users;
         const isMember = members.find(user => user.id == UserId);
@@ -116,18 +116,17 @@ function authorizeTask(req, res, next) {
               if (task.UserId == UserId) {
                 next();
               } else {
-                next(createError(401, 'Not authorize delete or update!'));
+                throw (createError(401, 'Not authorize delete or update!'));
               }
               break;
             case 'get':
               next();
               break;
             default:
-              next(createError(401, 'Not authorize, For Members Only!'));
-              break;
+              throw (createError(401, 'Not authorize, For Members Only!')); 
           }
         } else {
-          next(createError(401, 'Not authorize, For Members Only! xssasa'));
+          throw (createError(401, 'Not authorize, For Members Only! xssasa'));
         }
       }
     }).catch((err) => {
