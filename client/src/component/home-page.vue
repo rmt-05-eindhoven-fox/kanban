@@ -162,7 +162,7 @@ export default {
   },
   computed: {
     adminName() {
-      let name = this.admin.fullname;
+      let name = this.admin.fullname || "You don't have an organization!";
       if (this.admin.id == localStorage.getItem("id")) {
         name += " (yourself)";
       }
