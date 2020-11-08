@@ -1,0 +1,56 @@
+'use strict';
+const {
+  Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  class Task extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
+      Task.belongsTo(models.Category);
+      Task.belongsTo(models.User);
+    }
+  };
+  Task.init({
+    title: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          msg: 'Title is required'
+        }
+      }
+    },
+    description: DataTypes.TEXT,
+    CategoryId: {
+      type: DataTypes.INTEGER,
+      validate: {
+        notEmpty: {
+          msg: 'Category is required'
+        }
+      },
+      references: {
+        model: 'Categories',
+        key: 'id'
+      },
+      onUpdate: 'cascade',
+      onDelete: 'cascade'
+    },
+    UserId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Users',
+        key: 'id'
+      },
+      onUpdate: 'cascade',
+      onDelete: 'cascade'
+    }
+  }, {
+    sequelize,
+    modelName: 'Task',
+  });
+  return Task;
+};
