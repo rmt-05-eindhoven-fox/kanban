@@ -17,7 +17,7 @@ router.post('/googlesignin', UserController.googlesignin);
 
 router.use(authentication)
 
-router.post('/users/verify', UserController.verifyToken);
+router.get('/users/verify', UserController.verifyToken);
 router.get('/users/organizations', UserController.userOganization);
 
 /** 
