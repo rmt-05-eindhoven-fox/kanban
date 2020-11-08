@@ -51,16 +51,16 @@
           <p class="mb-0">or Sign Up using</p>
           <button
             class="btn btn-primary btn-icon btn-icon-mini btn-round facebook"
-            @click="loginWithGoogle"
+            @click.prevent="loginWithGoogle"
           >
             <i class="zmdi zmdi-google"></i>
           </button>
-          <button
+          <!-- <button
             class="btn btn-primary btn-icon btn-icon-mini btn-round facebook"
-            @click="logout"
+            @click.prevent="logout"
           >
             <i class="zmdi zmdi-facebook"></i>
-          </button>
+          </button> -->
         </div>
       </div>
     </form>
@@ -102,16 +102,14 @@ export default {
       this.$gAuth
         .signIn()
         .then((googleUser) => {
-          const userInfo = googleUser.getAuthResponse();
-          console.log(googleUser)
-          console.log(userInfo)
+          const userInfo = googleUser.getAuthResponse(); 
           const access_token = this.$emit("googleLogin", userInfo.id_token);
         })
         .catch((err) => {});
     },
-    logout() {
-      this.$gAuth.signOut();
-    },
+    // logout() {
+    //   this.$gAuth.signOut();
+    // },
   },
 };
 </script>

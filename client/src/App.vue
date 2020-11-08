@@ -230,8 +230,8 @@ export default {
         .then(({ data }) => {
           this.user = data;
           this.$swal(
-            "Access Granted!",
-            "Register successfully, Please login first!",
+            "Register Succesfully!",
+            "Please login first!",
             "success"
           );
         })

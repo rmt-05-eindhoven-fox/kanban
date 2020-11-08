@@ -82,7 +82,18 @@ export default {
   created() {
     this.clearForm();
   },
+
   props: ["user"],
+
+  watch: {
+    user() {
+      if (this.user.status == 201) {
+        this.clearForm();
+        this.formLogin();
+      }
+    },
+  },
+
   methods: {
     prosesRegister() {
       const payload = {
@@ -91,11 +102,6 @@ export default {
         password: this.password,
       };
       this.$emit("prosesRegister", payload);
-      console.log(this.user.status);
-      if (this.user.status == 201) {
-        this.clearForm();
-        this.formLogin();
-      }
     },
 
     clearForm() {
