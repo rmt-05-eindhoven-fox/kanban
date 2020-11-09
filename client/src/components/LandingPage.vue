@@ -1,5 +1,5 @@
 <template>
-	<section id="landing-page" class="container-fluid p-4">
+	<section @changePage="changePage" id="landing-page" class="container-fluid p-4">
 		<div class="row mt-5">
 			<div class="col-md-6 mt-5 text-left order-sm-1">
 				<h1 class="">
@@ -10,7 +10,7 @@
 					The Best scheduling system in The Country
 				</h4>
 				<a
-					@click.prevent="currentPage(login-page)"
+					@click.prevent="gotoRegister"
 					href="#"
 					class="btn slideUpBtn mt-1"
 					>Sign Up</a
@@ -18,7 +18,7 @@
 				&nbsp;
 
 				<a
-					@click.prevent="currentPage ==='login-page'"
+					@click.prevent="gotoLogin"
 					href="#"
 					class="btn btn-add-task mt-1"
 					>Sign In</a
@@ -41,13 +41,23 @@
 <script>
 export default {
 	name: "LandingPage",
+	data:{
+		backgroundColor :"#fffff"
+	},
 	methods: {
-		changePage() {
-			const payload = "login-page";
-			this.$emit("changePage", payload);
+		gotoLogin(){
+
+			this.$emit('changePage', 'login-page' )
+		},
+		gotoRegister(){
+
+			this.$emit('changePage', 'register-page' )
 		},
 	},
 };
 </script>
 
-<style></style>
+<style>
+
+
+</style>

@@ -10,16 +10,19 @@
 			<!-- CATEGORY HEADER ---------------------------------------------------------------->
 			<div class="category-content overflow-auto m-3">
 				<div class="row">
-					<Task v-for="task in Tasks"
-					:key="task.id"
-					> 
-
+					<div></div>
+					<Task
+						v-for="task in TaskperCategory"
+						:key="task.id"
+						:task="task"
+						class="container-fluid"
+					>
 					</Task>
-
 				</div>
 			</div>
 			<!-- CATEGORY FOOTER -->
 			<div class="category-footer p-3 mr-4">
+				<!-- form add task -->
 				<form @submit.prevent="addTask" v-show="isShow" class="mb-2">
 					<input
 						v-model="title"
@@ -35,17 +38,20 @@
 						class="card container-fluid"
 					>
 					</textarea>
-					<div id="post-decision">
-						<button @click="closeAddTask" class="btn btn-success btn-sm">
-							<i class="fa fa-check"></i>&nbsp;
-						</button>
-						<button @click="closeAddTask" class="btn btn-danger btn-sm">
-							<i class="fa fa-close"></i>
-						</button>
-					</div>
 				</form>
-				<div v-show="!isShow">
-					<button @click="showAddTask" class="btn rounded btn-add-task p-2">
+
+				<div v-if="isShow" id="post-decision">
+					<button type="submit" class="btn btn-success btn-sm">
+						<i class="fa fa-check"></i>&nbsp;
+					</button>
+
+					<button @click="isShow = !isShow" class="btn btn-danger btn-sm">
+						<i class="fa fa-close"></i>
+					</button>
+				</div>
+
+				<div v-else-if="!isShow">
+					<button @click="isShow = true" class="btn rounded btn-add-task p-2">
 						ADD TASK
 					</button>
 				</div>
@@ -59,15 +65,31 @@
 import Task from "./Task";
 export default {
 	name: "Category",
+	data() {
+		return {
+			isShow: false,
+			title: "",
+			description: "",
+		};
+	},
 	components: {
 		Task,
 	},
-	props: [ 'categoriesDetail', 'tasks'],
+	props: ["categoriesDetail", "tasks"],
 	computed: {
-		TaskperCategory(){
-
-			return this.tasks.filter(tasks => tasks.CategoryId == this.categoriesDetail.id)
-
+		TaskperCategory() {
+			return this.tasks.filter(
+				(tasks) => tasks.name === this.categoriesDetail.name
+			);
+		},
+	},
+	methods: {
+		addTask() {
+			let payload = {
+				title: this.title,
+				description: this.description
+			}
+			this.emit('addTask', payload)
 		}
 	}
 };

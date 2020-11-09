@@ -5,6 +5,7 @@
 		<LandingPage
 			v-if="currentPage === 'landing-page'"
 			:currentPage="currentPage"
+			@changePage="changePage"
 		>
 		</LandingPage>
 
@@ -40,8 +41,9 @@ export default {
 	name: "App",
 	data() {
 		return {
-			currentPage: "login-page",
-			 tasks: [],
+			currentPage: "landing-page",
+			imgLanding: "../img/goals.svg",
+			tasks: [],
 			categories: [
 				{
 					id: 1,
@@ -73,6 +75,7 @@ export default {
 	methods: {
 		changePage(name) {
 			this.currentPage = name;
+			this.fetchTasks();
 		},
 		checkAuth() {
 			if (localStorage.access_token) {
@@ -95,8 +98,8 @@ export default {
 					const access_token = data.data.access_token;
 					localStorage.setItem("access_token", access_token);
 					console.log(data, "login berhasil");
-					this.fetchTasks()
-					this.currentPage ="board-page";
+					this.currentPage = "board-page";
+					this.fetchTasks();
 				})
 				.catch((err) => {
 					console.log(err);
@@ -120,25 +123,26 @@ export default {
 				});
 		},
 		fetchTasks() {
-				const access_token = data.data.access_token;
-					// localStorage.setItem("access_token", access_token);
+			const access_token = localStorage.getItem("access_token");
+			// localStorage.setItem("access_token", access_token);
 			axios({
 				url: "/tasks",
 				method: "GET",
-				
 				headers: {
-					access_token: access_token
-				}
-					.then(({ data }) => {
-						console.log(data, " <<< ini dari data");
-						this.tasks = data;
-						this.$emit("fetchTasks");
-					})
-					.catch((err) => {
-						console.log(err, "<<<< ini error nih fetch nya");
-					}),
-			});
+					access_token: access_token,
+				},
+			})
+				.then(({ data }) => {
+					console.log(data, " <<< ini dari data");
+					this.tasks = data;
+					// this.$emit("fetchTasks");
+				})
+				.catch((err) => {
+					console.log(err, "<<<< ini error nih fetch nya");
+				});
 		},
+
+
 	},
 };
 </script>
