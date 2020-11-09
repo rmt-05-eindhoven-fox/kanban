@@ -16,7 +16,7 @@
   justify-content: center;
   align-items: center;
   min-width: 400px;
-  background-color:  #2c3e50;
+  background-color: #2c3e50;
   border-radius: 10px;
   border: 1px solid #dae5ff;
 }
@@ -39,7 +39,7 @@ nav {
   flex-wrap: nowrap;
 
   /* background-color: #dae5ff; */
-  background-color: #2c3e50;
+  background-color: #24a0ed;
 
 
 }
@@ -48,7 +48,7 @@ nav {
   display:flex;
   justify-content: space-between;
   align-items: baseline;
-  background-color: #2c3e50;
+  background-color: #24a0ed;
   
   /* padding : 20px 40px; */
 }
@@ -71,7 +71,7 @@ nav {
 }
 
 .kanban-card-all{
-  /* border-radius : 7px; */
+  border-radius : 5px;
   border : 1px solid #dae5ff;
   height : 400px;
   overflow-y: scroll;

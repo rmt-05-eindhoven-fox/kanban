@@ -6,7 +6,7 @@
   @dragover.prevent 
   class = "kanban-card-container">    <!-- Card Container start -->
 
-  <h4 style="text-align:center;">{{ categoryDetail.name }}</h4> <br> <!-- Board Title -->
+  <h6 style="text-align:center; background-color:#2c3e50; border-radius:5px; padding: 10px; color:white;">{{ categoryDetail.name }}</h6>  <!-- Board Title -->
 
   <div class = "kanban-card-all">
     <Task 
@@ -26,7 +26,7 @@
       v-if = "!showAddTask"
       @click.prevent="toggleShowAddTask"
       type="button" 
-      class="btn btn-outline-primary">＋  Add Task</button>
+      class="btn btn-primary">＋  Add Task</button>
 
     <div 
       v-else
@@ -42,14 +42,14 @@
         <button 
           @click.prevent = "cancelAddTask"
           type="button" 
-          class="btn btn-outline-danger btn-sm mt-2"
+          class="btn btn-danger btn-sm mt-2"
           style ="align-self: flex-end; width:100px"
         >Cancel</button>
 
         <button 
           @click.prevent = "addTask"
           type="button" 
-          class="btn btn-outline-success btn-sm mt-2"
+          class="btn btn-success btn-sm mt-2"
           style ="align-self: flex-end; width:100px"
         >Add Task</button>
       </div>

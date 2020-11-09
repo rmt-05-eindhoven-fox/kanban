@@ -9,7 +9,7 @@
           <div class = "login-body mt-5">
             <div class="form-login">
               <h2 style="color: #1b206b; text-align:center; color:white;">KANBAN!</h2><hr>
-              <h4 style="color: #1b206b; text-align:center; color:white;">Register here!</h4><hr>
+              <h5 style="color: #1b206b; text-align:center; color:white;">Register here!</h5><hr>
               <form>
                 <div class="form-group">
                   <input 
@@ -32,13 +32,14 @@
                 <button 
                   @click.prevent="userRegister"
                   type="submit" 
-                  class="btn btn-outline-primary w-100">Register</button>
+                  class="btn btn-primary w-100">Register</button>
               </form>
               
               <div class = "mt-2">
                 <a 
                   @click.prevent = "changePage('page-login')"
-                  href="" >Back to Login</a>
+                  href="" 
+                  style="color:white;">Back to Login</a>
               </div>
 
             </div>

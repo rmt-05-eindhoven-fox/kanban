@@ -8,7 +8,7 @@
           <div class = "login-body mt-5 style: background-color: blue;">
             <div class="form-login">
               <h2 style="color: #1b206b; text-align:center; color:white;">KANBAN!</h2><hr>
-              <h4 style="color: #1b206b; text-align:center; color: white;">Please login here!</h4> <br>
+              <h5 style="color: #1b206b; text-align:center; color: white;">Please login here!</h5> <br>
               <form>
 
                 <div class="form-group">
@@ -23,12 +23,13 @@
                     type="password" class="form-control" id="login-password" placeholder="Password">
                 </div>
                 
-                <div class="btn-group w-100" role="group" aria-label="Basic example">
+                
+                <div class="btn-group w-100" role="group" aria-label="Basic example" style="margin-bottom:10px;">
                   <button 
                     @click.prevent="userLogin"
                     type="submit" 
                     class="btn btn-success w-100">Login</button>
-                </div> <br> <br>
+                </div> 
                 <div class="btn-group w-100" role="group" aria-label="Basic example">
                   <button 
                     @click.prevent="changePage('page-register')"

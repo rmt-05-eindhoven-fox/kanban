@@ -51,14 +51,14 @@
         <button 
           @click.prevent = "cancelEditTask"
           type="button" 
-          class="btn btn-outline-danger btn-sm mt-2"
+          class="btn btn-danger btn-sm mt-2"
           style ="align-self: flex-end; width:100px"
         >Cancel</button>
 
         <button 
           @click="editTask"
           type="button" 
-          class="btn btn-outline-success btn-sm mt-2"
+          class="btn btn-success btn-sm mt-2"
           style ="align-self: flex-end; width:100px"
         >Edit</button>
       </div>
@@ -130,10 +130,10 @@ export default {
   cursor: pointer;
 }
 .kanban-card{
-  transition: 0.3s;
+  transition: 0.2s;
 }
 .kanban-card:hover{
-  background-color:rgb(223, 243, 255);
+  background-color:rgb(255, 254, 223);
   /* box-shadow: 2px 2px 2px rgb(32, 60, 90, 0.2); */
   margin-left : 1px;
   margin-right: 1px;
