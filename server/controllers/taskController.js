@@ -87,16 +87,16 @@ class TaskController {
   }
 
   static async updateTask(req, res, next) {
-    const taskId = req.params.id
-    const {title, description, CategoryId} = req.body
+    const id = req.params.id
+    const {description} = req.body
 
     try {
       const update = await Task.update({
-        title, description, 
+        description, 
         // CategoryId
       }, {
-        where: {taskId},
-      returning: ['title', 'description', /*'CategoryId'*/]
+        where: {id},
+      returning: ['description', /*'CategoryId'*/]
       })
       res.status(200).json(update[1][0])
     } catch(error) {

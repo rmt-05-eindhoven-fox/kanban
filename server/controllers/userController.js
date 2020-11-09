@@ -70,13 +70,13 @@ class UserController {
     }
 
     static googleLogin(req, res, next) {
-      let {google_access_token} = req.body
+      let {google_access_token} = req.headers
       let email;
 
-      const client = new OAuth2Client(process.env.GOOGLE_ID);
+      const client = new OAuth2Client("257701925850-sj3m6v1ep7cp6dhhht0gn532r1h2sgct.apps.googleusercontent.com");
       client.verifyIdToken({
         idToken: google_access_token,
-        audience: process.env.GOOGLE_ID,
+        audience: "257701925850-sj3m6v1ep7cp6dhhht0gn532r1h2sgct.apps.googleusercontent.com",
       })
       .then(ticket => {
         let payload = ticket.getPayload()
