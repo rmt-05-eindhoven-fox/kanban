@@ -1,4 +1,6 @@
-require('dotenv').config()
+if (process.env.NODE_ENV != 'production') {
+    require('dotenv').config()
+}
 const express = require('express')
 const routers = require('./routers/index')
 const app = express()

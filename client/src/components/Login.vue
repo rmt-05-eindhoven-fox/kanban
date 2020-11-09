@@ -6,11 +6,11 @@
                 <div class="col-auto">
                     <input type="email" v-model="email" class="form-control mb-2" placeholder="Email">
                     <input type="password" v-model="password" class="form-control mb-2" placeholder="Password">
-                    <button type="submit" class="btn btn-primary mb-2">login</button>
+                    <button type="submit" class="btn btn-primary mb-2">Login</button>
                 </div>
             </div>
         </form>
-        <button v-google-signin-button="clientId" class="google-signin-button">SignIn <i class="fab fa-google"></i></button>
+        <button v-google-signin-button="clientId" class="google-signin-button btn btn-primary">Login With <i class="fab fa-google"></i></button>
     </div>
 </template>
 
@@ -67,7 +67,7 @@ export default {
                 method: 'POST',
                 url: this.server + '/loginGoogle',
                 data:{
-                    google_token: idToken
+                    google_access_token: idToken
                 }
             })
             .then(result => {
@@ -87,13 +87,12 @@ export default {
 
 <style>
 .google-signin-button {
-  color: black;
-  background-color: white;
-  height: 40px;
-  font-size: 16px;
-  border-radius: 5px;
-  margin: 0% 46%; 
-  width: 15%;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding: 0%;
+    height: 40px;
+    font-size: 16px;
+    border-radius: 5px;
+    margin: 0% 46%; 
+    width: 15%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 </style>
