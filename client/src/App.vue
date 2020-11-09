@@ -82,7 +82,11 @@ export default {
 
   created() {
     const access_token = localStorage.getItem("access_token");
-    this.verifyToken();
+    if (!access_token) {
+      this.logout();
+    } else {
+      this.verifyToken();
+    }
   },
 
   components: {
