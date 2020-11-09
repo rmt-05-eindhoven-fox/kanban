@@ -1,7 +1,5 @@
 <template>
 	<div>
-		<HeaderNavbar> </HeaderNavbar>
-
 		<LandingPage
 			v-if="currentPage === 'landing-page'"
 			:currentPage="currentPage"
@@ -69,7 +67,6 @@ export default {
 		LoginPage,
 		RegisterPage,
 		NotFoundPage,
-		HeaderNavbar,
 		LandingPage,
 	},
 	methods: {
@@ -77,8 +74,9 @@ export default {
 			this.currentPage = name;
 			this.fetchTasks();
 		},
-		checkAuth() {
-			if (localStorage.access_token) {
+		checklogin() {
+			const access_token = localStorage.getItem("access_token");
+			if (access_token) {
 				this.currentPage = "board-page";
 				this.fetchTasks();
 			} else {
@@ -104,6 +102,10 @@ export default {
 				.catch((err) => {
 					console.log(err);
 				}, " gagal login");
+		},
+		signOut(){
+			localStorage.clear()
+			this.checklogin()
 		},
 		registerForm() {
 			axios({
@@ -141,8 +143,9 @@ export default {
 					console.log(err, "<<<< ini error nih fetch nya");
 				});
 		},
-
-
+	},
+	created() {
+		this.checklogin();
 	},
 };
 </script>

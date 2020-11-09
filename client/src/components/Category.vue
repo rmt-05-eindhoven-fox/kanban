@@ -5,6 +5,7 @@
 			<div class="category-title pt-1 mt-5">
 				<h2 class="mt-2 ml-3">
 					{{ categoriesDetail.name }}
+					{{ categoriesDetail.id }}
 				</h2>
 			</div>
 			<!-- CATEGORY HEADER ---------------------------------------------------------------->
@@ -41,7 +42,11 @@
 				</form>
 
 				<div v-if="isShow" id="post-decision">
-					<button type="submit" class="btn btn-success btn-sm">
+					<button
+						@click="addTask(categoriesDetail.id)"
+						type="submit"
+						class="btn btn-success btn-sm"
+					>
 						<i class="fa fa-check"></i>&nbsp;
 					</button>
 
@@ -79,19 +84,21 @@ export default {
 	computed: {
 		TaskperCategory() {
 			return this.tasks.filter(
-				(tasks) => tasks.name === this.categoriesDetail.name
+				(tasks) => tasks.id === this.categoriesDetail.id
 			);
 		},
 	},
 	methods: {
-		addTask() {
+		addTask(id) {
+			console.log(id, "<<<<<<<< ini id");
 			let payload = {
+				id: id,
 				title: this.title,
-				description: this.description
-			}
-			this.emit('addTask', payload)
-		}
-	}
+				description: this.description,
+			};
+			this.$emit("addTask", payload);
+		},
+	},
 };
 </script>
 
