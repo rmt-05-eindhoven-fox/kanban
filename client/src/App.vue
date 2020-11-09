@@ -34,7 +34,8 @@ export default {
     name: 'App',
     data() {
         return {
-            server: 'http://localhost:3000',
+            // server: 'http://localhost:3000',
+            server: 'https://khanban-hisyam.herokuapp.com',
             PageName: 'login',
             tasks: []
         }
