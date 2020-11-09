@@ -45,8 +45,8 @@ export default {
       message : 'Hello from App.vue',
       categories : [],
       tasks : [],
-      server: 'https://app-kanbanya.herokuapp.com'
-      // server: 'http://localhost:3000'
+      // server: 'https://app-kanbanya.herokuapp.com'
+      server: 'http://localhost:3000'
     }
   },
 
