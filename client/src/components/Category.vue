@@ -6,7 +6,7 @@
   @dragover.prevent 
   class = "kanban-card-container">    <!-- Card Container start -->
 
-  <h3 style="text-align:center;">{{ categoryDetail.name }}</h3>  <!-- Board Title -->
+  <h4 style="text-align:center;">{{ categoryDetail.name }}</h4> <br> <!-- Board Title -->
 
   <div class = "kanban-card-all">
     <Task 

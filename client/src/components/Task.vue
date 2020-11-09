@@ -47,13 +47,21 @@
           class="form-control" 
           rows="3"></textarea>
 
+      <div class="btn-group w-100" role="group" aria-label="Basic example">
+        <button 
+          @click.prevent = "cancelEditTask"
+          type="button" 
+          class="btn btn-outline-danger btn-sm mt-2"
+          style ="align-self: flex-end; width:100px"
+        >Cancel</button>
+
         <button 
           @click="editTask"
           type="button" 
           class="btn btn-outline-success btn-sm mt-2"
           style ="align-self: flex-end; width:100px"
         >Edit</button>
-
+      </div>
       </div>
 
     </div>
@@ -93,6 +101,9 @@ export default {
         description : this.taskDescription
       }
       this.$emit('editTask', payload)
+      this.toggleShowEdit()
+    },
+    cancelEditTask(){
       this.toggleShowEdit()
     },
     deleteTask(){

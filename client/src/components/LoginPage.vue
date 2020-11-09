@@ -5,10 +5,10 @@
       <div class = "col"></div>
       <div class = "col-5">
         <div class = "login-section mt-0">
-          <div class = "login-body mt-5">
+          <div class = "login-body mt-5 style: background-color: blue;">
             <div class="form-login">
-              <h1 style="color: #1b206b; text-align:center;">KANBAN!</h1><hr>
-              <h3 style="color: #1b206b; text-align:center;">Please login here!</h3> <br>
+              <h2 style="color: #1b206b; text-align:center; color:white;">KANBAN!</h2><hr>
+              <h4 style="color: #1b206b; text-align:center; color: white;">Please login here!</h4> <br>
               <form>
 
                 <div class="form-group">

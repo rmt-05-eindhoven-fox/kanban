@@ -4,13 +4,13 @@
   <nav class = "navbar sticky" style="width:100%">
     <div class = "navbar container">
       <div class = "group-left">
-        <h3 style="line-height:35px">KANBAN!</h3>
+        <h4 style="line-height:20px; color:white;">KANBAN!</h4>
       </div>
 
       <div class = "group-right">
-        <h3 
+        <h4 
           @click.prevent = "userLogout"
-          style="color: #21206f; margin:0; cursor: pointer;">Logout</h3>
+          style="color: #21206f; margin:0; cursor: pointer; color:white;">Logout</h4>
       </div>
 
     </div>

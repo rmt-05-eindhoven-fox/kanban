@@ -45,14 +45,23 @@ export default {
       message : 'Hello from App.vue',
       categories : [],
       tasks : [],
-      server: 'http://localhost:3000'
+      server: 'https://app-kanbanya.herokuapp.com'
       // server: 'http://localhost:3000'
     }
   },
+
+  components : {
+    LoginPage, 
+    RegisterPage, 
+    HomePage,
+    axios
+  },
+
   methods : {
     changePage(name){
       this.pageName = name
     },
+
     userRegister(payload){
       const { name, email, password } = payload
       axios({
@@ -118,12 +127,12 @@ export default {
         this.pageName = 'page-home'
       })
       .catch(err => {
-        this.notif('error', `Cannot login via Googel at this moment, please register to get started`)
+        this.notif('error', `Cannot login via Google at this moment, please register to get started`)
       })
     },
 
     googleLoginError(error){
-      this.showError(error)
+      this.notif('error', `Cannot login via Google at this moment, please register to get started`)
     },
 
     userLogout(){
@@ -148,7 +157,6 @@ export default {
       })
     },
 
-
     fetchCategories(){
       const access_token = localStorage.getItem('access_token')
       axios({
@@ -163,7 +171,6 @@ export default {
         this.notif('error', `BAD REQUEST`)
       })
     },
-
 
     addTask(payload){
       const access_token = localStorage.getItem('access_token')
@@ -184,7 +191,6 @@ export default {
         this.notif('error', `Cannot add Task!`)
       })
     },
-
 
     editTask(payload){
       const access_token = localStorage.getItem('access_token')
@@ -207,7 +213,6 @@ export default {
         this.notif('error', `You are not authorized to edit this task!`)
       })
     },
-
 
     changeTaskCategory(payload){
       const { taskId, CategoryId } = payload
@@ -234,7 +239,6 @@ export default {
       })
     },
 
-
     deleteTask(payload){
       const access_token = localStorage.getItem('access_token')
       axios({
@@ -252,14 +256,6 @@ export default {
         this.notif('error', `You are not authorized to delete this task!`)
       })
     },
-  },
-
-
-  components : {
-    LoginPage, 
-    RegisterPage, 
-    HomePage,
-    axios
   },
   
   created() {

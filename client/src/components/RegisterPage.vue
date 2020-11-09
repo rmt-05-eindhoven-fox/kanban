@@ -8,7 +8,8 @@
 
           <div class = "login-body mt-5">
             <div class="form-login">
-              <h2 style="color: #1b206b; text-align:center;">Register</h2><hr>
+              <h2 style="color: #1b206b; text-align:center; color:white;">KANBAN!</h2><hr>
+              <h4 style="color: #1b206b; text-align:center; color:white;">Register here!</h4><hr>
               <form>
                 <div class="form-group">
                   <input 

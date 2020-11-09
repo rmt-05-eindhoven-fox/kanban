@@ -5,8 +5,10 @@
   },
   "dependencies": {
     "axios": "^0.21.0",
+    "build": "^0.1.4",
     "vue": "^2.6.12",
     "vue-easy-toast": "^1.0.5",
+    "vue-google-login": "^2.0.5",
     "vue-google-signin-button-directive": "^1.0.3",
     "vue-hot-reload-api": "^2.3.4",
     "vue-simple-alert": "^1.1.1",
