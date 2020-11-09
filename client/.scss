@@ -1,9 +1,0 @@
-@for $i from 1 through 12 {
-  .col-#{$i} {
-    position: relative;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-}
-
-// command : sass .scss output.css     
