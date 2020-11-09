@@ -11,11 +11,13 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.0",
+    "bootstrap-vue": "^2.18.1",
     "vue": "^2.6.12",
     "vue-hot-reload-api": "^2.3.4"
   },
   "devDependencies": {
     "@vue/component-compiler-utils": "^3.2.0",
+    "postcss-modules": "^3.2.2",
     "vue-template-compiler": "^2.6.12"
   }
 }

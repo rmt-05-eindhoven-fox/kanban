@@ -1,6 +1,7 @@
-import Vue from 'vue';
-import App from './App.vue';
+import Vue from "vue";
+import "./plugins/bootstrap-vue";
+import App from "./App.vue";
 
 new Vue({
-  render: h => h(App),
-}).$mount('#app');
+  render: (h) => h(App),
+}).$mount("#app");
