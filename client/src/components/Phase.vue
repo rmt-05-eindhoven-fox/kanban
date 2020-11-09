@@ -6,10 +6,10 @@
                 style="text-align: center;">{{phase.phase}}
             </h6>
             <draggable
-            :list="taskPerPhase" 
+            v-bind:list="taskPerPhase" 
             group="task" 
-            :move="onMove"
-            :phase="phase"
+            v-bind:move="onMove"
+            v-bind:phase="phase"
             @end="updateCategory"
             >
                 <inner-card v-for="task in taskPerPhase"
@@ -50,13 +50,8 @@ export default {
         },
 
         onMove(e) { 
-            console.log(e, "event handler");
-            // console.log(e.draggedContext.element.id, "<<<< event dragged");
-            // console.log( e.draggedContext.element.id, "event dragged");
-            // console.log( e.relatedContext.component.$attrs.phase.id, "event 2");
             this.currentId = e.draggedContext.element.id
             this.categoryId = e.relatedContext.component.$attrs.phase.id
-            
         },
 
         updateCategory() { 
@@ -64,7 +59,6 @@ export default {
                 id : this.currentId,
                 CategoryId : this.categoryId
             }
-            // console.log(payload, "<<<< payload dari update");
             this.$emit("updateCategory", payload)
         }
 

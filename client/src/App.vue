@@ -1,5 +1,5 @@
 <template>
-   <section id="home-page">
+   <section id="HomePage">
             <login-page v-if="pageName == 'LoginPage'" 
             @login="login"
             @changeRegister="changeRegister"
@@ -9,7 +9,7 @@
             @register="register">
             </register-page>
             <home-page 
-             v-else-if="pageName == 'home-page'"
+             v-else-if="pageName == 'HomePage'"
              :phases="phases"
              :tasks="tasks"
              @signout="signout"
@@ -30,6 +30,7 @@ import LoginPage from "./views/Login"
 import RegisterPage from "./views/Register"
 import HomePage from "./views/HomePage"
 import AddModal from "./views/AddModal"
+import Swal from "sweetalert2";
 import axios from "./config/axios"
 export default {
     name : "App",
@@ -42,6 +43,16 @@ export default {
  data: function () {
     return {
         pageName : 'LoginPage', 
+        error : { 
+            email : "", 
+            password : "", 
+            passwordLength : ""
+        },
+        isError : { 
+            email : false, 
+            password : false, 
+            passwordLength : false
+        },
         phases : [
             { 
                 phase : "BackLog", 
@@ -63,8 +74,24 @@ export default {
     tasks : [], 
     }   
  }, 
- methods : { 
+ methods : {
+
+   
     login(payload)  {
+
+
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      }); 
+
         axios ({ 
             url : "/login", 
             method : "POST", 
@@ -76,10 +103,18 @@ export default {
         }).then( res => { 
             const access_token = res.data.access_token
             localStorage.setItem("access_token", access_token)
-            this.checkLogin()
-    
+            this.checkAuth()
+            Toast.fire({
+                icon: "success", 
+                title : "Log in successfully"
+            })
         }).catch(err => { 
-            console.log(err.response);
+            console.log(err.response.data)
+            Swal.fire({ 
+                icon : "error", 
+                title : "Error", 
+                text : err.response.data.message
+            })
         })
     },
 
@@ -107,6 +142,19 @@ export default {
     },
 
     loginGoogle(google_token) { 
+
+         const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+
         axios({ 
             url : "/googleLogin", 
             method : "POST", 
@@ -114,17 +162,25 @@ export default {
                 google_token
             }
         }).then(({data}) => { 
-          console.log(data, "<< data dari google");
           localStorage.setItem("access_token", data.access_token);
-          this.checkLogin()
-
-          this.pageName = "home-page"
+          this.checkAuth()
+          this.pageName = "HomePage"
+          Toast.fire({ 
+              icon :"success", 
+              title : "Log in successfully"
+          })
         }).catch(err => { 
-            console.log(err);
+            console.log(err.response.data.message);
+              Swal.fire({ 
+                icon : "error", 
+                title : "Error", 
+                text : err.response.data.message
+            })
         })
     },
 
     signout() { 
+        
         localStorage.removeItem("access_token")
         this.pageName = 'LoginPage' 
     },
@@ -143,10 +199,10 @@ export default {
          })
     },
 
-    checkLogin() { 
+    checkAuth() { 
         const access_token =  localStorage.getItem("access_token")
         if(access_token) { 
-            this.pageName = 'home-page'
+            this.pageName = 'HomePage'
             this.fetchTasks()
         } else { 
             this.pageName = 'LoginPage'
@@ -166,11 +222,13 @@ export default {
                 access_token
             }
         }).then(({data}) => { 
-            console.log(data)
-            this.fetchTasks()       
-
+            this.fetchTasks()   
+            console.log(data, "<<< data addTask"); 
+            this.data.title = ""
+            this.data.description = ""
+         
         }).catch(err => { 
-            console.log(err);
+
         })
     },
 
@@ -210,6 +268,9 @@ export default {
             }
         }).then(({data}) => { 
             console.log(data, "<<< data dari updateCategory");
+            this.$swal(
+                "success move task to another phase"
+            )
             this.fetchTasks()
         }).catch(err => {
             console.log(err);
@@ -224,8 +285,11 @@ export default {
             headers : { 
                 access_token 
             }
-        }).then(({data}) => { 
-            console.log(data)
+        }).then(res => { 
+            console.log(res)
+            this.$swal(
+                "success delete message", 
+            )
             this.fetchTasks()
         }).catch(err => { 
             console.log(err);
@@ -235,7 +299,7 @@ export default {
 
  }, 
  created() { 
-     this.checkLogin()
+     this.checkAuth()
      
  }
 }
