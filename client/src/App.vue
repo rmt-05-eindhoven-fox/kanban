@@ -205,7 +205,7 @@ export default {
         }
       })
       .then(_=> {
-        this.notif('Yeay! Task edited successfully')
+        this.notif('success', 'Yeay! Task edited successfully')
         this.fetchTasks()
       })
       .catch(err => {
