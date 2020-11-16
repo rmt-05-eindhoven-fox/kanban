@@ -68,15 +68,4 @@ export default {
   }
   .card-body {
   }
-  .category {
-    background-color: #2FBFBF;
-  }
-  .task-body {
-    background-color: #EBF0F2;
-  }
-  .tasks a {
-    padding: 15px;
-    box-shadow: 2px 2px 2px rgba(0,0,0,0.1);
-    border-radius: 5px;
-  }
 </style>

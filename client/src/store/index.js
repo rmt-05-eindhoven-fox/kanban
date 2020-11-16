@@ -7,7 +7,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     tasks: [],
-    email: ''
+    email: '',
+    watchData: ''
   },
   mutations: {
     SET_TASKS (state, payload) {
@@ -15,6 +16,9 @@ export default new Vuex.Store({
     },
     SET_EMAIL (state, email) {
       state.email = email
+    },
+    SET_WATCH_DATA (state, payload) {
+      state.watchData = payload
     }
   },
   actions: {
@@ -55,6 +59,50 @@ export default new Vuex.Store({
         headers: { access_token: payload.accessToken }
       })
         .then(response => {
+          console.log(response.data)
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
+    },
+    editTask ({ commit }, payload) {
+      axios({
+        url: `http://localhost:3000/tasks/${payload.id}`,
+        method: 'PUT',
+        data: { title: payload.title, category: payload.category },
+        headers: { access_token: payload.accessToken }
+      })
+        .then(response => {
+          commit('SET_WATCH_DATA', response.data)
+          console.log(response.data)
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
+    },
+    deleteTask ({ commit }, payload) {
+      axios({
+        url: `http://localhost:3000/tasks/${payload.id}`,
+        method: 'DELETE',
+        headers: { access_token: payload.accessToken }
+      })
+        .then(response => {
+          commit('SET_WATCH_DATA', Math.random(50))
+          console.log(response.data)
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
+    },
+    patchTask ({ commit }, payload) {
+      axios({
+        url: `http://localhost:3000/tasks/${payload.id}`,
+        method: 'PATCH',
+        headers: { access_token: payload.accessToken },
+        data: { category: payload.category }
+      })
+        .then(response => {
+          commit('SET_WATCH_DATA', Math.random(50))
           console.log(response.data)
         })
         .catch(err => {

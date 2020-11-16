@@ -1,13 +1,12 @@
 <template>
   <div>
     <Header />
-    <Tasks />
+    <router-view />
   </div>
 </template>
 
 <script>
 import Header from '../components/Header.vue'
-import Tasks from '../components/Tasks.vue'
 export default {
   name: 'Home',
   methods: {
@@ -19,8 +18,7 @@ export default {
     }
   },
   components: {
-    Header,
-    Tasks
+    Header
   },
   mounted () {
     this.checkCredentials()

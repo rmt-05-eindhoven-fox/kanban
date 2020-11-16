@@ -15,7 +15,7 @@
           <template #button-content>
             <em class="text-light">{{email}}</em>
           </template>
-          <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+          <b-dropdown-item @click="logout"><router-link to="landing-page">Sign Out</router-link></b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-collapse>
@@ -28,6 +28,12 @@ export default {
   computed: {
     email () {
       return this.$store.state.email
+    }
+  },
+  methods: {
+    logout () {
+      localStorage.removeItem('access_token')
+      this.$router.push('/landing-page')
     }
   }
 }
