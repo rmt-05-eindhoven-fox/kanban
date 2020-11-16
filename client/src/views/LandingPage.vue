@@ -96,7 +96,8 @@ export default {
         email: this.email,
         password: this.password
       }
-      this.$emit('register', payload)
+      this.loginSwitch()
+      this.$store.dispatch('register', payload)
     }
     // onSuccess (googleUser) {
     //   const idToken = googleUser.getAuthResponse().id_token
