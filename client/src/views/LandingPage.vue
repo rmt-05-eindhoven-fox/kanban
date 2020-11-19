@@ -14,7 +14,7 @@
           <form @submit.prevent="login">
             <h1>Sign in</h1>
             <div class="social-container">
-                <!-- <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess" :onFailure="onFailure"></GoogleLogin> -->
+                <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess" :onFailure="onFailure"></GoogleLogin>
             </div>
             <span>or use your account</span>
             <input v-model="email" type="email" placeholder="Email" />
@@ -42,7 +42,7 @@
 </template>
 
 <script>
-// import GoogleLogin from 'vue-google-login';
+import GoogleLogin from 'vue-google-login'
 import axios from 'axios'
 export default {
   name: 'landingpage',
@@ -52,7 +52,7 @@ export default {
       email: '',
       password: '',
       params: {
-        client_id: '907101746187-b27vqtifbs5p090efpq7oninu9gudgl3.apps.googleusercontent.com'
+        client_id: '907101746187-a8pivieuh6aj6ct00cg76r9qpc8tq14l.apps.googleusercontent.com'
       },
       renderParams: {
         width: 250,
@@ -98,17 +98,18 @@ export default {
       }
       this.loginSwitch()
       this.$store.dispatch('register', payload)
+    },
+    onSuccess (googleUser) {
+      const idToken = googleUser.getAuthResponse().id_token
+      console.log(idToken)
+      this.$store.dispatch('googleLogin', idToken)
+    },
+    onFailure (error) {
+      console.log(error)
     }
-    // onSuccess (googleUser) {
-    //   const idToken = googleUser.getAuthResponse().id_token
-    //   this.$emit('googleLogin', idToken)
-    // },
-    // onFailure (error){
-    //   console.log(error)
-    // }
   },
   components: {
-    // GoogleLogin
+    GoogleLogin
   }
 }
 </script>

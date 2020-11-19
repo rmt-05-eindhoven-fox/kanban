@@ -45,6 +45,7 @@
     <div class="list-group tasks flex-wrap mb-2" v-for="(task, i) in tasks" :key="i">
       <span class="list-group-item">
         <a href="#" class="list-group-item-action"><p class="text-left">{{task.title}}</p></a>
+        <p class="text-right">{{task.User.email}}</p>
         <p class="text-right text-light">
         <button v-if="before" class="bg-warning mr-2" href="#" @click="pushTask(task.id, before)" style="border: 0"> { </button>
         <button class="bg-info text-light mr-2" style="border: 0" href="#" @click="showEditModal(categoryName+'edit', task.title, task.id)">Edit</button>
@@ -65,7 +66,8 @@ export default {
       bodCol: '',
       id: 0,
       title: '',
-      description: ''
+      description: '',
+      userEmail: ''
     }
   },
   computed: {
@@ -74,6 +76,9 @@ export default {
     },
     watchData () {
       return this.$store.state.watchData
+    },
+    email () {
+      return this.$store.state.email
     }
   },
   methods: {

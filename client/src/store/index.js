@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import router from '../router'
 import VueSweetalert2 from 'vue-sweetalert2'
 import 'sweetalert2/dist/sweetalert2.min.css'
 
@@ -185,6 +186,27 @@ export default new Vuex.Store({
             icon: 'error',
             title: err.response.data.message
           })
+        })
+    },
+    googleLogin ({ commit }, token) {
+      axios({
+        method: 'POST',
+        url: 'http://localhost:3000/googleLogin',
+        data: { google_access_token: token }
+      })
+        .then(response => {
+          Vue.swal.fire({
+            icon: 'success',
+            title: 'Login Success',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          console.log(response.data.access_token)
+          localStorage.setItem('access_token', response.data.access_token)
+          router.push('/')
+        })
+        .catch(error => {
+          console.log(error.response)
         })
     }
   },
