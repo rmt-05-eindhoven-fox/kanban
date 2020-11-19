@@ -29,7 +29,7 @@ export default new Vuex.Store({
     fetchData ({ commit }, accessToken) {
       Vue.swal.showLoading()
       axios({
-        url: 'https://kanbanbaru.herokuapp.com/tasks',
+        url: 'http://localhost:3000/tasks',
         method: 'GET',
         headers: { access_token: accessToken }
       })
@@ -97,7 +97,7 @@ export default new Vuex.Store({
     addTask ({ commit }, payload) {
       Vue.swal.showLoading()
       axios({
-        url: 'https://kanbanbaru.herokuapp.com/tasks',
+        url: 'http://localhost:3000/tasks',
         method: 'POST',
         data: { title: payload.title, category: payload.category },
         headers: { access_token: payload.accessToken }
@@ -121,7 +121,7 @@ export default new Vuex.Store({
     editTask ({ commit }, payload) {
       Vue.swal.showLoading()
       axios({
-        url: `https://kanbanbaru.herokuapp.com/tasks/${payload.id}`,
+        url: `http://localhost:3000/tasks/${payload.id}`,
         method: 'PUT',
         data: { title: payload.title, category: payload.category },
         headers: { access_token: payload.accessToken }
@@ -146,7 +146,7 @@ export default new Vuex.Store({
     deleteTask ({ commit }, payload) {
       Vue.swal.showLoading()
       axios({
-        url: `https://kanbanbaru.herokuapp.com/tasks/${payload.id}`,
+        url: `http://localhost:3000/tasks/${payload.id}`,
         method: 'DELETE',
         headers: { access_token: payload.accessToken }
       })
@@ -170,7 +170,7 @@ export default new Vuex.Store({
     patchTask ({ commit }, payload) {
       Vue.swal.showLoading()
       axios({
-        url: `https://kanbanbaru.herokuapp.com/tasks/${payload.id}`,
+        url: `http://localhost:3000/tasks/${payload.id}`,
         method: 'PATCH',
         headers: { access_token: payload.accessToken },
         data: { category: payload.category }
@@ -191,7 +191,7 @@ export default new Vuex.Store({
     googleLogin ({ commit }, token) {
       axios({
         method: 'POST',
-        url: 'https://kanbanbaru.herokuapp.com/googleLogin',
+        url: 'http://localhost:3000/googleLogin',
         data: { google_access_token: token }
       })
         .then(response => {

@@ -76,7 +76,7 @@ export default {
         password: this.password
       }
       axios({
-        url: 'https://kanbanbaru.herokuapp.com/login',
+        url: 'http://localhost:3000/login',
         method: 'POST',
         data: { email: payload.email, password: payload.password }
       })
