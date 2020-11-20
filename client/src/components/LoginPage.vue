@@ -2,7 +2,7 @@
     <section >
         <form @submit.prevent="login">
             <div class="imgcontainer">
-                <img src="../../assets/undraw_secure_login_pdn4.png" alt="Avatar" class="avatar">
+                <img src="../assets/undraw_secure_login_pdn4.png" alt="Avatar" class="avatar">
             </div>
             
             <div class="container">

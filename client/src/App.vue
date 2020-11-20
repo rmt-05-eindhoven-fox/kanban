@@ -12,20 +12,33 @@
         <HomePage 
             v-if="page === 'home'"
             :kanban= 'kanban'
-            @signOut = "signOut">
+            @signOut = "signOut"
+            @switchPage = 'switchPage'
+            @destroy = 'destroy'
+            @edit = 'edit'
+            @goToEdit = 'goToEdit'
+            >
         </HomePage>
         <!-- register page  -->
         <RegisterPage 
             v-if="page === 'register'"
+            @switchPage = 'switchPage'
+            @register = 'register'
             >
         </RegisterPage>
-
-        <!-- Not found  -->
-        <NotFound
-            v-else
-            >
-        </NotFound>
-
+        <Add
+          v-if="page === 'add'"
+          @add = 'addTask'
+          @switchPage = 'switchPage'
+          >
+        </Add>
+        <Edit 
+          v-if="page === 'edit'"
+          :task='task'
+          @edit= 'edit'
+          @switchPage= 'switchPage'
+          >
+        </Edit>
     </div>
 </template>
 
@@ -34,36 +47,62 @@ import axios from './config/axios'
 import LoginPage from './components/LoginPage'
 import HomePage from './components/HomePage'
 import RegisterPage from './components/RegisterPage'
-
+import Add from './components/Add'
+import Edit from './components/Edit'
 
 export default {
     name: "App",
     data(){
         return {
-            msg: "weeb",
-            kanban: []
+            page: 'login',
+            kanban: [],
+            task: {}
         }
     },
+    // computed: {
+    //     kanban () {
+    //       return []
+    //     }
+    // },
     components: {
         HomePage,
         LoginPage,
-        RegisterPage
+        RegisterPage,
+        Add,
+        Edit
     },
     methods: {
-        switchPage(pageName){
-            this.page = pageName
+        goToEdit(payload){
+            this.page = payload.pageName
+            this.task = payload
         },
-        addKanban(){
+        switchPage(pagename){
+            this.page = pagename
+        },
+        addTask(payload){
             // let data = {
             //     title = this.title,
             //     progress = this.progress,
             //     description = this.description,
-
             // }
             // this.kanban.push(data)
             // this.title = ''
             // this.progress = ''
             // this.description = ''
+            axios({
+                method: "POST",
+                url: '/tasks',
+                headers: {
+                    access_token: localStorage.getItem('access_token')
+                },
+                data: payload
+            })
+            .then(({data}) => {
+                this.switchPage('home')
+            })
+            .catch(err =>{
+                console.log(err)
+            })
         },
         login(data){ 
             let {email, password} = data
@@ -76,8 +115,8 @@ export default {
             .then(({data}) => {
                 console.log(data, "MASUK BRO")
                 localStorage.setItem('access_token', data.access_token)
-                this.checkLogin()
-    
+                this.switchPage("home")
+                console.log("ini masuk broo")
             })
             .catch(err => {
                 console.log(err,"masuk ke sini brooo ke erorr  ")
@@ -105,7 +144,7 @@ export default {
         },
 
         checkLogin(){
-            if(localStorage.access_token){
+            if(localStorage.getItem('access_token')){
                 this.switchPage("home")
                 this.fetchTask()
             }
@@ -113,9 +152,7 @@ export default {
                 this.switchPage("login")
             }
         },
-        register() {
-            let payload = this.userRegister
-            
+        register(payload) {
             axios({
                 url: '/users/sign-up',
                 data: payload,
@@ -133,6 +170,44 @@ export default {
         signOut(){
             localStorage.removeItem('access_token')
             this.switchPage("login")
+        },
+        destroy (id) {
+            console.log(id, "masuk ke app.vue")
+            axios({
+              url: '/tasks/' + id,
+              method: 'delete',
+              headers: {
+                    access_token: localStorage.access_token
+              }
+            })
+            .then(() =>{
+                this.switchPage('home')
+                this.fetchTask()
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        },
+        edit (payload) {
+            axios({
+              url: '/tasks/' + payload.id,
+              method: 'put',
+              headers: {
+                access_token: localStorage.access_token
+              },
+              data: {
+                title: payload.title,
+                description: payload.description,
+                progress: payload.progress
+              }
+            })
+            .then(() =>{
+                this.switchPage('home')
+                this.fetchTask()
+            })
+            .catch(err => {
+                console.log(err)
+            })
         }
     },
     created(){
