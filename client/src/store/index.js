@@ -39,10 +39,7 @@ export default new Vuex.Store({
           console.log(response.data)
         })
         .catch(err => {
-          Vue.swal.fire({
-            icon: 'error',
-            title: err.response.data.message
-          })
+          Vue.swal.close()
           console.log(err.response)
         })
     },
