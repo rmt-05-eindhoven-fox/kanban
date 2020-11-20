@@ -12,7 +12,7 @@
               <label for="psw"><b>Password</b></label>
               <input v-model="passwordRegister" type="password" placeholder="Enter Password" name="psw" required>
                       
-              <button type="submit" @click.prevent="switchPage('login')">Register</button> 
+              <button type="submit" @click.prevent="register">Register</button> 
                   <!-- harus di .prevent supaya tidak ke reload -->
             </div>
             
@@ -25,7 +25,7 @@
 
 <script>
 export default {
-    name: "Registerpage",
+    name: "RegisterPage",
     data () {
       return {
         emailRegister: '',

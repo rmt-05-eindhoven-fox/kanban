@@ -151,6 +151,7 @@ export default {
                 method: "POST"
             })
             .then(result => {
+                console.log(payload)
                 this.switchPage("login")
                 this.userRegister.email = ""
                 this.userRegister.password = ""
