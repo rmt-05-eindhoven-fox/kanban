@@ -6,13 +6,13 @@ function authorization (req, res, next){
     Task.findByPk(id)
     .then(data => {
         if(!data){
-            throw {msg: "Task not found" , status: 404 }
+            throw {name: "Task not found" , status: 404 }
         }
         else if(data.UserId === req.loggedInUser.id){
             next()
         }
         else{
-            throw {msg: "Not Authorized", status: 401 }
+            throw {name: "Not Authorized", status: 401 }
         }
     })
     .catch(err => {
