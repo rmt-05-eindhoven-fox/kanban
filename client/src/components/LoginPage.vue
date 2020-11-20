@@ -12,11 +12,12 @@
                 <label for="psw"><b>Password</b></label>
                 <input v-model="password" type="password" placeholder="Enter Password" name="psw" required id="email-password">
                     
-                <button type="submit" >Login</button> 
+                <button type="submit" class="login">Login</button> 
                 <!-- harus di .prevent supaya tidak ke reload -->
                 <button type="button" class="register" @click.prevent="switchPage">Register</button>
             </div>   
         </form>
+        <div style="text-align: center;"><button v-google-signin-button="clientId" class="google-signin-button"> Continue with Google</button></div>
     </section>
 </template>
 
@@ -26,7 +27,8 @@ export default {
     data() {
         return {
             email: '',
-            password: ''
+            password: '',
+            clientId: '1095760211786-ajpnjuopeb62bsdiup8h8hnhfotjrntb.apps.googleusercontent.com'
         }
     },
     methods: {
@@ -39,12 +41,29 @@ export default {
         },
         switchPage(){
             this.$emit("switchPage", "register")
+        },
+        OnGoogleAuthSuccess (idToken) {
+            // console.log(idToken)
+            this.$emit('googleLogIn', idToken)
+            // Receive the idToken and make your magic with the backend
+        },
+        OnGoogleAuthFail (error) {
+            console.log(error)
         }
-        
     }
 }
 </script>
 
-<style>
+<style scoped>
+
+.google-signin-button {
+  color: white;
+  background-color: red;
+  height: 50px;
+  font-size: 16px;
+  border-radius: 10px;
+  padding: 10px 20px 25px 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
 
 </style>

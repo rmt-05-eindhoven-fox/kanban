@@ -5,6 +5,7 @@
             v-if="page === 'login'"
             @login = "login"
             @switchPage = "switchPage"
+            @googleLogIn = 'googleLogIn'
             >
 
         </LoginPage> 
@@ -80,15 +81,6 @@ export default {
             this.page = pagename
         },
         addTask(payload){
-            // let data = {
-            //     title = this.title,
-            //     progress = this.progress,
-            //     description = this.description,
-            // }
-            // this.kanban.push(data)
-            // this.title = ''
-            // this.progress = ''
-            // this.description = ''
             axios({
                 method: "POST",
                 url: '/tasks',
@@ -171,13 +163,30 @@ export default {
             localStorage.removeItem('access_token')
             this.switchPage("login")
         },
+        googleLogIn (payload) {
+            axios({
+                url: '/users/googleSignIn',
+                data: {
+                    google_access_token: payload
+                },
+                method: "POST"
+            })
+            .then(({data}) => {
+                console.log(data, "ini google log in")
+                localStorage.setItem('access_token', data)
+                this.switchPage("home")
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        },
         destroy (id) {
             console.log(id, "masuk ke app.vue")
             axios({
               url: '/tasks/' + id,
               method: 'delete',
               headers: {
-                    access_token: localStorage.access_token
+                access_token: localStorage.access_token
               }
             })
             .then(() =>{
